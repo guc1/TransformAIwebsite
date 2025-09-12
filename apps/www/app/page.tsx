@@ -21,6 +21,7 @@ import Link from "next/link";
 import mainboard from "../images/mainboard.svg";
 import { DesktopLogoCloud, MobileLogoCloud } from "./(components)/logo-cloud-content";
 import { CodeExamples } from "./code-examples";
+import { useTranslations } from "next-intl";
 
 export const metadata = {
   title: "Unkey",
@@ -49,6 +50,7 @@ export const metadata = {
 };
 
 export default async function Landing() {
+  const t = useTranslations("Index");
   return (
     <>
       <TopRightShiningLight />
@@ -80,8 +82,8 @@ export default async function Landing() {
           <Section className="mt-16 md:mt-20">
             <SectionTitle
               className="mt-8 md:mt-16 lg:mt-32"
-              title="Everything you need for your API"
-              text="Build, monetize, analyze, and protect your APIs; our platform makes it easy, providing everything you need."
+              title={t("heroTitle")}
+              text={t("heroText")}
               align="center"
             />
             <AnalyticsBento />
