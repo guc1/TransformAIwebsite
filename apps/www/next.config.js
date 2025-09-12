@@ -15,6 +15,10 @@ const nextConfig = {
   pageExtensions: ["tsx", "mdx", "ts", "js"],
   reactStrictMode: true,
   swcMinify: true,
+  i18n: {
+    locales: ["en", "nl"],
+    defaultLocale: "en",
+  },
   async headers() {
     return [
       {

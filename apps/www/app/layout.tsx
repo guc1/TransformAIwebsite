@@ -1,8 +1,11 @@
 import { Footer } from "@/components/footer/footer";
 import { Navigation } from "@/components/navbar/navigation";
+import { LanguageSwitcherModal } from "@/components/language-switcher";
 import { env } from "@/lib/env";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, getLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -37,14 +40,16 @@ export const metadata: Metadata = {
     shortcut: "/unkey.png",
   },
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`[color-scheme:dark] scroll-smooth ${GeistSans.variable} ${GeistMono.variable}`}
     >
       <body className="min-h-screen overflow-x-hidden antialiased bg-black text-pretty">
@@ -59,23 +64,25 @@ export default function RootLayout({
           }}
         >
           <ConsentBanner />
-
-          <div className="relative overflow-x-clip">
-            <Navigation />
-            {children}
-            <Tracking />
-            {process.env.NODE_ENV !== "production" ? (
-              <div className="fixed bottom-0 right-0 flex items-center justify-center w-6 h-6 p-3 m-8 font-mono text-xs text-black bg-white rounded-lg pointer-events-none ">
-                <div className="block sm:hidden md:hidden lg:hidden xl:hidden 2xl:hidden">al</div>
-                <div className="hidden sm:block md:hidden lg:hidden xl:hidden 2xl:hidden">sm</div>
-                <div className="hidden sm:hidden md:block lg:hidden xl:hidden 2xl:hidden">md</div>
-                <div className="hidden sm:hidden md:hidden lg:block xl:hidden 2xl:hidden">lg</div>
-                <div className="hidden sm:hidden md:hidden lg:hidden xl:block 2xl:hidden">xl</div>
-                <div className="hidden sm:hidden md:hidden lg:hidden xl:hidden 2xl:block">2xl</div>
-              </div>
-            ) : null}
-          </div>
-          <Footer />
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <LanguageSwitcherModal />
+            <div className="relative overflow-x-clip">
+              <Navigation />
+              {children}
+              <Tracking />
+              {process.env.NODE_ENV !== "production" ? (
+                <div className="fixed bottom-0 right-0 flex items-center justify-center w-6 h-6 p-3 m-8 font-mono text-xs text-black bg-white rounded-lg pointer-events-none ">
+                  <div className="block sm:hidden md:hidden lg:hidden xl:hidden 2xl:hidden">al</div>
+                  <div className="hidden sm:block md:hidden lg:hidden xl:hidden 2xl:hidden">sm</div>
+                  <div className="hidden sm:hidden md:block lg:hidden xl:hidden 2xl:hidden">md</div>
+                  <div className="hidden sm:hidden md:hidden lg:block xl:hidden 2xl:hidden">lg</div>
+                  <div className="hidden sm:hidden md:hidden lg:hidden xl:block 2xl:hidden">xl</div>
+                  <div className="hidden sm:hidden md:hidden lg:hidden xl:hidden 2xl:block">2xl</div>
+                </div>
+              ) : null}
+            </div>
+            <Footer />
+          </NextIntlClientProvider>
         </ConsentManagerProvider>
       </body>
     </html>
