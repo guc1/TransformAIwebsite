@@ -1,7 +1,10 @@
 import { SuggestedBlogs } from "@/components/blog/suggested-blogs";
 import { CTA } from "@/components/cta";
 import { MDX } from "@/components/mdx-content";
-import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/background-shiny";
+import {
+  TopLeftShiningLight,
+  TopRightShiningLight,
+} from "@/components/svg/background-shiny";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MeteorLinesAngular } from "@/components/ui/meteorLines";
 import { authors } from "@/content/blog/authors";
@@ -16,9 +19,11 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-static";
 
 export const generateStaticParams = async () =>
-  allPosts.map((post) => ({
-    slug: post.slug,
-  }));
+  allPosts
+    .filter((post) => !post.draft)
+    .map((post) => ({
+      slug: post.slug,
+    }));
 
 export function generateMetadata({
   params,
@@ -26,7 +31,7 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const post = allPosts.find((post) => post.slug === `${params.slug}`);
-  if (!post) {
+  if (!post || post.draft) {
     notFound();
   }
   return {
@@ -70,7 +75,7 @@ export function generateMetadata({
 
 const BlogArticleWrapper = async ({ params }: { params: { slug: string } }) => {
   const post = allPosts.find((post) => post.slug === `${params.slug}`) as Post;
-  if (!post) {
+  if (!post || post.draft) {
     notFound();
   }
   const author = authors[post.author];
@@ -230,7 +235,9 @@ const BlogArticleWrapper = async ({ params }: { params: { slug: string } }) => {
             </div>
             {post.tableOfContents?.length !== 0 ? (
               <div className="flex flex-col gap-4 not-prose lg:gap-2">
-                <p className="text-sm prose text-nowrap text-white/50">Contents</p>
+                <p className="text-sm prose text-nowrap text-white/50">
+                  Contents
+                </p>
                 <ul className="relative flex flex-col gap-1 overflow-hidden">
                   {post.tableOfContents.map((heading) => {
                     return (
