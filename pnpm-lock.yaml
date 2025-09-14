@@ -398,6 +398,9 @@ importers:
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
+      gray-matter:
+        specifier: ^4.0.3
+        version: 4.0.3
       lucide-react:
         specifier: ^0.378.0
         version: 0.378.0(react@18.3.1)

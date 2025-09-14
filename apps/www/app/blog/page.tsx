@@ -1,7 +1,11 @@
 import { BlogHero } from "@/components/blog/blog-hero";
 import { ClientBlogGrid } from "@/components/blog/client-blog-grid";
 import { CTA } from "@/components/cta";
-import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/background-shiny";
+import { PrimaryButton } from "@/components/button";
+import {
+  TopLeftShiningLight,
+  TopRightShiningLight,
+} from "@/components/svg/background-shiny";
 import { MeteorLinesAngular } from "@/components/ui/meteorLines";
 import { authors } from "@/content/blog/authors";
 import { type Post, allPosts } from "content-collections";
@@ -35,15 +39,22 @@ export const metadata = {
 };
 
 export default async function Blog() {
-  const posts = allPosts.sort((a: Post, b: Post) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
-  });
+  const posts = allPosts
+    .filter((p: Post) => !p.draft)
+    .sort((a: Post, b: Post) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
   const featuredPost = posts[0];
   const blogGridPosts = posts.slice(1, posts.length);
 
   return (
     <>
       <div className="container w-full pt-48 mx-auto overflow-hidden scroll-smooth">
+        <div className="flex justify-end mb-4">
+          <Link href="/admin/blog/new">
+            <PrimaryButton label="+ New post" />
+          </Link>
+        </div>
         <div>
           <TopLeftShiningLight />
         </div>
@@ -114,7 +125,9 @@ export default async function Blog() {
             <Link href={`${featuredPost.url}`} key={featuredPost.url}>
               <BlogHero
                 tags={featuredPost.tags}
-                imageUrl={featuredPost.image ?? "/images/blog-images/defaultBlog.png"}
+                imageUrl={
+                  featuredPost.image ?? "/images/blog-images/defaultBlog.png"
+                }
                 title={featuredPost.title}
                 subTitle={featuredPost.description}
                 author={authors[featuredPost.author]}
