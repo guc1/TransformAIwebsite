@@ -2,6 +2,12 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-10-31
+
+- Added initial in-browser blog admin skeleton with code gate and placeholder editor.
+- Introduced middleware and API login route for simple session handling.
+- Surfaced "+ New post" button on blog index.
+
 ## 2025-10-30
 
 - Added password reset flow with email tokens.

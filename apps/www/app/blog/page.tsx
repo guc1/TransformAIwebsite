@@ -1,8 +1,12 @@
 import { BlogHero } from "@/components/blog/blog-hero";
 import { ClientBlogGrid } from "@/components/blog/client-blog-grid";
 import { CTA } from "@/components/cta";
-import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/background-shiny";
+import {
+  TopLeftShiningLight,
+  TopRightShiningLight,
+} from "@/components/svg/background-shiny";
 import { MeteorLinesAngular } from "@/components/ui/meteorLines";
+import { Button } from "@/components/ui/button";
 import { authors } from "@/content/blog/authors";
 import { type Post, allPosts } from "content-collections";
 import Link from "next/link";
@@ -109,12 +113,22 @@ export default async function Blog() {
           <TopRightShiningLight />
         </div>
 
+        <div className="flex justify-end mb-6">
+          <Link href="/admin/blog/new">
+            <Button variant="outline" size="sm">
+              + New post
+            </Button>
+          </Link>
+        </div>
+
         {featuredPost ? (
           <div className="w-full px-0 mx-0 rounded-3xl">
             <Link href={`${featuredPost.url}`} key={featuredPost.url}>
               <BlogHero
                 tags={featuredPost.tags}
-                imageUrl={featuredPost.image ?? "/images/blog-images/defaultBlog.png"}
+                imageUrl={
+                  featuredPost.image ?? "/images/blog-images/defaultBlog.png"
+                }
                 title={featuredPost.title}
                 subTitle={featuredPost.description}
                 author={authors[featuredPost.author]}
