@@ -2,6 +2,11 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-09-14
+
+- Added minimal in-browser blog editor with code-gated admin area.
+- Draft posts saved to file system and excluded from public listings.
+
 ## 2025-10-30
 
 - Added password reset flow with email tokens.
