@@ -1,5 +1,6 @@
 import { withContentCollections } from "@content-collections/next";
 import withBundleAnalyzer from "@next/bundle-analyzer";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const securityHeaders = [
   {
@@ -11,6 +12,7 @@ const securityHeaders = [
 const withAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
+const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 /** @type {import('next').NextConfig} */
 const baseConfig = {
@@ -77,5 +79,6 @@ const baseConfig = {
 };
 
 const analyzedConfig = withAnalyzer(baseConfig);
+const contentConfig = withContentCollections(analyzedConfig);
 
-export default withContentCollections(analyzedConfig);
+export default withNextIntl(contentConfig);
