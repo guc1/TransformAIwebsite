@@ -554,6 +554,7 @@ LanguageTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 export const CodeExamples: React.FC<Props> = ({ className }) => {
   const t = useTranslations("CodeExamples");
+  const cta = useTranslations("CTA");
   const [language, setLanguage] = useState<Language>("Typescript");
   const [framework, setFramework] = useState<FrameworkName>("Typescript");
   const [languageHover, setLanguageHover] = useState("Typescript");
@@ -602,16 +603,6 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
           <MeteorLines className="ml-2 fade-in-0" delay={4} number={1} />
           <MeteorLines className="ml-10 fade-in-40" delay={0} number={1} />
           <MeteorLines className="ml-16 fade-in-100" delay={2} number={1} />
-        </div>
-        <div className="mt-10">
-          <div className="flex gap-6 pb-14">
-            <Link key="get-started" href="https://app.unkey.com">
-              <PrimaryButton shiny label="Get Started" IconRight={ChevronRight} />
-            </Link>
-            <Link key="docs" href="/docs">
-              <SecondaryButton label="Visit the docs" IconRight={ChevronRight} />
-            </Link>
-          </div>
         </div>
       </SectionTitle>
       <SectionTitle
@@ -662,6 +653,21 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
             />
           </div>
         </div>
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-4 mt-12">
+        <Link key="get-started" href="https://app.unkey.com">
+          <PrimaryButton
+            shiny
+            label={cta("getStarted")}
+            IconRight={ChevronRight}
+          />
+        </Link>
+        <Link key="explore-projects" href="/docs">
+          <SecondaryButton
+            label={cta("exploreProjects")}
+            IconRight={ChevronRight}
+          />
+        </Link>
       </div>
     </section>
   );

@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Wand2 } from "lucide-react";
 import type { PrismTheme } from "prism-react-renderer";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { PrimaryButton } from "../button";
 import { AnalyticsStars } from "../svg/analytics-stars";
@@ -59,12 +60,17 @@ const theme = {
 
 export function AnalyticsBento() {
   const [showApi, toggleShowApi] = useState(false);
+  const t = useTranslations("Analytics");
 
   return (
     <div className="relative flex justify-center w-full">
       <div className="absolute z-50 top-14">
-        <button type="button" aria-label="Show API code" onClick={() => toggleShowApi(!showApi)}>
-          <PrimaryButton shiny label="Show API code" IconLeft={Wand2} />
+        <button
+          type="button"
+          aria-label={t("requestAccess")}
+          onClick={() => toggleShowApi(!showApi)}
+        >
+          <PrimaryButton shiny label={t("requestAccess")} IconLeft={Wand2} />
         </button>
       </div>
       <div

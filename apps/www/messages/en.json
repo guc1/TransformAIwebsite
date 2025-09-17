@@ -39,13 +39,24 @@
   },
   "CodeExamples": {
     "top": {
-      "title": "Your AI Assistant for all things TransformAI",
+      "title": "Ask anything about TransformAI to our AI Assistant",
       "text": "Ask questions, schedule a call, or learn more about our solutions and services."
     },
     "bottom": {
       "title": "Explore the projects we’ve been part of",
       "text": "Click through the interface below to explore sample projects."
     }
+  },
+  "CTA": {
+    "getStarted": "Get Started",
+    "exploreProjects": "Explore All projects"
+  },
+  "Analytics": {
+    "requestAccess": "Request Access"
+  },
+  "Platform": {
+    "title": "Our Platform (Beta)",
+    "text": "We’re building the best platform to help businesses seamlessly integrate AI into their operations."
   },
   "Footer": {
     "tagline": "Build better APIs faster.",
