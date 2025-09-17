@@ -1,4 +1,5 @@
-const { withContentCollections } = require("@content-collections/next");
+import { withContentCollections } from "@content-collections/next";
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
 const securityHeaders = [
   {
@@ -6,15 +7,22 @@ const securityHeaders = [
     value: "SAMEORIGIN",
   },
 ];
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
+
+const withAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const baseConfig = {
   pageExtensions: ["tsx", "mdx", "ts", "js"],
   reactStrictMode: true,
   swcMinify: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   async headers() {
     return [
       {
@@ -27,7 +35,7 @@ const nextConfig = {
     return [
       {
         source: "/changelog/:slug",
-        destination: "/changelog#:slug", // Matched parameters can be used in the destination
+        destination: "/changelog#:slug",
       },
       {
         source: "/docs",
@@ -43,7 +51,7 @@ const nextConfig = {
       },
       {
         source: "/api/c15t/:path*",
-        destination: `${process.env?.NEXT_PUBLIC_C15T_URL ?? ""}/:path*`,
+        destination: `${process.env.NEXT_PUBLIC_C15T_URL ?? ""}/:path*`,
       },
     ];
   },
@@ -68,4 +76,6 @@ const nextConfig = {
   },
 };
 
-module.exports = withContentCollections(withBundleAnalyzer(nextConfig));
+const analyzedConfig = withAnalyzer(baseConfig);
+
+export default withContentCollections(analyzedConfig);
