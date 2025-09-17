@@ -1,5 +1,14 @@
 # TransformAI — Website Styling Canon (apps/www)
 
+## Commands (apps/www)
+
+- Install deps: `pnpm -w install --frozen-lockfile`
+- Type check: `pnpm --filter www run typecheck`
+- Lint: `pnpm --filter www run lint`
+- Format: `pnpm -w run format`
+- Build: `pnpm -w turbo run build --filter=www`
+- Dev: `pnpm --filter www dev`
+
 > This is the canonical UI design spec for the marketing site. If guidance here conflicts with root rules, **this file wins** for `apps/www`.
 
 Goal: Keep every new feature production-grade, modern, and “top-designer” quality. If the user did not specify details, you have creative latitude—but ground your choices in this project’s existing system (tokens, patterns, motion, spacing).
