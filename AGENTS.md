@@ -59,27 +59,24 @@ We are adapting a website template from **Unkey.com** to create a professional m
 
 ---
 
-## Commands (adapt to package names if they differ)
+## Commands
 
 ```
-# install
-pnpm install
+# Install (Codex/CI)
+pnpm -w install --frozen-lockfile
 
-# typecheck / lint / format
-pnpm -w run typecheck
-pnpm -w run lint
-pnpm -w run format
+# Website checks
+pnpm --filter www run typecheck
+pnpm --filter www run lint
 
-# build all / dev per app
-pnpm -w run build
-pnpm --filter www dev        # or: pnpm --filter apps/www dev
+# Build just the website (Turborepo)
+pnpm -w turbo run build --filter=www
 
-# optional: storybook/play if present
-pnpm --filter www storybook
-
-
-If a script is missing, add it to the appropriate package.json and document it in the app’s README.
+# Dev
+pnpm --filter www dev
 ```
+
+(Filtering avoids failing builds in other workspaces and matches Turborepo/pnpm docs.)
 
 Website styling (summary for the root)
 
