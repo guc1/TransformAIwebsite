@@ -2,6 +2,28 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-09-22
+
+- Wrapped the Next.js config with the `next-intl` plugin and centralized message loading so runtime translations inherit English fallbacks without throwing.
+- Returned a 303 from `/api/select-language` to convert the follow-up request into a GET and land visitors on the chosen locale.
+
+## 2025-09-21
+
+- Moved the locale persistence route to `/api/select-language` so the language picker page can serve GET requests without a 405 error.
+- Updated the selection form to post against the new endpoint while keeping the redirect into the chosen locale.
+
+## 2025-09-20
+
+- Restored the root layout’s `<html>/<body>` structure, deriving the document language from the persisted locale cookie to silence Next.js warnings.
+- Simplified the locale layout to render inside that wrapper and introduced a `/select-language` route handler that sets `NEXT_LOCALE` before redirecting visitors to the selected locale.
+
+## 2025-09-19
+
+- Added next-intl powered routing with locale-prefixed segments, middleware-based language negotiation, and a first-visit langu
+age selection screen for the marketing site.
+- Restructured `apps/www/app` into `app/[locale]/(site)` with locale-aware layouts, message catalogs, and navigation helpers to
+ support English/Dutch content with automatic fallback handling.
+
 ## 2025-09-18
 
 - Automated content collection generation and asset module types so TypeScript resolves markdown + image imports during `pnpm --filter www run typecheck`.
