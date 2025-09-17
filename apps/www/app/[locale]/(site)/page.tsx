@@ -71,6 +71,11 @@ export async function generateMetadata({
 }
 
 export default async function Landing() {
+  const [cta, platform] = await Promise.all([
+    getTranslations("CTA"),
+    getTranslations("Platform"),
+  ]);
+
   return (
     <>
       <TopRightShiningLight />
@@ -102,8 +107,8 @@ export default async function Landing() {
           <Section className="mt-16 md:mt-20">
             <SectionTitle
               className="mt-8 md:mt-16 lg:mt-32"
-              title="Everything you need for your API"
-              text="Build, monetize, analyze, and protect your APIs; our platform makes it easy, providing everything you need."
+              title={platform("title")}
+              text={platform("text")}
               align="center"
             />
             <AnalyticsBento />
@@ -124,10 +129,18 @@ export default async function Landing() {
             >
               <div className="flex mt-10 mb-10 space-x-6">
                 <Link href="https://app.unkey.com" className="group">
-                  <PrimaryButton shiny IconLeft={LogIn} label="Get Started" className="h-10" />
+                  <PrimaryButton
+                    shiny
+                    IconLeft={LogIn}
+                    label={cta("getStarted")}
+                    className="h-10"
+                  />
                 </Link>
                 <Link href="/docs">
-                  <SecondaryButton label="Visit the Docs" IconRight={ChevronRight} />
+                  <SecondaryButton
+                    label={cta("exploreProjects")}
+                    IconRight={ChevronRight}
+                  />
                 </Link>
               </div>
             </SectionTitle>
@@ -163,11 +176,19 @@ export default async function Landing() {
               >
                 <div className="flex mt-10 mb-10 space-x-6">
                   <Link href="https://app.unkey.com" className="group">
-                    <PrimaryButton shiny IconLeft={LogIn} label="Get Started" className="h-10" />
+                    <PrimaryButton
+                      shiny
+                      IconLeft={LogIn}
+                      label={cta("getStarted")}
+                      className="h-10"
+                    />
                   </Link>
 
                   <Link href="/docs">
-                    <SecondaryButton label="Visit the Docs" IconRight={ChevronRight} />
+                    <SecondaryButton
+                      label={cta("exploreProjects")}
+                      IconRight={ChevronRight}
+                    />
                   </Link>
                 </div>
               </SectionTitle>

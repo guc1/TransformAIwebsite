@@ -39,13 +39,24 @@
   },
   "CodeExamples": {
     "top": {
-      "title": "Jouw AI-assistent voor alles rond TransformAI",
+      "title": "Vraag alles over TransformAI aan onze AI-assistent",
       "text": "Stel je vragen, plan een afspraak of ontdek meer over onze oplossingen en diensten."
     },
     "bottom": {
       "title": "Ontdek de projecten waar wij aan hebben meegewerkt",
       "text": "Klik door de interface hieronder om enkele projecten te ontdekken."
     }
+  },
+  "CTA": {
+    "getStarted": "Begin Nu",
+    "exploreProjects": "Ontdek Alle projecten"
+  },
+  "Analytics": {
+    "requestAccess": "Vraag Toegang"
+  },
+  "Platform": {
+    "title": "Ons platform (Beta)",
+    "text": "Wij bouwen aan het beste platform waarmee bedrijven AI moeiteloos in hun organisatie kunnen inzetten."
   },
   "Footer": {
     "tagline": "Bouw betere API's sneller.",

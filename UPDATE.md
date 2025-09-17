@@ -2,6 +2,10 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-09-25
+
+- Repositioned the code example CTA buttons beneath the language templates, refreshed their English and Dutch labels, updated the analytics request access control, and introduced localized platform section messaging for both locales.
+
 ## 2025-09-24
 
 - Updated the homepage logo cloud heading and code examples copy with the new TransformAI messaging, adding localized English and Dutch strings for the contact CTA and project explorer descriptions.
