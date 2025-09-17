@@ -3,6 +3,18 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).  
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-09-19 — “Implement next-intl i18n infrastructure”
+
+- **User ask / Bug:** Add locale-prefixed routes, language selection flow, and fallback translations so the marketing site suppo
+rts English and Dutch.
+- **Fix:**
+  - Introduced next-intl with a locale-aware root layout, message catalogs, and helper navigation utilities while moving all pag
+    es under `app/[locale]/(site)`.
+  - Added middleware-driven locale negotiation plus a `/select-language` server action to seed the `NEXT_LOCALE` cookie.
+  - Created translation files with English fallback merging and documented the workflow in root/app `AGENTS.md`.
+- **Files:** `apps/www/app/[locale]/layout.tsx`, `apps/www/app/select-language/page.tsx`, `apps/www/components/navbar/navigation.tsx`, `apps/www/components/footer/footer.tsx`, `apps/www/i18n/*`, `apps/www/messages/*`, `middleware.ts`, `apps/www/middleware.ts`, `AGENTS.md`, `apps/www/AGENTS.md`
+- **Follow-ups:** Address pre-existing ESLint warnings surfaced by `next lint` to keep CI green.
+
 ## 2025-09-18 — “Stabilize www checks offline”
 
 - **User ask / Bug:** Get `pnpm --filter www run typecheck`, `pnpm --filter www run lint`, and the website build passing without interactive prompts or external network access.

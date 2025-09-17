@@ -58,7 +58,12 @@ Long-form/blocks live in MDX. Compose with house MDX components (code blocks, ca
 ________________________________________
 7) Theming & i18n
 Theme: Dark is canonical. All features must look great in dark; ensure light mode remains legible and balanced (contrast tokens, shadows toned down). next-themes class strategy; avoid inline color hacks.
-i18n: String copy belongs in locale files/MDX frontmatter where applicable. Never hard-code marketing text in components. 
+i18n: String copy belongs in locale files/MDX frontmatter where applicable. Never hard-code marketing text in components.
+
+Using translations
+- Client components: `const t = useTranslations("Namespace");` then call `t("key")`. Server components/metadata/actions: `const t = await getTranslations({namespace: "Namespace"});`.
+- Keep all UI copy in `apps/www/messages/*.json`. English (`en.json`) is the source of truth; other locales can omit keys and will fall back to the English string automatically.
+- Messages support ICU formatting (interpolation, plurals). Prefer stable keys over reshuffling nested objects.
 ________________________________________
 8) Accessibility, Semantics, Performance
 Semantics: Landmarks (header/nav/main/footer), correct heading order, labeled controls, aria-* as needed.
