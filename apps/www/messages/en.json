@@ -1,0 +1,76 @@
+{
+  "Metadata": {
+    "title": "Unkey",
+    "titleTemplate": "%s | Unkey",
+    "description": "Build better APIs faster",
+    "openGraph": {
+      "title": "Unkey",
+      "description": "Build better APIs faster",
+      "siteName": "unkey.com"
+    },
+    "twitter": {
+      "title": "Unkey"
+    }
+  },
+  "Navigation": {
+    "ariaHome": "Home",
+    "menu": "Menu",
+    "close": "Close",
+    "createAccount": "Create Account",
+    "signIn": "Sign In",
+    "language": "Language",
+    "links": {
+      "home": "Home",
+      "about": "About",
+      "blog": "Blog",
+      "pricing": "Pricing",
+      "changelog": "Changelog",
+      "templates": "Templates",
+      "docs": "Docs",
+      "discord": "Discord"
+    }
+  },
+  "Footer": {
+    "tagline": "Build better APIs faster.",
+    "copyright": "Unkeyed, Inc. {year}",
+    "sections": {
+      "company": "Company",
+      "resources": "Resources",
+      "connect": "Connect",
+      "legal": "Legal"
+    },
+    "links": {
+      "about": "About",
+      "roadmap": "Roadmap",
+      "careers": "Careers",
+      "sourceCode": "Source Code",
+      "status": "Status Page",
+      "blog": "Blog",
+      "changelog": "Changelog",
+      "templates": "Templates",
+      "docs": "Docs",
+      "glossary": "Glossary",
+      "twitter": "X (Twitter)",
+      "discord": "Discord",
+      "ossFriends": "OSS Friends",
+      "bookCall": "Book a Call",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    }
+  },
+  "Language": {
+    "selectTitle": "Select language",
+    "english": "English",
+    "dutch": "Nederlands",
+    "submit": "Continue"
+  },
+  "LanguageSwitcher": {
+    "label": "Change language",
+    "current": "Current language: {language}"
+  },
+  "NotFound": {
+    "heading": "Not found.",
+    "cta": "Go to homepage",
+    "tagline": "Build better APIs faster."
+  }
+}

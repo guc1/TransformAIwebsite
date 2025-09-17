@@ -1,7 +1,39 @@
 # FIX.md — Requests & Resolutions Log
 
-> Track **what the user wanted** and **how you fixed it** (technical detail).  
+> Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
+
+## 2025-09-21 — “GET /select-language returns 405”
+
+- **User ask / Bug:** Visiting `/select-language` produced an HTTP 405 instead of rendering the language picker because the request hit the cookie-setting route.
+- **Root cause:** Next.js prioritized the colocated `route.ts` (with only a `POST` handler) over the page component, so GET requests never reached the React page.
+- **Fix:**
+  - Moved the locale persistence handler to `/api/select-language` so the `/select-language` page can serve GET traffic normally.
+  - Pointed the selection form at the new endpoint, retaining the redirect logic after setting the locale cookie.
+- **Files:** `apps/www/app/api/select-language/route.ts`, `apps/www/app/select-language/page.tsx`
+- **Follow-ups:** None.
+
+## 2025-09-20 — “Select-language redirect + missing html/body tags”
+
+- **User ask / Bug:** Loading `/` produced a Next.js warning about missing `<html>`/`<body>` tags, and choosing a language on `/select-language` left the page instead of redirecting into the localized site.
+- **Fix:**
+  - Restored the root layout’s document wrapper, deriving the `lang` attribute from the `NEXT_LOCALE` cookie while keeping the locale layout focused on translations and shared chrome.
+  - Reworked `app/[locale]/layout.tsx` to live inside the root `<html>/<body>` tree without duplicating markup.
+  - Replaced the unreliable server action with a route handler that persists `NEXT_LOCALE` for one year and issues a redirect to the chosen locale, updating the selection page to post against it.
+- **Files:** `apps/www/app/layout.tsx`, `apps/www/app/[locale]/layout.tsx`, `apps/www/app/select-language/page.tsx`, `apps/www/app/select-language/route.ts`
+- **Follow-ups:** None.
+
+## 2025-09-19 — “Implement next-intl i18n infrastructure”
+
+- **User ask / Bug:** Add locale-prefixed routes, language selection flow, and fallback translations so the marketing site suppo
+rts English and Dutch.
+- **Fix:**
+  - Introduced next-intl with a locale-aware root layout, message catalogs, and helper navigation utilities while moving all pag
+    es under `app/[locale]/(site)`.
+  - Added middleware-driven locale negotiation plus a `/select-language` server action to seed the `NEXT_LOCALE` cookie.
+  - Created translation files with English fallback merging and documented the workflow in root/app `AGENTS.md`.
+- **Files:** `apps/www/app/[locale]/layout.tsx`, `apps/www/app/select-language/page.tsx`, `apps/www/components/navbar/navigation.tsx`, `apps/www/components/footer/footer.tsx`, `apps/www/i18n/*`, `apps/www/messages/*`, `middleware.ts`, `apps/www/middleware.ts`, `AGENTS.md`, `apps/www/AGENTS.md`
+- **Follow-ups:** Address pre-existing ESLint warnings surfaced by `next lint` to keep CI green.
 
 ## 2025-09-18 — “Stabilize www checks offline”
 

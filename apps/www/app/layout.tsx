@@ -1,83 +1,38 @@
-import { Footer } from "@/components/footer/footer";
-import { Navigation } from "@/components/navbar/navigation";
-import { env } from "@/lib/env";
+import type { ReactNode } from "react";
+import { cookies } from "next/headers";
+
+import { defaultLocale, locales, type Locale } from "@/i18n/routing";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
-import type { Metadata } from "next";
+
 import "./globals.css";
 
-import { ConsentManagerProvider } from "@c15t/nextjs";
-import { ConsentBanner } from "./consent-banner";
-import { Tracking } from "./tracking";
-
-const parsedEnv = env();
-
-export const metadata: Metadata = {
-  metadataBase: new URL(parsedEnv.NEXT_PUBLIC_BASE_URL),
-  title: "Unkey",
-  description: "Build better APIs faster",
-  openGraph: {
-    title: "Unkey",
-    description: "Build better APIs faster",
-    url: parsedEnv.NEXT_PUBLIC_BASE_URL,
-    siteName: "unkey.com",
-    images: [
-      {
-        url: `${parsedEnv.NEXT_PUBLIC_BASE_URL}/og.png`,
-        width: 1200,
-        height: 675,
-      },
-    ],
-  },
-  twitter: {
-    title: "Unkey",
-    card: "summary_large_image",
-  },
-  icons: {
-    shortcut: "/unkey.png",
-  },
-};
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
+  const locale = resolveLocale();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`[color-scheme:dark] scroll-smooth ${GeistSans.variable} ${GeistMono.variable}`}
+      suppressHydrationWarning
     >
-      <body className="min-h-screen overflow-x-hidden antialiased bg-black text-pretty">
-        <ConsentManagerProvider
-          options={{
-            ...(parsedEnv.NEXT_PUBLIC_C15T_MODE
-              ? { mode: "c15t", backendURL: "/api/c15t" }
-              : { mode: "offline" }),
-            react: {
-              colorScheme: "dark",
-            },
-          }}
-        >
-          <ConsentBanner />
-
-          <div className="relative overflow-x-clip">
-            <Navigation />
-            {children}
-            <Tracking />
-            {process.env.NODE_ENV !== "production" ? (
-              <div className="fixed bottom-0 right-0 flex items-center justify-center w-6 h-6 p-3 m-8 font-mono text-xs text-black bg-white rounded-lg pointer-events-none ">
-                <div className="block sm:hidden md:hidden lg:hidden xl:hidden 2xl:hidden">al</div>
-                <div className="hidden sm:block md:hidden lg:hidden xl:hidden 2xl:hidden">sm</div>
-                <div className="hidden sm:hidden md:block lg:hidden xl:hidden 2xl:hidden">md</div>
-                <div className="hidden sm:hidden md:hidden lg:block xl:hidden 2xl:hidden">lg</div>
-                <div className="hidden sm:hidden md:hidden lg:hidden xl:block 2xl:hidden">xl</div>
-                <div className="hidden sm:hidden md:hidden lg:hidden xl:hidden 2xl:block">2xl</div>
-              </div>
-            ) : null}
-          </div>
-          <Footer />
-        </ConsentManagerProvider>
+      <body className="min-h-screen overflow-x-hidden bg-black text-pretty antialiased">
+        {children}
       </body>
     </html>
   );
+}
+
+function resolveLocale(): Locale {
+  const localeFromCookie = cookies().get("NEXT_LOCALE")?.value;
+
+  if (localeFromCookie && locales.includes(localeFromCookie as Locale)) {
+    return localeFromCookie as Locale;
+  }
+
+  return defaultLocale;
 }
