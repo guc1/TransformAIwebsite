@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 const logos = [
   {
@@ -22,7 +23,10 @@ const logos = [
   },
 ];
 
-export function DesktopLogoCloud() {
+export async function DesktopLogoCloud() {
+  const t = await getTranslations("LogoCloud");
+  const heading = t("label");
+
   return (
     <div className="hidden md:flex w-full flex-col items-center">
       <span
@@ -30,7 +34,7 @@ export function DesktopLogoCloud() {
           "font-mono text-sm md:text-md text-white/50 text-center opacity-0 animate-fade-in-up [animation-delay:1s]",
         )}
       >
-        Powering
+        {heading}
       </span>
 
       <div className="flex w-full flex-col items-center justify-center px-4 md:px-8">
@@ -59,10 +63,13 @@ export function DesktopLogoCloud() {
   );
 }
 
-export const MobileLogoCloud = () => {
+export async function MobileLogoCloud() {
+  const t = await getTranslations("LogoCloud");
+  const heading = t("label");
+
   return (
     <div className="md:hidden w-full flex flex-col items-center">
-      <span className={cn("font-mono text-sm md:text-md text-white/50 text-center")}>Powering</span>
+      <span className={cn("font-mono text-sm md:text-md text-white/50 text-center")}>{heading}</span>
 
       <div className="w-full px-4 md:px-8">
         <div
@@ -93,4 +100,4 @@ export const MobileLogoCloud = () => {
       </div>
     </div>
   );
-};
+}
