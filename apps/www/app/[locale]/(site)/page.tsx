@@ -18,9 +18,9 @@ import { UsageBento } from "@/components/usage-bento";
 import { ChevronRight, LogIn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import mainboard from "../images/mainboard.svg";
+import mainboard from "@/images/mainboard.svg";
 import { DesktopLogoCloud, MobileLogoCloud } from "./(components)/logo-cloud-content";
-import { CodeExamples } from "./code-examples";
+import { CodeExamples } from "../../code-examples";
 
 export const metadata = {
   title: "Unkey",

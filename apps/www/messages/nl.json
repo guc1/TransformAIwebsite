@@ -1,0 +1,76 @@
+{
+  "Metadata": {
+    "title": "Unkey",
+    "titleTemplate": "%s | Unkey",
+    "description": "Bouw betere API's sneller",
+    "openGraph": {
+      "title": "Unkey",
+      "description": "Bouw betere API's sneller",
+      "siteName": "unkey.com"
+    },
+    "twitter": {
+      "title": "Unkey"
+    }
+  },
+  "Navigation": {
+    "ariaHome": "Home",
+    "menu": "Menu",
+    "close": "Sluiten",
+    "createAccount": "Account aanmaken",
+    "signIn": "Inloggen",
+    "language": "Taal",
+    "links": {
+      "home": "Home",
+      "about": "Over ons",
+      "blog": "Blog",
+      "pricing": "Prijzen",
+      "changelog": "Wijzigingen",
+      "templates": "Templates",
+      "docs": "Documentatie",
+      "discord": "Discord"
+    }
+  },
+  "Footer": {
+    "tagline": "Bouw betere API's sneller.",
+    "copyright": "Unkeyed, Inc. {year}",
+    "sections": {
+      "company": "Bedrijf",
+      "resources": "Resources",
+      "connect": "Contact",
+      "legal": "Juridisch"
+    },
+    "links": {
+      "about": "Over ons",
+      "roadmap": "Roadmap",
+      "careers": "Carrières",
+      "sourceCode": "Broncode",
+      "status": "Statuspagina",
+      "blog": "Blog",
+      "changelog": "Wijzigingen",
+      "templates": "Templates",
+      "docs": "Documentatie",
+      "glossary": "Woordenlijst",
+      "twitter": "X (Twitter)",
+      "discord": "Discord",
+      "ossFriends": "OSS-vrienden",
+      "bookCall": "Plan een gesprek",
+      "terms": "Servicevoorwaarden",
+      "privacy": "Privacybeleid"
+    }
+  },
+  "Language": {
+    "selectTitle": "Selecteer taal",
+    "english": "Engels",
+    "dutch": "Nederlands",
+    "submit": "Doorgaan"
+  },
+  "LanguageSwitcher": {
+    "label": "Taal wijzigen",
+    "current": "Huidige taal: {language}"
+  },
+  "NotFound": {
+    "heading": "Niet gevonden.",
+    "cta": "Ga naar de homepage",
+    "tagline": "Bouw betere API's sneller."
+  }
+}

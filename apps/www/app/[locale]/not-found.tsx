@@ -1,10 +1,12 @@
 import { PrimaryButton } from "@/components/button";
 import { cn } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
 import { ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { Spotlight } from "./(not-found)/components/spotlight";
+import { getTranslations } from "next-intl/server";
+import { Spotlight } from "./(site)/(not-found)/components/spotlight";
 
-export default function NotFoundPage() {
+export default async function NotFoundPage() {
+  const t = await getTranslations("NotFound");
   return (
     <div className="w-full mt-2 lg:mt-[4.03125rem] py-20 pb-10 lg:py-40 relative opacity-0 [animation-delay:.85s] animate-fade-in-down">
       <div className="isolate relative w-full py-0 lg:pt-8 lg:pb-24 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] lg:[mask-image:radial-gradient(circle_at_10%_50%,black,transparent)]">
@@ -40,7 +42,7 @@ export default function NotFoundPage() {
                 <GridBorder top bottom />
 
                 <span className="!leading-[.73] text-6xl lg:text-[7.125rem] font-bold -tracking-[.06em] -ml-1 shadow-2xl">
-                  Not found.
+                  {t("heading")}
                 </span>
               </div>
 
@@ -53,7 +55,7 @@ export default function NotFoundPage() {
                 >
                   <PrimaryButton
                     shiny
-                    label="Go to homepage"
+                    label={t("cta")}
                     IconRight={ChevronRight}
                     className="h-10 lg:h-14 lg:text-lg"
                   />
@@ -65,7 +67,7 @@ export default function NotFoundPage() {
                 <GridBorder top />
                 <GridBorder bottom overflow />
 
-                <span>Build better APIs faster.</span>
+                <span>{t("tagline")}</span>
               </div>
             </div>
           </div>
