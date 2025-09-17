@@ -1,5 +1,5 @@
 {
-  "name": "landing",
+  "name": "www",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,9 @@
     "build": "next build",
     "analyze:build": "ANALYZE=true next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc -p tsconfig.json",
+    "format": "prettier --check ."
   },
   "dependencies": {
     "@c15t/nextjs": "^1.4.4",
