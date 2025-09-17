@@ -2,10 +2,10 @@
   "Metadata": {
     "title": "Unkey",
     "titleTemplate": "%s | Unkey",
-    "description": "Bouw betere API's sneller",
+    "description": "Jouw transformatiepartner voor het AI-tijdperk",
     "openGraph": {
       "title": "Unkey",
-      "description": "Bouw betere API's sneller",
+      "description": "Jouw transformatiepartner voor het AI-tijdperk",
       "siteName": "unkey.com"
     },
     "twitter": {
@@ -29,6 +29,10 @@
       "docs": "Documentatie",
       "discord": "Discord"
     }
+  },
+  "Hero": {
+    "title": "Jouw transformatiepartner voor het AI-tijdperk",
+    "description": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt."
   },
   "Footer": {
     "tagline": "Bouw betere API's sneller.",

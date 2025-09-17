@@ -2,10 +2,10 @@
   "Metadata": {
     "title": "Unkey",
     "titleTemplate": "%s | Unkey",
-    "description": "Build better APIs faster",
+    "description": "Your Transformation Partner for the Age of AI",
     "openGraph": {
       "title": "Unkey",
-      "description": "Build better APIs faster",
+      "description": "Your Transformation Partner for the Age of AI",
       "siteName": "unkey.com"
     },
     "twitter": {
@@ -29,6 +29,10 @@
       "docs": "Docs",
       "discord": "Discord"
     }
+  },
+  "Hero": {
+    "title": "Your Transformation Partner for the Age of AI",
+    "description": "We help companies adapt successfully and sustainably to the challenges and opportunities that Artificial Intelligence brings."
   },
   "Footer": {
     "tagline": "Build better APIs faster.",

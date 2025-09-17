@@ -15,38 +15,60 @@ import { FeatureGridChip } from "@/components/svg/feature-grid-chip";
 import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero";
 import { OssLight } from "@/components/svg/oss-light";
 import { UsageBento } from "@/components/usage-bento";
+import { isLocale } from "@/i18n/routing";
 import { ChevronRight, LogIn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import mainboard from "@/images/mainboard.svg";
 import { DesktopLogoCloud, MobileLogoCloud } from "./(components)/logo-cloud-content";
 import { CodeExamples } from "../../code-examples";
 
-export const metadata = {
-  title: "Unkey",
-  description: "The Developer Platform for Modern APIs",
-  keywords: ["Unkey", "API", "API development", "API security", "API development platform"],
-  openGraph: {
-    title: "Unkey",
-    description: "The Developer Platform for Modern APIs",
-    url: "https://unkey.com/",
-    siteName: "unkey.com",
-    images: [
-      {
-        url: "https://unkey.com/og.png",
-        width: 1200,
-        height: 675,
-      },
-    ],
-  },
-  twitter: {
-    title: "Unkey",
-    card: "summary_large_image",
-  },
-  icons: {
-    shortcut: "/unkey.png",
-  },
+type LandingPageMetadataProps = {
+  params: {
+    locale: string;
+  };
 };
+
+export async function generateMetadata({
+  params,
+}: LandingPageMetadataProps): Promise<Metadata> {
+  const { locale } = params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: ["Unkey", "API", "API development", "API security", "API development platform"],
+    openGraph: {
+      title: t("openGraph.title"),
+      description: t("openGraph.description"),
+      url: "https://unkey.com/",
+      siteName: t("openGraph.siteName"),
+      images: [
+        {
+          url: "https://unkey.com/og.png",
+          width: 1200,
+          height: 675,
+        },
+      ],
+    },
+    twitter: {
+      title: t("twitter.title"),
+      card: "summary_large_image",
+    },
+    icons: {
+      shortcut: "/unkey.png",
+    },
+  };
+}
 
 export default async function Landing() {
   return (
