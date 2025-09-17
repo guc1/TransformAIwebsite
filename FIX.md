@@ -3,6 +3,15 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-09-24 — “Refresh partner heading and code examples messaging”
+
+- **User ask / Bug:** Replace the "Powering" label on the homepage with "Partners" and update the duplicated "Any language, any framework, always secure" copy in the code examples section with the new English and Dutch messaging.
+- **Fix:**
+  - Fetched the logo cloud heading via next-intl so both desktop and mobile variants render the localized "Partners" label.
+  - Added a `CodeExamples` namespace to the locale catalogs and rendered two localized `SectionTitle` blocks that reflect the requested TransformAI assistant and project explorer descriptions.
+- **Files:** `apps/www/app/[locale]/(site)/(components)/logo-cloud-content.tsx`, `apps/www/app/code-examples.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`
+- **Follow-ups:** None.
+
 ## 2025-09-23 — “Refresh hero messaging for TransformAI”
 
 - **User ask / Bug:** Replace the homepage hero headline and supporting paragraph with the new TransformAI positioning in English and Dutch.

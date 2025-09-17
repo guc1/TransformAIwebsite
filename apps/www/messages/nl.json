@@ -34,6 +34,19 @@
     "title": "Jouw transformatiepartner voor het AI-tijdperk",
     "description": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt."
   },
+  "LogoCloud": {
+    "label": "Partners"
+  },
+  "CodeExamples": {
+    "top": {
+      "title": "Jouw AI-assistent voor alles rond TransformAI",
+      "text": "Stel je vragen, plan een afspraak of ontdek meer over onze oplossingen en diensten."
+    },
+    "bottom": {
+      "title": "Ontdek de projecten waar wij aan hebben meegewerkt",
+      "text": "Klik door de interface hieronder om enkele projecten te ontdekken."
+    }
+  },
   "Footer": {
     "tagline": "Bouw betere API's sneller.",
     "copyright": "Unkeyed, Inc. {year}",

@@ -34,6 +34,19 @@
     "title": "Your Transformation Partner for the Age of AI",
     "description": "We help companies adapt successfully and sustainably to the challenges and opportunities that Artificial Intelligence brings."
   },
+  "LogoCloud": {
+    "label": "Partners"
+  },
+  "CodeExamples": {
+    "top": {
+      "title": "Your AI Assistant for all things TransformAI",
+      "text": "Ask questions, schedule a call, or learn more about our solutions and services."
+    },
+    "bottom": {
+      "title": "Explore the projects we’ve been part of",
+      "text": "Click through the interface below to explore sample projects."
+    }
+  },
   "Footer": {
     "tagline": "Build better APIs faster.",
     "copyright": "Unkeyed, Inc. {year}",
