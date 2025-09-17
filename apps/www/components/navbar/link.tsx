@@ -1,19 +1,27 @@
 "use client";
+import { Link, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { useRouter, useSelectedLayoutSegment } from "next/navigation";
+import { useSelectedLayoutSegment } from "next/navigation";
 
 type Props = { href: string; label: string; external?: boolean };
 
 export const DesktopNavLink: React.FC<Props> = ({ href, label, external }) => {
   const segment = useSelectedLayoutSegment();
+  const isActive = segment
+    ? href.startsWith(`/${segment}`)
+    : href === "/";
+
   return (
     <Link
       href={href}
       target={external ? "_blank" : undefined}
-      className={cn("text-white/50 hover:text-white/90 duration-200 text-sm tracking-[0.07px]", {
-        "text-white": href.startsWith(`/${segment}`),
-      })}
+      rel={external ? "noopener noreferrer" : undefined}
+      className={cn(
+        "text-white/50 hover:text-white/90 duration-200 text-sm tracking-[0.07px]",
+        {
+          "text-white": isActive,
+        },
+      )}
     >
       {label}
     </Link>
@@ -23,10 +31,15 @@ export const DesktopNavLink: React.FC<Props> = ({ href, label, external }) => {
 export function MobileNavLink({
   href,
   label,
+  external,
   onClick,
 }: { href: string; label: string; external?: boolean; onClick: () => void }) {
   const segment = useSelectedLayoutSegment();
   const router = useRouter();
+
+  const isActive = segment
+    ? href.startsWith(`/${segment}`)
+    : href === "/";
 
   return (
     <button
@@ -34,12 +47,17 @@ export function MobileNavLink({
       className={cn(
         "text-white/50 hover:text-white duration-200 text-lg font-medium tracking-[0.07px] py-3",
         {
-          "text-white": href.startsWith(`/${segment}`),
+          "text-white": isActive,
         },
       )}
       onClick={() => {
         onClick();
-        router.push(href);
+        if (external) {
+          window.open(href, "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        void router.push(href);
       }}
     >
       {label}

@@ -89,6 +89,12 @@ i18n + theming: do not hard-code copy; respect dark/light.
 Full, canonical spec: see apps/www/AGENTS.md
 .
 
+## Internationalization (i18n)
+
+- The marketing site runs on `next-intl` with locale-prefixed routes (`/<locale>/…`). Do **not** hard-code UI text—store strings in `apps/www/messages/*.json` and load them with the translation helpers.
+- Keep translation keys stable. `messages/en.json` is the canonical source; other locales (e.g., Dutch) can omit keys and will fall back to English automatically.
+- Adding a language: add a `<locale>.json` file next to the existing message catalogs and append the code to `apps/www/i18n/routing.ts`. The middleware and layout provider handle the rest.
+
 Definition of Done (PR checklist)
 
 Reused existing primitives; new components are small, composable, and documented.

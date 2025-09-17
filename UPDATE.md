@@ -2,6 +2,13 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-09-19
+
+- Added next-intl powered routing with locale-prefixed segments, middleware-based language negotiation, and a first-visit langu
+age selection screen for the marketing site.
+- Restructured `apps/www/app` into `app/[locale]/(site)` with locale-aware layouts, message catalogs, and navigation helpers to
+ support English/Dutch content with automatic fallback handling.
+
 ## 2025-09-18
 
 - Automated content collection generation and asset module types so TypeScript resolves markdown + image imports during `pnpm --filter www run typecheck`.
