@@ -8,6 +8,7 @@ import mainboard from "@/images/mainboard.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
 export const Hero: React.FC = () => {
   const t = useTranslations("Hero");
+  const cta = useTranslations("CTA");
 
   const containerVariants = {
     hidden: {},
@@ -29,7 +30,7 @@ export const Hero: React.FC = () => {
 
   return (
     <motion.div
-      className="relative w-full flex flex-col items-center justify-between mt-48"
+      className="relative w-full flex flex-col items-center justify-between mt-24 sm:mt-28 md:mt-32 lg:mt-36 xl:mt-40 pb-20 sm:pb-24 md:pb-32 lg:pb-36"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -37,7 +38,9 @@ export const Hero: React.FC = () => {
       <motion.div variants={childVariants}>
         <HeroMainSection
           title={t("title")}
-          description={t("description")}
+          body={t("body")}
+          primaryCtaLabel={cta("getStarted")}
+          secondaryCtaLabel={cta("exploreProjects")}
         />
       </motion.div>
 

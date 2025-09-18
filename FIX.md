@@ -3,6 +3,15 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-11-05 — “Prompt for coding agent — update hero section text & layout”
+
+- **User ask / Bug:** Move the homepage hero copy block upward and replace the heading and paragraph with the provided English and Dutch messaging while keeping both CTA buttons intact.
+- **Fix:**
+  - Tightened the hero wrapper spacing with responsive margins and padding so the text stack sits closer to the navigation without losing vertical breathing room.
+  - Replaced the hero description key with a body string, loaded the new copy through next-intl, and fed translated CTA labels into the button components.
+- **Files:** `apps/www/components/hero/hero.tsx`, `apps/www/components/hero/hero-main-section.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`.
+- **Follow-ups:** None.
+
 ## 2025-11-04 — “Prompt for the coding agent — swap visual + text (keep SVG, match size)”
 
 - **User ask / Bug:** Replace the latency map section visual with the provided workflow PNG and refresh the heading, description, and alt text with localized English/Dutch copy while preserving the layout and original SVG asset in the repo.
