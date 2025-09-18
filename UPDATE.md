@@ -2,6 +2,18 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-11-03
+
+- Nudged the budgets card project pill inward so the “project 22” label remains fully visible while preserving the refreshed metrics stack.
+
+## 2025-11-02
+
+- Reworked the budgets card to keep the JSON preview visible in a fixed seven-line viewport, pair the credits meter with the “project 22” pill, drop the rate limit row directly beneath it, and stage the heading copy underneath.
+
+## 2025-11-01
+
+- Updated the AI protection and budget cards so the security heading reads “AI Data Protection” and the credits, rate limit, and project pill stack cleanly without clipping at any breakpoint.
+
 ## 2025-10-31
 
 - Rebalanced the AI protection and team budgets cards by anchoring policy chips outside the text safe area, deepening the supporting gradients, fixing the JSON viewer height, and aligning the credits row with its project pill so nothing collides across breakpoints.
