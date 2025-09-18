@@ -1,0 +1,236 @@
+{
+  "Metadata": {
+    "title": "Unkey",
+    "titleTemplate": "%s | Unkey",
+    "description": "Your Transformation Partner for the Age of AI",
+    "openGraph": {
+      "title": "Unkey",
+      "description": "Your Transformation Partner for the Age of AI",
+      "siteName": "unkey.com"
+    },
+    "twitter": {
+      "title": "Unkey"
+    }
+  },
+  "Navigation": {
+    "ariaHome": "Home",
+    "menu": "Menu",
+    "close": "Close",
+    "createAccount": "Create Account",
+    "signIn": "Sign In",
+    "language": "Language",
+    "links": {
+      "home": "Home",
+      "about": "About",
+      "blog": "Blog",
+      "pricing": "Pricing",
+      "changelog": "Changelog",
+      "templates": "Templates",
+      "docs": "Docs",
+      "discord": "Discord"
+    }
+  },
+  "Hero": {
+    "title": "Your Transformation Partner for the Age of AI",
+    "description": "We help companies adapt successfully and sustainably to the challenges and opportunities that Artificial Intelligence brings."
+  },
+  "LogoCloud": {
+    "label": "Partners"
+  },
+  "CodeExamples": {
+    "top": {
+      "title": "Ask anything about TransformAI to our AI Assistant",
+      "text": "Ask questions, schedule a call, or learn more about our solutions and services."
+    },
+    "bottom": {
+      "title": "Explore the projects we’ve been part of",
+      "text": "Click through the interface below to explore sample projects."
+    }
+  },
+  "CTA": {
+    "getStarted": "Get Started",
+    "exploreProjects": "Explore All projects"
+  },
+  "Analytics": {
+    "requestAccess": "Request Access",
+    "caption": {
+      "title": "Realtime Analytics",
+      "subtitle": "Live insight into AI usage across your company."
+    },
+    "dashboard": {
+      "sidebar": {
+        "company": "TransformAI Beta",
+        "section": "AI workspace",
+        "items": {
+          "usage": "Usage overview",
+          "automation": "Automation hub",
+          "policies": "Governance"
+        },
+        "topUsersTitle": "Top users & agents",
+        "countLabel": "Uses (30 days)",
+        "topUsers": {
+          "sales": "Sales – SDR Bot",
+          "support": "Support – Reply Assist",
+          "ops": "Ops – Data Cleaner",
+          "marketing": "Marketing – Content Studio",
+          "finance": "Finance – Forecast Copilot"
+        }
+      },
+      "header": {
+        "title": "Real-time progress of AI usage in your company",
+        "pillLabel": "Uses (30 days)",
+        "pillValue": "8,642",
+        "betaBadge": "Beta"
+      },
+      "tabs": {
+        "overview": "Overview",
+        "teams": "Teams",
+        "tools": "Tools",
+        "policies": "Policies"
+      },
+      "metrics": {
+        "title": "Usage (last 30 days)",
+        "subline": "An overview of who uses AI, how much, and where value is created.",
+        "items": {
+          "prompts": {
+            "label": "Prompts submitted",
+            "value": "8,642"
+          },
+          "activeUsers": {
+            "label": "Active users",
+            "value": "312"
+          },
+          "teams": {
+            "label": "Teams using AI",
+            "value": "12"
+          },
+          "responseTime": {
+            "label": "Avg. response time",
+            "value": "2.4s"
+          },
+          "mostUsedTools": {
+            "label": "Most used tools & models",
+            "value": "GPT-4o"
+          },
+          "invocations": {
+            "label": "Invocations (30 days)",
+            "value": "3,214"
+          }
+        },
+        "successRate": {
+          "label": "Success rate",
+          "value": "94%",
+          "helper": "last 30 days"
+        },
+        "legend": {
+          "success": "Success",
+          "failure": "Failure",
+          "policyBlocked": "Policy blocked",
+          "timeout": "Timeout"
+        },
+        "emptyState": "No data yet. Connect your first team to start tracking AI usage."
+      }
+    }
+  },
+  "Activity": {
+    "sidebar": {
+      "title": "Track AI work across your company",
+      "body": "Monitor how AI is used across teams, see progress on projects, and understand who contributes to the work."
+    },
+    "items": {
+      "0": {
+        "actor": "Andreas",
+        "description": "completed a generation for Project Atlas using Image Generation",
+        "meta": "12 images · Flux.1 Pro"
+      },
+      "1": {
+        "actor": "Support – Reply Assist",
+        "description": "drafted email replies for Incident #4281",
+        "meta": "23 drafts · Llama 3.1-70B"
+      },
+      "2": {
+        "actor": "Ops – Data Cleaner",
+        "description": "normalized customer records in CRM Sync",
+        "meta": "5,200 rows · RAG pipeline"
+      },
+      "3": {
+        "actor": "Design – Image Studio",
+        "description": "tagged assets in Brand Library",
+        "meta": "48 images · CLIP tags"
+      },
+      "4": {
+        "actor": "Finance – Forecast Bot",
+        "description": "generated cash-flow forecast for Q3 Plan",
+        "meta": "3 scenarios · Timeseries v2"
+      }
+    }
+  },
+  "Platform": {
+    "title": "Our Platform (Beta)",
+    "text": "We’re building the best platform to help businesses seamlessly integrate AI into their operations."
+  },
+  "Footer": {
+    "tagline": "Build better APIs faster.",
+    "copyright": "Unkeyed, Inc. {year}",
+    "sections": {
+      "company": "Company",
+      "resources": "Resources",
+      "connect": "Connect",
+      "legal": "Legal"
+    },
+    "links": {
+      "about": "About",
+      "roadmap": "Roadmap",
+      "careers": "Careers",
+      "sourceCode": "Source Code",
+      "status": "Status Page",
+      "blog": "Blog",
+      "changelog": "Changelog",
+      "templates": "Templates",
+      "docs": "Docs",
+      "glossary": "Glossary",
+      "twitter": "X (Twitter)",
+      "discord": "Discord",
+      "ossFriends": "OSS Friends",
+      "bookCall": "Book a Call",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    }
+  },
+  "Security": {
+    "title": "AI Data Protection",
+    "body": "Protect your company’s intellectual property and sensitive data as you adopt AI. Enforce policies, redact confidential content, and control where data flows—without slowing teams down.",
+    "badges": {
+      "confidential": "Policy: Confidential",
+      "internal": "Policy: Internal",
+      "public": "Policy: Public"
+    },
+    "captions": {
+      "pii": "PII Redaction",
+      "access": "Model Access Control",
+      "residency": "Data Residency"
+    }
+  },
+  "Budgets": {
+    "title": "Rate Limits & Team Budgets",
+    "body": "Assign budgets to teams and projects, set fair-use rates, and prevent overruns. Keep AI costs predictable while giving teams the headroom they need.",
+    "creditsLabel": "Credits: 3,240 / 10,000",
+  "projectPill": "project 22",
+  "rateLimitPill": "Limit: 100 req/s"
+  },
+  "Language": {
+    "selectTitle": "Select language",
+    "english": "English",
+    "dutch": "Nederlands",
+    "submit": "Continue"
+  },
+  "LanguageSwitcher": {
+    "label": "Change language",
+    "current": "Current language: {language}"
+  },
+  "NotFound": {
+    "heading": "Not found.",
+    "cta": "Go to homepage",
+    "tagline": "Build better APIs faster."
+  }
+}

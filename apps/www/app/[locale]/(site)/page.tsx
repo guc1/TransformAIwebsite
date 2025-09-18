@@ -15,40 +15,67 @@ import { FeatureGridChip } from "@/components/svg/feature-grid-chip";
 import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero";
 import { OssLight } from "@/components/svg/oss-light";
 import { UsageBento } from "@/components/usage-bento";
+import { isLocale } from "@/i18n/routing";
 import { ChevronRight, LogIn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import mainboard from "../images/mainboard.svg";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import mainboard from "@/images/mainboard.svg";
 import { DesktopLogoCloud, MobileLogoCloud } from "./(components)/logo-cloud-content";
-import { CodeExamples } from "./code-examples";
+import { CodeExamples } from "../../code-examples";
 
-export const metadata = {
-  title: "Unkey",
-  description: "The Developer Platform for Modern APIs",
-  keywords: ["Unkey", "API", "API development", "API security", "API development platform"],
-  openGraph: {
-    title: "Unkey",
-    description: "The Developer Platform for Modern APIs",
-    url: "https://unkey.com/",
-    siteName: "unkey.com",
-    images: [
-      {
-        url: "https://unkey.com/og.png",
-        width: 1200,
-        height: 675,
-      },
-    ],
-  },
-  twitter: {
-    title: "Unkey",
-    card: "summary_large_image",
-  },
-  icons: {
-    shortcut: "/unkey.png",
-  },
+type LandingPageMetadataProps = {
+  params: {
+    locale: string;
+  };
 };
 
+export async function generateMetadata({
+  params,
+}: LandingPageMetadataProps): Promise<Metadata> {
+  const { locale } = params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: ["Unkey", "API", "API development", "API security", "API development platform"],
+    openGraph: {
+      title: t("openGraph.title"),
+      description: t("openGraph.description"),
+      url: "https://unkey.com/",
+      siteName: t("openGraph.siteName"),
+      images: [
+        {
+          url: "https://unkey.com/og.png",
+          width: 1200,
+          height: 675,
+        },
+      ],
+    },
+    twitter: {
+      title: t("twitter.title"),
+      card: "summary_large_image",
+    },
+    icons: {
+      shortcut: "/unkey.png",
+    },
+  };
+}
+
 export default async function Landing() {
+  const [cta, platform] = await Promise.all([
+    getTranslations("CTA"),
+    getTranslations("Platform"),
+  ]);
+
   return (
     <>
       <TopRightShiningLight />
@@ -73,15 +100,18 @@ export default async function Landing() {
           <Section className="mt-16 md:mt-18">
             <CodeExamples />
           </Section>
-          <Section className="mt-16 md:mt-18">
-            <OpenSource />
-          </Section>
+          {/* Temporarily hidden: Open-source / GitHub block (including text + button) */}
+          {false && (
+            <Section className="mt-16 md:mt-18">
+              <OpenSource />
+            </Section>
+          )}
 
           <Section className="mt-16 md:mt-20">
             <SectionTitle
               className="mt-8 md:mt-16 lg:mt-32"
-              title="Everything you need for your API"
-              text="Build, monetize, analyze, and protect your APIs; our platform makes it easy, providing everything you need."
+              title={platform("title")}
+              text={platform("text")}
               align="center"
             />
             <AnalyticsBento />
@@ -102,17 +132,29 @@ export default async function Landing() {
             >
               <div className="flex mt-10 mb-10 space-x-6">
                 <Link href="https://app.unkey.com" className="group">
-                  <PrimaryButton shiny IconLeft={LogIn} label="Get Started" className="h-10" />
+                  <PrimaryButton
+                    shiny
+                    IconLeft={LogIn}
+                    label={cta("getStarted")}
+                    className="h-10"
+                  />
                 </Link>
                 <Link href="/docs">
-                  <SecondaryButton label="Visit the Docs" IconRight={ChevronRight} />
+                  <SecondaryButton
+                    label={cta("exploreProjects")}
+                    IconRight={ChevronRight}
+                  />
                 </Link>
               </div>
             </SectionTitle>
-            <div className="grid xl:grid-cols-[2fr_3fr] gap-6">
-              <HashedKeysBento />
-              <AuditLogsBento />
-            </div>
+            {/* Temporarily hidden: One-way hashed Keys section (including heading/paragraph) */}
+            {/* Temporarily hidden: Audit Logs section (including heading, description, table headers) */}
+            {false && (
+              <div className="grid xl:grid-cols-[2fr_3fr] gap-6">
+                <HashedKeysBento />
+                <AuditLogsBento />
+              </div>
+            )}
 
             <div className="relative grid md:grid-cols-[1fr_1fr] xl:grid-cols-[3fr_2fr] gap-6 z-50">
               {/* TODO: optimize to avoid fetching svg on mobile */}
@@ -141,11 +183,19 @@ export default async function Landing() {
               >
                 <div className="flex mt-10 mb-10 space-x-6">
                   <Link href="https://app.unkey.com" className="group">
-                    <PrimaryButton shiny IconLeft={LogIn} label="Get Started" className="h-10" />
+                    <PrimaryButton
+                      shiny
+                      IconLeft={LogIn}
+                      label={cta("getStarted")}
+                      className="h-10"
+                    />
                   </Link>
 
                   <Link href="/docs">
-                    <SecondaryButton label="Visit the Docs" IconRight={ChevronRight} />
+                    <SecondaryButton
+                      label={cta("exploreProjects")}
+                      IconRight={ChevronRight}
+                    />
                   </Link>
                 </div>
               </SectionTitle>
