@@ -2,6 +2,10 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-09-26
+
+- Reimagined the analytics bento as the TransformAI Beta Dashboard, updated every label to AI usage terminology, and wired new English and Dutch translations for the refreshed metrics, legends, and captions.
+
 ## 2025-09-25
 
 - Repositioned the code example CTA buttons beneath the language templates, refreshed their English and Dutch labels, updated the analytics request access control, and introduced localized platform section messaging for both locales.
