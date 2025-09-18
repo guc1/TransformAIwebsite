@@ -2,6 +2,10 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-11-05
+
+- Refreshed the homepage hero CTA block with new localized English and Dutch messaging, lifted the heading group higher within the hero, and wired the project explorer button through the CTA translations.
+
 ## 2025-11-04
 
 - Swapped the latency map block for the workflow composition visual, matching the original layout while localizing the new English and Dutch copy plus alt text.
