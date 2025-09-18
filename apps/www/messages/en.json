@@ -198,7 +198,7 @@
     }
   },
   "Security": {
-    "title": "AI Data & IP Protection",
+    "title": "AI Data Protection",
     "body": "Protect your company’s intellectual property and sensitive data as you adopt AI. Enforce policies, redact confidential content, and control where data flows—without slowing teams down.",
     "badges": {
       "confidential": "Policy: Confidential",
@@ -215,7 +215,7 @@
     "title": "Rate Limits & Team Budgets",
     "body": "Assign budgets to teams and projects, set fair-use rates, and prevent overruns. Keep AI costs predictable while giving teams the headroom they need.",
     "creditsLabel": "Credits: 3,240 / 10,000",
-    "projectPill": "#22",
+    "projectPill": "project 22",
     "rateLimitPill": "Limit: 100 req / s"
   },
   "Language": {
