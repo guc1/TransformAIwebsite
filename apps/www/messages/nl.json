@@ -32,7 +32,9 @@
   },
   "Hero": {
     "title": "Jouw transformatiepartner voor het AI-tijdperk",
-    "description": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt."
+    "body": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt.",
+    "secondaryTitle": "Geoptimaliseerd voor AI-productiviteit en prestaties",
+    "secondaryBody": "Ons platform is ontworpen om de productiviteit, kostenefficiëntie en prestaties van bedrijven op het gebied van AI te maximaliseren. Het benut bestaande bedrijfsstructuren om de voordelen van reguliere AI-systemen te versterken, en biedt uitgebreide aanpasbaarheid met oog voor langdurig gebruik. We zorgen ervoor dat altijd het beste model voor elke use-case beschikbaar is en geselecteerd wordt, met gebruiksgemak als hoogste prioriteit."
   },
   "LogoCloud": {
     "label": "Partners"
@@ -49,7 +51,7 @@
   },
   "CTA": {
     "getStarted": "Begin Nu",
-    "exploreProjects": "Ontdek Alle projecten"
+    "exploreProjects": "Ontdek alle projecten"
   },
   "Analytics": {
     "requestAccess": "Vraag Toegang",
