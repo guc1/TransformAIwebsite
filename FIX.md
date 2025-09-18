@@ -3,6 +3,15 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-11-04 — “Prompt for the coding agent — swap visual + text (keep SVG, match size)”
+
+- **User ask / Bug:** Replace the latency map section visual with the provided workflow PNG and refresh the heading, description, and alt text with localized English/Dutch copy while preserving the layout and original SVG asset in the repo.
+- **Fix:**
+  - Swapped the map SVG import for the workflow PNG, loading translations from a new `Workflows` namespace so the heading, body, and alt strings stay localized.
+  - Added the corresponding English and Dutch message entries to support the new copy and alt text.
+- **Files:** `apps/www/components/latency-bento.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`.
+- **Follow-ups:** None.
+
 ## 2025-11-03 — “Follow-up prompt — reveal full project pill”
 
 - **User ask / Bug:** Shift the budgets card’s “project 22” pill slightly left so the label is fully visible instead of clipping against the card edge.
