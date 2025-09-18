@@ -49,41 +49,13 @@ export function RateLimits() {
         </div>
       </div>
       <div className="mt-8 flex flex-col gap-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4 font-mono text-xs text-white">
-            <BudgetMeterIcon className="h-7 w-7 text-white/70" />
-            <div className="flex flex-col gap-2">
-              <span className="text-white/70">{t("creditsLabel")}</span>
-              <div className="relative h-[6px] w-[180px] overflow-hidden rounded-full bg-white/10">
-                <span className="absolute inset-y-0 left-0 w-[32.4%] rounded-full bg-[#3CEEAE] ratelimits-bar-shadow" />
-              </div>
+        <div className="flex items-center gap-4 font-mono text-xs text-white">
+          <BudgetMeterIcon className="h-7 w-7 text-white/70" />
+          <div className="flex flex-col gap-2">
+            <span className="text-white/70">{t("creditsLabel")}</span>
+            <div className="relative h-[6px] w-[180px] overflow-hidden rounded-full bg-white/10">
+              <span className="absolute inset-y-0 left-0 w-[32.4%] rounded-full bg-[#3CEEAE] ratelimits-bar-shadow" />
             </div>
-          </div>
-          <div className="inline-flex items-center gap-3 self-end rounded-xl border-[0.75px] border-white/20 bg-white/5 px-5 py-2 font-mono text-xs text-white/85 sm:self-auto">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#3CEEAE]/20">
-              <svg
-                className="h-5 w-5 text-[#3CEEAE]"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M5 11V19C5 19.5523 5.44772 20 6 20H18C18.5523 20 19 19.5523 19 19V11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M7 11V8C7 5.79086 8.79086 4 11 4H13C15.2091 4 17 5.79086 17 8V11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <span>{t("projectPill")}</span>
           </div>
         </div>
         <div className="inline-flex h-9 items-center gap-3 rounded-xl border-[0.75px] border-white/20 bg-white/5 px-4 font-mono text-xs text-white/75">
@@ -173,6 +145,32 @@ export function RateLimits() {
             </defs>
           </svg>
           <span>{t("rateLimitPill")}</span>
+        </div>
+        <div className="inline-flex items-center gap-3 self-start rounded-xl border-[0.75px] border-white/20 bg-white/5 px-5 py-2 font-mono text-xs text-white/85">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#3CEEAE]/20">
+            <svg
+              className="h-5 w-5 text-[#3CEEAE]"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M5 11V19C5 19.5523 5.44772 20 6 20H18C18.5523 20 19 19.5523 19 19V11"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M7 11V8C7 5.79086 8.79086 4 11 4H13C15.2091 4 17 5.79086 17 8V11"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <span>{t("projectPill")}</span>
         </div>
       </div>
     </div>

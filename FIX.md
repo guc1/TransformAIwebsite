@@ -3,6 +3,15 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-11-01 — “Prompt for coding agent — small UI adjustments”
+
+- **User ask / Bug:** Update the paired AI protection and budget cards so the security title drops the “& IP” phrasing and the budget metrics appear in the specified order without clipping the project pill.
+- **Fix:**
+  - Trimmed the security title translation in English and Dutch to “AI Data Protection,” leaving the existing body copy and policy chips untouched.
+  - Reordered the credits meter, rate limit badge, and project pill in the budget card layout while anchoring the pill to the left edge to keep it visible at every breakpoint.
+- **Files:** `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `apps/www/components/rate-limits-bento.tsx`, `UPDATE.md`.
+- **Follow-ups:** None.
+
 ## 2025-10-31 — “Follow-up prompt for the coding agent — polish the two cards”
 
 - **User ask / Bug:** Deliver production-ready layouts for the AI protection and team budgets cards so copy never collides with floating chips or the JSON panel across breakpoints.
