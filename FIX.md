@@ -3,6 +3,31 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-11-03 — “Follow-up prompt — reveal full project pill”
+
+- **User ask / Bug:** Shift the budgets card’s “project 22” pill slightly left so the label is fully visible instead of clipping against the card edge.
+- **Fix:** Added responsive right margin to the pill container, preserving the existing hierarchy while keeping the badge comfortably within the viewport.
+- **Files:** `apps/www/components/rate-limits-bento.tsx`, `UPDATE.md`.
+- **Follow-ups:** None.
+
+## 2025-11-02 — “Follow-up prompt — restore budget card hierarchy”
+
+- **User ask / Bug:** Make the budgets card show its JSON preview again, keep it to seven visible lines, move the project pill onto the credits row, and ensure the remaining elements follow the requested order.
+- **Fix:**
+  - Locked the code pane to a 7-line viewport with a bottom fade so the JSON is always visible without overwhelming the card.
+  - Rebuilt the metrics stack so the credits meter and “project 22” pill share a row, the rate limit badge slots directly below, and the heading/paragraph flow beneath.
+- **Files:** `apps/www/components/rate-limits-bento.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`.
+- **Follow-ups:** None.
+
+## 2025-11-01 — “Prompt for coding agent — small UI adjustments”
+
+- **User ask / Bug:** Update the paired AI protection and budget cards so the security title drops the “& IP” phrasing and the budget metrics appear in the specified order without clipping the project pill.
+- **Fix:**
+  - Trimmed the security title translation in English and Dutch to “AI Data Protection,” leaving the existing body copy and policy chips untouched.
+  - Reordered the credits meter, rate limit badge, and project pill in the budget card layout while anchoring the pill to the left edge to keep it visible at every breakpoint.
+- **Files:** `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `apps/www/components/rate-limits-bento.tsx`, `UPDATE.md`.
+- **Follow-ups:** None.
+
 ## 2025-10-31 — “Follow-up prompt for the coding agent — polish the two cards”
 
 - **User ask / Bug:** Deliver production-ready layouts for the AI protection and team budgets cards so copy never collides with floating chips or the JSON panel across breakpoints.
