@@ -3,6 +3,15 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-09-26 — “Refit analytics bento into TransformAI Beta Dashboard”
+
+- **User ask / Bug:** Rework the analytics bento so every label, caption, and legend reflects an AI usage dashboard with English/Dutch translations and refreshed hero copy for the platform section.
+- **Fix:**
+  - Routed the sidebar, tabs, metrics, legends, and caption through new `Analytics` translation keys focused on AI adoption, keeping the existing grid structure intact.
+  - Added platform hero strings under a `Platform` namespace and expanded the Dutch catalog with locale-appropriate number formatting while relying on English fallbacks.
+- **Files:** `apps/www/components/analytics/analytics-bento.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`.
+- **Follow-ups:** Monitor for additional dashboard widgets that may need AI-focused copy.
+
 ## 2025-09-25 — “Move code template CTAs and refresh platform copy”
 
 - **User ask / Bug:** Relocate the “Get Started” and “Visit the docs” buttons so they sit beneath the code template selector, update their English and Dutch labels, refresh the AI assistant and platform section copy, and rename the analytics “Show API code” control.

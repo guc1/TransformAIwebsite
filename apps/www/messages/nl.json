@@ -52,7 +52,85 @@
     "exploreProjects": "Ontdek Alle projecten"
   },
   "Analytics": {
-    "requestAccess": "Vraag Toegang"
+    "requestAccess": "Vraag Toegang",
+    "caption": {
+      "title": "Realtime-analyse",
+      "subtitle": "Direct inzicht in AI-gebruik binnen jouw organisatie."
+    },
+    "dashboard": {
+      "sidebar": {
+        "company": "TransformAI Beta",
+        "section": "AI-werkruimte",
+        "items": {
+          "usage": "Gebruiksoverzicht",
+          "automation": "Automatiseringshub",
+          "policies": "Beleid"
+        },
+        "topUsersTitle": "Topgebruikers & agents",
+        "countLabel": "Gebruik (30 dagen)",
+        "topUsers": {
+          "sales": "Sales – SDR-bot",
+          "support": "Support – Antwoordassistent",
+          "ops": "Operations – Datacleaner",
+          "marketing": "Marketing – Contentstudio",
+          "finance": "Financiën – Forecast Copilot"
+        }
+      },
+      "header": {
+        "title": "Realtime voortgang van AI-gebruik in jouw bedrijf",
+        "pillLabel": "Gebruik (30 dagen)",
+        "pillValue": "8.642",
+        "betaBadge": "Beta"
+      },
+      "tabs": {
+        "overview": "Overzicht",
+        "teams": "Teams",
+        "tools": "Tools",
+        "policies": "Policies"
+      },
+      "metrics": {
+        "title": "Gebruik (laatste 30 dagen)",
+        "subline": "Een overzicht van wie AI gebruikt, hoeveel en waar waarde wordt gecreëerd.",
+        "items": {
+          "prompts": {
+            "label": "Ingediende prompts",
+            "value": "8.642"
+          },
+          "activeUsers": {
+            "label": "Actieve gebruikers",
+            "value": "312"
+          },
+          "teams": {
+            "label": "Teams die AI gebruiken",
+            "value": "12"
+          },
+          "responseTime": {
+            "label": "Gem. responstijd",
+            "value": "2,4 s"
+          },
+          "mostUsedTools": {
+            "label": "Meest gebruikte tools & modellen",
+            "value": "GPT-4o"
+          },
+          "invocations": {
+            "label": "Aanroepen (30 dagen)",
+            "value": "3.214"
+          }
+        },
+        "successRate": {
+          "label": "Succesratio",
+          "value": "94%",
+          "helper": "laatste 30 dagen"
+        },
+        "legend": {
+          "success": "Succes",
+          "failure": "Mislukt",
+          "policyBlocked": "Geblokkeerd door policy",
+          "timeout": "Timeout"
+        },
+        "emptyState": "Nog geen gegevens. Koppel je eerste team om AI-gebruik te meten."
+      }
+    }
   },
   "Platform": {
     "title": "Ons platform (Beta)",

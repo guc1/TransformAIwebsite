@@ -52,7 +52,85 @@
     "exploreProjects": "Explore All projects"
   },
   "Analytics": {
-    "requestAccess": "Request Access"
+    "requestAccess": "Request Access",
+    "caption": {
+      "title": "Realtime Analytics",
+      "subtitle": "Live insight into AI usage across your company."
+    },
+    "dashboard": {
+      "sidebar": {
+        "company": "TransformAI Beta",
+        "section": "AI workspace",
+        "items": {
+          "usage": "Usage overview",
+          "automation": "Automation hub",
+          "policies": "Governance"
+        },
+        "topUsersTitle": "Top users & agents",
+        "countLabel": "Uses (30 days)",
+        "topUsers": {
+          "sales": "Sales – SDR Bot",
+          "support": "Support – Reply Assist",
+          "ops": "Ops – Data Cleaner",
+          "marketing": "Marketing – Content Studio",
+          "finance": "Finance – Forecast Copilot"
+        }
+      },
+      "header": {
+        "title": "Real-time progress of AI usage in your company",
+        "pillLabel": "Uses (30 days)",
+        "pillValue": "8,642",
+        "betaBadge": "Beta"
+      },
+      "tabs": {
+        "overview": "Overview",
+        "teams": "Teams",
+        "tools": "Tools",
+        "policies": "Policies"
+      },
+      "metrics": {
+        "title": "Usage (last 30 days)",
+        "subline": "An overview of who uses AI, how much, and where value is created.",
+        "items": {
+          "prompts": {
+            "label": "Prompts submitted",
+            "value": "8,642"
+          },
+          "activeUsers": {
+            "label": "Active users",
+            "value": "312"
+          },
+          "teams": {
+            "label": "Teams using AI",
+            "value": "12"
+          },
+          "responseTime": {
+            "label": "Avg. response time",
+            "value": "2.4s"
+          },
+          "mostUsedTools": {
+            "label": "Most used tools & models",
+            "value": "GPT-4o"
+          },
+          "invocations": {
+            "label": "Invocations (30 days)",
+            "value": "3,214"
+          }
+        },
+        "successRate": {
+          "label": "Success rate",
+          "value": "94%",
+          "helper": "last 30 days"
+        },
+        "legend": {
+          "success": "Success",
+          "failure": "Failure",
+          "policyBlocked": "Policy blocked",
+          "timeout": "Timeout"
+        },
+        "emptyState": "No data yet. Connect your first team to start tracking AI usage."
+      }
+    }
   },
   "Platform": {
     "title": "Our Platform (Beta)",
