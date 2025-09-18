@@ -7,7 +7,6 @@ export function RateLimitsBento() {
   return (
     <div className="w-full md:mt-5 relative border-[.75px] h-[520px] rounded-[32px] border-[#ffffff]/10 flex overflow-x-hidden rate-limits-background-gradient bg-gradient-to-t backdrop-blur-[1px] from-black/20 via-black/20 via-20% to-transparent">
       <RateLimits />
-      <RateLimitsText />
     </div>
   );
 }
@@ -28,62 +27,62 @@ export function RateLimits() {
   const highlightRegex = /"(?:credits|total|teamAllocation|rateLimit)"/g;
 
   return (
-    <div className="relative z-10 mx-[32px] flex h-full w-full flex-col px-1 pt-8 pb-36 sm:mx-[40px] sm:px-0 sm:pt-10">
+    <div className="relative z-10 mx-[32px] flex h-full w-full flex-col px-1 pt-8 pb-10 sm:mx-[40px] sm:px-0 sm:pt-10">
       <div className="relative overflow-hidden rounded-[24px] border-[0.75px] border-white/15 bg-white/[0.04]">
-        <div className="flex">
-          <div className="flex h-[228px] flex-col overflow-hidden border-r-[0.75px] border-white/10 px-6 py-4 font-mono text-xs leading-7 text-white/30">
+        <div className="relative flex max-h-[228px] overflow-y-auto">
+          <div className="flex flex-none flex-col border-r-[0.75px] border-white/10 px-6 py-4 font-mono text-xs leading-7 text-white/30">
             {configLines.map((_, index) => (
               <span key={`line-${index}`}>{index + 1}</span>
             ))}
           </div>
-          <div className="relative flex-1 overflow-hidden bg-gradient-to-br from-white/[0.04] via-transparent to-black/40">
-            <pre className="flex h-[228px] flex-col justify-start gap-0 overflow-hidden px-6 py-4 font-mono text-xs leading-7 text-white/55">
+          <div className="relative flex-1 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40">
+            <pre className="flex min-h-full flex-col justify-start gap-0 px-6 py-4 font-mono text-xs leading-7 text-white/55">
               {configLines.map((line, index) => (
                 <code key={`code-${index}`} className="whitespace-pre">
                   {renderHighlightedLine(line, highlightRegex)}
                 </code>
               ))}
             </pre>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black via-black/35 to-transparent" />
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black via-black/35 to-transparent" />
       </div>
       <div className="mt-8 flex flex-col gap-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4 font-mono text-xs text-white">
-            <BudgetMeterIcon className="h-7 w-7 text-white/70" />
-            <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3 font-mono text-xs text-white">
+            <div className="flex items-center gap-4 text-white">
+              <BudgetMeterIcon className="h-7 w-7 text-white/70" />
               <span className="text-white/70">{t("creditsLabel")}</span>
-              <div className="relative h-[6px] w-[180px] overflow-hidden rounded-full bg-white/10">
-                <span className="absolute inset-y-0 left-0 w-[32.4%] rounded-full bg-[#3CEEAE] ratelimits-bar-shadow" />
+            </div>
+            <div className="ml-auto inline-flex shrink-0 items-center gap-3 rounded-xl border-[0.75px] border-white/20 bg-white/5 px-5 py-2 font-mono text-xs text-white/85">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#3CEEAE]/20">
+                <svg
+                  className="h-5 w-5 text-[#3CEEAE]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M5 11V19C5 19.5523 5.44772 20 6 20H18C18.5523 20 19 19.5523 19 19V11"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M7 11V8C7 5.79086 8.79086 4 11 4H13C15.2091 4 17 5.79086 17 8V11"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
+              <span className="whitespace-nowrap">{t("projectPill")}</span>
             </div>
           </div>
-          <div className="inline-flex items-center gap-3 self-end rounded-xl border-[0.75px] border-white/20 bg-white/5 px-5 py-2 font-mono text-xs text-white/85 sm:self-auto">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#3CEEAE]/20">
-              <svg
-                className="h-5 w-5 text-[#3CEEAE]"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M5 11V19C5 19.5523 5.44772 20 6 20H18C18.5523 20 19 19.5523 19 19V11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M7 11V8C7 5.79086 8.79086 4 11 4H13C15.2091 4 17 5.79086 17 8V11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <span>{t("projectPill")}</span>
+          <div className="relative h-[6px] w-[180px] overflow-hidden rounded-full bg-white/10">
+            <span className="absolute inset-y-0 left-0 w-[32.4%] rounded-full bg-[#3CEEAE] ratelimits-bar-shadow" />
           </div>
         </div>
         <div className="inline-flex h-9 items-center gap-3 rounded-xl border-[0.75px] border-white/20 bg-white/5 px-4 font-mono text-xs text-white/75">
@@ -175,6 +174,7 @@ export function RateLimits() {
           <span>{t("rateLimitPill")}</span>
         </div>
       </div>
+      <RateLimitsText className="mt-auto pt-8 sm:pt-10" />
     </div>
   );
 }
@@ -214,11 +214,19 @@ function renderHighlightedLine(line: string, regex: RegExp): ReactNode[] {
   return nodes;
 }
 
-export function RateLimitsText() {
+export function RateLimitsText({ className = "" }: { className?: string }) {
   const t = useTranslations("Budgets");
+  const containerClasses = [
+    "max-w-[320px]",
+    "text-white",
+    "sm:max-w-[360px]",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <div className="absolute bottom-10 left-6 z-30 max-w-[320px] text-white sm:bottom-12 sm:left-10 sm:max-w-[360px]">
+    <div className={containerClasses}>
       <div className="relative">
         <div className="pointer-events-none absolute -inset-x-6 -inset-y-8 rounded-[30px] bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
         <div className="relative flex flex-col">
