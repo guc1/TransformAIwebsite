@@ -2,6 +2,10 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-11-05
+
+- Lifted the homepage hero content closer to the top with responsive padding while refreshing the English and Dutch copy plus CTA labels to spotlight AI productivity and performance.
+
 ## 2025-11-04
 
 - Swapped the latency map block for the workflow composition visual, matching the original layout while localizing the new English and Dutch copy plus alt text.
