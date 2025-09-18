@@ -3,6 +3,24 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-11-08 — “Recenter hero CTA stack vertically”
+
+- **User ask / Bug:** Move the "Optimised for AI Productivity and Performance" heading, paragraph, and buttons noticeably higher
+  so the block sits near the vertical middle of the hero background on desktop while keeping other layout pieces untouched.
+- **Fix:** Applied responsive negative top margins to the secondary hero `SectionTitle`, pulling the entire text/button stack up
+  ~130px on large screens without altering its internal spacing or the surrounding cards, and leaving mobile spacing relaxed.
+- **Files:** `apps/www/app/[locale]/(site)/page.tsx`, `UPDATE.md`, `FIX.md`.
+- **Follow-ups:** None.
+
+## 2025-11-07 — “Center CTA heading between hero cards”
+
+- **User ask / Bug:** Raise the "Optimised for AI Productivity and Performance" block so it aligns between the two hero cards
+  without shifting the rest of the layout.
+- **Fix:** Added a tighter top margin to the secondary hero `SectionTitle`, lifting the heading/paragraph stack while leaving the
+  card grid, CTAs, and background treatments untouched.
+- **Files:** `apps/www/app/[locale]/(site)/page.tsx`, `UPDATE.md`, `FIX.md`.
+- **Follow-ups:** None.
+
 ## 2025-11-06 — “Decouple hero copy for stacked sections”
 
 - **User ask / Bug:** Keep the top-of-page hero text on the original “Transformation Partner” messaging while letting the lower CTA section display the new AI productivity copy; both blocks were sharing the same translation keys so they changed together.
