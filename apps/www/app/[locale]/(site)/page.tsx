@@ -100,9 +100,12 @@ export default async function Landing() {
           <Section className="mt-16 md:mt-18">
             <CodeExamples />
           </Section>
-          <Section className="mt-16 md:mt-18">
-            <OpenSource />
-          </Section>
+          {/* Temporarily hidden: Open-source / GitHub block (including text + button) */}
+          {false && (
+            <Section className="mt-16 md:mt-18">
+              <OpenSource />
+            </Section>
+          )}
 
           <Section className="mt-16 md:mt-20">
             <SectionTitle
@@ -144,10 +147,14 @@ export default async function Landing() {
                 </Link>
               </div>
             </SectionTitle>
-            <div className="grid xl:grid-cols-[2fr_3fr] gap-6">
-              <HashedKeysBento />
-              <AuditLogsBento />
-            </div>
+            {/* Temporarily hidden: One-way hashed Keys section (including heading/paragraph) */}
+            {/* Temporarily hidden: Audit Logs section (including heading, description, table headers) */}
+            {false && (
+              <div className="grid xl:grid-cols-[2fr_3fr] gap-6">
+                <HashedKeysBento />
+                <AuditLogsBento />
+              </div>
+            )}
 
             <div className="relative grid md:grid-cols-[1fr_1fr] xl:grid-cols-[3fr_2fr] gap-6 z-50">
               {/* TODO: optimize to avoid fetching svg on mobile */}
