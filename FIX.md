@@ -3,6 +3,13 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-09-28 — “Prompt for coding agent — Hide but don’t delete specific sections (including all text)”
+
+- **User ask / Bug:** Temporarily remove the One-way hashed Keys, Audit Logs, and Open-source homepage sections without deleting their code so they can be restored later.
+- **Fix:** Wrapped each section’s JSX in a `{false && (...)}` guard with inline comments to suppress rendering while keeping the original components and imports intact.
+- **Files:** `apps/www/app/[locale]/(site)/page.tsx`, `UPDATE.md`.
+- **Follow-ups:** Re-enable the guards when the sections should return.
+
 ## 2025-09-27 — “Prompt for coding agent — AI Activity Feed (production formatting, full i18n)”
 
 - **User ask / Bug:** Replace the billing-focused usage bento with an AI activity feed that highlights task actors, descriptions, meta details, and precise durations while localizing all copy in English and Dutch.

@@ -2,6 +2,10 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-09-28
+
+- Temporarily hid the homepage hashed keys, audit logs, and open-source sections behind disabled wrappers so they can be re-enabled later without code loss.
+
 ## 2025-09-27
 
 - Reimagined the usage bento as an AI activity feed with localized actor, description, and meta copy alongside duration-based timestamps and refreshed task-specific icons.
