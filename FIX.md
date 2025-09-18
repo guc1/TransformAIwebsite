@@ -3,6 +3,33 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-11-06 — “Decouple hero copy for stacked sections”
+
+- **User ask / Bug:** Keep the top-of-page hero text on the original “Transformation Partner” messaging while letting the lower CTA section display the new AI productivity copy; both blocks were sharing the same translation keys so they changed together.
+- **Fix:**
+  - Added `secondaryTitle`/`secondaryBody` keys to the hero translations in English and Dutch so the secondary CTA block can render the new messaging independently.
+  - Pointed the landing page’s lower `SectionTitle` at the new keys while leaving the hero component wired to `Hero.title`/`Hero.body` for the original copy.
+- **Files:** `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `apps/www/app/[locale]/(site)/page.tsx`, `UPDATE.md`, `FIX.md`.
+- **Follow-ups:** None.
+
+## 2025-09-18 — “Restore homepage hero messaging to original copy”
+
+- **User ask / Bug:** Keep the updated hero layout and localized CTAs but revert the hero heading and paragraph to the original English/Dutch “Transformation Partner” messaging.
+- **Fix:**
+  - Replaced the `Hero.title`/`Hero.body` strings in the English and Dutch catalogs with the original copy while leaving the component wiring and CTA localization intact.
+  - Recorded the change in the project logs for future reference.
+- **Files:** `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`, `FIX.md`.
+- **Follow-ups:** None.
+
+## 2025-11-05 — “Prompt for coding agent — update homepage hero section”
+
+- **User ask / Bug:** Raise the homepage hero copy block closer to the hero background while replacing its heading, body, and CTA labels with localized English/Dutch strings.
+- **Fix:**
+  - Added the new hero messaging under `Hero.title`/`Hero.body` in the locale catalogs and updated the hero component to read the CTA labels from the existing translation namespace.
+  - Replaced the hard-coded hero copy on the landing page with the translation helper and reduced the section’s top margin so the heading/button stack sits higher across breakpoints, polishing the Dutch “Explore All projects” label.
+- **Files:** `apps/www/app/[locale]/(site)/page.tsx`, `apps/www/components/hero/hero-main-section.tsx`, `apps/www/components/hero/hero.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`.
+- **Follow-ups:** None.
+
 ## 2025-11-04 — “Prompt for the coding agent — swap visual + text (keep SVG, match size)”
 
 - **User ask / Bug:** Replace the latency map section visual with the provided workflow PNG and refresh the heading, description, and alt text with localized English/Dutch copy while preserving the layout and original SVG asset in the repo.
