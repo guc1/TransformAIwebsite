@@ -127,6 +127,7 @@ export default async function Landing() {
 
           <Section className="mt-10 md:mt-20 lg:mt-24">
             <SectionTitle
+              className="mt-2 md:-mt-10 lg:-mt-20 xl:-mt-32 2xl:-mt-36 mb-20 lg:mb-24"
               title={hero("secondaryTitle")}
               text={hero("secondaryBody")}
               align="center"
