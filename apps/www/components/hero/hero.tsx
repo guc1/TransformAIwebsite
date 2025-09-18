@@ -7,7 +7,8 @@ import { HeroMainSection } from "./hero-main-section";
 import mainboard from "@/images/mainboard.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
 export const Hero: React.FC = () => {
-  const t = useTranslations("Hero");
+  const hero = useTranslations("Hero");
+  const cta = useTranslations("CTA");
 
   const containerVariants = {
     hidden: {},
@@ -36,8 +37,10 @@ export const Hero: React.FC = () => {
     >
       <motion.div variants={childVariants}>
         <HeroMainSection
-          title={t("title")}
-          description={t("description")}
+          title={hero("title")}
+          body={hero("body")}
+          primaryCtaLabel={cta("getStarted")}
+          secondaryCtaLabel={cta("exploreProjects")}
         />
       </motion.div>
 
