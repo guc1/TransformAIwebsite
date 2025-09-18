@@ -2,6 +2,11 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-09-27
+
+- Reimagined the usage bento as an AI activity feed with localized actor, description, and meta copy alongside duration-based timestamps and refreshed task-specific icons.
+- Updated the sidebar messaging and locale catalogs to communicate company-wide AI tracking in both English and Dutch.
+
 ## 2025-09-26
 
 - Reimagined the analytics bento as the TransformAI Beta Dashboard, updated every label to AI usage terminology, and wired new English and Dutch translations for the refreshed metrics, legends, and captions.

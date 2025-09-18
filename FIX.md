@@ -3,6 +3,15 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-09-27 — “Prompt for coding agent — AI Activity Feed (production formatting, full i18n)”
+
+- **User ask / Bug:** Replace the billing-focused usage bento with an AI activity feed that highlights task actors, descriptions, meta details, and precise durations while localizing all copy in English and Dutch.
+- **Fix:**
+  - Replaced the billing row component with a reusable `ActivityItem`, introduced task-specific AI icons, and surfaced actor, description, meta, and duration data sourced from the Activity translation namespace.
+  - Localized the sidebar title and body along with each activity entry in the English and Dutch message catalogs, keeping time values as untranslated duration strings.
+- **Files:** `apps/www/components/usage-bento.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`.
+- **Follow-ups:** None.
+
 ## 2025-09-26 — “Refit analytics bento into TransformAI Beta Dashboard”
 
 - **User ask / Bug:** Rework the analytics bento so every label, caption, and legend reflects an AI usage dashboard with English/Dutch translations and refreshed hero copy for the platform section.
