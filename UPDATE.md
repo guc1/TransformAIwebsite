@@ -2,6 +2,11 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-11-07
+
+- Raised the secondary hero CTA heading stack so it sits closer to the paired security and
+  budgeting cards while keeping the rest of the section layout untouched.
+
 ## 2025-11-06
 
 - Split the homepage hero translations so the main headline keeps the "Transformation Partner" copy while the lower CTA section now reads the new AI productivity messaging in both English and Dutch.
