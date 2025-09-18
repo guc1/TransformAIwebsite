@@ -2,6 +2,18 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-10-31
+
+- Rebalanced the AI protection and team budgets cards by anchoring policy chips outside the text safe area, deepening the supporting gradients, fixing the JSON viewer height, and aligning the credits row with its project pill so nothing collides across breakpoints.
+
+## 2025-09-30
+
+- Polished the AI data protection and budget control cards by defining safe text zones, rebalancing policy chips, tightening overlays, and rebuilding the code preview so the layout stays collision-free across breakpoints.
+
+## 2025-09-29
+
+- Reimagined the homepage security and rate limit cards as AI data protection and team budgeting experiences, refreshed their visuals, and localized all copy in English and Dutch.
+
 ## 2025-09-28
 
 - Temporarily hid the homepage hashed keys, audit logs, and open-source sections behind disabled wrappers so they can be re-enabled later without code loss.

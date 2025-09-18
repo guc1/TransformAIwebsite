@@ -3,6 +3,34 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-10-31 — “Follow-up prompt for the coding agent — polish the two cards”
+
+- **User ask / Bug:** Deliver production-ready layouts for the AI protection and team budgets cards so copy never collides with floating chips or the JSON panel across breakpoints.
+- **Root cause:** The first refresh left policy badges large enough to drift into the text safe area and the rate limit code viewer flexible, allowing the project pill and credits meter to crowd the heading zone on smaller screens.
+- **Fix:**
+  - Anchored the policy badges to the radar rings with smaller, lower-opacity chips and deepened the text-side gradients to preserve a clear reading zone.
+  - Locked the JSON preview to seven lines with hidden overflow, tightened the bottom fade, and rebuilt the credits row so the usage meter and “#22” project pill align cleanly with added padding.
+- **Files:** `apps/www/components/ip-whitelisting-bento.tsx`, `apps/www/components/rate-limits-bento.tsx`, `UPDATE.md`.
+- **Follow-ups:** None.
+
+## 2025-09-30 — “Follow-up prompt for the coding agent — polish the two cards”
+
+- **User ask / Bug:** Resolve layout collisions on the refreshed AI protection and budget cards by tightening chip placement, cleaning the overlays, and keeping the text and code blocks readable on every breakpoint.
+- **Fix:**
+  - Established bottom-left safe zones with subtle gradients, repositioned the compliance chips along the radar rings, and softened their scale so they stay clear of the heading copy.
+  - Rebuilt the budget preview into a fixed seven-line code pane with highlighted keys, reorganized the credits meter row so the project pill (now “#22”) sits flush right, and widened pill padding to prevent truncation.
+- **Files:** `apps/www/components/ip-whitelisting-bento.tsx`, `apps/www/components/rate-limits-bento.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`.
+- **Follow-ups:** None.
+
+## 2025-09-29 — “Prompt for coding agent — Replace “IP Whitelisting / Rate Limits” cards”
+
+- **User ask / Bug:** Refresh the paired homepage cards so they communicate AI data and IP protection plus team budget controls, with localized copy and updated visuals that drop the raw IP and API key references.
+- **Fix:**
+  - Converted both card components to client-side translations, swapped the IP-focused badges for policy/compliance chips with new shield, lock, and residency glyphs, and added a credits usage meter with wallet iconography.
+  - Updated the JSON code sample, project pill, and inline stats to reflect credits and fair-use rate limits while wiring English and Dutch strings under the `Security` and `Budgets` namespaces.
+- **Files:** `apps/www/components/ip-whitelisting-bento.tsx`, `apps/www/components/rate-limits-bento.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`.
+- **Follow-ups:** None.
+
 ## 2025-09-28 — “Prompt for coding agent — Hide but don’t delete specific sections (including all text)”
 
 - **User ask / Bug:** Temporarily remove the One-way hashed Keys, Audit Logs, and Open-source homepage sections without deleting their code so they can be restored later.
