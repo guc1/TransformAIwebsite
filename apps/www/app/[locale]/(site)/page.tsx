@@ -71,9 +71,10 @@ export async function generateMetadata({
 }
 
 export default async function Landing() {
-  const [cta, platform] = await Promise.all([
+  const [cta, platform, hero] = await Promise.all([
     getTranslations("CTA"),
     getTranslations("Platform"),
+    getTranslations("Hero"),
   ]);
 
   return (
@@ -124,10 +125,10 @@ export default async function Landing() {
             <OssLight className="absolute scale-[2] left-[-70px] sm:left-[70px] md:left-[150px] lg:left-[200px] xl:left-[420px] top-[-250px]" />
           </div>
 
-          <Section className="mt-16 md:mt-32">
+          <Section className="mt-10 md:mt-20 lg:mt-24">
             <SectionTitle
-              title="Secure and scalable from day one"
-              text="Start secure. Our platform includes essential security features such as one-way hashed keys, audit logs, and rate limiting, enabling rapid API iteration and scaling."
+              title={hero("title")}
+              text={hero("body")}
               align="center"
             >
               <div className="flex mt-10 mb-10 space-x-6">
