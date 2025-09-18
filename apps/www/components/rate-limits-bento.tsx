@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 export function RateLimitsBento() {
   return (
     <div className="w-full md:mt-5 relative border-[.75px] h-[520px] rounded-[32px] border-[#ffffff]/10 flex overflow-x-hidden rate-limits-background-gradient bg-gradient-to-t backdrop-blur-[1px] from-black/20 via-black/20 via-20% to-transparent">
@@ -8,29 +12,53 @@ export function RateLimitsBento() {
 }
 
 export function RateLimits() {
+  const t = useTranslations("Budgets");
+
+  const config = {
+    credits: {
+      total: 10000,
+      teamAllocation: {
+        Sales: 2500,
+        Support: 2500,
+        Ops: 2500,
+        "R&D": 2500,
+      },
+    },
+    rateLimit: {
+      limit: 100,
+      intervalMs: 1000,
+    },
+  };
+
+  const configString = JSON.stringify(config, null, 2);
+  const configLines = configString.split("\n");
+
   return (
     <div className="relative mx-[40px] flex w-full flex-col">
       <div className="flex h-[200px] w-full ratelimits-editor-bg-gradient rounded-b-xl ">
-        <div className="flex flex-col font-mono text-sm text-white px-[24px] space-y-3 mt-1 border-r-[.75px] border-[#ffffff]/20">
-          <p>1</p>
-          <p>2</p>
-          <p>3</p>
-          <p>4</p>
-          <p>5</p>
-          <p>6</p>
+        <div className="flex flex-col font-mono text-sm text-white/40 px-[24px] mt-1 border-r-[.75px] border-[#ffffff]/20">
+          {configLines.map((_, index) => (
+            <p key={index} className="leading-8">
+              {index + 1}
+            </p>
+          ))}
         </div>
         <div className="flex w-full pl-8 font-mono text-xs leading-8 text-white whitespace-pre ratelimits-editor-bg-gradient-2 rounded-br-xl">
-          {JSON.stringify({ rateLimit: { limit: 10, interval: 1000 } }, null, 2)}
+          {configString}
         </div>
       </div>
       <div className="flex flex-col mt-8 ratelimits-fade-gradient">
-        <div className="flex items-center">
-          <div className="font-mono text-xs text-white sm:font-sm whitespace-nowrap">
-            <span className="text-[#ffffff]/40">Rate limiting</span>
-            <span className="text-[#ffffff]/40 tracking-[-5px]">...</span>
-            <span className="inline-flex w-[4px] h-[12px] bg-white ratelimits-bar-shadow ml-3 relative top-[1px] flicker" />
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div className="flex items-center gap-4 font-mono text-xs text-white">
+            <BudgetMeterIcon className="h-9 w-9 text-white/70" />
+            <div className="flex flex-col gap-2">
+              <span>{t("creditsLabel")}</span>
+              <div className="relative h-[6px] w-[180px] overflow-hidden rounded-full bg-white/10">
+                <span className="absolute inset-y-0 left-0 w-[32.4%] rounded-full bg-[#3CEEAE] ratelimits-bar-shadow" />
+              </div>
+            </div>
           </div>
-          <div className="inline-flex items-center overflow-hidden ml-4 h-[36px] text-white font-mono text-sm ratelimits-key-gradient border-[.75px] border-[#ffffff]/20 rounded-xl">
+          <div className="inline-flex items-center overflow-hidden ml-0 sm:ml-4 h-[36px] text-white font-mono text-sm ratelimits-key-gradient border-[.75px] border-[#ffffff]/20 rounded-xl">
             <div className="w-[62px] h-[36px]">
               <svg
                 className="ratelimits-key-icon "
@@ -115,7 +143,7 @@ export function RateLimits() {
                 </defs>
               </svg>
             </div>
-            <p className="relative text-xs right-4">sk_TEwCE9AY9BFTq1XJdIO</p>
+            <p className="relative text-xs right-4">{t("projectPill")}</p>
           </div>
         </div>
         <div className="inline-flex w-[205px] opacity-70 items-center ml-[150px] mt-[30px] h-[36px] text-white font-mono text-sm ratelimits-link ratelimits-key-gradient border-[.75px] border-[#ffffff]/20 rounded-xl [mask-image:linear-gradient(to_bottom_left,black_30%,transparent)]">
@@ -204,7 +232,7 @@ export function RateLimits() {
               </filter>
             </defs>
           </svg>
-          <p className="relative text-xs right-4">dom@keyauth.dev</p>
+          <p className="relative text-xs right-4">{t("rateLimitPill")}</p>
         </div>
       </div>
     </div>
@@ -212,6 +240,8 @@ export function RateLimits() {
 }
 
 export function RateLimitsText() {
+  const t = useTranslations("Budgets");
+
   return (
     <div className="flex flex-col text-white absolute left-[20px] sm:left-[40px] xl:left-[40px] bottom-[40px] max-w-[350px]">
       <div className="flex items-center w-full">
@@ -230,12 +260,30 @@ export function RateLimitsText() {
             fillOpacity="0.4"
           />
         </svg>
-        <h3 className="ml-4 text-lg font-medium text-white">Rate Limits</h3>
+        <h3 className="ml-4 text-lg font-medium text-white">{t("title")}</h3>
       </div>
       <p className="mt-4 leading-6 text-white/60">
-        Per IP, per user, per API key, or any identifier that matters to you. Enforced on the edge,
-        as close to your users as possible, delivering fast and reliable rate limiting.
+        {t("body")}
       </p>
     </div>
+  );
+}
+
+function BudgetMeterIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" fill="none" className={className}>
+      <rect
+        x="6"
+        y="11"
+        width="24"
+        height="16"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <path d="M10 15H22" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <circle cx="25.5" cy="19" r="2.5" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M6 16H4V22H6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
