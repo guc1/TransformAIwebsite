@@ -2,6 +2,10 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-11-01
+
+- Updated the AI protection and budget cards so the security heading reads “AI Data Protection” and the credits, rate limit, and project pill stack cleanly without clipping at any breakpoint.
+
 ## 2025-10-31
 
 - Rebalanced the AI protection and team budgets cards by anchoring policy chips outside the text safe area, deepening the supporting gradients, fixing the JSON viewer height, and aligning the credits row with its project pill so nothing collides across breakpoints.

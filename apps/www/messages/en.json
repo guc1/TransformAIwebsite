@@ -198,7 +198,7 @@
     }
   },
   "Security": {
-    "title": "AI Data & IP Protection",
+    "title": "AI Data Protection",
     "body": "Protect your company’s intellectual property and sensitive data as you adopt AI. Enforce policies, redact confidential content, and control where data flows—without slowing teams down.",
     "badges": {
       "confidential": "Policy: Confidential",
