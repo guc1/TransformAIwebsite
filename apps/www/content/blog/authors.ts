@@ -27,6 +27,11 @@ export const authors: Authors = {
     role: "Co-Founder",
     image: { src: "/images/team/andreas.jpeg" },
   },
+  Yergush: {
+    name: "GUCCI",
+    role: "Co-Founder / CEO",
+    image: { src: "/images/team/GUC.jpg" },
+  },
   wilfred: {
     name: "Wilfred Almeida",
     role: "Freelance Writer",

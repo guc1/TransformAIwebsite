@@ -20,7 +20,7 @@ type Props = {
   };
 };
 
-export const revalidate = 3600; // 1 hour
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   return Object.keys(templates).map((slug) => ({
@@ -38,7 +38,20 @@ export default async function Templates(props: Props) {
     Language: template.language,
   };
 
-  const readme = await fetch(template.readmeUrl).then((res) => res.text());
+  let readme = "";
+  try {
+    const response = await fetch(template.readmeUrl, {
+      cache: "no-store",
+    });
+    if (response.ok) {
+      readme = await response.text();
+    }
+  } catch (error) {
+    console.error("Unable to load template readme", error);
+  }
+
+  const markdown =
+    readme || "This template&rsquo;s detailed README is temporarily unavailable. Please check back soon.";
   return (
     <>
       <div className="relative mx-auto -z-100 pt-[64px]">
@@ -162,7 +175,7 @@ export default async function Templates(props: Props) {
             rehypePlugins={[rehypeRaw]}
             components={TemplateComponents}
           >
-            {readme}
+            {markdown}
           </ReactMarkdown>
         </div>
       </div>

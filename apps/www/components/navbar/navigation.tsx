@@ -1,4 +1,5 @@
 "use client";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import {
   Drawer,
   DrawerContent,
@@ -6,12 +7,13 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { useConsentManager } from "@c15t/nextjs";
 import { track } from "@vercel/analytics";
 import { motion } from "framer-motion";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { PrimaryButton, SecondaryButton } from "../button";
 import { DesktopNavLink, MobileNavLink } from "./link";
@@ -19,6 +21,7 @@ import { DesktopNavLink, MobileNavLink } from "./link";
 export function Navigation() {
   const [scrollPercent, setScrollPercent] = useState(0);
   const { hasConsentFor } = useConsentManager();
+  const t = useTranslations("Navigation");
   const containerVariants = {
     hidden: {
       opacity: 0,
@@ -57,16 +60,17 @@ export function Navigation() {
     >
       <div className="container flex items-center justify-between">
         <div className="flex items-center justify-between w-full sm:w-auto sm:gap-12 lg:gap-20">
-          <Link href="/" aria-label="Home">
+          <Link href="/" aria-label={t("ariaHome")}>
             <Logo className="min-w-[50px]" />
           </Link>
           <MobileLinks className="lg:hidden" />
           <DesktopLinks className="hidden lg:flex" />
         </div>
-        <div className="hidden sm:flex">
+        <div className="hidden sm:flex items-center gap-3">
+          <LanguageSwitcher className="hidden md:flex" />
           <Link href="https://app.unkey.com/auth/sign-up">
             <SecondaryButton
-              label="Create Account"
+              label={t("createAccount")}
               IconRight={ChevronRight}
               className="h-8 text-sm"
               onClick={async () => {
@@ -79,7 +83,7 @@ export function Navigation() {
           <Link href="https://app.unkey.com">
             <PrimaryButton
               shiny
-              label="Sign In"
+              label={t("signIn")}
               IconRight={ChevronRight}
               className="h-8"
               onClick={async () => {
@@ -95,6 +99,7 @@ export function Navigation() {
 
 function MobileLinks({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("Navigation");
   return (
     <div className={className}>
       <Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -104,7 +109,7 @@ function MobileLinks({ className }: { className?: string }) {
             onClick={() => setIsOpen(true)}
             className="flex items-center justify-end h-8 gap-2 pl-3 py-2 text-sm duration-150 text-white/60 hover:text-white/80"
           >
-            Menu
+            {t("menu")}
             <ChevronDown className="w-4 h-4 relative top-[1px]" />
           </button>
         </DrawerTrigger>
@@ -115,49 +120,66 @@ function MobileLinks({ className }: { className?: string }) {
           <div className="relative w-full mx-auto antialiased z-[110]">
             <ul className="flex flex-col px-8 divide-y divide-white/25">
               <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/" label="Home" />
+                <MobileNavLink onClick={() => setIsOpen(false)} href="/" label={t("links.home")} />
               </li>
               <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/about" label="About" />
+                <MobileNavLink
+                  onClick={() => setIsOpen(false)}
+                  href="/about"
+                  label={t("links.about")}
+                />
               </li>
               <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/blog" label="Blog" />
+                <MobileNavLink
+                  onClick={() => setIsOpen(false)}
+                  href="/blog"
+                  label={t("links.blog")}
+                />
               </li>
               <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/pricing" label="Pricing" />
+                <MobileNavLink
+                  onClick={() => setIsOpen(false)}
+                  href="/pricing"
+                  label={t("links.pricing")}
+                />
               </li>
               <li>
                 <MobileNavLink
                   onClick={() => setIsOpen(false)}
                   href="/changelog"
-                  label="Changelog"
+                  label={t("links.changelog")}
                 />
               </li>
               <li>
                 <MobileNavLink
                   onClick={() => setIsOpen(false)}
                   href="/templates"
-                  label="Templates"
+                  label={t("links.templates")}
                 />
               </li>
               <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/docs" label="Docs" />
+                <MobileNavLink
+                  onClick={() => setIsOpen(false)}
+                  href="/docs"
+                  label={t("links.docs")}
+                />
               </li>
               <li>
                 <MobileNavLink
                   onClick={() => setIsOpen(false)}
                   href="https://go.unkey.com/discord"
-                  label="Discord"
+                  label={t("links.discord")}
                   external
                 />
               </li>
             </ul>
           </div>
           <DrawerFooter>
+            <LanguageSwitcher className="w-full justify-between" />
             <Link href="https://app.unkey.com">
               <PrimaryButton
                 shiny
-                label="Sign In"
+                label={t("signIn")}
                 IconRight={ChevronRight}
                 className="flex justify-center w-full text-center"
                 onClick={async () => {
@@ -173,7 +195,7 @@ function MobileLinks({ className }: { className?: string }) {
                 className,
               )}
             >
-              Close
+              {t("close")}
             </button>
           </DrawerFooter>
         </DrawerContent>
@@ -182,31 +204,35 @@ function MobileLinks({ className }: { className?: string }) {
   );
 }
 
-const DesktopLinks: React.FC<{ className: string }> = ({ className }) => (
-  <ul className={cn("items-center hidden gap-8 lg:flex xl:gap-12", className)}>
-    <li>
-      <DesktopNavLink href="/about" label="About" />
-    </li>
-    <li>
-      <DesktopNavLink href="/blog" label="Blog" />
-    </li>
-    <li>
-      <DesktopNavLink href="/pricing" label="Pricing" />
-    </li>
-    <li>
-      <DesktopNavLink href="/changelog" label="Changelog" />
-    </li>
-    <li>
-      <DesktopNavLink href="/templates" label="Templates" />
-    </li>
-    <li>
-      <DesktopNavLink href="/docs" label="Docs" />
-    </li>
-    <li>
-      <DesktopNavLink href="https://go.unkey.com/discord" label="Discord" external />
-    </li>
-  </ul>
-);
+const DesktopLinks: React.FC<{ className: string }> = ({ className }) => {
+  const t = useTranslations("Navigation");
+
+  return (
+    <ul className={cn("items-center hidden gap-8 lg:flex xl:gap-12", className)}>
+      <li>
+        <DesktopNavLink href="/about" label={t("links.about")} />
+      </li>
+      <li>
+        <DesktopNavLink href="/blog" label={t("links.blog")} />
+      </li>
+      <li>
+        <DesktopNavLink href="/pricing" label={t("links.pricing")} />
+      </li>
+      <li>
+        <DesktopNavLink href="/changelog" label={t("links.changelog")} />
+      </li>
+      <li>
+        <DesktopNavLink href="/templates" label={t("links.templates")} />
+      </li>
+      <li>
+        <DesktopNavLink href="/docs" label={t("links.docs")} />
+      </li>
+      <li>
+        <DesktopNavLink href="https://go.unkey.com/discord" label={t("links.discord")} external />
+      </li>
+    </ul>
+  );
+};
 
 const Logo: React.FC<{ className?: string }> = ({ className }) => (
   <svg

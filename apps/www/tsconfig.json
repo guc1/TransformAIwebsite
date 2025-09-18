@@ -20,8 +20,15 @@
         "name": "next"
       }
     ],
+    "types": [
+      "node",
+      "next",
+      "next/image-types/global",
+      "./types/images"
+    ],
     "paths": {
       "@/*": ["./*"],
+      "@/images/*": ["./images/*"],
       "content-collections": ["./.content-collections/generated"]
     }
   },
@@ -29,6 +36,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.d.ts",
     ".next/types/**/*.ts",
     ".contentlayer/generated"
   ],

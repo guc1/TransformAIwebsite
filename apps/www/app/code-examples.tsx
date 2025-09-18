@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import type { PrismTheme } from "prism-react-renderer";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -552,6 +553,8 @@ const LanguageTrigger = React.forwardRef<
 LanguageTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 export const CodeExamples: React.FC<Props> = ({ className }) => {
+  const t = useTranslations("CodeExamples");
+  const cta = useTranslations("CTA");
   const [language, setLanguage] = useState<Language>("Typescript");
   const [framework, setFramework] = useState<FrameworkName>("Typescript");
   const [languageHover, setLanguageHover] = useState("Typescript");
@@ -586,8 +589,8 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
   return (
     <section className={className}>
       <SectionTitle
-        title="Any language, any framework, always secure"
-        text="Simplify API security and access control with Unkey's developer-friendly platform. Our SDKs, intuitive REST API, and public OpenAPI spec make it easy to secure your APIs without complex configurations."
+        title={t("top.title")}
+        text={t("top.text")}
         align="center"
         className="relative"
       >
@@ -601,18 +604,14 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
           <MeteorLines className="ml-10 fade-in-40" delay={0} number={1} />
           <MeteorLines className="ml-16 fade-in-100" delay={2} number={1} />
         </div>
-        <div className="mt-10">
-          <div className="flex gap-6 pb-14">
-            <Link key="get-started" href="https://app.unkey.com">
-              <PrimaryButton shiny label="Get Started" IconRight={ChevronRight} />
-            </Link>
-            <Link key="docs" href="/docs">
-              <SecondaryButton label="Visit the docs" IconRight={ChevronRight} />
-            </Link>
-          </div>
-        </div>
       </SectionTitle>
-      <div className="relative w-full rounded-4xl border-[.75px] border-white/10 bg-gradient-to-b from-[#111111] to-black border-t-[.75px] border-t-white/20">
+      <SectionTitle
+        title={t("bottom.title")}
+        text={t("bottom.text")}
+        align="center"
+        className="relative mt-12"
+      />
+      <div className="relative w-full mt-10 rounded-4xl border-[.75px] border-white/10 bg-gradient-to-b from-[#111111] to-black border-t-[.75px] border-t-white/20">
         <div
           aria-hidden
           className="absolute pointer-events-none inset-x-16 h-[432px] bottom-[calc(100%-2rem)] bg-[radial-gradient(94.69%_94.69%_at_50%_100%,rgba(255,255,255,0.20)_0%,rgba(255,255,255,0)_55.45%)]"
@@ -654,6 +653,21 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
             />
           </div>
         </div>
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-4 mt-12">
+        <Link key="get-started" href="https://app.unkey.com">
+          <PrimaryButton
+            shiny
+            label={cta("getStarted")}
+            IconRight={ChevronRight}
+          />
+        </Link>
+        <Link key="explore-projects" href="/docs">
+          <SecondaryButton
+            label={cta("exploreProjects")}
+            IconRight={ChevronRight}
+          />
+        </Link>
       </div>
     </section>
   );

@@ -1,0 +1,241 @@
+{
+  "Metadata": {
+    "title": "Unkey",
+    "titleTemplate": "%s | Unkey",
+    "description": "Jouw transformatiepartner voor het AI-tijdperk",
+    "openGraph": {
+      "title": "Unkey",
+      "description": "Jouw transformatiepartner voor het AI-tijdperk",
+      "siteName": "unkey.com"
+    },
+    "twitter": {
+      "title": "Unkey"
+    }
+  },
+  "Navigation": {
+    "ariaHome": "Home",
+    "menu": "Menu",
+    "close": "Sluiten",
+    "createAccount": "Account aanmaken",
+    "signIn": "Inloggen",
+    "language": "Taal",
+    "links": {
+      "home": "Home",
+      "about": "Over ons",
+      "blog": "Blog",
+      "pricing": "Prijzen",
+      "changelog": "Wijzigingen",
+      "templates": "Templates",
+      "docs": "Documentatie",
+      "discord": "Discord"
+    }
+  },
+  "Hero": {
+    "title": "Jouw transformatiepartner voor het AI-tijdperk",
+    "description": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt."
+  },
+  "LogoCloud": {
+    "label": "Partners"
+  },
+  "CodeExamples": {
+    "top": {
+      "title": "Vraag alles over TransformAI aan onze AI-assistent",
+      "text": "Stel je vragen, plan een afspraak of ontdek meer over onze oplossingen en diensten."
+    },
+    "bottom": {
+      "title": "Ontdek de projecten waar wij aan hebben meegewerkt",
+      "text": "Klik door de interface hieronder om enkele projecten te ontdekken."
+    }
+  },
+  "CTA": {
+    "getStarted": "Begin Nu",
+    "exploreProjects": "Ontdek Alle projecten"
+  },
+  "Analytics": {
+    "requestAccess": "Vraag Toegang",
+    "caption": {
+      "title": "Realtime-analyse",
+      "subtitle": "Direct inzicht in AI-gebruik binnen jouw organisatie."
+    },
+    "dashboard": {
+      "sidebar": {
+        "company": "TransformAI Beta",
+        "section": "AI-werkruimte",
+        "items": {
+          "usage": "Gebruiksoverzicht",
+          "automation": "Automatiseringshub",
+          "policies": "Beleid"
+        },
+        "topUsersTitle": "Topgebruikers & agents",
+        "countLabel": "Gebruik (30 dagen)",
+        "topUsers": {
+          "sales": "Sales – SDR-bot",
+          "support": "Support – Antwoordassistent",
+          "ops": "Operations – Datacleaner",
+          "marketing": "Marketing – Contentstudio",
+          "finance": "Financiën – Forecast Copilot"
+        }
+      },
+      "header": {
+        "title": "Realtime voortgang van AI-gebruik in jouw bedrijf",
+        "pillLabel": "Gebruik (30 dagen)",
+        "pillValue": "8.642",
+        "betaBadge": "Beta"
+      },
+      "tabs": {
+        "overview": "Overzicht",
+        "teams": "Teams",
+        "tools": "Tools",
+        "policies": "Policies"
+      },
+      "metrics": {
+        "title": "Gebruik (laatste 30 dagen)",
+        "subline": "Een overzicht van wie AI gebruikt, hoeveel en waar waarde wordt gecreëerd.",
+        "items": {
+          "prompts": {
+            "label": "Ingediende prompts",
+            "value": "8.642"
+          },
+          "activeUsers": {
+            "label": "Actieve gebruikers",
+            "value": "312"
+          },
+          "teams": {
+            "label": "Teams die AI gebruiken",
+            "value": "12"
+          },
+          "responseTime": {
+            "label": "Gem. responstijd",
+            "value": "2,4 s"
+          },
+          "mostUsedTools": {
+            "label": "Meest gebruikte tools & modellen",
+            "value": "GPT-4o"
+          },
+          "invocations": {
+            "label": "Aanroepen (30 dagen)",
+            "value": "3.214"
+          }
+        },
+        "successRate": {
+          "label": "Succesratio",
+          "value": "94%",
+          "helper": "laatste 30 dagen"
+        },
+        "legend": {
+          "success": "Succes",
+          "failure": "Mislukt",
+          "policyBlocked": "Geblokkeerd door policy",
+          "timeout": "Timeout"
+        },
+        "emptyState": "Nog geen gegevens. Koppel je eerste team om AI-gebruik te meten."
+      }
+    }
+  },
+  "Activity": {
+    "sidebar": {
+      "title": "Houd AI-werk binnen je bedrijf bij",
+      "body": "Volg hoe teams AI inzetten, bekijk de voortgang per project en zie wie bijdraagt aan het werk."
+    },
+    "items": {
+      "0": {
+        "actor": "Andreas",
+        "description": "voltooide een generatie voor Project Atlas met Image Generation",
+        "meta": "12 afbeeldingen · Flux.1 Pro"
+      },
+      "1": {
+        "actor": "Support – Antwoordassistent",
+        "description": "maakte conceptantwoorden voor Incident #4281",
+        "meta": "23 concepten · Llama 3.1-70B"
+      },
+      "2": {
+        "actor": "Operations – Datacleaner",
+        "description": "normaliseerde klantrecords in CRM Sync",
+        "meta": "5.200 rijen · RAG-pijplijn"
+      },
+      "3": {
+        "actor": "Design – Image Studio",
+        "description": "tagde assets in Brand Library",
+        "meta": "48 afbeeldingen · CLIP-tags"
+      },
+      "4": {
+        "actor": "Finance – Forecast Bot",
+        "description": "genereerde kasstroomprognose voor Q3 Plan",
+        "meta": "3 scenario’s · Timeseries v2"
+      }
+    }
+  },
+  "Platform": {
+    "title": "Ons platform (Beta)",
+    "text": "Wij bouwen aan het beste platform waarmee bedrijven AI moeiteloos in hun organisatie kunnen inzetten."
+  },
+  "Footer": {
+    "tagline": "Bouw betere API's sneller.",
+    "copyright": "Unkeyed, Inc. {year}",
+    "sections": {
+      "company": "Bedrijf",
+      "resources": "Resources",
+      "connect": "Contact",
+      "legal": "Juridisch"
+    },
+    "links": {
+      "about": "Over ons",
+      "roadmap": "Roadmap",
+      "careers": "Carrières",
+      "sourceCode": "Broncode",
+      "status": "Statuspagina",
+      "blog": "Blog",
+      "changelog": "Wijzigingen",
+      "templates": "Templates",
+      "docs": "Documentatie",
+      "glossary": "Woordenlijst",
+      "twitter": "X (Twitter)",
+      "discord": "Discord",
+      "ossFriends": "OSS-vrienden",
+      "bookCall": "Plan een gesprek",
+      "terms": "Servicevoorwaarden",
+      "privacy": "Privacybeleid"
+    }
+  },
+  "Security": {
+    "title": "Bescherming van AI-data",
+    "body": "Bescherm het intellectuele eigendom en de gevoelige data van je organisatie bij het inzetten van AI. Handhaaf policies, redacteer vertrouwelijke inhoud en beheer datastromen—zonder teams te vertragen.",
+    "badges": {
+      "confidential": "Beleid: Vertrouwelijk",
+      "internal": "Beleid: Intern",
+      "public": "Beleid: Publiek"
+    },
+    "captions": {
+      "pii": "PII-redactie",
+      "access": "Modeltoegangsbeheer",
+      "residency": "Data-residentie"
+    }
+  },
+  "Workflows": {
+    "title": "Organiseer teamworkflows",
+    "body": "Met de app ontwerpen teams aangepaste workflows om de beste AI-gedreven producten te maken en te leveren.",
+    "imageAlt": "Workflowcompositie-diagram"
+  },
+  "Budgets": {
+    "title": "Rate limits & teambudgetten",
+    "body": "Wijs budgetten toe aan teams en projecten, stel fair-use-limieten in en voorkom overschrijdingen. Houd AI-kosten voorspelbaar met voldoende ruimte voor teams.",
+    "creditsLabel": "Credits: 3.240 / 10.000",
+    "projectPill": "project 22",
+    "rateLimitPill": "Limiet: 100 req/s"
+  },
+  "Language": {
+    "selectTitle": "Selecteer taal",
+    "english": "Engels",
+    "dutch": "Nederlands",
+    "submit": "Doorgaan"
+  },
+  "LanguageSwitcher": {
+    "label": "Taal wijzigen",
+    "current": "Huidige taal: {language}"
+  },
+  "NotFound": {
+    "heading": "Niet gevonden.",
+    "cta": "Ga naar de homepage",
+    "tagline": "Bouw betere API's sneller."
+  }
+}
