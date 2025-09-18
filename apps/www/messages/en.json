@@ -132,6 +132,39 @@
       }
     }
   },
+  "Activity": {
+    "sidebar": {
+      "title": "Track AI work across your company",
+      "body": "Monitor how AI is used across teams, see progress on projects, and understand who contributes to the work."
+    },
+    "items": {
+      "0": {
+        "actor": "Andreas",
+        "description": "completed a generation for Project Atlas using Image Generation",
+        "meta": "12 images · Flux.1 Pro"
+      },
+      "1": {
+        "actor": "Support – Reply Assist",
+        "description": "drafted email replies for Incident #4281",
+        "meta": "23 drafts · Llama 3.1-70B"
+      },
+      "2": {
+        "actor": "Ops – Data Cleaner",
+        "description": "normalized customer records in CRM Sync",
+        "meta": "5,200 rows · RAG pipeline"
+      },
+      "3": {
+        "actor": "Design – Image Studio",
+        "description": "tagged assets in Brand Library",
+        "meta": "48 images · CLIP tags"
+      },
+      "4": {
+        "actor": "Finance – Forecast Bot",
+        "description": "generated cash-flow forecast for Q3 Plan",
+        "meta": "3 scenarios · Timeseries v2"
+      }
+    }
+  },
   "Platform": {
     "title": "Our Platform (Beta)",
     "text": "We’re building the best platform to help businesses seamlessly integrate AI into their operations."

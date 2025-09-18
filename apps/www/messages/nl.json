@@ -132,6 +132,39 @@
       }
     }
   },
+  "Activity": {
+    "sidebar": {
+      "title": "Houd AI-werk binnen je bedrijf bij",
+      "body": "Volg hoe teams AI inzetten, bekijk de voortgang per project en zie wie bijdraagt aan het werk."
+    },
+    "items": {
+      "0": {
+        "actor": "Andreas",
+        "description": "voltooide een generatie voor Project Atlas met Image Generation",
+        "meta": "12 afbeeldingen · Flux.1 Pro"
+      },
+      "1": {
+        "actor": "Support – Antwoordassistent",
+        "description": "maakte conceptantwoorden voor Incident #4281",
+        "meta": "23 concepten · Llama 3.1-70B"
+      },
+      "2": {
+        "actor": "Operations – Datacleaner",
+        "description": "normaliseerde klantrecords in CRM Sync",
+        "meta": "5.200 rijen · RAG-pijplijn"
+      },
+      "3": {
+        "actor": "Design – Image Studio",
+        "description": "tagde assets in Brand Library",
+        "meta": "48 afbeeldingen · CLIP-tags"
+      },
+      "4": {
+        "actor": "Finance – Forecast Bot",
+        "description": "genereerde kasstroomprognose voor Q3 Plan",
+        "meta": "3 scenario’s · Timeseries v2"
+      }
+    }
+  },
   "Platform": {
     "title": "Ons platform (Beta)",
     "text": "Wij bouwen aan het beste platform waarmee bedrijven AI moeiteloos in hun organisatie kunnen inzetten."
