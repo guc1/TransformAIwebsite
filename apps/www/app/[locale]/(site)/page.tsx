@@ -16,7 +16,19 @@ import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero
 import { OssLight } from "@/components/svg/oss-light";
 import { UsageBento } from "@/components/usage-bento";
 import { isLocale } from "@/i18n/routing";
-import { ChevronRight, LogIn } from "lucide-react";
+import {
+  BarChart3,
+  ChevronRight,
+  Clock,
+  GraduationCap,
+  LineChart,
+  LogIn,
+  Puzzle,
+  Rocket,
+  Scale,
+  Sprout,
+  Zap,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -85,11 +97,30 @@ export default async function Landing({
     notFound();
   }
 
-  const [cta, platform, hero] = await Promise.all([
+  const [cta, platform, hero, featureSection] = await Promise.all([
     getTranslations({ locale, namespace: "CTA" }),
     getTranslations({ locale, namespace: "Platform" }),
     getTranslations({ locale, namespace: "Hero" }),
+    getTranslations({ locale, namespace: "FeatureSection" }),
   ]);
+
+  const featureBoxes = [
+    { key: "futureProofWorkforce", icon: GraduationCap },
+    { key: "revenueStreamAnalysis", icon: BarChart3 },
+    { key: "newOpportunities", icon: Sprout },
+    { key: "platformEfficiency", icon: Zap },
+    { key: "rightTiming", icon: Clock },
+    { key: "legalAssurance", icon: Scale },
+    { key: "agileExecution", icon: Rocket },
+    { key: "multiFieldExpertise", icon: Puzzle },
+    { key: "dataDrivenDecisions", icon: LineChart },
+  ] as const;
+
+  const featureItems = featureBoxes.map(({ key, icon }) => ({
+    icon,
+    title: featureSection(`boxes.${key}.title`),
+    description: featureSection(`boxes.${key}.description`),
+  }));
 
   return (
     <>
@@ -193,8 +224,8 @@ export default async function Landing({
               {/* TODO: horizontal scroll */}
               <SectionTitle
                 className="mt-8 md:mt-16 lg:mt-32 xl:mt-48"
-                title="Leveled-up API development"
-                text="You gain enhanced security, low latency, and better control, enabling seamless API integration and unparalleled data protection."
+                title={featureSection("title")}
+                text={featureSection("text")}
               >
                 <div className="flex mt-10 mb-10 space-x-6">
                   <Link href="https://app.unkey.com" className="group">
@@ -215,7 +246,7 @@ export default async function Landing({
                 </div>
               </SectionTitle>
             </div>
-            <FeatureGrid className="relative z-50 mt-20" />
+            <FeatureGrid className="relative z-50 mt-20" items={featureItems} />
             <div className="relative -z-10">
               <FeatureGridChip className="absolute top-[50px] left-[400px]" />
             </div>

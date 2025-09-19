@@ -171,6 +171,48 @@
     "title": "Ons platform (Beta)",
     "text": "Wij bouwen aan het beste platform waarmee bedrijven AI moeiteloos in hun organisatie kunnen inzetten."
   },
+  "FeatureSection": {
+    "title": "Breng jouw AI-adoptie naar een hoger niveau",
+    "text": "De overgang naar AI gaat verder dan alleen een platform. Onze oplossing bundelt best practices met praktische begeleiding om bedrijven te helpen zich op alle vlakken aan te passen—technologie, mensen en processen—zodat integraties het meeste succes opleveren.",
+    "boxes": {
+      "futureProofWorkforce": {
+        "title": "Toekomstbestendig personeelsbestand",
+        "description": "Leid medewerkers op om productiever te worden en hun waarde voor de organisatie te behouden."
+      },
+      "revenueStreamAnalysis": {
+        "title": "Analyse van inkomstenstromen",
+        "description": "Breng in kaart hoe AI huidige inkomstenstromen beïnvloedt en pas strategieën aan."
+      },
+      "newOpportunities": {
+        "title": "Nieuwe kansen",
+        "description": "Ontdek en ontwikkel nieuwe inkomstenstromen mogelijk gemaakt door AI."
+      },
+      "platformEfficiency": {
+        "title": "Platformefficiëntie",
+        "description": "Bereik 11x productiviteit, lagere kosten en meer organisatorisch overzicht met ons platform."
+      },
+      "rightTiming": {
+        "title": "Juiste timing",
+        "description": "Zorg dat AI-integraties op het juiste moment worden uitgerold voor maximale impact."
+      },
+      "legalAssurance": {
+        "title": "Juridische zekerheid",
+        "description": "Voldoe altijd aan data- en AI-regelgeving wereldwijd."
+      },
+      "agileExecution": {
+        "title": "Wendbare uitvoering",
+        "description": "Dankzij een klein team bewegen wij sneller dan concurrenten, zodat jij voorop blijft."
+      },
+      "multiFieldExpertise": {
+        "title": "Multidisciplinaire expertise",
+        "description": "Onderzoek, training, integraties en productontwikkeling—onze brede scope leidt tot complete oplossingen."
+      },
+      "dataDrivenDecisions": {
+        "title": "Data-gedreven beslissingen",
+        "description": "Onze onderzoeks- en datateams zorgen dat elke stap onderbouwd is met data."
+      }
+    }
+  },
   "Footer": {
     "tagline": "Bouw betere API's sneller.",
     "copyright": "Unkeyed, Inc. {year}",
