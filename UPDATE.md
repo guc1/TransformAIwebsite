@@ -2,6 +2,10 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-11-10
+
+- Updated the global CTA component to load localized headings, body copy, button labels, and urgency note from a dedicated `Cta` translation namespace while keeping the existing layout and analytics tracking intact.
+
 ## 2025-11-09
 
 - Refocused the API feature section around AI adoption by wiring new localized copy, lucide icons, and feature data into the existing grid while preserving the legacy boxes for reference.

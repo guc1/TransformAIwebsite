@@ -3,6 +3,15 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-11-10 — “Replace global CTA block copy via i18n”
+
+- **User ask / Bug:** Refresh the reusable CTA near the footer with the new English and Dutch messaging, updated button labels, and localized urgency note without altering its layout or behavior.
+- **Fix:**
+  - Added a `Cta` translation namespace with the supplied English and Dutch strings and wired the CTA component to read them through `next-intl`.
+  - Rendered the localized body copy and urgency note while keeping the existing analytics tracking, button styling, and links intact.
+- **Files:** `apps/www/components/cta.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`, `FIX.md`.
+- **Follow-ups:** None.
+
 ## 2025-11-09 — “Refocus AI adoption feature section”
 
 - **User ask / Bug:** Replace the “Leveled-up API development” heading and nine Unkey-era feature boxes with new AI adoption messaging and lucide icons, localized for English and Dutch visitors.

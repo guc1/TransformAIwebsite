@@ -53,6 +53,13 @@
     "getStarted": "Begin Nu",
     "exploreProjects": "Ontdek alle projecten"
   },
+  "Cta": {
+    "title": "Zet de stap naar het AI-tijdperk",
+    "body": "Wij helpen jouw bedrijf naar meer productiviteit, efficiëntie en innovatie met een naadloze AI-transitie.",
+    "primary": "Chat met ons",
+    "secondary": "Aan de slag",
+    "note": "We helpen slechts een beperkt aantal bedrijven tegelijk—neem snel contact op om jouw plek te verzekeren."
+  },
   "Analytics": {
     "requestAccess": "Vraag Toegang",
     "caption": {
