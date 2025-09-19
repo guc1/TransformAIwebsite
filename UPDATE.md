@@ -2,6 +2,14 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-11-08
+
+- Ensured the homepage CTA section loads translations with the active locale so Dutch visitors see the localized heading and body copy instead of the English fallback.
+
+## 2025-11-07
+
+- Updated the hero CTA translations so the AI productivity heading keeps the refined English and Dutch body copy requested for the lower section.
+
 ## 2025-11-06
 
 - Split the homepage hero translations so the main headline keeps the "Transformation Partner" copy while the lower CTA section now reads the new AI productivity messaging in both English and Dutch.
