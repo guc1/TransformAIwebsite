@@ -3,6 +3,13 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-11-09 — “Refocus AI adoption feature section”
+
+- **User ask / Bug:** Replace the “Leveled-up API development” heading and nine Unkey-era feature boxes with new AI adoption messaging and lucide icons, localized for English and Dutch visitors.
+- **Fix:** Wired a dedicated `FeatureSection` translation namespace for the heading, paragraph, and feature copy, passed the translated data into the grid with the requested lucide icons, and preserved the legacy feature markup for future reuse while updating the section title rendering.
+- **Files:** `apps/www/app/[locale]/(site)/page.tsx`, `apps/www/components/feature/feature-grid.tsx`, `apps/www/components/feature/feature.tsx`, `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`, `FIX.md`.
+- **Follow-ups:** None.
+
 ## 2025-11-08 — “Dutch CTA fallback shows English copy”
 
 - **User ask / Bug:** The lower homepage CTA still rendered the English heading and paragraph when visiting the Dutch locale.

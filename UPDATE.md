@@ -2,6 +2,10 @@
 
 > Append a new dated entry at the **top** for every meaningful change. Keep it short, factual, and useful for future agents.
 
+## 2025-11-09
+
+- Refocused the API feature section around AI adoption by wiring new localized copy, lucide icons, and feature data into the existing grid while preserving the legacy boxes for reference.
+
 ## 2025-11-08
 
 - Ensured the homepage CTA section loads translations with the active locale so Dutch visitors see the localized heading and body copy instead of the English fallback.
