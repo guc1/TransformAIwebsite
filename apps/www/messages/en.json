@@ -53,6 +53,13 @@
     "getStarted": "Get Started",
     "exploreProjects": "Explore All projects"
   },
+  "Cta": {
+    "title": "Unlock your company’s AI advantage",
+    "body": "Experience the boost in productivity, efficiency, and innovation that comes with a seamless AI transition.",
+    "primary": "Chat with us",
+    "secondary": "Get Started",
+    "note": "We only support a limited number of companies at the same time—reach out quickly to secure your spot."
+  },
   "Analytics": {
     "requestAccess": "Request Access",
     "caption": {
