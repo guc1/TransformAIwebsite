@@ -32,6 +32,12 @@ type LandingPageMetadataProps = {
   };
 };
 
+type LandingPageProps = {
+  params: {
+    locale: string;
+  };
+};
+
 export async function generateMetadata({
   params,
 }: LandingPageMetadataProps): Promise<Metadata> {
@@ -70,11 +76,19 @@ export async function generateMetadata({
   };
 }
 
-export default async function Landing() {
+export default async function Landing({
+  params,
+}: LandingPageProps) {
+  const { locale } = params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
   const [cta, platform, hero] = await Promise.all([
-    getTranslations("CTA"),
-    getTranslations("Platform"),
-    getTranslations("Hero"),
+    getTranslations({ locale, namespace: "CTA" }),
+    getTranslations({ locale, namespace: "Platform" }),
+    getTranslations({ locale, namespace: "Hero" }),
   ]);
 
   return (

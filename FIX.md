@@ -3,6 +3,22 @@
 > Track **what the user wanted** and **how you fixed it** (technical detail).
 > Always add a new entry at the **top**; reference files, functions, and rationale.
 
+## 2025-11-08 — “Dutch CTA fallback shows English copy”
+
+- **User ask / Bug:** The lower homepage CTA still rendered the English heading and paragraph when visiting the Dutch locale.
+- **Fix:**
+  - Updated the locale landing page to pass the active locale into each `getTranslations` call so the section resolves Dutch messages instead of the English fallback.
+  - Recorded the change in the project history files for future agents.
+- **Files:** `apps/www/app/[locale]/(site)/page.tsx`, `UPDATE.md`, `FIX.md`.
+- **Follow-ups:** None.
+
+## 2025-11-07 — “Refine CTA translation copy”
+
+- **User ask / Bug:** Replace the hero CTA heading and paragraph text with the supplied refined English and Dutch messaging while leaving the rest of the page unchanged.
+- **Fix:** Updated the `Hero.secondaryBody` strings in the English and Dutch locale catalogs to match the provided copy without touching other sections.
+- **Files:** `apps/www/messages/en.json`, `apps/www/messages/nl.json`, `UPDATE.md`, `FIX.md`.
+- **Follow-ups:** None.
+
 ## 2025-11-06 — “Decouple hero copy for stacked sections”
 
 - **User ask / Bug:** Keep the top-of-page hero text on the original “Transformation Partner” messaging while letting the lower CTA section display the new AI productivity copy; both blocks were sharing the same translation keys so they changed together.
