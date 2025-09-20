@@ -181,6 +181,50 @@
       }
     }
   },
+  "Pricing": {
+    "Table": {
+      "title": "Compare plans",
+      "columns": {
+        "features": "Features"
+      },
+      "tiers": {
+        "t1": "Tier 1",
+        "t2": "Tier 2",
+        "t3": "Tier 3",
+        "price": {
+          "t1": "$299/mo",
+          "t2": "$799/mo",
+          "t3": "$1,999/mo"
+        }
+      },
+      "categories": {
+        "research": "Research",
+        "education": "Education"
+      },
+      "rows": {
+        "analyzeIntegrations": "Analyze company integrations",
+        "buildCustomModel": "Build custom model",
+        "exploreResearch": "Explore research fields",
+        "courseV1": "Education course V1",
+        "courseV2": "Education course V2",
+        "courseV3": "Education course V3"
+      },
+      "availability": {
+        "included": "Included",
+        "notIncluded": "Not included",
+        "partial": "Limited availability"
+      },
+      "notes": {
+        "limitedScope": "Limited scope",
+        "fullSupport": "Full support"
+      },
+      "cta": {
+        "chooseT1": "Choose Tier 1",
+        "chooseT2": "Choose Tier 2",
+        "chooseT3": "Choose Tier 3"
+      }
+    }
+  },
   "Platform": {
     "title": "Our Platform (Beta)",
     "text": "We’re building the best platform to help businesses seamlessly integrate AI into their operations."
