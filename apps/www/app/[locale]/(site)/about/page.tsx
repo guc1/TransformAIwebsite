@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 import { BorderBeam } from "@/components/border-beam";
 import { RainbowDarkButton } from "@/components/button";
@@ -111,6 +112,11 @@ const offsiteImages = [
 ];
 
 export default async function Page() {
+  const t = await getTranslations("About");
+  const heroTitle = t("Hero.title");
+  const heroBody = t("Hero.body");
+  const heroCta = t("Hero.cta");
+
   const posts = allPosts.filter((post) => SELECTED_POSTS.includes(post.slug));
   return (
     <div>
@@ -134,12 +140,12 @@ export default async function Page() {
           </div>
           <div className="mt-12">
             <Link href="/blog/introducing-ratelimiting" target="">
-              <RainbowDarkButton label="New: global rate limiting" IconRight={ArrowRight} />
+              <RainbowDarkButton label={heroCta} IconRight={ArrowRight} />
             </Link>
             <SectionTitle
-              title="API management for fast and scalable software"
+              title={heroTitle}
               align="center"
-              text="Unkey redefines API management for developers. You can add authentication, analytics, and rate-limiting to your APIs in minutes. "
+              text={heroBody}
             />
           </div>
           <div className="relative mt-[200px] xl:mt-[400px]">
