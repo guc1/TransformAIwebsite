@@ -181,6 +181,50 @@
       }
     }
   },
+  "Pricing": {
+    "Table": {
+      "title": "Vergelijk pakketten",
+      "columns": {
+        "features": "Functies"
+      },
+      "tiers": {
+        "t1": "Pakket 1",
+        "t2": "Pakket 2",
+        "t3": "Pakket 3",
+        "price": {
+          "t1": "$299 p/m",
+          "t2": "$799 p/m",
+          "t3": "$1.999 p/m"
+        }
+      },
+      "categories": {
+        "research": "Onderzoek",
+        "education": "Educatie"
+      },
+      "rows": {
+        "analyzeIntegrations": "Analyseer bedrijfsintegraties",
+        "buildCustomModel": "Bouw een maatwerkmodel",
+        "exploreResearch": "Verken onderzoeksgebieden",
+        "courseV1": "Educatiecursus V1",
+        "courseV2": "Educatiecursus V2",
+        "courseV3": "Educatiecursus V3"
+      },
+      "availability": {
+        "included": "Inbegrepen",
+        "notIncluded": "Niet inbegrepen",
+        "partial": "Beperkte beschikbaarheid"
+      },
+      "notes": {
+        "limitedScope": "Beperkte scope",
+        "fullSupport": "Volledige ondersteuning"
+      },
+      "cta": {
+        "chooseT1": "Kies Pakket 1",
+        "chooseT2": "Kies Pakket 2",
+        "chooseT3": "Kies Pakket 3"
+      }
+    }
+  },
   "Platform": {
     "title": "Ons platform (Beta)",
     "text": "Wij bouwen aan het beste platform waarmee bedrijven AI moeiteloos in hun organisatie kunnen inzetten."

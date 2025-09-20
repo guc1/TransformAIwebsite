@@ -1,6 +1,7 @@
 "use client";
 import { CTA } from "@/components/cta";
 import { Particles } from "@/components/particles";
+import { PricingCompareTable } from "@/components/pricing/pricing-compare-table";
 import { ShinyCardGroup } from "@/components/shiny-card";
 import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero";
 import { Check, Stars } from "lucide-react";
@@ -95,8 +96,11 @@ export default function PricingPage() {
         </p>  */}
       </div>
 
-      <ShinyCardGroup className="grid h-full max-w-4xl grid-cols-2 gap-6 mx-auto group">
-        <PricingCard color={Color.White} className="col-span-2 md:col-span-1">
+      <PricingCompareTable />
+
+      <ShinyCardGroup className="grid h-full max-w-4xl grid-cols-2 gap-6 mx-auto mt-16 group">
+        <div id="tier-1" className="col-span-2 md:col-span-1">
+          <PricingCard color={Color.White} className="h-full">
           <FreeCardHighlight className="absolute top-0 right-0 pointer-events-none" />
 
           <PricingCardHeader
@@ -149,7 +153,9 @@ export default function PricingPage() {
             </div>
           </PricingCardFooter>
         </PricingCard>
-        <PricingCard color={Color.Yellow} className="col-span-2 md:col-span-1">
+        </div>
+        <div id="tier-2" className="col-span-2 md:col-span-1">
+          <PricingCard color={Color.Yellow} className="h-full">
           <ProCardHighlight className="absolute top-0 right-0 pointer-events-none" />
 
           <PricingCardHeader
@@ -217,9 +223,11 @@ export default function PricingPage() {
               </p>
             </div>
           </PricingCardFooter>
-        </PricingCard>
+          </PricingCard>
+        </div>
 
-        <PricingCard color={Color.Purple} className="col-span-2">
+        <div id="tier-3" className="col-span-2">
+          <PricingCard color={Color.Purple} className="h-full">
           <EnterpriseCardHighlight className="absolute top-0 right-0 pointer-events-none" />
 
           <div className="flex flex-col h-full md:flex-row">
@@ -274,7 +282,8 @@ export default function PricingPage() {
               </Bullets>
             </div>
           </div>
-        </PricingCard>
+          </PricingCard>
+        </div>
       </ShinyCardGroup>
       <BelowEnterpriseSvg className="container inset-x-0 top-0 mx-auto -mt-64 -mb-32" />
 
