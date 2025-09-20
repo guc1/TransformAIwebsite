@@ -36,6 +36,13 @@
     "secondaryTitle": "Geoptimaliseerd voor AI-productiviteit en prestaties",
     "secondaryBody": "Ons platform helpt bedrijven productiever te werken, kosten te verlagen en AI-prestaties te verbeteren. Het bouwt voort op bestaande structuren om resultaten te versterken, en biedt aanpasbaarheid, langdurige betrouwbaarheid en eenvoudige modelselectie voor elke use-case."
   },
+  "About": {
+    "Hero": {
+      "title": "Het bouwen van veerkrachtige AI-structuren binnen organisaties",
+      "body": "AI verandert alles en vraagt om structurele aanpassingen in iedere afdeling van je bedrijf. Door de complexiteit is het niet eenvoudig om dit succesvol te realiseren. Dankzij onze expertise kan jouw organisatie zich duurzaam aanpassen en profiteren van de voordelen van AI.",
+      "cta": "Casestudy: AI-integratie"
+    }
+  },
   "LogoCloud": {
     "label": "Partners"
   },
