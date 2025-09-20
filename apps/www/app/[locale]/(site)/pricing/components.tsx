@@ -15,8 +15,9 @@ export const PricingCardHeader: React.FC<{
   description: React.ReactNode;
   className?: string;
   color: Color;
+  icon?: LucideIcon;
   withIcon?: boolean;
-}> = ({ title, description, className, color, withIcon = true }) => {
+}> = ({ title, description, className, color, icon: Icon, withIcon = true }) => {
   return (
     <div
       className={cn(
@@ -30,7 +31,7 @@ export const PricingCardHeader: React.FC<{
         </span>
         <p className="mt-4 text-sm text-white/60">{description}</p>
       </div>
-      {withIcon ? (
+      {withIcon && Icon ? (
         <div
           className={cn(
             "relative z-30 flex items-center justify-center ring-1 h-14 min-w-14 w-14 duration-150 rounded-xl backdrop-blur rounded-2 overflow-hidden drop-shadow-[0_20px_20px_rgba(256,0,0,1) ]",
@@ -54,28 +55,38 @@ export const PricingCardHeader: React.FC<{
               "from-[#9D72FF]/50": color === Color.Purple,
             })}
           />
-          <KeyIcon color={color} />
+          <Icon
+            className={cn("h-6 w-6", {
+              "text-white": color === Color.White,
+              "text-[#FFD600]": color === Color.Yellow,
+              "text-[#9D72FF]": color === Color.Purple,
+            })}
+          />
         </div>
       ) : null}
     </div>
   );
 };
 
-export const Cost: React.FC<{ dollar: string; className?: string }> = ({ dollar, className }) => {
+export const Cost: React.FC<{ dollar: string; className?: string; frequency?: string }> = ({
+  dollar,
+  className,
+  frequency,
+}) => {
   return (
     <div className={cn("flex items-center gap-4", className)}>
       <span className="text-4xl font-semibold text-transparent bg-gradient-to-br bg-clip-text from-white via-white to-white/30">
         {dollar}
       </span>
-      <span className=" text-white/60">/ month</span>
+      {frequency ? <span className=" text-white/60">{frequency}</span> : null}
     </div>
   );
 };
 
-export const Button: React.FC<{ label: string }> = ({ label }) => {
+export const Button: React.FC<{ label: string; href: string }> = ({ label, href }) => {
   return (
     <div>
-      <Link href="https://app.unkey.com">
+      <Link href={href}>
         <button
           type="button"
           className="block w-full h-10 text-sm font-semibold text-center text-black duration-500 bg-white border border-white rounded-lg hover:bg-transparent hover:text-white"
@@ -87,10 +98,10 @@ export const Button: React.FC<{ label: string }> = ({ label }) => {
   );
 };
 
-export const Bullets: React.FC<PropsWithChildren> = ({ children }) => {
+export const Bullets: React.FC<PropsWithChildren<{ title: string }>> = ({ children, title }) => {
   return (
     <div>
-      <p className="text-white/50">What's included:</p>
+      <p className="text-white/50">{title}</p>
       <ul className="flex flex-col gap-4 mt-6">{children}</ul>
     </div>
   );
@@ -180,54 +191,6 @@ export const PricingCard: React.FC<PropsWithChildren<{ color: Color; className?:
   );
 };
 
-export const KeyIcon: React.FC<{ className?: string; color: Color }> = ({ className, color }) => {
-  return (
-    <svg
-      className={className}
-      width="26"
-      height="26"
-      viewBox="0 0 26 26"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M14.9998 14.9999L17.9998 17.9999L24.9998 10.9999L14.9998 0.999878L7.99976 7.99988L10.9998 10.9999L0.999756 20.9999V24.9999H6.99976V20.9999H10.9998V18.9999L14.9998 14.9999Z"
-        fill={`url(#paint0_linear_2076_26_${color})`}
-      />
-      <path
-        d="M14.9998 7.99988L17.9998 10.9999M0.999756 24.9999H6.99976V20.9999H10.9998V18.9999L14.9998 14.9999L10.9998 10.9999L0.999756 20.9999V24.9999ZM7.99976 7.99988L17.9998 17.9999L24.9998 10.9999L14.9998 0.999878L7.99976 7.99988Z"
-        stroke={`url(#paint1_linear_2076_26_${color})`}
-        strokeWidth="0.75"
-      />
-      <defs>
-        <linearGradient
-          id={`paint0_linear_2076_26_${color}`}
-          x1="12.9998"
-          y1="0.999878"
-          x2="12.9998"
-          y2="24.9999"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor={color} stopOpacity="0" />
-          <stop offset="0.5" stopColor={color} stopOpacity="0" />
-          <stop offset="1" stopColor={color} stopOpacity="0.1" />
-        </linearGradient>
-        <linearGradient
-          id={`paint1_linear_2076_26_${color}`}
-          x1="12.9998"
-          y1="0.999878"
-          x2="12.9998"
-          y2="24.9999"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor={color} />
-          <stop offset="0.5" stopColor={color} stopOpacity="0.3" />
-          <stop offset="1" stopColor={color} stopOpacity="0.1" />
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-};
 export const FreeCardHighlight: React.FC<{ className: string }> = ({ className }) => {
   return (
     <svg
