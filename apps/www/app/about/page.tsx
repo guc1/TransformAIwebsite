@@ -1,6 +1,10 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { cookies, headers } from "next/headers";
+import { createTranslator } from "next-intl";
+import type { AbstractIntlMessages } from "next-intl";
+import type { ReactNode } from "react";
 
 import { BorderBeam } from "@/components/border-beam";
 import { RainbowDarkButton } from "@/components/button";
@@ -20,6 +24,8 @@ import { CTA } from "@/components/cta";
 import { AboutLight } from "@/components/svg/about-light";
 import { StarDots } from "@/components/svg/star-dots";
 import { authors } from "@/content/blog/authors";
+import enMessages from "@/messages/en.json";
+import nlMessages from "@/messages/nl.json";
 
 import { allPosts } from "content-collections";
 
@@ -110,8 +116,160 @@ const offsiteImages = [
   { src: yardwork, label: "Caffeinated" },
 ];
 
-export default async function Page() {
+type PageSearchParams = Record<string, string | string[] | undefined>;
+
+type FounderTranslator = {
+  (key: "title"): string;
+  rich(
+    key: "body",
+    values: {
+      founder: (chunks: ReactNode) => ReactNode;
+    },
+  ): ReactNode;
+};
+
+const SUPPORTED_LOCALES = ["en", "nl"] as const;
+type Locale = (typeof SUPPORTED_LOCALES)[number];
+
+const DEFAULT_LOCALE: Locale = "en";
+const LOCALE_COOKIE = "NEXT_LOCALE";
+
+const LOCALE_MESSAGES: Record<Locale, AbstractIntlMessages> = {
+  en: enMessages as AbstractIntlMessages,
+  nl: nlMessages as AbstractIntlMessages,
+};
+
+function pickFirstValue(value?: string | string[]): string | undefined {
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+
+  return value;
+}
+
+function isSupportedLocale(locale: string | null | undefined): locale is Locale {
+  if (!locale) {
+    return false;
+  }
+
+  return (SUPPORTED_LOCALES as readonly string[]).includes(locale);
+}
+
+function parseAcceptLanguage(acceptLanguage?: string | null): Locale | null {
+  if (!acceptLanguage) {
+    return null;
+  }
+
+  const candidates = acceptLanguage.split(",").map((part) => {
+    const [language] = part.trim().split(";");
+    return language.toLowerCase();
+  });
+
+  for (const candidate of candidates) {
+    const base = candidate.split("-")[0];
+    if (isSupportedLocale(base)) {
+      return base;
+    }
+  }
+
+  return null;
+}
+
+function resolveLocale({
+  searchParams,
+  cookieLocale,
+  acceptLanguage,
+}: {
+  searchParams?: PageSearchParams;
+  cookieLocale?: string;
+  acceptLanguage?: string | null;
+}): Locale {
+  const searchParamLocale = pickFirstValue(searchParams?.locale);
+  if (isSupportedLocale(searchParamLocale)) {
+    return searchParamLocale;
+  }
+
+  if (isSupportedLocale(cookieLocale)) {
+    return cookieLocale;
+  }
+
+  const headerLocale = parseAcceptLanguage(acceptLanguage);
+  if (headerLocale) {
+    return headerLocale;
+  }
+
+  return DEFAULT_LOCALE;
+}
+
+function mergeMessages(
+  base: AbstractIntlMessages,
+  override?: AbstractIntlMessages,
+): AbstractIntlMessages {
+  const result = structuredClone(base) as AbstractIntlMessages;
+
+  if (!override) {
+    return result;
+  }
+
+  for (const [key, value] of Object.entries(override)) {
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      const existing = result[key];
+      if (existing && typeof existing === "object" && !Array.isArray(existing)) {
+        result[key] = mergeMessages(
+          existing as AbstractIntlMessages,
+          value as AbstractIntlMessages,
+        );
+      } else {
+        result[key] = structuredClone(value) as AbstractIntlMessages;
+      }
+    } else {
+      result[key] = value;
+    }
+  }
+
+  return result;
+}
+
+function getMessages(locale: Locale): AbstractIntlMessages {
+  if (locale === DEFAULT_LOCALE) {
+    return LOCALE_MESSAGES[DEFAULT_LOCALE];
+  }
+
+  return mergeMessages(
+    LOCALE_MESSAGES[DEFAULT_LOCALE],
+    LOCALE_MESSAGES[locale],
+  );
+}
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: PageSearchParams;
+}) {
   const posts = allPosts.filter((post) => SELECTED_POSTS.includes(post.slug));
+
+  const cookieStore = cookies();
+  const headerList = headers();
+
+  const locale = resolveLocale({
+    searchParams,
+    cookieLocale: cookieStore.get(LOCALE_COOKIE)?.value,
+    acceptLanguage: headerList.get("accept-language"),
+  });
+
+  const messages = getMessages(locale);
+
+  const founderTranslator = createTranslator({
+    locale,
+    namespace: "About.Founder",
+    messages,
+  }) as unknown as FounderTranslator;
+
+  const founderTitle = founderTranslator("title");
+  const founderBody = founderTranslator.rich("body", {
+    founder: (chunks) => <span className="font-medium text-white">{chunks}</span>,
+  });
+
   return (
     <div>
       <Container>
@@ -161,14 +319,10 @@ export default async function Page() {
             </div>
             <div className="about-radial relative px-[50px] md:px-[144px] pb-[100px] pt-[60px] overflow-hidden bg-black text-white flex flex-col items-center rounded-[48px] border-l border-r border-b border-white/[0.15]">
               <h2 className="text-[32px] font-medium leading-[48px] mt-10 text-center text-balance">
-                Founded to redefine the API management landscape
+                {founderTitle}
               </h2>
               <p className="mt-[40px] text-white/50 leading-[32px] max-w-[720px] text-center">
-                Unkey emerged in 2023 from the frustration of{" "}
-                <span className="font-medium text-white">James Perkins</span> and
-                <span className="font-medium text-white"> Andreas Thomas</span> with the lack of a
-                straightforward, fast, and scalable API management solution. This void prompted a
-                mission to create a tool themselves.
+                {founderBody}
               </p>
               <div className="absolute pointer-events-none scale-[1.5] bottom-[-350px]">
                 <AboutLight />
