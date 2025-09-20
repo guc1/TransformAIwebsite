@@ -7,6 +7,7 @@ import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero
 import { Check, Stars } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   BelowEnterpriseSvg,
@@ -59,6 +60,7 @@ const buckets: Array<{ price: string; requests: number }> = [
 
 export default function PricingPage() {
   const { format } = Intl.NumberFormat(undefined, { notation: "compact" });
+  const t = useTranslations("Pricing.Header");
 
   const [selectedBucketIndex, setSelectedBucketIndex] = useState(0);
   return (
@@ -86,8 +88,10 @@ export default function PricingPage() {
       </div>
 
       <div className="flex flex-col items-center justify-center my-16 xl:my-24">
-        <h1 className="section-title-heading-gradient max-sm:mx-6 max-sm:text-4xl font-medium text-[4rem] leading-[4rem] max-w-xl text-center ">
-          Start for free, scale as you go
+        <h1
+          className="max-sm:mx-6 max-sm:text-4xl font-medium text-[4rem] leading-[4rem] max-w-xl text-center bg-gradient-to-r from-[#02DEFC] via-[#0239FC] to-[#7002FC] bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(32,57,252,0.45)]"
+        >
+          {t("title")}
         </h1>
 
         {/* <p className="mt-8 bg-gradient-to-br text-transparent bg-gradient-stop bg-clip-text from-white via-white via-40% to-white/30 max-w-lg text-center">
