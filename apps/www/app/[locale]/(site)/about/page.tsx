@@ -130,6 +130,12 @@ export default async function Page({ params }: PageProps) {
   const heroTitle = t("Hero.title");
   const heroBody = t("Hero.body");
   const heroCta = t("Hero.cta");
+  const founderTitle = t("Founder.title");
+  const founderBody = t.rich("Founder.body", {
+    highlight: (chunks) => (
+      <span className="font-medium text-white">{chunks}</span>
+    ),
+  });
 
   const posts = allPosts.filter((post) => SELECTED_POSTS.includes(post.slug));
   return (
@@ -181,14 +187,10 @@ export default async function Page({ params }: PageProps) {
             </div>
             <div className="about-radial relative px-[50px] md:px-[144px] pb-[100px] pt-[60px] overflow-hidden bg-black text-white flex flex-col items-center rounded-[48px] border-l border-r border-b border-white/[0.15]">
               <h2 className="text-[32px] font-medium leading-[48px] mt-10 text-center text-balance">
-                Founded to redefine the API management landscape
+                {founderTitle}
               </h2>
               <p className="mt-[40px] text-white/50 leading-[32px] max-w-[720px] text-center">
-                Unkey emerged in 2023 from the frustration of{" "}
-                <span className="font-medium text-white">James Perkins</span> and
-                <span className="font-medium text-white"> Andreas Thomas</span> with the lack of a
-                straightforward, fast, and scalable API management solution. This void prompted a
-                mission to create a tool themselves.
+                {founderBody}
               </p>
               <div className="absolute pointer-events-none scale-[1.5] bottom-[-350px]">
                 <AboutLight />
