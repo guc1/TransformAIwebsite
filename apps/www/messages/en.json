@@ -32,39 +32,99 @@
   },
   "Pricing": {
     "Header": {
-      "title": "Solutions We Offer"
+      "title": "AI Transformation Packages"
+    },
+    "Packages": {
+      "common": {
+        "included": "What's included:"
+      },
+      "education": {
+        "title": "Education Package",
+        "description": "Focused on educating the workforce and making employees future-proof for AI adoption.",
+        "price": "$6,000",
+        "frequency": "one-time investment",
+        "cta": "Request education proposal",
+        "bullets": {
+          "courseV1": "AI Education Course V1",
+          "courseV2": "AI Education Course V2",
+          "workshops": "Workshops for teams",
+          "trainingMaterials": "Practical training materials",
+          "certification": "Certification of completion"
+        },
+        "footer": {
+          "title": "Need a tailored curriculum?",
+          "body": "We can adapt the education program to the unique roles across your organization."
+        }
+      },
+      "introduction": {
+        "title": "Introduction Package",
+        "description": "Designed for companies starting their AI transition journey.",
+        "price": "$5,000",
+        "frequency": "one-time engagement",
+        "cta": "Plan your AI kickoff",
+        "bullets": {
+          "aiReadiness": "AI-readiness analysis of the company",
+          "automationSetup": "Initial workflow automation setup",
+          "pilotIntegration": "Pilot project integration",
+          "assessment": "Productivity & cost-efficiency assessment",
+          "guidance": "Strategic guidance session with our team"
+        },
+        "footer": {
+          "title": "Preparing to scale further?",
+          "body": "We can expand these foundations into enterprise-wide automation and governance."
+        }
+      },
+      "enterprise": {
+        "title": "Enterprise Solutions",
+        "description": "Custom AI transformation solutions built around your organization.",
+        "price": "Custom $",
+        "frequency": "Tailored proposal",
+        "cta": "Contact Us",
+        "bullets": {
+          "tailoredIntegrations": "Tailored AI integrations",
+          "researchSupport": "Advanced research support",
+          "customModel": "Custom model development",
+          "consulting": "Dedicated consulting",
+          "continuousSupport": "Continuous support"
+        }
+      }
     },
     "Table": {
-      "title": "Compare plans",
+      "title": "Compare packages",
       "headers": {
         "feature": "Feature"
       },
       "tiers": {
-        "t1": "Tier 1",
-        "t2": "Tier 2",
-        "t3": "Tier 3",
+        "t1": "Education Package",
+        "t2": "Introduction Package",
+        "t3": "Enterprise Solutions",
         "price": {
-          "t1": "$299/mo",
-          "t2": "$799/mo",
-          "t3": "$1,999/mo"
+          "t1": "$6,000 one-time",
+          "t2": "$5,000 one-time",
+          "t3": "Custom proposal"
         }
       },
       "categories": {
-        "research": "Research",
-        "education": "Education"
+        "educationEnablement": "Education & enablement",
+        "implementation": "Implementation & strategy",
+        "enterprise": "Enterprise scale"
       },
       "rows": {
-        "analyzeIntegrations": "Analyze company integrations",
-        "buildCustomModel": "Build custom model",
-        "exploreResearch": "Explore research fields",
-        "courseV1": "Education course V1",
-        "courseV2": "Education course V2",
-        "courseV3": "Education course V3",
-        "notes": {
-          "buildCustomModel": {
-            "limited": "Tier 2: Limited scope (guided co-creation). Upgrade for full delivery."
-          }
-        }
+        "educationCourseV1": "AI Education Course V1",
+        "educationCourseV2": "AI Education Course V2",
+        "workshops": "Workshops for teams",
+        "trainingMaterials": "Practical training materials",
+        "certification": "Certification of completion",
+        "aiReadiness": "AI-readiness analysis of the company",
+        "automationSetup": "Initial workflow automation setup",
+        "pilotIntegration": "Pilot project integration",
+        "assessment": "Productivity & cost-efficiency assessment",
+        "guidance": "Strategic guidance session with our team",
+        "tailoredIntegrations": "Tailored AI integrations",
+        "researchSupport": "Advanced research support",
+        "customModel": "Custom model development",
+        "consulting": "Dedicated consulting",
+        "continuousSupport": "Continuous support"
       },
       "legend": {
         "included": "Included",
@@ -73,9 +133,9 @@
       },
       "cta": {
         "scrollLabel": "Ready to choose the right fit?",
-        "chooseTier1": "Choose Tier 1",
-        "chooseTier2": "Choose Tier 2",
-        "chooseTier3": "Choose Tier 3"
+        "chooseTier1": "Explore the Education Package",
+        "chooseTier2": "Explore the Introduction Package",
+        "chooseTier3": "Talk to Enterprise Solutions"
       }
     }
   },

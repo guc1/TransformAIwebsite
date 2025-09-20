@@ -39,44 +39,94 @@ const TABLE_DATA: PricingTableData = {
   ],
   categories: [
     {
-      id: "research",
-      labelKey: "categories.research",
+      id: "educationEnablement",
+      labelKey: "categories.educationEnablement",
       rows: [
         {
-          id: "analyzeIntegrations",
-          labelKey: "rows.analyzeIntegrations",
+          id: "educationCourseV1",
+          labelKey: "rows.educationCourseV1",
           availability: { t1: "yes", t2: "yes", t3: "yes" },
         },
         {
-          id: "buildCustomModel",
-          labelKey: "rows.buildCustomModel",
-          availability: { t1: "no", t2: "partial", t3: "yes" },
-          noteKey: "rows.notes.buildCustomModel.limited",
+          id: "educationCourseV2",
+          labelKey: "rows.educationCourseV2",
+          availability: { t1: "yes", t2: "yes", t3: "yes" },
         },
         {
-          id: "exploreResearch",
-          labelKey: "rows.exploreResearch",
+          id: "workshops",
+          labelKey: "rows.workshops",
+          availability: { t1: "yes", t2: "yes", t3: "yes" },
+        },
+        {
+          id: "trainingMaterials",
+          labelKey: "rows.trainingMaterials",
+          availability: { t1: "yes", t2: "yes", t3: "yes" },
+        },
+        {
+          id: "certification",
+          labelKey: "rows.certification",
+          availability: { t1: "yes", t2: "yes", t3: "yes" },
+        },
+      ],
+    },
+    {
+      id: "implementation",
+      labelKey: "categories.implementation",
+      rows: [
+        {
+          id: "aiReadiness",
+          labelKey: "rows.aiReadiness",
+          availability: { t1: "no", t2: "yes", t3: "yes" },
+        },
+        {
+          id: "automationSetup",
+          labelKey: "rows.automationSetup",
+          availability: { t1: "no", t2: "yes", t3: "yes" },
+        },
+        {
+          id: "pilotIntegration",
+          labelKey: "rows.pilotIntegration",
+          availability: { t1: "no", t2: "yes", t3: "yes" },
+        },
+        {
+          id: "assessment",
+          labelKey: "rows.assessment",
+          availability: { t1: "no", t2: "yes", t3: "yes" },
+        },
+        {
+          id: "guidance",
+          labelKey: "rows.guidance",
           availability: { t1: "no", t2: "yes", t3: "yes" },
         },
       ],
     },
     {
-      id: "education",
-      labelKey: "categories.education",
+      id: "enterprise",
+      labelKey: "categories.enterprise",
       rows: [
         {
-          id: "courseV1",
-          labelKey: "rows.courseV1",
-          availability: { t1: "yes", t2: "yes", t3: "yes" },
+          id: "tailoredIntegrations",
+          labelKey: "rows.tailoredIntegrations",
+          availability: { t1: "no", t2: "no", t3: "yes" },
         },
         {
-          id: "courseV2",
-          labelKey: "rows.courseV2",
-          availability: { t1: "no", t2: "yes", t3: "yes" },
+          id: "researchSupport",
+          labelKey: "rows.researchSupport",
+          availability: { t1: "no", t2: "no", t3: "yes" },
         },
         {
-          id: "courseV3",
-          labelKey: "rows.courseV3",
+          id: "customModel",
+          labelKey: "rows.customModel",
+          availability: { t1: "no", t2: "no", t3: "yes" },
+        },
+        {
+          id: "consulting",
+          labelKey: "rows.consulting",
+          availability: { t1: "no", t2: "no", t3: "yes" },
+        },
+        {
+          id: "continuousSupport",
+          labelKey: "rows.continuousSupport",
           availability: { t1: "no", t2: "no", t3: "yes" },
         },
       ],

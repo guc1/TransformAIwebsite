@@ -32,7 +32,62 @@
   },
   "Pricing": {
     "Header": {
-      "title": "Oplossingen die wij bieden"
+      "title": "AI-transformatiepakketten"
+    },
+    "Packages": {
+      "common": {
+        "included": "Dit zit erin:"
+      },
+      "education": {
+        "title": "Educatiepakket",
+        "description": "Richt zich op het opleiden van medewerkers en maakt teams toekomstbestendig voor AI-adoptie.",
+        "price": "$6.000",
+        "frequency": "eenmalige investering",
+        "cta": "Vraag opleidingsvoorstel aan",
+        "bullets": {
+          "courseV1": "AI-opleidingsmodule V1",
+          "courseV2": "AI-opleidingsmodule V2",
+          "workshops": "Workshops voor teams",
+          "trainingMaterials": "Praktische trainingsmaterialen",
+          "certification": "Certificaat van afronding"
+        },
+        "footer": {
+          "title": "Maatwerk nodig?",
+          "body": "We stemmen het leerprogramma af op de specifieke rollen binnen jouw organisatie."
+        }
+      },
+      "introduction": {
+        "title": "Introductiepakket",
+        "description": "Voor bedrijven die hun AI-transitie opstarten.",
+        "price": "$5.000",
+        "frequency": "eenmalig traject",
+        "cta": "Plan jullie AI-kick-off",
+        "bullets": {
+          "aiReadiness": "AI-ready analyse van het bedrijf",
+          "automationSetup": "Eerste workflow-automatisering",
+          "pilotIntegration": "Integratie van pilotproject",
+          "assessment": "Productiviteits- en kostenevaluatie",
+          "guidance": "Strategische sessie met ons team"
+        },
+        "footer": {
+          "title": "Groeien voorbij de pilot?",
+          "body": "We helpen om deze basis uit te breiden naar organisatiebrede automatisering en governance."
+        }
+      },
+      "enterprise": {
+        "title": "Enterprise-oplossingen",
+        "description": "Maatwerk AI-transformatieoplossingen rond jouw organisatie.",
+        "price": "Custom $",
+        "frequency": "Op maat gemaakte offerte",
+        "cta": "Neem contact op",
+        "bullets": {
+          "tailoredIntegrations": "Maatwerk AI-integraties",
+          "researchSupport": "Geavanceerde onderzoeksbegeleiding",
+          "customModel": "Ontwikkeling van maatwerkmodellen",
+          "consulting": "Toegewijde consulting",
+          "continuousSupport": "Doorlopende ondersteuning"
+        }
+      }
     },
     "Table": {
       "title": "Vergelijk pakketten",
@@ -40,31 +95,36 @@
         "feature": "Kenmerk"
       },
       "tiers": {
-        "t1": "Pakket 1",
-        "t2": "Pakket 2",
-        "t3": "Pakket 3",
+        "t1": "Educatiepakket",
+        "t2": "Introductiepakket",
+        "t3": "Enterprise-oplossingen",
         "price": {
-          "t1": "$299 per maand",
-          "t2": "$799 per maand",
-          "t3": "$1.999 per maand"
+          "t1": "$6.000 eenmalig",
+          "t2": "$5.000 eenmalig",
+          "t3": "Maatwerk voorstel"
         }
       },
       "categories": {
-        "research": "Onderzoek",
-        "education": "Opleiding"
+        "educationEnablement": "Educatie & enablement",
+        "implementation": "Implementatie & strategie",
+        "enterprise": "Enterprise-schaal"
       },
       "rows": {
-        "analyzeIntegrations": "Analyseer bedrijfsintegraties",
-        "buildCustomModel": "Bouw een maatwerkmodel",
-        "exploreResearch": "Verken onderzoeksvelden",
-        "courseV1": "Opleidingsmodule V1",
-        "courseV2": "Opleidingsmodule V2",
-        "courseV3": "Opleidingsmodule V3",
-        "notes": {
-          "buildCustomModel": {
-            "limited": "Pakket 2: Beperkte scope met begeleiding. Upgrade voor volledige uitvoering."
-          }
-        }
+        "educationCourseV1": "AI-opleidingsmodule V1",
+        "educationCourseV2": "AI-opleidingsmodule V2",
+        "workshops": "Workshops voor teams",
+        "trainingMaterials": "Praktische trainingsmaterialen",
+        "certification": "Certificaat van afronding",
+        "aiReadiness": "AI-ready analyse van het bedrijf",
+        "automationSetup": "Eerste workflow-automatisering",
+        "pilotIntegration": "Integratie van pilotproject",
+        "assessment": "Productiviteits- en kostenevaluatie",
+        "guidance": "Strategische sessie met ons team",
+        "tailoredIntegrations": "Maatwerk AI-integraties",
+        "researchSupport": "Geavanceerde onderzoeksbegeleiding",
+        "customModel": "Ontwikkeling van maatwerkmodellen",
+        "consulting": "Toegewijde consulting",
+        "continuousSupport": "Doorlopende ondersteuning"
       },
       "legend": {
         "included": "Inbegrepen",
@@ -72,10 +132,10 @@
         "partial": "Gedeeltelijk inbegrepen"
       },
       "cta": {
-        "scrollLabel": "Klaar om een pakket te kiezen?",
-        "chooseTier1": "Kies pakket 1",
-        "chooseTier2": "Kies pakket 2",
-        "chooseTier3": "Kies pakket 3"
+        "scrollLabel": "Klaar om het juiste pakket te kiezen?",
+        "chooseTier1": "Bekijk het educatiepakket",
+        "chooseTier2": "Bekijk het introductiepakket",
+        "chooseTier3": "Neem contact op voor enterprise"
       }
     }
   },
