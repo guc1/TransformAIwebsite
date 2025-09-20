@@ -1,6 +1,6 @@
 # TransformAI — Codex Agent Guide (Root)
 
-> **Read this first.** This file defines how agents should operate in this repository.  
+> **Read this first.** This file defines how agents should operate in this repository.
 > If a directory contains its own `AGENTS.md`, **the most local file takes precedence** for that scope.
 
 ---
@@ -15,32 +15,52 @@ We are adapting a website template from **Unkey.com** to create a professional m
 
 1. **Before starting any task**
 
-- Read `UPDATE.md` and `FIX.md` (root). Get a quick history of what changed and how previous issues were solved.
-- Skim this `AGENTS.md` (root) and any local `AGENTS.md` in the app you will touch (e.g., `apps/www/AGENTS.md` for the website).
+   - Scan the three most recent files in `WRITE_HERE/UPDATES/` to understand the current project state.
+   - If the task resembles prior work or you get stuck, search `WRITE_HERE/FIXES/` for similar fixes and patterns.
+   - Skim this `AGENTS.md` (root) and any local `AGENTS.md` in the app you will touch (e.g., `apps/www/AGENTS.md`).
+   - Read [`docs/repository-best-practices.md`](./docs/repository-best-practices.md) if you are unsure about conventions.
 
 2. **Plan briefly**
 
-- Draft a 3–6 bullet **plan** in your PR description (or task notes): scope, files to touch, risks, and test plan.
+   - Draft a 3–6 bullet **plan** in your PR description (or task notes): scope, files to touch, risks, and test plan.
+   - For complex, multi-hour, or multi-step tasks, create a planning file in `WRITE_HERE/TASK_PLANNING/` named `YYYY-MM-DDTHHMM--short-task-name.md`. Capture scope, assumptions, risks, dependencies, TODOs, test plan, and considerations (a11y, responsiveness, i18n, SEO, analytics, visual polish). Update the plan as you learn before and during implementation.
 
 3. **Implement within the house system**
 
-- Prefer existing tokens, utilities, and primitives.
-- If introducing a new component or config, keep it small, composable, and documented.
+   - Prefer existing tokens, utilities, and primitives.
+   - If introducing a new component or config, keep it small, composable, and documented.
 
 4. **Quality gates (must pass before you finalize)**
 
-- Typecheck, lint, format, and build (see commands below).
-- Verify dark/light modes, accessibility basics, and responsiveness.
-- Ensure no layout shift; images sized; lighthouse basics clean.
+   - Typecheck, lint, format, and build (see commands below).
+   - Verify dark/light modes, accessibility basics, and responsiveness.
+   - Ensure no layout shift; images sized; lighthouse basics clean.
 
 5. **Document the change**
 
-- Append a dated entry to `UPDATE.md` describing _what_ changed and _why_.
-- Append a dated entry to `FIX.md` describing the _user ask/bug_ and the _technical resolution_ (files, functions, rationale).
+   - **UPDATES:** For feature, content, or workflow changes, create a new file in `WRITE_HERE/UPDATES/` using `YYYY-MM-DDTHHMM--short-slug.md`. Start with `# <summary>` and include brief bullets for What, Why, Files, and Follow-ups.
+   - **FIXES:** For bug fixes or resolved user asks, create a new file in `WRITE_HERE/FIXES/` using the same filename format. Start with `# <summary>` and capture What, Why (or root cause), Files, and Follow-ups.
 
 6. **Open a small PR**
 
-- Clear title, short plan, screenshots (if UI), and checkboxes for the Definition of Done.
+   - Clear title, short plan, screenshots (if UI), and checkboxes for the Definition of Done.
+
+---
+
+## Quick Navigation Cheat Sheet
+- Start every task by skimming the root playbooks in WRITE_HERE: the latest 3 files in `UPDATES/` and any relevant items in `FIXES/`; then scan this guide. Open the closest `AGENTS.md` before editing files.
+- Monorepo layout:
+  - `apps/www` — TransformAI marketing site (primary focus).
+  - `apps/play` — playground web app.
+  - `apps/generator` — glossary generator tooling.
+- Marketing site hotspots (`apps/www`):
+  - Pages & layouts: `app/[locale]/(site)/…` (locale-scoped routes).
+  - Shared UI primitives: `components/` (reuse before creating new pieces).
+  - Content & MDX collections: `content/` plus `content-collections.ts`.
+  - Translations: `messages/*.json` (English is the source of truth; other locales fall back automatically).
+  - Utilities & helpers: `lib/`, `types/`, and `scripts/` for shared logic.
+- Global references live at the repo root—`docs/repository-best-practices.md`, Turborepo/pnpm configs, and workspace-level middleware.
+- Use `rg "<search term>" apps/www` to locate code fast, and keep app boundaries clean across apps.
 
 ---
 
@@ -86,8 +106,7 @@ System > one-offs: reuse tokens, utilities, primitives.
 
 i18n + theming: do not hard-code copy; respect dark/light.
 
-Full, canonical spec: see apps/www/AGENTS.md
-.
+Full, canonical spec: see apps/www/AGENTS.md.
 
 ## Internationalization (i18n)
 
@@ -115,14 +134,14 @@ Simple API surface: clear props, variants, className passthrough via cn().
 
 No duplication; shared logic/components follow app conventions.
 
-UPDATE.md and FIX.md updated with dated entries.
+WRITE_HERE logs updated with a new entry in `UPDATES/` or `FIXES/` capturing What, Why, Files, and Follow-ups.
 
 Files you must keep updated
 
-UPDATE.md — a dated changelog of what changed and why.
-Example: 2025-10-30: Added password reset flow with email tokens and documented SMTP env vars.
+`WRITE_HERE/UPDATES/` — one file per change in behavior or content (feature updates, workflow adjustments). Example: `2025-10-30T0900--added-password-reset-flow-and-documented-smtp-configuration.md`.
 
-FIX.md — a dated log of user ask / bug and how you fixed it (technical notes).
-Example: 2025-10-30: "Reset emails not sending" → added sendPasswordResetEmail(), fixed env var mapping, added retry + logging.
+`WRITE_HERE/FIXES/` — one file per bug fix or resolved user ask, noting the request, fix, files, and follow-ups. Example: `2025-10-30T0900--fixed-password-reset-emails-not-sending.md`.
 
-Always read both files before starting new work to learn from prior fixes and maintain continuity.
+`WRITE_HERE/TASK_PLANNING/` — planning docs for complex tasks. Record scope, assumptions, risks, dependencies, TODOs, test strategy, and polish considerations; update as you execute.
+
+Always review the latest updates and fixes before starting new work to maintain continuity and reuse proven patterns.
