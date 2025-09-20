@@ -36,6 +36,13 @@
     "secondaryTitle": "Optimised for AI Productivity and Performance",
     "secondaryBody": "Our platform helps companies boost productivity, cut costs, and improve AI performance. It builds on existing structures to amplify results, while offering customisation, long-term reliability, and seamless model selection for every use case."
   },
+  "About": {
+    "Hero": {
+      "title": "Creating and integrating resilient AI structures within companies",
+      "body": "AI is transformative, demanding structural change across all business departments. Because of its complexity, successful integration can be challenging. With our expertise, your company can adapt sustainably and thrive in the AI era.",
+      "cta": "Case study: AI adaptation"
+    }
+  },
   "LogoCloud": {
     "label": "Partners"
   },

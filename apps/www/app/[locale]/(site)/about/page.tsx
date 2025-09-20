@@ -1,6 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 import { BorderBeam } from "@/components/border-beam";
 import { RainbowDarkButton } from "@/components/button";
@@ -52,6 +54,7 @@ import james from "@/images/team/james.jpg";
 
 import { ImageWithBlur } from "@/components/image-with-blur";
 import { cn } from "@/lib/utils";
+import { isLocale } from "@/i18n/routing";
 
 export const metadata = {
   title: "About | Unkey",
@@ -110,7 +113,24 @@ const offsiteImages = [
   { src: yardwork, label: "Caffeinated" },
 ];
 
-export default async function Page() {
+type PageProps = {
+  params: {
+    locale: string;
+  };
+};
+
+export default async function Page({ params }: PageProps) {
+  const { locale } = params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
+  const t = await getTranslations({ locale, namespace: "About" });
+  const heroTitle = t("Hero.title");
+  const heroBody = t("Hero.body");
+  const heroCta = t("Hero.cta");
+
   const posts = allPosts.filter((post) => SELECTED_POSTS.includes(post.slug));
   return (
     <div>
@@ -134,12 +154,12 @@ export default async function Page() {
           </div>
           <div className="mt-12">
             <Link href="/blog/introducing-ratelimiting" target="">
-              <RainbowDarkButton label="New: global rate limiting" IconRight={ArrowRight} />
+              <RainbowDarkButton label={heroCta} IconRight={ArrowRight} />
             </Link>
             <SectionTitle
-              title="API management for fast and scalable software"
+              title={heroTitle}
               align="center"
-              text="Unkey redefines API management for developers. You can add authentication, analytics, and rate-limiting to your APIs in minutes. "
+              text={heroBody}
             />
           </div>
           <div className="relative mt-[200px] xl:mt-[400px]">
