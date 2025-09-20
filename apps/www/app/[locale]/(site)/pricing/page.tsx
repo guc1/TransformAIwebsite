@@ -1,6 +1,7 @@
 "use client";
 import { CTA } from "@/components/cta";
 import { Particles } from "@/components/particles";
+import { PricingCompareTable } from "@/components/pricing/pricing-compare-table";
 import { ShinyCardGroup } from "@/components/shiny-card";
 import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero";
 import { Check, Stars } from "lucide-react";
@@ -95,8 +96,11 @@ export default function PricingPage() {
         </p>  */}
       </div>
 
-      <ShinyCardGroup className="grid h-full max-w-4xl grid-cols-2 gap-6 mx-auto group">
-        <PricingCard color={Color.White} className="col-span-2 md:col-span-1">
+      <PricingCompareTable />
+
+      <div id="pricing-tier-grid" className="mt-12">
+        <ShinyCardGroup className="grid h-full max-w-4xl grid-cols-2 gap-6 mx-auto group">
+          <PricingCard id="pricing-tier-1" color={Color.White} className="col-span-2 md:col-span-1">
           <FreeCardHighlight className="absolute top-0 right-0 pointer-events-none" />
 
           <PricingCardHeader
@@ -149,7 +153,7 @@ export default function PricingPage() {
             </div>
           </PricingCardFooter>
         </PricingCard>
-        <PricingCard color={Color.Yellow} className="col-span-2 md:col-span-1">
+        <PricingCard id="pricing-tier-2" color={Color.Yellow} className="col-span-2 md:col-span-1">
           <ProCardHighlight className="absolute top-0 right-0 pointer-events-none" />
 
           <PricingCardHeader
@@ -219,7 +223,7 @@ export default function PricingPage() {
           </PricingCardFooter>
         </PricingCard>
 
-        <PricingCard color={Color.Purple} className="col-span-2">
+        <PricingCard id="pricing-tier-3" color={Color.Purple} className="col-span-2">
           <EnterpriseCardHighlight className="absolute top-0 right-0 pointer-events-none" />
 
           <div className="flex flex-col h-full md:flex-row">
@@ -276,6 +280,7 @@ export default function PricingPage() {
           </div>
         </PricingCard>
       </ShinyCardGroup>
+      </div>
       <BelowEnterpriseSvg className="container inset-x-0 top-0 mx-auto -mt-64 -mb-32" />
 
       <div className="-mx-4 lg:mx-0">

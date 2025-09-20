@@ -30,6 +30,52 @@
       "discord": "Discord"
     }
   },
+  "Pricing": {
+    "Table": {
+      "title": "Compare plans",
+      "headers": {
+        "feature": "Feature"
+      },
+      "tiers": {
+        "t1": "Tier 1",
+        "t2": "Tier 2",
+        "t3": "Tier 3",
+        "price": {
+          "t1": "$299/mo",
+          "t2": "$799/mo",
+          "t3": "$1,999/mo"
+        }
+      },
+      "categories": {
+        "research": "Research",
+        "education": "Education"
+      },
+      "rows": {
+        "analyzeIntegrations": "Analyze company integrations",
+        "buildCustomModel": "Build custom model",
+        "exploreResearch": "Explore research fields",
+        "courseV1": "Education course V1",
+        "courseV2": "Education course V2",
+        "courseV3": "Education course V3",
+        "notes": {
+          "buildCustomModel": {
+            "limited": "Tier 2: Limited scope (guided co-creation). Upgrade for full delivery."
+          }
+        }
+      },
+      "legend": {
+        "included": "Included",
+        "notIncluded": "Not included",
+        "partial": "Limited availability"
+      },
+      "cta": {
+        "scrollLabel": "Ready to choose the right fit?",
+        "chooseTier1": "Choose Tier 1",
+        "chooseTier2": "Choose Tier 2",
+        "chooseTier3": "Choose Tier 3"
+      }
+    }
+  },
   "Hero": {
     "title": "Your Transformation Partner for the Age of AI",
     "body": "We help companies adapt successfully and sustainably to the challenges and opportunities that Artificial Intelligence brings.",

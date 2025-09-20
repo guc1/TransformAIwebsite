@@ -30,6 +30,52 @@
       "discord": "Discord"
     }
   },
+  "Pricing": {
+    "Table": {
+      "title": "Vergelijk pakketten",
+      "headers": {
+        "feature": "Kenmerk"
+      },
+      "tiers": {
+        "t1": "Pakket 1",
+        "t2": "Pakket 2",
+        "t3": "Pakket 3",
+        "price": {
+          "t1": "$299 per maand",
+          "t2": "$799 per maand",
+          "t3": "$1.999 per maand"
+        }
+      },
+      "categories": {
+        "research": "Onderzoek",
+        "education": "Opleiding"
+      },
+      "rows": {
+        "analyzeIntegrations": "Analyseer bedrijfsintegraties",
+        "buildCustomModel": "Bouw een maatwerkmodel",
+        "exploreResearch": "Verken onderzoeksvelden",
+        "courseV1": "Opleidingsmodule V1",
+        "courseV2": "Opleidingsmodule V2",
+        "courseV3": "Opleidingsmodule V3",
+        "notes": {
+          "buildCustomModel": {
+            "limited": "Pakket 2: Beperkte scope met begeleiding. Upgrade voor volledige uitvoering."
+          }
+        }
+      },
+      "legend": {
+        "included": "Inbegrepen",
+        "notIncluded": "Niet inbegrepen",
+        "partial": "Gedeeltelijk inbegrepen"
+      },
+      "cta": {
+        "scrollLabel": "Klaar om een pakket te kiezen?",
+        "chooseTier1": "Kies pakket 1",
+        "chooseTier2": "Kies pakket 2",
+        "chooseTier3": "Kies pakket 3"
+      }
+    }
+  },
   "Hero": {
     "title": "Jouw transformatiepartner voor het AI-tijdperk",
     "body": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt.",

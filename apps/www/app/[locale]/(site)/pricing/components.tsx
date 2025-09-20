@@ -150,13 +150,14 @@ export const Asterisk: React.FC<{ tag: string; label?: string }> = ({ tag, label
   );
 };
 
-export const PricingCard: React.FC<PropsWithChildren<{ color: Color; className?: string }>> = ({
+export const PricingCard: React.FC<PropsWithChildren<{ color: Color; className?: string; id?: string }>> = ({
   children,
   color,
   className,
+  id,
 }) => {
   return (
-    <div className={cn("relative h-full overflow-hidden  group/item", className)}>
+    <div id={id} className={cn("relative h-full overflow-hidden  group/item", className)}>
       <div
         className={cn(
           "h-full relative bg-neutral-800 rounded-4xl p-px after:absolute after:inset-0 after:rounded-[inherit] after:opacity-0 after:transition-opacity after:duration-500  after:group-hover:opacity-100 after:z-10 overflow-hidden",
