@@ -31,6 +31,9 @@
     }
   },
   "Pricing": {
+    "Header": {
+      "title": "Solutions We Offer"
+    },
     "Table": {
       "title": "Compare plans",
       "headers": {
