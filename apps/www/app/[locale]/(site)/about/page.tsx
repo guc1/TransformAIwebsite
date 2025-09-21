@@ -140,10 +140,9 @@ export default async function Page({ params }: PageProps) {
   const heroBody = t("Hero.body");
   const heroCta = t("Hero.cta");
   const founderTitle = t("Founder.title");
+  const founderSubtitle = t("Founder.subtitle");
   const founderBody = t.rich("Founder.body", {
-    highlight: (chunks) => (
-      <span className="font-medium text-white">{chunks}</span>
-    ),
+    br: () => <br />,
   });
 
   const values = [
@@ -301,17 +300,12 @@ export default async function Page({ params }: PageProps) {
             <StarDots className="absolute pointer-events-none" />
             <SectionTitle
               className="mt-60 px-[10px] text-balance"
-              title="A few words from the founders"
+              title={founderTitle}
               align="center"
-              text="Why we started Unkey and what we believe in."
+              text={founderSubtitle}
             />
             <div className="border-[1px] border-white/10 mt-[78px] leading-8 rounded-[48px] py-[60px] xl:py-[96px] px-8 md:px-[88px] text-white text-center max-w-[1008px] flex flex-col justify-center items-center">
-              <p className="about-founders-text-gradient">
-                We're James and Andreas. We founded Unkey with the vision of creating an API
-                management platform that is both powerful and easy to use. We believe that APIs are
-                the building blocks of the modern web, and we want to make it easier for developers
-                to build and manage them.
-              </p>
+              <p className="about-founders-text-gradient">{founderBody}</p>
               <div className="flex flex-col mt-12 md:flex-row">
                 <div className="flex md:left-[5px]">
                   <div className="text-sm text-right">
