@@ -7,6 +7,7 @@ type StickyWithinSectionOptions = {
   bottomRef: RefObject<Element>;
   topOffset: number;
   bottomOffset: number;
+  topRef?: RefObject<Element>;
 };
 
 export function useStickyWithinSection({
@@ -14,12 +15,16 @@ export function useStickyWithinSection({
   bottomRef,
   topOffset,
   bottomOffset,
+  topRef,
 }: StickyWithinSectionOptions) {
   const [isAtBottom, setIsAtBottom] = useState(false);
+  const [isTopVisible, setIsTopVisible] = useState(true);
+  const hasTopSentinel = Boolean(topRef);
 
   useEffect(() => {
     if (!enabled) {
       setIsAtBottom(false);
+      setIsTopVisible(true);
       return;
     }
 
@@ -50,15 +55,67 @@ export function useStickyWithinSection({
     };
   }, [bottomOffset, bottomRef, enabled]);
 
-  return useMemo(
-    () => ({
-      isAtBottom,
-      style: enabled
-        ? isAtBottom
-          ? ({ position: "sticky", bottom: `${bottomOffset}px` } as const)
-          : ({ position: "sticky", top: `${topOffset}px` } as const)
-        : ({ position: "relative" } as const),
-    }),
-    [bottomOffset, enabled, isAtBottom, topOffset],
-  );
+  useEffect(() => {
+    if (!enabled) {
+      setIsTopVisible(true);
+      return;
+    }
+
+    const sentinel = topRef?.current;
+    if (!sentinel) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) {
+          return;
+        }
+        setIsTopVisible(entry.isIntersecting);
+      },
+      {
+        threshold: [0, 1],
+        root: null,
+        rootMargin: `-${topOffset}px 0px 0px 0px`,
+      },
+    );
+
+    observer.observe(sentinel);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [enabled, topOffset, topRef]);
+
+  return useMemo(() => {
+    if (!enabled) {
+      return {
+        isAtBottom: false,
+        style: { position: "relative" } as const,
+      };
+    }
+
+    const topHasCleared = hasTopSentinel ? !isTopVisible : true;
+    const shouldStickBottom = topHasCleared && isAtBottom;
+
+    if (shouldStickBottom) {
+      return {
+        isAtBottom: true,
+        style: { position: "sticky", bottom: `${bottomOffset}px` } as const,
+      };
+    }
+
+    if (hasTopSentinel && isTopVisible) {
+      return {
+        isAtBottom: false,
+        style: { position: "relative" } as const,
+      };
+    }
+
+    return {
+      isAtBottom: false,
+      style: { position: "sticky", top: `${topOffset}px` } as const,
+    };
+  }, [bottomOffset, enabled, hasTopSentinel, isAtBottom, isTopVisible, topOffset]);
 }
