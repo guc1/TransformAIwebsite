@@ -189,6 +189,8 @@ export default async function Page({ params }: PageProps) {
 
   const valuesIntroTitle = t("ValuesIntro.title");
   const valuesIntroBody = t("ValuesIntro.body");
+  const blogTitle = t("Blog.title");
+  const blogBody = t("Blog.body");
 
   const posts = allPosts.filter((post) => SELECTED_POSTS.includes(post.slug));
   return (
@@ -409,8 +411,8 @@ export default async function Page({ params }: PageProps) {
               <SectionTitle
                 className="mt-[100px] lg:mt-[100px]"
                 align="center"
-                title="From our blog"
-                text="Explore insights, tips, and updates directly from our team members"
+                title={blogTitle}
+                text={blogBody}
               />
               <div className="flex flex-row w-full mx-auto gap-6 mt-[96px] flex-wrap lg:flex-nowrap">
                 {posts.map((post) => {
