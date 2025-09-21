@@ -66,9 +66,11 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
   const [isDesktop, setIsDesktop] = useState(false);
 
   const sectionRef = useRef<HTMLDivElement>(null);
+  const topRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
   const closeTimer = useRef<number>();
+  const hasOpenedRef = useRef(false);
 
   const chatId = useId();
   const chatPanelId = `${chatId}-panel`;
@@ -121,7 +123,12 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (!isOpen && ctaRef.current) {
+    if (isOpen) {
+      hasOpenedRef.current = true;
+      return;
+    }
+
+    if (hasOpenedRef.current && ctaRef.current) {
       ctaRef.current.focus();
     }
   }, [isOpen]);
@@ -139,9 +146,20 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
       ? ({ position: "sticky", bottom: "96px" } as const)
       : ({ position: "relative" } as const);
 
-  const ctaStyle = isDesktop && !isOpen
-    ? ({ position: "sticky", top: "96px" } as const)
-    : ({ position: "relative" } as const);
+  const stickyTopOffset = isDesktop ? 96 : 72;
+  const stickyBottomOffset = isDesktop ? 80 : 64;
+
+  const { style: ctaStickyStyle } = useStickyWithinSection({
+    enabled: !isOpen,
+    bottomRef,
+    topRef,
+    topOffset: stickyTopOffset,
+    bottomOffset: stickyBottomOffset,
+  });
+
+  const ctaStyle = isDesktop && isOpen
+    ? ({ position: "sticky", bottom: `${stickyBottomOffset}px` } as const)
+    : ctaStickyStyle;
 
   const scrollToChat = useCallback(() => {
     if (typeof window === "undefined") {
@@ -252,6 +270,9 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
 
   const chatHasContent = shouldRender && displayPanel;
 
+  const ctaOrderClass = chatHasContent ? "order-2" : "order-1";
+  const chatOrderClass = chatHasContent ? "order-1" : "order-2";
+
   return (
     <div
       ref={sectionRef}
@@ -261,7 +282,15 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
       )}
     >
       <div
-        className="w-full transition-[top,bottom] duration-300 ease-out"
+        ref={topRef}
+        aria-hidden
+        className="order-first -mb-8 h-px w-full sm:-mb-12"
+      />
+      <div
+        className={cn(
+          "w-full transition-all duration-300 ease-out",
+          chatOrderClass,
+        )}
         style={chatStyle}
         id={chatPanelId}
       >
@@ -281,11 +310,12 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
           ) : null}
         </div>
       </div>
-      <div ref={bottomRef} aria-hidden className="mt-16 h-px w-full" />
+      <div ref={bottomRef} aria-hidden className="order-3 mt-16 h-px w-full" />
       <div
         className={cn(
           "mt-2 flex w-full justify-center",
-          isDesktop ? "transition-[top] duration-300 ease-out" : undefined,
+          ctaOrderClass,
+          "transition-all duration-300 ease-out",
         )}
         style={ctaStyle}
       >
@@ -297,6 +327,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
           ariaControls={chatPanelId}
         />
       </div>
+      <div aria-hidden className="order-last h-8 w-full sm:h-12" />
     </div>
   );
 };
