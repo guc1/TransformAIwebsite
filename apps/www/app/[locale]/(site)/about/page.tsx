@@ -90,6 +90,9 @@ export const metadata = {
   },
 };
 
+// Keep investor content available but disabled per TransformAI request.
+const SHOW_INVESTORS_SECTION = false;
+
 const investors = [
   { name: "Timothy Chen", firm: "Essence VC", image: tim },
   { name: "Liu Jiang", firm: "Sunflower Capital", image: liu },
@@ -387,29 +390,33 @@ export default async function Page({ params }: PageProps) {
             </div>
 
             <div className="flex flex-col max-w-full">
-              <SectionTitle
-                className="mt-[250px]"
-                align="center"
-                title="Backed by the finest"
-                text="At Unkey, we're privileged to receive backing from top-tier investors, visionary founders, and seasoned operators from across the globe. Here are just a few of them: "
-              />
-              <div className="grid justify-center w-full grid-cols-2 pt-24 mx-auto md:grid-cols-3 lg:grid-cols-5 ">
-                {investors.map(({ name, firm, image }) => {
-                  return (
-                    <div
-                      key={name}
-                      className="flex flex-col items-center justify-center pb-12 text-center md:last:col-span-3 lg:last:col-span-1"
-                    >
-                      <ImageWithBlur src={image} alt={name} className="w-12 h-12 rounded-full" />
-                      <p className="mt-8 text-sm font-bold text-white md:whitespace-nowrap">
-                        {name}
-                      </p>
-                      <p className="text-sm text-white/60 md:whitespace-nowrap">{firm}</p>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="w-full h-[1px] bg-gradient-to-r from-black to-black via-white/40 mt-[100px] lg:mt-[80px]" />
+              {SHOW_INVESTORS_SECTION ? (
+                <>
+                  <SectionTitle
+                    className="mt-[250px]"
+                    align="center"
+                    title="Backed by the finest"
+                    text="At Unkey, we're privileged to receive backing from top-tier investors, visionary founders, and seasoned operators from across the globe. Here are just a few of them: "
+                  />
+                  <div className="grid justify-center w-full grid-cols-2 pt-24 mx-auto md:grid-cols-3 lg:grid-cols-5 ">
+                    {investors.map(({ name, firm, image }) => {
+                      return (
+                        <div
+                          key={name}
+                          className="flex flex-col items-center justify-center pb-12 text-center md:last:col-span-3 lg:last:col-span-1"
+                        >
+                          <ImageWithBlur src={image} alt={name} className="w-12 h-12 rounded-full" />
+                          <p className="mt-8 text-sm font-bold text-white md:whitespace-nowrap">
+                            {name}
+                          </p>
+                          <p className="text-sm text-white/60 md:whitespace-nowrap">{firm}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="w-full h-[1px] bg-gradient-to-r from-black to-black via-white/40 mt-[100px] lg:mt-[80px]" />
+                </>
+              ) : null}
               <SectionTitle
                 className="mt-[100px] lg:mt-[100px]"
                 align="center"
