@@ -214,6 +214,36 @@
       "text": "Klik door de interface hieronder om enkele projecten te ontdekken."
     }
   },
+  "AskAssistant": {
+    "cta": {
+      "label": "Stel je vraag aan TransformAI"
+    },
+    "panel": {
+      "title": "TransformAI-assistent",
+      "status": "Online",
+      "close": "Sluit chat",
+      "assistantLabel": "Assistent",
+      "userLabel": "Jij",
+      "placeholder": "Stel een vraag over onze oplossingen, prijzen of een gratis introductiegesprek…",
+      "send": "Verstuur",
+      "sendTooltip": "Verstuur bericht",
+      "typing": "TransformAI-assistent is aan het typen",
+      "emptyTitle": "Hoe we kunnen helpen…",
+      "emptyDescription": "Kies een suggestie hieronder of stel je eigen vraag om te beginnen.",
+      "suggestions": [
+        "Hoe begeleidt TransformAI ondernemingen bij AI-adoptie?",
+        "Wat zit er in het introductiepakket?",
+        "Kunnen we volgende week een gratis introductiecall plannen?",
+        "Hoe zorgen jullie voor compliant AI-gebruik in gereguleerde sectoren?"
+      ],
+      "error": "Het bericht kon niet worden verzonden. Probeer het opnieuw.",
+      "rateLimited": "Je hebt kort achter elkaar te veel vragen gesteld. Wacht even en probeer het nogmaals.",
+      "unauthorized": "De assistent is nu even niet beschikbaar. Probeer het later opnieuw.",
+      "retry": "Opnieuw",
+      "transcriptLabel": "TransformAI-assistentgesprek",
+      "intro": "Hoi! Ik ben de TransformAI-assistent. Stel me vragen over onze diensten, prijzen of hoe we AI-transformatie begeleiden."
+    }
+  },
   "CTA": {
     "getStarted": "Begin Nu",
     "exploreProjects": "Ontdek alle projecten"

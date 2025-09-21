@@ -12,6 +12,10 @@ This repository is for the Unkey marketing materials and resources, it includes 
 
 Follow our [contributing guide](https://engineering.unkey.com/contributing)
 
+## Getting Started
+
+Copy `.env.example` to `.env.local` and set `TRANSFORMAI_ASSISTANT_KEY` before working with the assistant chat experience.
+
 ## Running locally
 
 You can find the instructions for each project in their respective directories.
