@@ -156,6 +156,20 @@
       "subtitle": "Why we started TransformAI",
       "body": "Hi, my name is Yergush. I founded TransformAI after seeing how many organizations struggled with the complexity and pace of AI adoption. I wanted to help build a future where businesses can truly harness the power of AI.<br/><br/>With TransformAI, we’re heading in the right direction. It’s inspiring to see our team grow with such talented people and to witness the impact of the projects we’ve already delivered. At the same time, there is still so much more to achieve — and that excites me. I look forward to working with future partners to keep building the future, together."
     },
+    "FAQ": {
+      "q1": {
+        "title": "What’s your goal with TransformAI?",
+        "body": "Our goal is to make AI adoption clear, structured, and achievable for every organization. Too often, businesses struggle with complexity and uncertainty. We help by creating resilient workflows, guiding strategic decisions, and ensuring AI is integrated at the right time, in the right way."
+      },
+      "q2": {
+        "title": "What’s something you’re most proud of at TransformAI?",
+        "body": "We are proud of how we bring together research, education, and hands-on integration. Our team combines technical expertise with business understanding, which allows us to deliver practical solutions that create real value. Seeing companies become more productive and future-proof is what motivates us every day."
+      },
+      "q3": {
+        "title": "What’s something that still challenges you?",
+        "body": "AI evolves quickly, and so do the regulations and expectations around it. One of our ongoing challenges is balancing innovation with responsibility — making sure that companies can move fast, but always with the right governance, timing, and ethical considerations."
+      }
+    },
     "ValuesIntro": {
       "title": "Driven by values",
       "body": "AI transformation touches every part of a business — from technology to people, processes, and strategy. To maximize outcomes, we work from a set of guiding values that shape how we integrate AI sustainably and effectively."
