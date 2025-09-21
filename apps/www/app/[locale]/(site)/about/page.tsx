@@ -185,6 +185,9 @@ export default async function Page({ params }: PageProps) {
     },
   ];
 
+  const valuesIntroTitle = t("ValuesIntro.title");
+  const valuesIntroBody = t("ValuesIntro.body");
+
   const posts = allPosts.filter((post) => SELECTED_POSTS.includes(post.slug));
   return (
     <div>
@@ -281,10 +284,10 @@ export default async function Page({ params }: PageProps) {
               className="absolute right-0 scale-x-[-1] left-[-300px] pointer-events-none"
             />
             <SectionTitle
-              title="Driven by values"
+              title={valuesIntroTitle}
               className="mt-[200px] max-w-full"
               align="center"
-              text="Just as significant as the products we craft is the culture we cultivate - a culture defined by our unwavering commitment to our core values"
+              text={valuesIntroBody}
             />
             <div className="mx-auto md:px-5 lg:px-8">
               <div className="bg-white/10 overflow-hidden text-white mt-[62px] w-full gap-px grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 border-[1px] border-transparent rounded-3xl mb-10 ">
