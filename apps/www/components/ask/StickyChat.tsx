@@ -149,17 +149,26 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
   const stickyTopOffset = isDesktop ? 96 : 72;
   const stickyBottomOffset = isDesktop ? 80 : 64;
 
-  const { style: ctaStickyStyle } = useStickyWithinSection({
+  const { isAtBottom: isCtaAtBottom, isTopVisible: isSectionTopVisible } = useStickyWithinSection({
     enabled: !isOpen,
     bottomRef,
     topRef,
     topOffset: stickyTopOffset,
     bottomOffset: stickyBottomOffset,
+    stickToTop: false,
   });
 
-  const ctaStyle = isDesktop && isOpen
-    ? ({ position: "relative" } as const)
-    : ctaStickyStyle;
+  const shouldStickCtaToBottom = isCtaAtBottom && !isSectionTopVisible;
+
+  const restingCtaStyle = shouldStickCtaToBottom
+    ? ({ position: "sticky", bottom: `${stickyBottomOffset}px` } as const)
+    : ({ position: "relative" } as const);
+
+  const pinnedCtaStyle = isDesktop
+    ? ({ position: "sticky", top: `${stickyTopOffset}px` } as const)
+    : ({ position: "sticky", bottom: `${stickyBottomOffset}px` } as const);
+
+  const ctaStyle = isOpen ? pinnedCtaStyle : restingCtaStyle;
 
   const scrollToChat = useCallback(() => {
     if (typeof window === "undefined") {
