@@ -154,6 +154,32 @@
     "Founder": {
       "title": "Founded to redefine the AI transformation landscape",
       "body": "TransformAI was founded by <highlight>Yergush Bloetjes</highlight> out of frustration with the slow and poorly executed way companies were adapting to the most transformative technology of our time. Combining deep theoretical knowledge, hands-on experience in the AI field, and successful integrations at other firms, he recognized the lack of high-quality solutions for business-wide AI transformation. This gap led to the creation of TransformAI, with the mission of making AI adoption both successful and sustainable."
+    },
+    "Values": {
+      "integrityInAi": {
+        "title": "Integrity in AI",
+        "body": "We ensure that every AI integration is transparent, ethical, and aligned with your company’s values — building trust at every step."
+      },
+      "rightTimedAdaptation": {
+        "title": "Right-Timed Adaptation",
+        "body": "We introduce AI solutions at the right phase. We never push what isn’t needed — we guide adoption where and when it delivers the most value."
+      },
+      "reinforcingWorkforce": {
+        "title": "Reinforcing Workforce",
+        "body": "We strengthen your existing teams. Through training and support, your people stay essential, productive, and future-ready in the AI era."
+      },
+      "innovationWithPurpose": {
+        "title": "Innovation with Purpose",
+        "body": "Our research-driven approach brings cutting-edge AI to real business problems — value over hype, outcomes over buzzwords."
+      },
+      "strategicAgility": {
+        "title": "Strategic Agility",
+        "body": "We move fast so you don’t fall behind. A lean structure enables rapid implementation and continuous improvement."
+      },
+      "partnership": {
+        "title": "Partnership, not just Service",
+        "body": "We don’t deliver and leave. We collaborate deeply, co-creating workflows and strategy so AI becomes a lasting advantage."
+      }
     }
   },
   "LogoCloud": {

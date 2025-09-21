@@ -154,6 +154,32 @@
     "Founder": {
       "title": "Opgericht om AI-transformatie opnieuw vorm te geven",
       "body": "TransformAI is opgericht door <highlight>Yergush Bloetjes</highlight> uit frustratie over de trage en slecht uitgevoerde manier waarop bedrijven de meest ingrijpende technologie van onze tijd omarmen. Met diepgaande theoretische kennis, praktijkervaring in AI en succesvolle implementaties bij andere organisaties, zag hij dat er een groot tekort was aan hoogwaardige oplossingen voor bedrijfsbrede AI-transformatie. Dit leidde tot de oprichting van TransformAI, met de missie om AI-adoptie zowel succesvol als duurzaam te maken."
+    },
+    "Values": {
+      "integrityInAi": {
+        "title": "Integriteit in AI",
+        "body": "Wij zorgen dat elke AI-integratie transparant, ethisch en in lijn met jullie waarden gebeurt — vertrouwen staat altijd voorop."
+      },
+      "rightTimedAdaptation": {
+        "title": "Tijdige Adaptatie",
+        "body": "We introduceren AI-oplossingen in de juiste fase. We adviseren nooit wat niet nodig is — we sturen op adoptie waar en wanneer dit de meeste waarde oplevert."
+      },
+      "reinforcingWorkforce": {
+        "title": "Versterken van het Werkpersoneel",
+        "body": "We maken bestaande teams sterker. Met training en ondersteuning blijven medewerkers essentieel, productief en toekomstbestendig."
+      },
+      "innovationWithPurpose": {
+        "title": "Innovatie met Doel",
+        "body": "Onze onderzoeksgerichte aanpak brengt de nieuwste AI naar échte bedrijfsuitdagingen — waarde boven hype, resultaten boven buzzwords."
+      },
+      "strategicAgility": {
+        "title": "Strategische Wendbaarheid",
+        "body": "We schakelen snel zodat jouw organisatie niet achterraakt. Onze slanke structuur maakt snelle implementatie en continue verbetering mogelijk."
+      },
+      "partnership": {
+        "title": "Partnerschap, geen Dienstverlening",
+        "body": "We leveren niet en vertrekken. We werken nauw samen en co-creëren workflows en strategie zodat AI een blijvend voordeel wordt."
+      }
     }
   },
   "LogoCloud": {

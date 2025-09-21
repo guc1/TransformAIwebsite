@@ -1,4 +1,13 @@
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Clock,
+  Handshake,
+  RefreshCcw,
+  ShieldCheck,
+  Sparkles,
+  Users2,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -137,6 +146,45 @@ export default async function Page({ params }: PageProps) {
     ),
   });
 
+  const values = [
+    {
+      key: "integrityInAi",
+      title: t("Values.integrityInAi.title"),
+      text: t("Values.integrityInAi.body"),
+      icon: ShieldCheck,
+    },
+    {
+      key: "rightTimedAdaptation",
+      title: t("Values.rightTimedAdaptation.title"),
+      text: t("Values.rightTimedAdaptation.body"),
+      icon: Clock,
+    },
+    {
+      key: "reinforcingWorkforce",
+      title: t("Values.reinforcingWorkforce.title"),
+      text: t("Values.reinforcingWorkforce.body"),
+      icon: Users2,
+    },
+    {
+      key: "innovationWithPurpose",
+      title: t("Values.innovationWithPurpose.title"),
+      text: t("Values.innovationWithPurpose.body"),
+      icon: Sparkles,
+    },
+    {
+      key: "strategicAgility",
+      title: t("Values.strategicAgility.title"),
+      text: t("Values.strategicAgility.body"),
+      icon: RefreshCcw,
+    },
+    {
+      key: "partnership",
+      title: t("Values.partnership.title"),
+      text: t("Values.partnership.body"),
+      icon: Handshake,
+    },
+  ];
+
   const posts = allPosts.filter((post) => SELECTED_POSTS.includes(post.slug));
   return (
     <div>
@@ -240,30 +288,9 @@ export default async function Page({ params }: PageProps) {
             />
             <div className="mx-auto md:px-5 lg:px-8">
               <div className="bg-white/10 overflow-hidden text-white mt-[62px] w-full gap-px grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 border-[1px] border-transparent rounded-3xl mb-10 ">
-                <Value
-                  text="We don't meet expectations; we redefine them by doing all the hard work upfront to craft an effortless user experience."
-                  title="Quality"
-                />
-                <Value
-                  text="Our default is to be open rather than closed. Simplicity, transparency, and honesty lead to the best results."
-                  title="Open company"
-                />
-                <Value
-                  title="Ownership"
-                  text="Our team members are given a high degree of autonomy to develop, implement, and iterate on their ideas."
-                />
-                <Value
-                  text="We prioritize quality while ensuring our team has a work-life balance that ensures they can deliver maximum value."
-                  title="Sustainability"
-                />
-                <Value
-                  text="We ship fast and work together with our users to solve real problems."
-                  title="Customer obsessed"
-                />
-                <Value
-                  text="We take security seriously and don't compromise in favour of velocity or user experience."
-                  title="Security first"
-                />
+                {values.map(({ key, title, text, icon }) => (
+                  <Value key={key} title={title} text={text} icon={icon} />
+                ))}
               </div>
             </div>
           </div>
@@ -432,11 +459,22 @@ function PhotoLabel({ text, className }: { text: string; className: string }) {
   );
 }
 
-function Value({ title, text }: { title: string; text: string }) {
+function Value({
+  title,
+  text,
+  icon: Icon,
+}: {
+  title: string;
+  text: string;
+  icon: LucideIcon;
+}) {
   return (
     <div className="flex bg-black p-10">
       <div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5">
+            <Icon aria-hidden="true" className="h-6 w-6 text-white" />
+          </span>
           <h3 className="font-medium">{title}</h3>
         </div>
         <p className="text-white/60 text-sm leading-6 lg:max-w-[4500px] xl:max-w-[280px] pt-2">
