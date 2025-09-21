@@ -268,6 +268,56 @@ li > p {
   animation: slideGradient 1.5s linear forwards;
 }
 
+.ask-typing-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(2, 252, 241, 0.8), rgba(2, 57, 252, 0.8));
+  animation: askTyping 1.2s ease-in-out infinite;
+}
+
+.ask-plane {
+  animation: askPlane 0.45s ease-out;
+}
+
+@keyframes askTyping {
+  0%,
+  80%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes askPlane {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateX(6px) translateY(-3px) rotate(8deg);
+  }
+
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ask-typing-dot {
+    animation: none;
+  }
+
+  .ask-plane {
+    animation: none;
+  }
+}
+
 @keyframes slideGradient {
   from {
     left: -50%;

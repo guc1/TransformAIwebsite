@@ -1,4 +1,6 @@
 "use client";
+import { AskCta } from "@/components/ask/AskCta";
+import type { StickyChatProps } from "@/components/ask/StickyChat";
 import { PrimaryButton, SecondaryButton } from "@/components/button";
 import { SectionTitle } from "@/components/section";
 import type { LangIconProps } from "@/components/svg/lang-icons";
@@ -20,8 +22,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type { PrismTheme } from "prism-react-renderer";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 const Tabs = TabsPrimitive.Root;
 
 const editorTheme = {
@@ -555,9 +556,105 @@ LanguageTrigger.displayName = TabsPrimitive.Trigger.displayName;
 export const CodeExamples: React.FC<Props> = ({ className }) => {
   const t = useTranslations("CodeExamples");
   const cta = useTranslations("CTA");
+  const ask = useTranslations("AskAssistant");
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isChatLoading, setIsChatLoading] = useState(false);
+  const [ChatSurface, setChatSurface] = useState<React.ComponentType<StickyChatProps> | null>(null);
+  const ctaRef = useRef<HTMLButtonElement>(null);
+  const isMountedRef = useRef(true);
   const [language, setLanguage] = useState<Language>("Typescript");
   const [framework, setFramework] = useState<FrameworkName>("Typescript");
   const [languageHover, setLanguageHover] = useState("Typescript");
+
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
+  const askStrings = useMemo(
+    () => ({
+      title: ask("panel.title"),
+      status: ask("panel.status"),
+      close: ask("panel.close"),
+      assistantLabel: ask("panel.assistantLabel"),
+      userLabel: ask("panel.userLabel"),
+      placeholder: ask("panel.placeholder"),
+      send: ask("panel.send"),
+      sendTooltip: ask("panel.sendTooltip"),
+      typing: ask("panel.typing"),
+      emptyTitle: ask("panel.emptyTitle"),
+      emptyDescription: ask("panel.emptyDescription"),
+      suggestions: [
+        ask("panel.suggestions.0"),
+        ask("panel.suggestions.1"),
+        ask("panel.suggestions.2"),
+        ask("panel.suggestions.3"),
+      ],
+      error: ask("panel.error"),
+      rateLimited: ask("panel.rateLimited"),
+      unauthorized: ask("panel.unauthorized"),
+      retry: ask("panel.retry"),
+      transcriptLabel: ask("panel.transcriptLabel"),
+      intro: ask("panel.intro"),
+    }),
+    [ask],
+  );
+
+  const askCtaLabel = ask("cta.label");
+
+  const ensureChatLoaded = useCallback(async () => {
+    if (ChatSurface) {
+      return ChatSurface;
+    }
+    setIsChatLoading(true);
+    try {
+      const module = await import("@/components/ask/StickyChat");
+      if (isMountedRef.current) {
+        setChatSurface(() => module.StickyChat);
+      }
+      return module.StickyChat;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    } finally {
+      if (isMountedRef.current) {
+        setIsChatLoading(false);
+      }
+    }
+  }, [ChatSurface]);
+
+  const handleChatToggle = useCallback(async () => {
+    if (!ChatSurface) {
+      try {
+        await ensureChatLoaded();
+        if (isMountedRef.current) {
+          setIsChatOpen(true);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+      return;
+    }
+
+    setIsChatOpen((previous) => !previous);
+  }, [ChatSurface, ensureChatLoaded]);
+
+  const handleChatClose = useCallback(() => {
+    setIsChatOpen(false);
+  }, []);
+
+  const handleAskToggle = useCallback(() => {
+    void handleChatToggle();
+  }, [handleChatToggle]);
+
+  const prefetchChat = useCallback(() => {
+    if (!ChatSurface) {
+      void ensureChatLoaded().catch((error) => {
+        console.error(error);
+      });
+    }
+  }, [ChatSurface, ensureChatLoaded]);
   function getLanguage({
     language,
     framework,
@@ -605,6 +702,37 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
           <MeteorLines className="ml-16 fade-in-100" delay={2} number={1} />
         </div>
       </SectionTitle>
+      <div className="relative mt-14 flex flex-col items-center sm:mt-16">
+        <div aria-hidden className="h-10 sm:h-12" />
+        <div className="flex w-full justify-center">
+          {ChatSurface ? (
+            <ChatSurface
+              isOpen={isChatOpen}
+              onClose={handleChatClose}
+              focusReturnRef={ctaRef}
+              strings={askStrings}
+            />
+          ) : (
+            <div
+              className="relative w-full max-w-[760px] min-h-[26rem] sm:min-h-[28rem]"
+              aria-hidden
+            />
+          )}
+        </div>
+        <div aria-hidden className="h-8 sm:h-10" />
+        <div className="flex w-full justify-center">
+          <AskCta
+            ref={ctaRef}
+            label={askCtaLabel}
+            pressed={isChatOpen}
+            onToggle={handleAskToggle}
+            loading={isChatLoading}
+            onMouseEnter={prefetchChat}
+            onFocus={prefetchChat}
+          />
+        </div>
+        <div aria-hidden className="h-12 sm:h-14" />
+      </div>
       <SectionTitle
         title={t("bottom.title")}
         text={t("bottom.text")}

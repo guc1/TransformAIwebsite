@@ -214,6 +214,36 @@
       "text": "Click through the interface below to explore sample projects."
     }
   },
+  "AskAssistant": {
+    "cta": {
+      "label": "Ask the TransformAI"
+    },
+    "panel": {
+      "title": "TransformAI Assistant",
+      "status": "Online",
+      "close": "Close chat",
+      "assistantLabel": "Assistant",
+      "userLabel": "You",
+      "placeholder": "Ask anything about our solutions, pricing, or a free intro call…",
+      "send": "Send",
+      "sendTooltip": "Send message",
+      "typing": "TransformAI assistant is typing",
+      "emptyTitle": "How we can help…",
+      "emptyDescription": "Pick a prompt below or ask your own question to start the conversation.",
+      "suggestions": [
+        "Show me how TransformAI guides enterprise AI adoption",
+        "What does the introduction package include?",
+        "Can we book a free intro call next week?",
+        "How do you ensure compliant AI usage in regulated industries?"
+      ],
+      "error": "We couldn’t send that. Please try again.",
+      "rateLimited": "You’ve reached the question limit for the moment. Please wait a few seconds and try again.",
+      "unauthorized": "The assistant is unavailable right now. Please try again later.",
+      "retry": "Retry",
+      "transcriptLabel": "TransformAI assistant conversation",
+      "intro": "Hi! I'm the TransformAI assistant. Ask me about our services, pricing, or how we guide AI transformation."
+    }
+  },
   "CTA": {
     "getStarted": "Get Started",
     "exploreProjects": "Explore All projects"
