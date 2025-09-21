@@ -156,6 +156,20 @@
       "subtitle": "Waarom we TransformAI zijn gestart",
       "body": "Hallo, mijn naam is Yergush. Ik heb TransformAI opgericht nadat ik zag hoe veel organisaties worstelden met de complexiteit en het tempo van AI-adoptie. Ik wilde bijdragen aan een toekomst waarin bedrijven de kracht van AI echt kunnen benutten.<br/><br/>Met TransformAI zetten we de juiste stappen. Het is inspirerend om ons team te zien groeien met zoveel talent en om het resultaat van onze projecten terug te zien bij onze klanten. Tegelijkertijd ligt er nog een enorme weg voor ons — en dat maakt mij enthousiast. Ik kijk ernaar uit om samen met toekomstige partners verder te bouwen aan de toekomst."
     },
+    "FAQ": {
+      "q1": {
+        "title": "Wat is jullie doel met TransformAI?",
+        "body": "Ons doel is om AI-adoptie helder, gestructureerd en haalbaar te maken voor elke organisatie. Bedrijven worstelen vaak met complexiteit en onzekerheid. Wij helpen door robuuste workflows te bouwen, strategische keuzes te begeleiden en te zorgen dat AI op het juiste moment en op de juiste manier wordt geïntegreerd."
+      },
+      "q2": {
+        "title": "Waar zijn jullie het meest trots op bij TransformAI?",
+        "body": "Wij zijn trots dat we onderzoek, educatie en praktische integratie samenbrengen. Ons team combineert technische kennis met zakelijk inzicht, waardoor we oplossingen leveren die écht waarde creëren. Het zien van bedrijven die productiever en toekomstbestendig worden, motiveert ons elke dag."
+      },
+      "q3": {
+        "title": "Wat blijft nog een uitdaging?",
+        "body": "AI ontwikkelt zich razendsnel, net als de regelgeving en verwachtingen daaromheen. Een blijvende uitdaging is de balans tussen innovatie en verantwoordelijkheid — zorgen dat organisaties snel kunnen handelen, maar altijd met de juiste governance, timing en ethische afwegingen."
+      }
+    },
     "ValuesIntro": {
       "title": "Gedreven door waarden",
       "body": "AI-transformatie raakt alle onderdelen van een organisatie — van technologie tot mensen, processen en strategie. Om het maximale resultaat te behalen, werken wij vanuit kernwaarden die richting geven aan hoe wij AI duurzaam en effectief integreren."

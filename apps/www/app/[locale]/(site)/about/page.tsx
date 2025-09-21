@@ -341,37 +341,26 @@ export default async function Page({ params }: PageProps) {
                     value="item-1"
                     className="border border-white/10 rounded-tr-[20px] rounded-tl-[20px]"
                   >
-                    <AccordionTriggerAbout>What's your goal with Unkey?</AccordionTriggerAbout>
+                    <AccordionTriggerAbout>
+                      {t("FAQ.q1.title")}
+                    </AccordionTriggerAbout>
                     <AccordionContent className="pl-10">
-                      Our goal with Unkey is build an open source API management platform that
-                      doesn’t require the burden or cost of traditional API management platforms
-                      like Kong or Azure APM. We want to embrace what developers know today, a
-                      global REST API that allows you to deploy and protect your API on the edge in
-                      under 5 minutes.{" "}
+                      {t("FAQ.q1.body")}
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2" className="border border-white/10">
-                    <AccordionTriggerAbout>
-                      What's something you're particularly happy about at Unkey?
-                    </AccordionTriggerAbout>
+                    <AccordionTriggerAbout>{t("FAQ.q2.title")}</AccordionTriggerAbout>
                     <AccordionContent className="pl-10">
-                      We are extremely happy with the culture we have built at Unkey, our team is
-                      small but powerful. Everyone in our team has input on the next feature or idea
-                      we have for Unkey, allowing us to build the best API management platform.{" "}
+                      {t("FAQ.q2.body")}
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem
                     value="item-3"
                     className="border border-white/10 rounded-br-[20px] rounded-bl-[20px]"
                   >
-                    <AccordionTriggerAbout>
-                      What's something you're less happy about?
-                    </AccordionTriggerAbout>
+                    <AccordionTriggerAbout>{t("FAQ.q3.title")}</AccordionTriggerAbout>
                     <AccordionContent className="pl-10">
-                      While we are happy with Unkey overall knowing when to build tall or wide is a
-                      problem we run into frequently. Having a small team and focusing on incredible
-                      DX means that adding new features or improving currents ones means that we
-                      have to be certain that it will bring value to our users.{" "}
+                      {t("FAQ.q3.body")}
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
