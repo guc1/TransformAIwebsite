@@ -209,6 +209,43 @@
       "title": "Vraag alles over TransformAI aan onze AI-assistent",
       "text": "Stel je vragen, plan een afspraak of ontdek meer over onze oplossingen en diensten."
     },
+    "chat": {
+      "cta": {
+        "label": "Stel je vraag aan TransformAI"
+      },
+      "header": {
+        "title": "TransformAI-assistent",
+        "status": "Online",
+        "statusA11y": "Status assistent: online",
+        "close": "Sluit de assistent"
+      },
+      "input": {
+        "placeholder": "Stel alles over onze oplossingen, prijzen of een gratis kennismakingsgesprek…",
+        "tooltip": "Bericht verzenden",
+        "send": "Versturen"
+      },
+      "empty": {
+        "title": "Waarmee kunnen we helpen…",
+        "prompts": [
+          "Welke AI-transformatiediensten biedt TransformAI voor middelgrote bedrijven?",
+          "Hoe plan ik een gratis kennismakingsgesprek?",
+          "Kun je het verschil uitleggen tussen het Education- en het Introduction-pakket?",
+          "Hoe zorgt TransformAI ervoor dat AI-adoptie compliant blijft?"
+        ],
+        "action": "Stel deze vraag"
+      },
+      "messages": {
+        "assistant": "TransformAI-assistent",
+        "user": "Jij",
+        "typing": "TransformAI-assistent is aan het typen…",
+        "transcriptLabel": "Gesprek tussen jou en de assistent"
+      },
+      "errors": {
+        "title": "Assistent niet bereikbaar",
+        "body": "Probeer het over een paar ogenblikken opnieuw.",
+        "retry": "Opnieuw"
+      }
+    },
     "bottom": {
       "title": "Ontdek de projecten waar wij aan hebben meegewerkt",
       "text": "Klik door de interface hieronder om enkele projecten te ontdekken."
