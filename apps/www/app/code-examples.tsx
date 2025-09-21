@@ -1,4 +1,5 @@
 "use client";
+import { StickyChat } from "@/components/ask";
 import { PrimaryButton, SecondaryButton } from "@/components/button";
 import { SectionTitle } from "@/components/section";
 import type { LangIconProps } from "@/components/svg/lang-icons";
@@ -605,11 +606,12 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
           <MeteorLines className="ml-16 fade-in-100" delay={2} number={1} />
         </div>
       </SectionTitle>
+      <StickyChat className="mt-16" />
       <SectionTitle
         title={t("bottom.title")}
         text={t("bottom.text")}
         align="center"
-        className="relative mt-12"
+        className="relative mt-24"
       />
       <div className="relative w-full mt-10 rounded-4xl border-[.75px] border-white/10 bg-gradient-to-b from-[#111111] to-black border-t-[.75px] border-t-white/20">
         <div
