@@ -244,7 +244,8 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
   const anchoredCtaStyle: CSSProperties | null =
     isDesktop && hasReachedBoundary
       ? {
-          position: "relative",
+          position: "sticky",
+          top: `${stickyTopOffset}px`,
           left: "auto",
           bottom: "auto",
           transform: "none",
@@ -253,7 +254,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
       : null;
 
   const baseCtaStyle = anchoredCtaStyle ?? (isOpen ? pinnedCtaStyle : floatingCtaStyle);
-  const shouldShowCta = isOpen || (hasReachedTrigger && !hasReachedBoundary);
+  const shouldShowCta = isOpen || hasReachedTrigger;
 
   useEffect(() => {
     if (typeof window === "undefined") {
