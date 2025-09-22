@@ -71,10 +71,13 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
   const [isDesktop, setIsDesktop] = useState(false);
   const [hasReachedTrigger, setHasReachedTrigger] = useState(false);
   const [hasReachedBoundary, setHasReachedBoundary] = useState(false);
+  const [hasReachedAnchor, setHasReachedAnchor] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const lastScrollYRef = useRef(0);
   const closeTimer = useRef<number>();
   const hasOpenedRef = useRef(false);
 
@@ -241,20 +244,126 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
     ? { position: "sticky", top: `${stickyTopOffset}px` }
     : { position: "sticky", bottom: `${stickyBottomOffset}px` };
 
+  const shouldAnchorCta = hasReachedAnchor || (isDesktop && hasReachedBoundary);
+
   const anchoredCtaStyle: CSSProperties | null =
-    isDesktop && hasReachedBoundary
-      ? {
-          position: "sticky",
-          top: `${stickyTopOffset}px`,
-          left: "auto",
-          bottom: "auto",
-          transform: "none",
-          zIndex: 60,
-        }
+    !isOpen && shouldAnchorCta
+      ? isDesktop
+        ? {
+            position: "sticky",
+            top: `${stickyTopOffset}px`,
+            left: "auto",
+            right: "auto",
+            bottom: "auto",
+            transform: "none",
+            zIndex: 60,
+          }
+        : {
+            position: "sticky",
+            bottom: `${stickyBottomOffset}px`,
+            left: "auto",
+            right: "auto",
+            top: "auto",
+            transform: "none",
+            zIndex: 60,
+          }
       : null;
 
-  const baseCtaStyle = anchoredCtaStyle ?? (isOpen ? pinnedCtaStyle : floatingCtaStyle);
+  const baseCtaStyle = isOpen ? pinnedCtaStyle : anchoredCtaStyle ?? floatingCtaStyle;
   const shouldShowCta = isOpen || hasReachedTrigger;
+  const chatHasContent = shouldRender && displayPanel;
+  const ctaOrderClass = chatHasContent ? "order-2" : "order-1";
+  const chatOrderClass = chatHasContent ? "order-1" : "order-2";
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const anchorElement = anchorRef.current;
+    if (!anchorElement) {
+      setHasReachedAnchor(false);
+      return;
+    }
+
+    let frame = 0;
+    lastScrollYRef.current = window.scrollY;
+
+    const calculate = () => {
+      const element = anchorRef.current;
+      if (!element) {
+        setHasReachedAnchor(false);
+        return;
+      }
+
+      const rect = element.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 0;
+      const referencePosition = isDesktop ? rect.top : rect.bottom;
+      const anchorLimit = isDesktop
+        ? stickyTopOffset
+        : viewportHeight - stickyBottomOffset;
+      const scrollY = window.scrollY;
+      const isScrollingDown = scrollY >= lastScrollYRef.current;
+      const reached = referencePosition <= anchorLimit;
+      const releaseThreshold = anchorLimit + 8;
+
+      setHasReachedAnchor((previous) => {
+        if (reached) {
+          return true;
+        }
+
+        if (!previous) {
+          return false;
+        }
+
+        if (!isScrollingDown && referencePosition > releaseThreshold) {
+          return false;
+        }
+
+        return previous;
+      });
+
+      lastScrollYRef.current = scrollY;
+    };
+
+    calculate();
+
+    const handleScroll = () => {
+      if (frame) {
+        return;
+      }
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        calculate();
+      });
+    };
+
+    const handleResize = () => {
+      calculate();
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+
+    let resizeObserver: ResizeObserver | undefined;
+    if (typeof ResizeObserver === "function") {
+      resizeObserver = new ResizeObserver(() => calculate());
+      resizeObserver.observe(anchorElement);
+      const sectionElement = sectionRef.current;
+      if (sectionElement && sectionElement !== anchorElement) {
+        resizeObserver.observe(sectionElement);
+      }
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      resizeObserver?.disconnect();
+    };
+  }, [chatHasContent, isDesktop, isOpen, stickyBottomOffset, stickyTopOffset]);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -422,11 +531,6 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
     [handleSend],
   );
 
-  const chatHasContent = shouldRender && displayPanel;
-
-  const ctaOrderClass = chatHasContent ? "order-2" : "order-1";
-  const chatOrderClass = chatHasContent ? "order-1" : "order-2";
-
   return (
     <div
       ref={sectionRef}
@@ -463,8 +567,13 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
       </div>
       <div ref={bottomRef} aria-hidden className="order-3 mt-16 h-px w-full" />
       <div
+        ref={anchorRef}
+        aria-hidden
+        className={cn("pointer-events-none mt-2 h-0 w-full", ctaOrderClass)}
+      />
+      <div
         className={cn(
-          "mt-2 flex justify-center z-50",
+          "flex justify-center z-50",
           isOpen ? "w-full" : "w-auto",
           ctaOrderClass,
           "transition-opacity transition-transform duration-300 ease-out",
