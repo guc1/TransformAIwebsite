@@ -8,6 +8,7 @@ type StickyWithinSectionOptions = {
   topOffset: number;
   bottomOffset: number;
   topRef?: RefObject<Element>;
+  stickToTop?: boolean;
 };
 
 export function useStickyWithinSection({
@@ -16,6 +17,7 @@ export function useStickyWithinSection({
   topOffset,
   bottomOffset,
   topRef,
+  stickToTop = true,
 }: StickyWithinSectionOptions) {
   const [isAtBottom, setIsAtBottom] = useState(false);
   const [isTopVisible, setIsTopVisible] = useState(true);
@@ -87,17 +89,34 @@ export function useStickyWithinSection({
     };
   }, [enabled, topOffset, topRef]);
 
+  const style = useMemo(() => {
+    if (!enabled) {
+      return { position: "relative" } as const;
+    }
+
+    if (isAtBottom) {
+      return { position: "sticky", bottom: `${bottomOffset}px` } as const;
+    }
+
+    if (!stickToTop) {
+      return { position: "relative" } as const;
+    }
+
+    if (!topRef) {
+      return { position: "sticky", top: `${topOffset}px` } as const;
+    }
+
+    return isTopVisible
+      ? ({ position: "relative" } as const)
+      : ({ position: "sticky", top: `${topOffset}px` } as const);
+  }, [bottomOffset, enabled, isAtBottom, isTopVisible, stickToTop, topOffset, topRef]);
+
   return useMemo(
     () => ({
       isAtBottom,
-      style: enabled
-        ? isAtBottom
-          ? ({ position: "sticky", bottom: `${bottomOffset}px` } as const)
-          : topRef && isTopVisible
-            ? ({ position: "relative" } as const)
-            : ({ position: "sticky", top: `${topOffset}px` } as const)
-        : ({ position: "relative" } as const),
+      isTopVisible,
+      style,
     }),
-    [bottomOffset, enabled, isAtBottom, isTopVisible, topOffset, topRef],
+    [isAtBottom, isTopVisible, style],
   );
 }
