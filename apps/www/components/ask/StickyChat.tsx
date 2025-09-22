@@ -64,10 +64,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [hasSectionEnteredView, setHasSectionEnteredView] = useState(false);
-
   const sectionRef = useRef<HTMLDivElement>(null);
-  const topRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
   const closeTimer = useRef<number>();
@@ -150,36 +147,23 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
   const stickyTopOffset = isDesktop ? 96 : 72;
   const stickyBottomOffset = isDesktop ? 80 : 64;
 
-  const { isTopVisible: isSectionTopVisible } = useStickyWithinSection({
-    enabled: !isOpen,
-    bottomRef,
-    topRef,
-    topOffset: stickyTopOffset,
-    bottomOffset: stickyBottomOffset,
-    stickToTop: false,
-  });
+  const floatingBottomOffset = isDesktop ? 72 : 32;
 
-  useEffect(() => {
-    if (isOpen) {
-      return;
-    }
-
-    if (isSectionTopVisible) {
-      setHasSectionEnteredView((previous) => (previous ? previous : true));
-    }
-  }, [isOpen, isSectionTopVisible]);
-
-  const shouldStickCtaToBottom = !isOpen && hasSectionEnteredView && !isSectionTopVisible;
-
-  const restingCtaStyle = shouldStickCtaToBottom
-    ? ({ position: "sticky", bottom: `${stickyBottomOffset}px` } as const)
-    : ({ position: "relative" } as const);
+  const floatingCtaStyle = {
+    position: "fixed",
+    bottom: `${floatingBottomOffset}px`,
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 60,
+    width: "fit-content",
+    maxWidth: "calc(100% - 32px)",
+  } as const;
 
   const pinnedCtaStyle = isDesktop
     ? ({ position: "sticky", top: `${stickyTopOffset}px` } as const)
     : ({ position: "sticky", bottom: `${stickyBottomOffset}px` } as const);
 
-  const ctaStyle = isOpen ? pinnedCtaStyle : restingCtaStyle;
+  const ctaStyle = isOpen ? pinnedCtaStyle : floatingCtaStyle;
 
   const scrollToChat = useCallback(() => {
     if (typeof window === "undefined") {
@@ -301,11 +285,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
         className,
       )}
     >
-      <div
-        ref={topRef}
-        aria-hidden
-        className="order-first -mb-8 h-px w-full sm:-mb-12"
-      />
+      <div aria-hidden className="order-first -mb-8 h-px w-full sm:-mb-12" />
       <div
         className={cn(
           "w-full transition-all duration-300 ease-out",
@@ -333,7 +313,8 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
       <div ref={bottomRef} aria-hidden className="order-3 mt-16 h-px w-full" />
       <div
         className={cn(
-          "mt-2 flex w-full justify-center",
+          "mt-2 flex justify-center z-50",
+          isOpen ? "w-full" : "w-auto",
           ctaOrderClass,
           "transition-all duration-300 ease-out",
         )}
