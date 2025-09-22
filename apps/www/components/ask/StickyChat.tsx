@@ -23,13 +23,15 @@ const ChatPanel = dynamic(() => import("./ChatPanel").then((mod) => mod.ChatPane
 });
 
 const INTERSECTION_THRESHOLDS = Array.from({ length: 11 }, (_, index) => index / 10);
+const BOUNDARY_RELEASE_OFFSET = 100;
 
 type StickyChatProps = {
   className?: string;
   triggerId?: string;
+  boundaryId?: string;
 };
 
-export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId }) => {
+export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, boundaryId }) => {
   const t = useTranslations("CodeExamples.chat");
   const locale = useMemo<ChatLocale>(
     () => ({
@@ -69,8 +71,10 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId }) 
   const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [hasReachedTrigger, setHasReachedTrigger] = useState(false);
+  const [hasReachedBoundary, setHasReachedBoundary] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
   const closeTimer = useRef<number>();
   const hasOpenedRef = useRef(false);
@@ -136,11 +140,15 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId }) 
     }
   }, [isOpen]);
 
+  const chatStickyTopOffset = 64;
+  const chatStickyBottomOffset = 80;
+
   const { style: stickyStyle } = useStickyWithinSection({
     enabled: isOpen && isDesktop,
     bottomRef,
-    topOffset: 64,
-    bottomOffset: 80,
+    topOffset: chatStickyTopOffset,
+    bottomOffset: chatStickyBottomOffset,
+    stickToTop: !hasReachedBoundary,
   });
 
   const chatStyle = isDesktop
@@ -148,6 +156,73 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId }) 
     : isOpen
       ? ({ position: "sticky", bottom: "96px" } as const)
       : ({ position: "relative" } as const);
+
+  useEffect(() => {
+    if (!boundaryId || typeof window === "undefined" || !isDesktop) {
+      setHasReachedBoundary(false);
+      return;
+    }
+
+    const boundaryElement = document.getElementById(boundaryId);
+    const chatElement = chatContainerRef.current;
+    const sectionElement = sectionRef.current;
+
+    if (!boundaryElement || !chatElement || !sectionElement) {
+      setHasReachedBoundary(false);
+      return;
+    }
+
+    let frame = 0;
+
+    const calculate = () => {
+      const boundaryTop = boundaryElement.getBoundingClientRect().top + window.scrollY;
+      const chatRect = chatElement.getBoundingClientRect();
+      const chatHeight = chatRect.height;
+      const sectionBottom = sectionElement.getBoundingClientRect().bottom + window.scrollY;
+      const defaultGap = Math.max(boundaryTop - sectionBottom, 0);
+      const anchorThreshold = Math.max(
+        boundaryTop - (chatStickyTopOffset + chatHeight + defaultGap) - BOUNDARY_RELEASE_OFFSET,
+        0,
+      );
+      const reached = window.scrollY >= anchorThreshold;
+      setHasReachedBoundary((previous) => (previous === reached ? previous : reached));
+    };
+
+    const handleScroll = () => {
+      if (frame) {
+        return;
+      }
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        calculate();
+      });
+    };
+
+    const handleResize = () => {
+      calculate();
+    };
+
+    calculate();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+
+    let resizeObserver: ResizeObserver | undefined;
+    if (typeof ResizeObserver === "function") {
+      resizeObserver = new ResizeObserver(() => calculate());
+      resizeObserver.observe(chatElement);
+      resizeObserver.observe(sectionElement);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      resizeObserver?.disconnect();
+    };
+  }, [boundaryId, chatStickyTopOffset, isDesktop]);
 
   const stickyTopOffset = isDesktop ? 96 : 72;
   const stickyBottomOffset = isDesktop ? 80 : 64;
@@ -167,8 +242,19 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId }) 
     ? { position: "sticky", top: `${stickyTopOffset}px` }
     : { position: "sticky", bottom: `${stickyBottomOffset}px` };
 
-  const baseCtaStyle = isOpen ? pinnedCtaStyle : floatingCtaStyle;
-  const shouldShowCta = isOpen || hasReachedTrigger;
+  const anchoredCtaStyle: CSSProperties | null =
+    isDesktop && hasReachedBoundary
+      ? {
+          position: "relative",
+          left: "auto",
+          bottom: "auto",
+          transform: "none",
+          zIndex: 60,
+        }
+      : null;
+
+  const baseCtaStyle = anchoredCtaStyle ?? (isOpen ? pinnedCtaStyle : floatingCtaStyle);
+  const shouldShowCta = isOpen || (hasReachedTrigger && !hasReachedBoundary);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -355,6 +441,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId }) 
           "w-full transition-all duration-300 ease-out",
           chatOrderClass,
         )}
+        ref={chatContainerRef}
         style={chatStyle}
         id={chatPanelId}
       >
