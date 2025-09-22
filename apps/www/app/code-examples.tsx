@@ -24,6 +24,8 @@ import type { PrismTheme } from "prism-react-renderer";
 import React, { useEffect } from "react";
 import { useState } from "react";
 const Tabs = TabsPrimitive.Root;
+const ASK_CHAT_TRIGGER_ID = "ask-transformai-assistant-intro";
+const ASK_CHAT_BOUNDARY_ID = "ask-transformai-assistant-boundary";
 
 const editorTheme = {
   plain: {
@@ -590,6 +592,7 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
   return (
     <section className={className}>
       <SectionTitle
+        id={ASK_CHAT_TRIGGER_ID}
         title={t("top.title")}
         text={t("top.text")}
         align="center"
@@ -606,8 +609,13 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
           <MeteorLines className="ml-16 fade-in-100" delay={2} number={1} />
         </div>
       </SectionTitle>
-      <StickyChat className="mt-16" />
+      <StickyChat
+        className="mt-16"
+        triggerId={ASK_CHAT_TRIGGER_ID}
+        boundaryId={ASK_CHAT_BOUNDARY_ID}
+      />
       <SectionTitle
+        id={ASK_CHAT_BOUNDARY_ID}
         title={t("bottom.title")}
         text={t("bottom.text")}
         align="center"

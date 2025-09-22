@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import {
+  type CSSProperties,
   useCallback,
   useEffect,
   useId,
@@ -21,11 +22,15 @@ const ChatPanel = dynamic(() => import("./ChatPanel").then((mod) => mod.ChatPane
   ssr: false,
 });
 
+const INTERSECTION_THRESHOLDS = Array.from({ length: 11 }, (_, index) => index / 10);
+
 type StickyChatProps = {
   className?: string;
+  triggerId?: string;
+  boundaryId?: string;
 };
 
-export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
+export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, boundaryId }) => {
   const t = useTranslations("CodeExamples.chat");
   const locale = useMemo<ChatLocale>(
     () => ({
@@ -64,11 +69,18 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
-
+  const [hasReachedTrigger, setHasReachedTrigger] = useState(false);
+  const [hasReachedBoundary, setHasReachedBoundary] = useState(false);
+  const [hasReachedAnchor, setHasReachedAnchor] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const lastScrollYRef = useRef(0);
   const closeTimer = useRef<number>();
+  const hasOpenedRef = useRef(false);
+  const anchorDismissedRef = useRef(false);
 
   const chatId = useId();
   const chatPanelId = `${chatId}-panel`;
@@ -121,16 +133,25 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (!isOpen && ctaRef.current) {
+    if (isOpen) {
+      hasOpenedRef.current = true;
+      return;
+    }
+
+    if (hasOpenedRef.current && ctaRef.current) {
       ctaRef.current.focus();
     }
   }, [isOpen]);
 
+  const chatStickyTopOffset = 64;
+  const chatStickyBottomOffset = 80;
+
   const { style: stickyStyle } = useStickyWithinSection({
     enabled: isOpen && isDesktop,
     bottomRef,
-    topOffset: 64,
-    bottomOffset: 80,
+    topOffset: chatStickyTopOffset,
+    bottomOffset: chatStickyBottomOffset,
+    stickToTop: !hasReachedBoundary,
   });
 
   const chatStyle = isDesktop
@@ -139,9 +160,281 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
       ? ({ position: "sticky", bottom: "96px" } as const)
       : ({ position: "relative" } as const);
 
-  const ctaStyle = isDesktop && !isOpen
-    ? ({ position: "sticky", top: "96px" } as const)
-    : ({ position: "relative" } as const);
+  useEffect(() => {
+    if (!boundaryId || typeof window === "undefined" || !isDesktop) {
+      setHasReachedBoundary(false);
+      return;
+    }
+
+    const boundaryElement = document.getElementById(boundaryId);
+    const chatElement = chatContainerRef.current;
+    const sectionElement = sectionRef.current;
+
+    if (!boundaryElement || !chatElement || !sectionElement) {
+      setHasReachedBoundary(false);
+      return;
+    }
+
+    let frame = 0;
+
+    const calculate = () => {
+      const boundaryTop = boundaryElement.getBoundingClientRect().top + window.scrollY;
+      const chatRect = chatElement.getBoundingClientRect();
+      const chatHeight = chatRect.height;
+      const sectionBottom = sectionElement.getBoundingClientRect().bottom + window.scrollY;
+      const defaultGap = Math.max(boundaryTop - sectionBottom, 0);
+      const anchorThreshold = Math.max(
+        boundaryTop - (chatStickyTopOffset + chatHeight + defaultGap),
+        0,
+      );
+      const reached = window.scrollY >= anchorThreshold;
+      setHasReachedBoundary((previous) => (previous === reached ? previous : reached));
+    };
+
+    const handleScroll = () => {
+      if (frame) {
+        return;
+      }
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        calculate();
+      });
+    };
+
+    const handleResize = () => {
+      calculate();
+    };
+
+    calculate();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+
+    let resizeObserver: ResizeObserver | undefined;
+    if (typeof ResizeObserver === "function") {
+      resizeObserver = new ResizeObserver(() => calculate());
+      resizeObserver.observe(chatElement);
+      resizeObserver.observe(sectionElement);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      resizeObserver?.disconnect();
+    };
+  }, [boundaryId, chatStickyTopOffset, isDesktop]);
+
+  const stickyTopOffset = isDesktop ? 96 : 72;
+  const stickyBottomOffset = isDesktop ? 80 : 64;
+
+  const floatingBottomOffset = isDesktop ? 72 : 32;
+  const floatingCtaStyle: CSSProperties = {
+    position: "fixed",
+    bottom: `${floatingBottomOffset}px`,
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 60,
+    width: "fit-content",
+    maxWidth: "calc(100% - 32px)",
+  };
+
+  const pinnedCtaStyle: CSSProperties = isDesktop
+    ? { position: "sticky", top: `${stickyTopOffset}px` }
+    : { position: "sticky", bottom: `${stickyBottomOffset}px` };
+
+  const shouldAnchorCta = hasReachedAnchor || (isDesktop && hasReachedBoundary);
+
+  useEffect(() => {
+    if (shouldAnchorCta) {
+      if (!isOpen && !anchorDismissedRef.current) {
+        setIsOpen(true);
+      }
+      return;
+    }
+
+    anchorDismissedRef.current = false;
+  }, [isOpen, shouldAnchorCta]);
+
+  const anchoredCtaStyle: CSSProperties | null =
+    !isOpen && shouldAnchorCta
+      ? isDesktop
+        ? {
+            position: "sticky",
+            top: `${stickyTopOffset}px`,
+            left: "auto",
+            right: "auto",
+            bottom: "auto",
+            transform: "none",
+            zIndex: 60,
+          }
+        : {
+            position: "sticky",
+            bottom: `${stickyBottomOffset}px`,
+            left: "auto",
+            right: "auto",
+            top: "auto",
+            transform: "none",
+            zIndex: 60,
+          }
+      : null;
+
+  const baseCtaStyle = isOpen ? pinnedCtaStyle : anchoredCtaStyle ?? floatingCtaStyle;
+  const shouldShowCta = isOpen || hasReachedTrigger;
+  const chatHasContent = shouldRender && displayPanel;
+  const ctaOrderClass = chatHasContent ? "order-2" : "order-1";
+  const chatOrderClass = chatHasContent ? "order-1" : "order-2";
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const anchorElement = anchorRef.current;
+    if (!anchorElement) {
+      setHasReachedAnchor(false);
+      return;
+    }
+
+    let frame = 0;
+    lastScrollYRef.current = window.scrollY;
+
+    const calculate = () => {
+      const element = anchorRef.current;
+      if (!element) {
+        setHasReachedAnchor(false);
+        return;
+      }
+
+      const rect = element.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 0;
+      const referencePosition = isDesktop ? rect.top : rect.bottom;
+      const anchorLimit = isDesktop
+        ? stickyTopOffset
+        : viewportHeight - stickyBottomOffset;
+      const scrollY = window.scrollY;
+      const isScrollingDown = scrollY >= lastScrollYRef.current;
+      const reached = referencePosition <= anchorLimit;
+      const releaseThreshold = anchorLimit + 8;
+
+      setHasReachedAnchor((previous) => {
+        if (reached) {
+          return true;
+        }
+
+        if (!previous) {
+          return false;
+        }
+
+        if (!isScrollingDown && referencePosition > releaseThreshold) {
+          return false;
+        }
+
+        return previous;
+      });
+
+      lastScrollYRef.current = scrollY;
+    };
+
+    calculate();
+
+    const handleScroll = () => {
+      if (frame) {
+        return;
+      }
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        calculate();
+      });
+    };
+
+    const handleResize = () => {
+      calculate();
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+
+    let resizeObserver: ResizeObserver | undefined;
+    if (typeof ResizeObserver === "function") {
+      resizeObserver = new ResizeObserver(() => calculate());
+      resizeObserver.observe(anchorElement);
+      const sectionElement = sectionRef.current;
+      if (sectionElement && sectionElement !== anchorElement) {
+        resizeObserver.observe(sectionElement);
+      }
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      resizeObserver?.disconnect();
+    };
+  }, [chatHasContent, isDesktop, isOpen, stickyBottomOffset, stickyTopOffset]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    if (!triggerId) {
+      setHasReachedTrigger(true);
+      return;
+    }
+
+    if (typeof window.IntersectionObserver !== "function") {
+      setHasReachedTrigger(true);
+      return;
+    }
+
+    const section = sectionRef.current;
+    const target = (document.getElementById(triggerId) ?? section?.previousElementSibling) as
+      | HTMLElement
+      | null;
+
+    if (!target) {
+      setHasReachedTrigger(true);
+      return;
+    }
+
+    const computeShouldActivate = (rect: DOMRect | DOMRectReadOnly) => {
+      const viewportHeight = window.innerHeight || 0;
+      const visibilityOffset = Math.max(Math.min(viewportHeight, 16), 0);
+      const threshold = viewportHeight - visibilityOffset;
+      return rect.top <= threshold;
+    };
+
+    const evaluate = () => {
+      const rect = target.getBoundingClientRect();
+      setHasReachedTrigger(computeShouldActivate(rect));
+    };
+
+    evaluate();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) {
+          return;
+        }
+
+        const rect = entry.boundingClientRect;
+        setHasReachedTrigger(entry.isIntersecting || computeShouldActivate(rect));
+      },
+      { threshold: INTERSECTION_THRESHOLDS },
+    );
+
+    observer.observe(target);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [triggerId]);
 
   const scrollToChat = useCallback(() => {
     if (typeof window === "undefined") {
@@ -235,13 +528,23 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
     void sendToAssistant([...messages], pendingPrompt);
   }, [messages, pendingPrompt, sendToAssistant]);
 
-  const handleToggle = useCallback(() => {
-    const next = !isOpen;
-    setIsOpen(next);
-    if (next) {
-      scrollToChat();
+  const closeChat = useCallback(() => {
+    setIsOpen(false);
+    if (shouldAnchorCta) {
+      anchorDismissedRef.current = true;
     }
-  }, [isOpen, scrollToChat]);
+  }, [shouldAnchorCta]);
+
+  const handleToggle = useCallback(() => {
+    if (isOpen) {
+      closeChat();
+      return;
+    }
+
+    anchorDismissedRef.current = false;
+    setIsOpen(true);
+    scrollToChat();
+  }, [closeChat, isOpen, scrollToChat]);
 
   const handlePrompt = useCallback(
     (prompt: string) => {
@@ -249,8 +552,6 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
     },
     [handleSend],
   );
-
-  const chatHasContent = shouldRender && displayPanel;
 
   return (
     <div
@@ -260,8 +561,13 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
         className,
       )}
     >
+      <div aria-hidden className="order-first -mb-8 h-px w-full sm:-mb-12" />
       <div
-        className="w-full transition-[top,bottom] duration-300 ease-out"
+        className={cn(
+          "w-full transition-all duration-300 ease-out",
+          chatOrderClass,
+        )}
+        ref={chatContainerRef}
         style={chatStyle}
         id={chatPanelId}
       >
@@ -272,7 +578,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
               isOpen={isOpen}
               isLoading={isLoading}
               locale={locale}
-              onClose={() => setIsOpen(false)}
+              onClose={closeChat}
               onSend={handleSend}
               onUsePrompt={handlePrompt}
               errorMessage={errorMessage}
@@ -281,13 +587,25 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
           ) : null}
         </div>
       </div>
-      <div ref={bottomRef} aria-hidden className="mt-16 h-px w-full" />
+      <div ref={bottomRef} aria-hidden className="order-3 mt-16 h-px w-full" />
+      <div
+        ref={anchorRef}
+        aria-hidden
+        className={cn("pointer-events-none mt-2 h-0 w-full", ctaOrderClass)}
+      />
       <div
         className={cn(
-          "mt-2 flex w-full justify-center",
-          isDesktop ? "transition-[top] duration-300 ease-out" : undefined,
+          "flex justify-center z-50",
+          isOpen ? "w-full" : "w-auto",
+          ctaOrderClass,
+          "transition-opacity transition-transform duration-300 ease-out",
+          "motion-reduce:transition-none motion-reduce:transform-none",
+          shouldShowCta
+            ? "pointer-events-auto opacity-100 translate-y-0 motion-reduce:translate-y-0"
+            : "pointer-events-none opacity-0 translate-y-2 motion-reduce:translate-y-0",
         )}
-        style={ctaStyle}
+        style={baseCtaStyle}
+        aria-hidden={!shouldShowCta}
       >
         <AskCta
           ref={ctaRef}
@@ -295,8 +613,10 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
           pressed={isOpen}
           onToggle={handleToggle}
           ariaControls={chatPanelId}
+          tabIndex={shouldShowCta ? 0 : -1}
         />
       </div>
+      <div aria-hidden className="order-last h-8 w-full sm:h-12" />
     </div>
   );
 };
