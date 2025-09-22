@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import {
+  type CSSProperties,
   useCallback,
   useEffect,
   useId,
@@ -21,11 +22,14 @@ const ChatPanel = dynamic(() => import("./ChatPanel").then((mod) => mod.ChatPane
   ssr: false,
 });
 
+const INTERSECTION_THRESHOLDS = Array.from({ length: 11 }, (_, index) => index / 10);
+
 type StickyChatProps = {
   className?: string;
+  triggerId?: string;
 };
 
-export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
+export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId }) => {
   const t = useTranslations("CodeExamples.chat");
   const locale = useMemo<ChatLocale>(
     () => ({
@@ -64,10 +68,8 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [hasSectionEnteredView, setHasSectionEnteredView] = useState(false);
-
+  const [hasReachedTrigger, setHasReachedTrigger] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const topRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
   const closeTimer = useRef<number>();
@@ -150,36 +152,82 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
   const stickyTopOffset = isDesktop ? 96 : 72;
   const stickyBottomOffset = isDesktop ? 80 : 64;
 
-  const { isTopVisible: isSectionTopVisible } = useStickyWithinSection({
-    enabled: !isOpen,
-    bottomRef,
-    topRef,
-    topOffset: stickyTopOffset,
-    bottomOffset: stickyBottomOffset,
-    stickToTop: false,
-  });
+  const floatingBottomOffset = isDesktop ? 72 : 32;
+  const floatingCtaStyle: CSSProperties = {
+    position: "fixed",
+    bottom: `${floatingBottomOffset}px`,
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 60,
+    width: "fit-content",
+    maxWidth: "calc(100% - 32px)",
+  };
+
+  const pinnedCtaStyle: CSSProperties = isDesktop
+    ? { position: "sticky", top: `${stickyTopOffset}px` }
+    : { position: "sticky", bottom: `${stickyBottomOffset}px` };
+
+  const baseCtaStyle = isOpen ? pinnedCtaStyle : floatingCtaStyle;
+  const shouldShowCta = isOpen || hasReachedTrigger;
 
   useEffect(() => {
-    if (isOpen) {
+    if (typeof window === "undefined") {
       return;
     }
 
-    if (isSectionTopVisible) {
-      setHasSectionEnteredView((previous) => (previous ? previous : true));
+    if (!triggerId) {
+      setHasReachedTrigger(true);
+      return;
     }
-  }, [isOpen, isSectionTopVisible]);
 
-  const shouldStickCtaToBottom = !isOpen && hasSectionEnteredView && !isSectionTopVisible;
+    if (typeof window.IntersectionObserver !== "function") {
+      setHasReachedTrigger(true);
+      return;
+    }
 
-  const restingCtaStyle = shouldStickCtaToBottom
-    ? ({ position: "sticky", bottom: `${stickyBottomOffset}px` } as const)
-    : ({ position: "relative" } as const);
+    const section = sectionRef.current;
+    const target = (document.getElementById(triggerId) ?? section?.previousElementSibling) as
+      | HTMLElement
+      | null;
 
-  const pinnedCtaStyle = isDesktop
-    ? ({ position: "sticky", top: `${stickyTopOffset}px` } as const)
-    : ({ position: "sticky", bottom: `${stickyBottomOffset}px` } as const);
+    if (!target) {
+      setHasReachedTrigger(true);
+      return;
+    }
 
-  const ctaStyle = isOpen ? pinnedCtaStyle : restingCtaStyle;
+    const computeShouldActivate = (rect: DOMRect | DOMRectReadOnly) => {
+      const viewportHeight = window.innerHeight || 0;
+      const visibilityOffset = Math.max(Math.min(viewportHeight, 16), 0);
+      const threshold = viewportHeight - visibilityOffset;
+      return rect.top <= threshold;
+    };
+
+    const evaluate = () => {
+      const rect = target.getBoundingClientRect();
+      setHasReachedTrigger(computeShouldActivate(rect));
+    };
+
+    evaluate();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) {
+          return;
+        }
+
+        const rect = entry.boundingClientRect;
+        setHasReachedTrigger(entry.isIntersecting || computeShouldActivate(rect));
+      },
+      { threshold: INTERSECTION_THRESHOLDS },
+    );
+
+    observer.observe(target);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [triggerId]);
 
   const scrollToChat = useCallback(() => {
     if (typeof window === "undefined") {
@@ -301,11 +349,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
         className,
       )}
     >
-      <div
-        ref={topRef}
-        aria-hidden
-        className="order-first -mb-8 h-px w-full sm:-mb-12"
-      />
+      <div aria-hidden className="order-first -mb-8 h-px w-full sm:-mb-12" />
       <div
         className={cn(
           "w-full transition-all duration-300 ease-out",
@@ -333,11 +377,17 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
       <div ref={bottomRef} aria-hidden className="order-3 mt-16 h-px w-full" />
       <div
         className={cn(
-          "mt-2 flex w-full justify-center",
+          "mt-2 flex justify-center z-50",
+          isOpen ? "w-full" : "w-auto",
           ctaOrderClass,
-          "transition-all duration-300 ease-out",
+          "transition-opacity transition-transform duration-300 ease-out",
+          "motion-reduce:transition-none motion-reduce:transform-none",
+          shouldShowCta
+            ? "pointer-events-auto opacity-100 translate-y-0 motion-reduce:translate-y-0"
+            : "pointer-events-none opacity-0 translate-y-2 motion-reduce:translate-y-0",
         )}
-        style={ctaStyle}
+        style={baseCtaStyle}
+        aria-hidden={!shouldShowCta}
       >
         <AskCta
           ref={ctaRef}
@@ -345,6 +395,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className }) => {
           pressed={isOpen}
           onToggle={handleToggle}
           ariaControls={chatPanelId}
+          tabIndex={shouldShowCta ? 0 : -1}
         />
       </div>
       <div aria-hidden className="order-last h-8 w-full sm:h-12" />
