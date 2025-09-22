@@ -10,10 +10,11 @@ type AskCtaProps = {
   onToggle: () => void;
   ariaControls?: string;
   className?: string;
+  tabIndex?: number;
 };
 
 export const AskCta = forwardRef<HTMLButtonElement, AskCtaProps>(
-  ({ label, pressed, onToggle, ariaControls, className }, ref) => {
+  ({ label, pressed, onToggle, ariaControls, className, tabIndex }, ref) => {
     return (
       <button
         ref={ref}
@@ -21,6 +22,7 @@ export const AskCta = forwardRef<HTMLButtonElement, AskCtaProps>(
         onClick={onToggle}
         aria-pressed={pressed}
         aria-controls={ariaControls}
+        tabIndex={tabIndex}
         data-state={pressed ? "open" : "closed"}
         className={cn(
           "group relative inline-flex items-center justify-center rounded-full p-[1px] text-sm font-semibold text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
