@@ -243,13 +243,22 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
 
   const anchoredCtaStyle: CSSProperties | null =
     isDesktop && hasReachedBoundary
-      ? {
-          position: "relative",
-          left: "auto",
-          bottom: "auto",
-          transform: "none",
-          zIndex: 60,
-        }
+      ? isOpen
+        ? {
+            position: "sticky",
+            top: `${stickyTopOffset}px`,
+            left: "auto",
+            bottom: "auto",
+            transform: "none",
+            zIndex: 60,
+          }
+        : {
+            position: "relative",
+            left: "auto",
+            bottom: "auto",
+            transform: "none",
+            zIndex: 60,
+          }
       : null;
 
   const baseCtaStyle = anchoredCtaStyle ?? (isOpen ? pinnedCtaStyle : floatingCtaStyle);
