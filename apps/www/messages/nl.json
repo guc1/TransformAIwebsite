@@ -137,6 +137,43 @@
         "chooseTier2": "Bekijk het introductiepakket",
         "chooseTier3": "Neem contact op voor enterprise"
       }
+    },
+    "Chat": {
+      "cta": {
+        "label": "Vraag het aan onze TransformAI"
+      },
+      "header": {
+        "title": "TransformAI Prijsassistent",
+        "status": "Online",
+        "statusA11y": "Assistentstatus: online",
+        "close": "Sluit de prijsassistent"
+      },
+      "input": {
+        "placeholder": "Stel vragen over pakketten, ROI of maatwerk voor jouw team…",
+        "tooltip": "Verstuur bericht",
+        "send": "Versturen"
+      },
+      "empty": {
+        "title": "Veelgestelde prijsvragen",
+        "prompts": [
+          "Welk pakket past het beste bij het onboarden van ons hele team?",
+          "Kun je het educatie- en introductiepakket vergelijken?",
+          "Ondersteunen jullie gefaseerde uitrol voordat we voor Enterprise kiezen?",
+          "Wat zit er meestal in een Enterprise-voorstel?"
+        ],
+        "action": "Stel deze vraag"
+      },
+      "messages": {
+        "assistant": "TransformAI Prijsassistent",
+        "user": "Jij",
+        "typing": "TransformAI Prijsassistent is aan het typen…",
+        "transcriptLabel": "Gesprek over prijzen met de assistent"
+      },
+      "errors": {
+        "title": "Assistent niet bereikbaar",
+        "body": "Probeer het over een moment opnieuw.",
+        "retry": "Opnieuw proberen"
+      }
     }
   },
   "Hero": {

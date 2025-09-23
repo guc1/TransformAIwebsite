@@ -137,6 +137,43 @@
         "chooseTier2": "Explore the Introduction Package",
         "chooseTier3": "Talk to Enterprise Solutions"
       }
+    },
+    "Chat": {
+      "cta": {
+        "label": "Ask our TransformAI"
+      },
+      "header": {
+        "title": "TransformAI Pricing Assistant",
+        "status": "Online",
+        "statusA11y": "Assistant status: online",
+        "close": "Hide the pricing assistant"
+      },
+      "input": {
+        "placeholder": "Ask about packages, ROI, or the best fit for your team…",
+        "tooltip": "Send message",
+        "send": "Send"
+      },
+      "empty": {
+        "title": "Popular pricing questions",
+        "prompts": [
+          "Which package is best for onboarding our whole team?",
+          "Can you compare the Education and Introduction packages?",
+          "Do you support staged rollouts before committing to Enterprise?",
+          "What does a typical Enterprise proposal include?"
+        ],
+        "action": "Ask this question"
+      },
+      "messages": {
+        "assistant": "TransformAI Pricing Assistant",
+        "user": "You",
+        "typing": "TransformAI Pricing Assistant is typing…",
+        "transcriptLabel": "Conversation about pricing with the assistant"
+      },
+      "errors": {
+        "title": "Unable to reach the assistant",
+        "body": "Please try again in a few moments.",
+        "retry": "Retry"
+      }
     }
   },
   "Hero": {
