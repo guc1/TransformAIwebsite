@@ -127,6 +127,12 @@ const offsiteImages = [
   { src: yardwork, label: "Caffeinated" },
 ];
 
+const partnerLogos = [
+  { name: "Mercedes-Benz", src: "/images/logo-cloud/mercedes-benz-4.svg" },
+  { name: "Albert Heijn", src: "/images/logo-cloud/ah-albert-heijn.svg" },
+  { name: "a.s.r.", src: "/images/logo-cloud/ASRNL.svg" },
+] as const;
+
 type PageProps = {
   params: {
     locale: string;
@@ -140,7 +146,10 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  const t = await getTranslations({ locale, namespace: "About" });
+  const [t, logoCloudTranslations] = await Promise.all([
+    getTranslations({ locale, namespace: "About" }),
+    getTranslations({ locale, namespace: "LogoCloud" }),
+  ]);
   const heroTitle = t("Hero.title");
   const heroBody = t("Hero.body");
   const heroCta = t("Hero.cta");
@@ -213,6 +222,7 @@ export default async function Page({ params }: PageProps) {
   const valuesIntroBody = t("ValuesIntro.body");
   const blogTitle = t("Blog.title");
   const blogBody = t("Blog.body");
+  const partnerLabel = logoCloudTranslations("label");
 
   const posts = allPosts.filter((post) => SELECTED_POSTS.includes(post.slug));
   return (
@@ -244,6 +254,7 @@ export default async function Page({ params }: PageProps) {
               align="center"
               text={heroBody}
             />
+            <PartnerLogoCloud label={partnerLabel} className="mt-16" />
           </div>
           <div className="relative mt-[200px] xl:mt-[400px]">
             <div className="absolute left-[-250px]">
@@ -459,6 +470,40 @@ export default async function Page({ params }: PageProps) {
         </div>
       </Container>
       <CTA />
+    </div>
+  );
+}
+
+function PartnerLogoCloud({
+  label,
+  className,
+}: {
+  label: string;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex w-full flex-col items-center gap-8", className)}>
+      <span className="font-mono text-sm md:text-md text-white/50 text-center">
+        {label}
+      </span>
+      <div className="grid w-full max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
+        {partnerLogos.map(({ name, src }) => (
+          <div
+            key={name}
+            className="flex h-[92px] items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-8 py-6 transition-colors duration-200 hover:border-white/20"
+          >
+            <div className="relative h-10 w-40 sm:h-12 sm:w-44">
+              <Image
+                src={src}
+                alt={`${name} logo`}
+                fill
+                className="object-contain"
+                sizes="(min-width: 1024px) 11rem, (min-width: 640px) 10rem, 9rem"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
