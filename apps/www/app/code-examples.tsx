@@ -18,6 +18,7 @@ import { MeteorLines } from "@/components/ui/meteorLines";
 import { cn } from "@/lib/utils";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type { PrismTheme } from "prism-react-renderer";
@@ -383,8 +384,14 @@ public class APIController {
 type Framework = {
   name: string;
   Icon: React.FC<LangIconProps>;
-  codeBlock: string;
-  editorLanguage: string;
+  codeBlock?: string;
+  editorLanguage?: string;
+  image?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
 };
 
 const languagesList = {
@@ -472,10 +479,14 @@ const languagesList = {
   ],
   Rust: [
     {
-      name: "Verify key",
+      name: "Platform",
       Icon: RustIcon,
-      codeBlock: rustCodeBlock,
-      editorLanguage: "rust",
+      image: {
+        src: "/projects/platform.png",
+        alt: "Platform project preview",
+        width: 1200,
+        height: 800,
+      },
     },
   ],
   Curl: [
@@ -561,33 +572,19 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
   const [language, setLanguage] = useState<Language>("Typescript");
   const [framework, setFramework] = useState<FrameworkName>("Typescript");
   const [languageHover, setLanguageHover] = useState("Typescript");
-  function getLanguage({
-    language,
-    framework,
-  }: {
-    language: Language;
-    framework: FrameworkName;
-  }) {
-    const frameworks = languagesList[language];
-    const currentFramework = frameworks.find((f) => f.name === framework);
-    return currentFramework?.editorLanguage || "tsx";
-  }
+  const frameworksForLanguage: Framework[] = languagesList[language];
+  const currentFrameworkData: Framework | undefined =
+    frameworksForLanguage.find((f) => f.name === framework) ??
+    frameworksForLanguage[0];
+  const activeCodeBlock = currentFrameworkData?.codeBlock ?? "";
+  const activeEditorLanguage = currentFrameworkData?.editorLanguage ?? "tsx";
 
   useEffect(() => {
-    setFramework(languagesList[language].at(0)!.name);
+    const [firstFramework] = languagesList[language];
+    if (firstFramework) {
+      setFramework(firstFramework.name);
+    }
   }, [language]);
-
-  function getCodeBlock({
-    language,
-    framework,
-  }: {
-    language: Language;
-    framework: FrameworkName;
-  }) {
-    const frameworks = languagesList[language];
-    const currentFramework = frameworks.find((f) => f.name === framework);
-    return currentFramework?.codeBlock || "";
-  }
 
   return (
     <section className={className}>
@@ -647,20 +644,41 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
         </Tabs>
         <div className="flex flex-col sm:flex-row overflow-x-auto scrollbar-hidden sm:h-[520px]">
           <FrameworkSwitcher
-            frameworks={languagesList[language]}
+            frameworks={frameworksForLanguage}
             currentFramework={framework}
             setFramework={setFramework}
           />
-          <div className="relative flex w-full pt-4 pb-8 pl-8 font-mono text-xs text-white sm:text-sm">
-            <CodeEditor
-              language={getLanguage({ language, framework })}
-              theme={editorTheme}
-              codeBlock={getCodeBlock({ language, framework })}
-            />
-            <CopyCodeSnippetButton
-              textToCopy={getCodeBlock({ language, framework })}
-              className="absolute hidden cursor-pointer top-5 right-5 lg:flex"
-            />
+          <div
+            className={cn(
+              "relative flex w-full pt-4 pb-8 pl-8 text-white",
+              currentFrameworkData?.image
+                ? "items-center justify-center pr-8"
+                : "font-mono text-xs sm:text-sm",
+            )}
+          >
+            {currentFrameworkData?.image ? (
+              <Image
+                src={currentFrameworkData.image.src}
+                alt={currentFrameworkData.image.alt}
+                width={currentFrameworkData.image.width}
+                height={currentFrameworkData.image.height}
+                className="object-contain w-full h-auto max-h-[420px] rounded-2xl border border-white/10 bg-white/5"
+                sizes="(min-width: 1280px) 720px, (min-width: 640px) 75vw, 90vw"
+                priority={language === "Rust"}
+              />
+            ) : (
+              <>
+                <CodeEditor
+                  language={activeEditorLanguage}
+                  theme={editorTheme}
+                  codeBlock={activeCodeBlock}
+                />
+                <CopyCodeSnippetButton
+                  textToCopy={activeCodeBlock}
+                  className="absolute hidden cursor-pointer top-5 right-5 lg:flex"
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
