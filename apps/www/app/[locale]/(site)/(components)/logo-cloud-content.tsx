@@ -8,7 +8,7 @@ import { getTranslations } from "next-intl/server";
 const logos = [
   {
     name: "ASR Nederland",
-    url: "/images/logo-cloud/ASRfromweb.png",
+    url: "/images/logo-cloud/Asrbakc.png",
     href: "https://www.asr.nl/",
   },
   {
