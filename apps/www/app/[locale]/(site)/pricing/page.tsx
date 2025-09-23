@@ -1,4 +1,5 @@
 "use client";
+import { PricingChat } from "@/components/ask";
 import { CTA } from "@/components/cta";
 import { Particles } from "@/components/particles";
 import { PricingCompareTable } from "@/components/pricing/pricing-compare-table";
@@ -34,6 +35,7 @@ export default function PricingPage() {
   const enterpriseContactHref = "mailto:support@unkey.dev?subject=TransformAI%20Enterprise%20Solutions";
   return (
     <div className="px-4 mx-auto lg:px-0 pt-[64px]">
+      <PricingChat />
       <TopRightShiningLight />
       <TopLeftShiningLight />
       <div
