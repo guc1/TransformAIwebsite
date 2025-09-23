@@ -13,7 +13,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { Fragment } from "react";
+import { Fragment, type ReactNode } from "react";
 
 import { BorderBeam } from "@/components/border-beam";
 import { RainbowDarkButton } from "@/components/button";
@@ -65,6 +65,8 @@ import james from "@/images/team/james.jpg";
 
 import { ImageWithBlur } from "@/components/image-with-blur";
 import { cn } from "@/lib/utils";
+import { loadMessages } from "@/i18n/messages";
+import type { Messages } from "@/i18n/messages";
 import { isLocale } from "@/i18n/routing";
 
 export const metadata = {
@@ -141,34 +143,27 @@ export default async function Page({ params }: PageProps) {
   }
 
   const t = await getTranslations({ locale, namespace: "About" });
+  const messages = await loadMessages(locale);
   const heroTitle = t("Hero.title");
   const heroBody = t("Hero.body");
   const heroCta = t("Hero.cta");
   const founderTitle = t("Founder.title");
   const founderSubtitle = t("Founder.subtitle");
-  const founderBodySegments = t("Founder.body")
-    .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/\r/g, "")
-    .split(/\n{2,}/)
-    .map((segment) => segment.trim())
-    .filter(Boolean);
+  let founderBodyCopy = getNestedMessage(
+    messages,
+    ["About", "Founder", "body"],
+  );
 
-  const founderBody = founderBodySegments.flatMap((segment, index) => {
-    const nodes = [
-      <Fragment key={`founder-text-${index}`}>{segment}</Fragment>,
-    ];
+  if (!founderBodyCopy && locale !== "en") {
+    const fallbackMessages = await loadMessages("en");
+    founderBodyCopy = getNestedMessage(fallbackMessages, [
+      "About",
+      "Founder",
+      "body",
+    ]);
+  }
 
-    if (index < founderBodySegments.length - 1) {
-      nodes.push(
-        <Fragment key={`founder-break-${index}`}>
-          <br />
-          <br />
-        </Fragment>,
-      );
-    }
-
-    return nodes;
-  });
+  const founderBody = formatFounderBody(founderBodyCopy ?? "");
 
   const values = [
     {
@@ -461,6 +456,90 @@ export default async function Page({ params }: PageProps) {
       <CTA />
     </div>
   );
+}
+
+function getNestedMessage(
+  messages: Messages,
+  path: string[],
+): string | undefined {
+  let current: unknown = messages;
+
+  for (const key of path) {
+    if (!isRecord(current)) {
+      return undefined;
+    }
+
+    if (!(key in current)) {
+      return undefined;
+    }
+
+    const record = current as Record<string, unknown>;
+    current = record[key];
+  }
+
+  return typeof current === "string" ? current : undefined;
+}
+
+function formatFounderBody(copy: string): ReactNode[] {
+  const segments = copy
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/\r/g, "")
+    .split(/\n{2,}/)
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+
+  return segments.flatMap((segment, segmentIndex) => {
+    const nodes: ReactNode[] = [];
+    const highlightRegex = /<highlight>(.*?)<\/highlight>/gi;
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = highlightRegex.exec(segment)) !== null) {
+      if (match.index > lastIndex) {
+        nodes.push(
+          <Fragment
+            key={`founder-text-${segmentIndex}-${nodes.length}`}
+          >
+            {segment.slice(lastIndex, match.index)}
+          </Fragment>,
+        );
+      }
+
+      nodes.push(
+        <span
+          key={`founder-highlight-${segmentIndex}-${nodes.length}`}
+          className="font-semibold text-inherit"
+        >
+          {match[1]}
+        </span>,
+      );
+
+      lastIndex = match.index + match[0].length;
+    }
+
+    if (lastIndex < segment.length) {
+      nodes.push(
+        <Fragment key={`founder-text-${segmentIndex}-${nodes.length}`}>
+          {segment.slice(lastIndex)}
+        </Fragment>,
+      );
+    }
+
+    if (segmentIndex < segments.length - 1) {
+      nodes.push(
+        <Fragment key={`founder-break-${segmentIndex}`}>
+          <br />
+          <br />
+        </Fragment>,
+      );
+    }
+
+    return nodes;
+  });
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function PhotoLabel({ text, className }: { text: string; className: string }) {
