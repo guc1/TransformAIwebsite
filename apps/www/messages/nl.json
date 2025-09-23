@@ -126,6 +126,11 @@
         "consulting": "Toegewijde consulting",
         "continuousSupport": "Doorlopende ondersteuning"
       },
+      "priceRanges": {
+        "t1": "Geschatte investering per inbegrepen service: €450 – €1.200",
+        "t2": "Geschatte investering per inbegrepen service: €900 – €2.500",
+        "t3": "Maatwerktrajecten variëren doorgaans van €2.500 – €8.500"
+      },
       "legend": {
         "included": "Inbegrepen",
         "notIncluded": "Niet inbegrepen",

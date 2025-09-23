@@ -27,15 +27,33 @@ type PricingTableCategory = {
 };
 
 type PricingTableData = {
-  tiers: Array<{ id: TierId; labelKey: string; priceKey: string; anchor: string }>;
+  tiers: Array<{ id: TierId; labelKey: string; priceKey: string; anchor: string; priceRangeKey: string }>;
   categories: PricingTableCategory[];
 };
 
 const TABLE_DATA: PricingTableData = {
   tiers: [
-    { id: "t1", labelKey: "tiers.t1", priceKey: "tiers.price.t1", anchor: "#pricing-tier-1" },
-    { id: "t2", labelKey: "tiers.t2", priceKey: "tiers.price.t2", anchor: "#pricing-tier-2" },
-    { id: "t3", labelKey: "tiers.t3", priceKey: "tiers.price.t3", anchor: "#pricing-tier-3" },
+    {
+      id: "t1",
+      labelKey: "tiers.t1",
+      priceKey: "tiers.price.t1",
+      anchor: "#pricing-tier-1",
+      priceRangeKey: "priceRanges.t1",
+    },
+    {
+      id: "t2",
+      labelKey: "tiers.t2",
+      priceKey: "tiers.price.t2",
+      anchor: "#pricing-tier-2",
+      priceRangeKey: "priceRanges.t2",
+    },
+    {
+      id: "t3",
+      labelKey: "tiers.t3",
+      priceKey: "tiers.price.t3",
+      anchor: "#pricing-tier-3",
+      priceRangeKey: "priceRanges.t3",
+    },
   ],
   categories: [
     {
@@ -153,6 +171,7 @@ type AvailabilityIndicatorProps = {
   value: Availability;
   label: string;
   note?: string;
+  priceRange?: string;
   size?: "md" | "sm";
 };
 
@@ -161,23 +180,46 @@ const sizeMap = {
   sm: "h-8 w-8 text-sm",
 } satisfies Record<NonNullable<AvailabilityIndicatorProps["size"]>, string>;
 
-function AvailabilityIndicator({ value, label, note, size = "md" }: AvailabilityIndicatorProps) {
+function AvailabilityIndicator({ value, label, note, priceRange, size = "md" }: AvailabilityIndicatorProps) {
   const meta = AVAILABILITY_META[value];
   const Icon = meta.icon;
 
+  const indicatorClasses = cn(
+    "inline-flex items-center justify-center rounded-full border bg-opacity-20 font-medium transition-colors",
+    sizeMap[size],
+    meta.className,
+  );
+
+  const iconElement = <Icon className={cn(size === "md" ? "h-4 w-4" : "h-3.5 w-3.5")} />;
+
+  const shouldShowPriceTooltip = value === "yes" && Boolean(priceRange);
+
   return (
     <div className="flex items-center justify-center gap-2">
-      <span
-        aria-hidden
-        className={cn(
-          "inline-flex items-center justify-center rounded-full border bg-opacity-20 font-medium transition-colors",
-          sizeMap[size],
-          meta.className,
-        )}
-      >
-        <Icon className={cn(size === "md" ? "h-4 w-4" : "h-3.5 w-3.5")} />
-      </span>
-      <span className="sr-only">{label}</span>
+      {shouldShowPriceTooltip ? (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              className={cn(
+                indicatorClasses,
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900",
+              )}
+              aria-label={`${label}. ${priceRange}`}
+            >
+              {iconElement}
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="top" className="max-w-xs text-left text-white">
+            <p>{priceRange}</p>
+          </TooltipContent>
+        </Tooltip>
+      ) : (
+        <span aria-hidden className={indicatorClasses}>
+          {iconElement}
+        </span>
+      )}
+      {shouldShowPriceTooltip ? null : <span className="sr-only">{label}</span>}
       {value === "partial" && note ? (
         <Tooltip>
           <TooltipTrigger asChild>
@@ -280,6 +322,11 @@ export function PricingCompareTable() {
                               value={row.availability[tier.id]}
                               label={availabilityLabels[row.availability[tier.id]]}
                               note={row.noteKey ? t(row.noteKey) : undefined}
+                              priceRange={
+                                row.availability[tier.id] === "yes"
+                                  ? t(tier.priceRangeKey)
+                                  : undefined
+                              }
                             />
                           </td>
                         ))}
@@ -313,6 +360,11 @@ export function PricingCompareTable() {
                                     value={row.availability[tier.id]}
                                     label={availabilityLabels[row.availability[tier.id]]}
                                     note={row.noteKey ? t(row.noteKey) : undefined}
+                                    priceRange={
+                                      row.availability[tier.id] === "yes"
+                                        ? t(tier.priceRangeKey)
+                                        : undefined
+                                    }
                                     size="sm"
                                   />
                                   <span className="text-[11px] text-muted-foreground">{t(tier.priceKey)}</span>

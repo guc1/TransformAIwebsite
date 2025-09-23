@@ -126,6 +126,11 @@
         "consulting": "Dedicated consulting",
         "continuousSupport": "Continuous support"
       },
+      "priceRanges": {
+        "t1": "Estimated investment per included service: €450 – €1,200",
+        "t2": "Estimated investment per included service: €900 – €2,500",
+        "t3": "Custom engagements typically range from €2,500 – €8,500"
+      },
       "legend": {
         "included": "Included",
         "notIncluded": "Not included",
