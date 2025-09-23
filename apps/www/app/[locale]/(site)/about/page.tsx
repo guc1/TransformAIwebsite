@@ -13,6 +13,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
+import { Fragment } from "react";
+
 import { BorderBeam } from "@/components/border-beam";
 import { RainbowDarkButton } from "@/components/button";
 import { Container } from "@/components/container";
@@ -144,8 +146,28 @@ export default async function Page({ params }: PageProps) {
   const heroCta = t("Hero.cta");
   const founderTitle = t("Founder.title");
   const founderSubtitle = t("Founder.subtitle");
-  const founderBody = t.rich("Founder.body", {
-    br: () => <br />,
+  const founderBodySegments = t("Founder.body")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/\r/g, "")
+    .split(/\n{2,}/)
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+
+  const founderBody = founderBodySegments.flatMap((segment, index) => {
+    const nodes = [
+      <Fragment key={`founder-text-${index}`}>{segment}</Fragment>,
+    ];
+
+    if (index < founderBodySegments.length - 1) {
+      nodes.push(
+        <Fragment key={`founder-break-${index}`}>
+          <br />
+          <br />
+        </Fragment>,
+      );
+    }
+
+    return nodes;
   });
 
   const values = [
