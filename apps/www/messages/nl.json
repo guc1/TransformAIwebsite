@@ -299,7 +299,8 @@
   },
   "CTA": {
     "getStarted": "Begin Nu",
-    "exploreProjects": "Ontdek alle projecten"
+    "exploreProjects": "Ontdek alle projecten",
+    "hoursSavedLabel": "Uren bespaard met AI"
   },
   "Cta": {
     "title": "Zet de stap naar het AI-tijdperk",
