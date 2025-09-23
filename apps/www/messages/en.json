@@ -292,6 +292,14 @@
         "retry": "Retry"
       }
     },
+    "projects": {
+      "platform": {
+        "title": "Education platform for using AI.",
+        "description": "We created an education platform that makes it fun and interactive to learn how to use AI within a company. We design custom modules based on each partner’s needs.",
+        "result": "This platform has delivered massive AI productivity gains across the company.",
+        "cta": "Read more"
+      }
+    },
     "bottom": {
       "title": "Explore the projects we’ve been part of",
       "text": "Click through the interface below to explore sample projects."
