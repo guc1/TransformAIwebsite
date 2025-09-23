@@ -32,7 +32,14 @@
   },
   "Pricing": {
     "Header": {
-      "title": "AI-transformatiepakketten"
+      "eyebrow": "Pakketten voor beslissers",
+      "title": "Kies het AI-traject dat past bij jullie tempo",
+      "subtitle": "Elk pakket versnelt strategie naar uitvoering in weken, met begeleiding die teams meeneemt en resultaat meetbaar maakt.",
+      "highlights": {
+        "speed": "AI-resultaten binnen 90 dagen.",
+        "support": "Nederlandstalige experts op locatie en remote.",
+        "roi": "ROI bewezen in 40+ klantcases."
+      }
     },
     "Packages": {
       "common": {
