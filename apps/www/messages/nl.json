@@ -292,6 +292,14 @@
         "retry": "Opnieuw"
       }
     },
+    "projects": {
+      "platform": {
+        "title": "Educatieplatform voor het gebruik van AI.",
+        "description": "We hebben een educatieplatform gebouwd dat het leuk en interactief maakt om binnen een bedrijf te leren werken met AI. We ontwikkelen modules op maat op basis van de behoeften van elke partner.",
+        "result": "Dit platform heeft geleid tot enorme productiviteitswinsten met AI binnen het bedrijf.",
+        "cta": "Lees meer"
+      }
+    },
     "bottom": {
       "title": "Ontdek de projecten waar wij aan hebben meegewerkt",
       "text": "Klik door de interface hieronder om enkele projecten te ontdekken."

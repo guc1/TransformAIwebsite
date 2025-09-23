@@ -392,7 +392,10 @@ type Framework = {
     width: number;
     height: number;
   };
+  contentKey?: string;
 };
+
+type ProjectCopyFormatter = (key: string) => string;
 
 const languagesList = {
   Typescript: [
@@ -487,6 +490,7 @@ const languagesList = {
         width: 1200,
         height: 800,
       },
+      contentKey: "platform",
     },
   ],
   Curl: [
@@ -569,6 +573,7 @@ LanguageTrigger.displayName = TabsPrimitive.Trigger.displayName;
 export const CodeExamples: React.FC<Props> = ({ className }) => {
   const t = useTranslations("CodeExamples");
   const cta = useTranslations("CTA");
+  const projectCopy = useTranslations("CodeExamples.projects");
   const [language, setLanguage] = useState<Language>("Typescript");
   const [framework, setFramework] = useState<FrameworkName>("Typescript");
   const [languageHover, setLanguageHover] = useState("Typescript");
@@ -650,21 +655,18 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
           />
           <div
             className={cn(
-              "relative flex w-full pt-4 pb-8 pl-8 text-white",
+              "relative flex w-full pt-4 pb-8 pl-8 pr-8 text-white",
               currentFrameworkData?.image
-                ? "items-center justify-center pr-8"
+                ? "flex-col gap-8 lg:flex-row lg:items-center"
                 : "font-mono text-xs sm:text-sm",
             )}
           >
             {currentFrameworkData?.image ? (
-              <Image
-                src={currentFrameworkData.image.src}
-                alt={currentFrameworkData.image.alt}
-                width={currentFrameworkData.image.width}
-                height={currentFrameworkData.image.height}
-                className="object-contain w-full h-auto max-h-[420px] rounded-2xl border border-white/10 bg-white/5"
-                sizes="(min-width: 1280px) 720px, (min-width: 640px) 75vw, 90vw"
-                priority={language === "Rust"}
+              <ProjectShowcase
+                image={currentFrameworkData.image}
+                contentKey={currentFrameworkData.contentKey}
+                language={language}
+                projectCopy={projectCopy}
               />
             ) : (
               <>
@@ -700,6 +702,70 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
     </section>
   );
 };
+
+function ProjectShowcase({
+  image,
+  contentKey,
+  language,
+  projectCopy,
+}: {
+  image: NonNullable<Framework["image"]>;
+  contentKey?: string;
+  language: Language;
+  projectCopy: ProjectCopyFormatter;
+}) {
+  const title = contentKey ? projectCopy(`${contentKey}.title`) : undefined;
+  const description = contentKey
+    ? projectCopy(`${contentKey}.description`)
+    : undefined;
+  const result = contentKey ? projectCopy(`${contentKey}.result`) : undefined;
+  const cta = contentKey ? projectCopy(`${contentKey}.cta`) : undefined;
+
+  return (
+    <div className="flex flex-col w-full gap-8 lg:flex-row lg:items-center">
+      <div className="flex justify-start w-full lg:flex-1">
+        <div className="relative w-full max-w-[720px] overflow-hidden rounded-[32px] border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            className="h-full w-full object-contain"
+            sizes="(min-width: 1280px) 720px, (min-width: 640px) 70vw, 90vw"
+            priority={language === "Rust"}
+          />
+        </div>
+      </div>
+      {(title || description || result || cta) && (
+        <div className="flex flex-col justify-center gap-4 text-white/80 lg:max-w-sm">
+          {title ? (
+            <h3 className="text-2xl font-semibold leading-tight text-white sm:text-3xl">
+              {title}
+            </h3>
+          ) : null}
+          {description ? (
+            <p className="text-sm leading-relaxed text-white/80">
+              {description}
+            </p>
+          ) : null}
+          {result ? (
+            <p className="text-sm leading-relaxed text-white/80">
+              {result}
+            </p>
+          ) : null}
+          {cta ? (
+            <button
+              type="button"
+              className="inline-flex items-center justify-center self-start px-5 py-2 text-sm font-semibold text-black transition-colors duration-200 bg-white rounded-lg shadow-sm hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            >
+              {cta}
+            </button>
+          ) : null}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function FrameworkSwitcher({
   frameworks,
