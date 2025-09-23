@@ -32,7 +32,14 @@
   },
   "Pricing": {
     "Header": {
-      "title": "AI Transformation Packages"
+      "eyebrow": "Packages for decisive teams",
+      "title": "Choose the AI launch plan that matches your momentum",
+      "subtitle": "Each package compresses strategy and execution into weeks, keeping leaders, teams, and ROI aligned.",
+      "highlights": {
+        "speed": "AI wins in 90 days.",
+        "support": "Guided by Dutch-speaking experts.",
+        "roi": "ROI benchmarks from 40+ cases."
+      }
     },
     "Packages": {
       "common": {

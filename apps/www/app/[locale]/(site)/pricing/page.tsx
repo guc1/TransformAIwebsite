@@ -6,7 +6,15 @@ import { PricingCompareTable } from "@/components/pricing/pricing-compare-table"
 import { ShinyCardGroup } from "@/components/shiny-card";
 import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero";
 import { cn } from "@/lib/utils";
-import { Check, GraduationCap, Handshake, Sparkles } from "lucide-react";
+import {
+  Check,
+  GraduationCap,
+  Handshake,
+  Languages,
+  Sparkles,
+  Timer,
+  TrendingUp,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -32,6 +40,12 @@ export default function PricingPage() {
   const header = useTranslations("Pricing.Header");
   const packages = useTranslations("Pricing.Packages");
   const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const highlightItems = [
+    { icon: Timer, label: header("highlights.speed") },
+    { icon: Languages, label: header("highlights.support") },
+    { icon: TrendingUp, label: header("highlights.roi") },
+  ] as const;
 
   const educationContactHref = "mailto:support@unkey.dev?subject=TransformAI%20Education%20Package";
   const introductionContactHref = "mailto:support@unkey.dev?subject=TransformAI%20Introduction%20Package";
@@ -68,17 +82,38 @@ export default function PricingPage() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center my-16 xl:my-24">
-          <h1
-            className="max-sm:mx-6 max-sm:text-4xl font-medium text-[4rem] leading-[4rem] max-w-xl text-center bg-gradient-to-r from-[#02DEFC] via-[#0239FC] to-[#7002FC] bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(32,57,252,0.45)]"
-          >
-            {header("title")}
-          </h1>
+        <div className="relative my-16 xl:my-24 flex justify-center">
+          <div className="relative isolate w-full max-w-5xl overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.02] px-6 py-14 text-center shadow-[0_28px_120px_rgba(15,23,42,0.45)] backdrop-blur sm:px-12 sm:py-16">
+            <div className="pointer-events-none absolute inset-0 -z-10">
+              <div className="absolute inset-x-10 -top-40 h-[360px] rounded-full bg-gradient-to-r from-sky-400/40 via-blue-500/10 to-fuchsia-500/40 blur-3xl" />
+              <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle_at_center,_rgba(14,165,233,0.25),_rgba(15,23,42,0))]" />
+            </div>
 
-          {/* <p className="mt-8 bg-gradient-to-br text-transparent bg-gradient-stop bg-clip-text from-white via-white via-40% to-white/30 max-w-lg text-center">
-          We wanted pricing to be simple and affordable for anyone, so we've created flexible plans
-          that don't need an accounting degree to figure out.
-        </p>  */}
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/70 shadow-[0_0_32px_rgba(59,130,246,0.15)]">
+              <Sparkles className="h-4 w-4 text-sky-200" />
+              {header("eyebrow")}
+            </span>
+
+            <h1 className="mt-6 text-balance text-4xl font-semibold leading-tight text-transparent sm:text-5xl sm:leading-tight bg-gradient-to-r from-white via-white to-white/70 bg-clip-text">
+              {header("title")}
+            </h1>
+
+            <p className="mt-4 text-balance text-base text-white/70 sm:text-lg">
+              {header("subtitle")}
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              {highlightItems.map(({ icon: Icon, label }) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-white/80 shadow-[0_0_24px_rgba(76,29,149,0.25)]"
+                >
+                  <Icon className="h-4 w-4 text-white/70" />
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
         <PricingCompareTable />
