@@ -185,7 +185,10 @@
     "title": "Jouw transformatiepartner voor het AI-tijdperk",
     "body": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt.",
     "secondaryTitle": "Geoptimaliseerd voor AI-productiviteit en prestaties",
-    "secondaryBody": "Ons platform helpt bedrijven productiever te werken, kosten te verlagen en AI-prestaties te verbeteren. Het bouwt voort op bestaande structuren om resultaten te versterken, en biedt aanpasbaarheid, langdurige betrouwbaarheid en eenvoudige modelselectie voor elke use-case."
+    "secondaryBody": "Ons platform helpt bedrijven productiever te werken, kosten te verlagen en AI-prestaties te verbeteren. Het bouwt voort op bestaande structuren om resultaten te versterken, en biedt aanpasbaarheid, langdurige betrouwbaarheid en eenvoudige modelselectie voor elke use-case.",
+    "hoursSaved": {
+      "title": "Uren bespaard met AI"
+    }
   },
   "About": {
     "Hero": {
