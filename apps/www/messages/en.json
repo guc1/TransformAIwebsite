@@ -185,7 +185,10 @@
     "title": "Your Transformation Partner for the Age of AI",
     "body": "We help companies adapt successfully and sustainably to the challenges and opportunities that Artificial Intelligence brings.",
     "secondaryTitle": "Optimised for AI Productivity and Performance",
-    "secondaryBody": "Our platform helps companies boost productivity, cut costs, and improve AI performance. It builds on existing structures to amplify results, while offering customisation, long-term reliability, and seamless model selection for every use case."
+    "secondaryBody": "Our platform helps companies boost productivity, cut costs, and improve AI performance. It builds on existing structures to amplify results, while offering customisation, long-term reliability, and seamless model selection for every use case.",
+    "hoursSaved": {
+      "title": "Hours saved using AI"
+    }
   },
   "About": {
     "Hero": {
