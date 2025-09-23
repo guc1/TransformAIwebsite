@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { PrimaryButton, SecondaryButton } from "@/components/button";
+import { HoursSavedTicker } from "@/components/hours-saved-ticker";
 import { BookOpen, ChevronRight, LogIn } from "lucide-react";
 
 type HeroMainSectionProps = {
@@ -26,7 +27,7 @@ export function HeroMainSection({
         {body}
       </p>
 
-      <div className="flex items-center gap-6 mt-16">
+      <div className="mt-16 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
         <Link href="https://app.unkey.com" className="group">
           <PrimaryButton
             shiny
@@ -35,6 +36,8 @@ export function HeroMainSection({
             className="h-10"
           />
         </Link>
+
+        <HoursSavedTicker />
 
         <Link href="/docs" className="hidden sm:flex">
           <SecondaryButton
