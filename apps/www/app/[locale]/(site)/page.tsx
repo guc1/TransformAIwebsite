@@ -176,21 +176,32 @@ export default async function Landing({
               text={hero("secondaryBody")}
               align="center"
             >
-              <div className="flex mt-10 mb-10 space-x-6">
-                <Link href="https://app.unkey.com" className="group">
-                  <PrimaryButton
-                    shiny
-                    IconLeft={LogIn}
-                    label={cta("getStarted")}
-                    className="h-10"
-                  />
-                </Link>
-                <Link href="/docs">
-                  <SecondaryButton
-                    label={cta("exploreProjects")}
-                    IconRight={ChevronRight}
-                  />
-                </Link>
+              <div
+                className="mt-10 mb-10 flex flex-col items-center gap-4 sm:grid sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:items-center sm:gap-x-6"
+              >
+                <div className="flex w-full justify-center sm:justify-end">
+                  <Link href="https://app.unkey.com" className="group">
+                    <PrimaryButton
+                      shiny
+                      IconLeft={LogIn}
+                      label={cta("getStarted")}
+                      className="h-10"
+                    />
+                  </Link>
+                </div>
+                <span
+                  className="inline-flex items-center justify-center rounded-full border border-black/10 bg-black/5 px-5 py-2 text-sm font-semibold tracking-tight text-black/70 backdrop-blur-sm dark:border-white/10 dark:bg-white/5 dark:text-white/80"
+                >
+                  {cta("hoursSaved")}
+                </span>
+                <div className="flex w-full justify-center sm:justify-start">
+                  <Link href="/docs">
+                    <SecondaryButton
+                      label={cta("exploreProjects")}
+                      IconRight={ChevronRight}
+                    />
+                  </Link>
+                </div>
               </div>
             </SectionTitle>
             {/* Temporarily hidden: One-way hashed Keys section (including heading/paragraph) */}
