@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node ./scripts/run-next-dev.mjs",
     "typecheck": "node ./scripts/build-content-collections.mjs && tsc -p tsconfig.json --noEmit",
     "lint": "next lint",
     "build": "next build",

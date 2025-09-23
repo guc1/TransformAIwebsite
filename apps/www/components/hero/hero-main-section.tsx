@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 
 import { PrimaryButton, SecondaryButton } from "@/components/button";
+import { HeroHoursSaved } from "@/components/HeroHoursSaved";
 import { BookOpen, ChevronRight, LogIn } from "lucide-react";
 
 type HeroMainSectionProps = {
@@ -26,23 +29,28 @@ export function HeroMainSection({
         {body}
       </p>
 
-      <div className="flex items-center gap-6 mt-16">
-        <Link href="https://app.unkey.com" className="group">
-          <PrimaryButton
-            shiny
-            IconLeft={LogIn}
-            label={primaryCtaLabel}
-            className="h-10"
-          />
-        </Link>
+      <div className="mt-16 w-full max-w-3xl">
+        <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:items-stretch sm:justify-center sm:gap-6">
+          <Link href="https://app.unkey.com" className="group w-full sm:w-auto">
+            <PrimaryButton
+              shiny
+              IconLeft={LogIn}
+              label={primaryCtaLabel}
+              className="h-10 w-full justify-center sm:w-auto"
+            />
+          </Link>
 
-        <Link href="/docs" className="hidden sm:flex">
-          <SecondaryButton
-            IconLeft={BookOpen}
-            label={secondaryCtaLabel}
-            IconRight={ChevronRight}
-          />
-        </Link>
+          <HeroHoursSaved className="w-full sm:w-auto" />
+
+          <Link href="/docs" className="w-full sm:w-auto">
+            <SecondaryButton
+              IconLeft={BookOpen}
+              label={secondaryCtaLabel}
+              IconRight={ChevronRight}
+              className="w-full justify-center sm:w-auto"
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );
