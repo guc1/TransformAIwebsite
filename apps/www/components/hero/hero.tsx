@@ -41,6 +41,8 @@ export const Hero: React.FC = () => {
           body={hero("body")}
           primaryCtaLabel={cta("getStarted")}
           secondaryCtaLabel={cta("exploreProjects")}
+          hoursSavedLabel={cta("hoursSavedLabel")}
+          hoursSavedAmount={cta("hoursSavedAmount")}
         />
       </motion.div>
 
