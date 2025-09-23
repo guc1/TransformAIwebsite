@@ -231,21 +231,51 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
   const stickyBottomOffset = isDesktop ? 80 : 64;
 
   const floatingBottomOffset = isDesktop ? 72 : 32;
-  const floatingCtaStyle: CSSProperties = {
-    position: "fixed",
-    bottom: `${floatingBottomOffset}px`,
-    left: "50%",
-    transform: "translateX(-50%)",
-    zIndex: 60,
-    width: "fit-content",
-    maxWidth: "calc(100% - 32px)",
-  };
-
-  const pinnedCtaStyle: CSSProperties = isDesktop
-    ? { position: "sticky", top: `${stickyTopOffset}px` }
-    : { position: "sticky", bottom: `${stickyBottomOffset}px` };
-
   const shouldAnchorCta = hasReachedAnchor || (isDesktop && hasReachedBoundary);
+
+  const baseCtaStyle = useMemo<CSSProperties>(
+    () => {
+      const style: CSSProperties = {
+        marginLeft: "auto",
+        marginRight: "auto",
+        zIndex: 60,
+      };
+
+      if (!isOpen) {
+        style.width = "fit-content";
+        style.maxWidth = "calc(100% - 32px)";
+      }
+
+      if (isOpen || shouldAnchorCta) {
+        style.position = "sticky";
+        if (isDesktop) {
+          style.top = `${stickyTopOffset}px`;
+          style.bottom = undefined;
+        } else {
+          style.bottom = `${stickyBottomOffset}px`;
+          style.top = undefined;
+        }
+        style.left = undefined;
+        style.right = undefined;
+      } else {
+        style.position = "fixed";
+        style.bottom = `${floatingBottomOffset}px`;
+        style.top = undefined;
+        style.left = 0;
+        style.right = 0;
+      }
+
+      return style;
+    },
+    [
+      floatingBottomOffset,
+      isDesktop,
+      isOpen,
+      shouldAnchorCta,
+      stickyBottomOffset,
+      stickyTopOffset,
+    ],
+  );
 
   useEffect(() => {
     if (shouldAnchorCta) {
@@ -258,30 +288,6 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
     anchorDismissedRef.current = false;
   }, [isOpen, shouldAnchorCta]);
 
-  const anchoredCtaStyle: CSSProperties | null =
-    !isOpen && shouldAnchorCta
-      ? isDesktop
-        ? {
-            position: "sticky",
-            top: `${stickyTopOffset}px`,
-            left: "auto",
-            right: "auto",
-            bottom: "auto",
-            transform: "none",
-            zIndex: 60,
-          }
-        : {
-            position: "sticky",
-            bottom: `${stickyBottomOffset}px`,
-            left: "auto",
-            right: "auto",
-            top: "auto",
-            transform: "none",
-            zIndex: 60,
-          }
-      : null;
-
-  const baseCtaStyle = isOpen ? pinnedCtaStyle : anchoredCtaStyle ?? floatingCtaStyle;
   const shouldShowCta = isOpen || hasReachedTrigger;
   const chatHasContent = shouldRender && displayPanel;
   const ctaOrderClass = chatHasContent ? "order-2" : "order-1";
