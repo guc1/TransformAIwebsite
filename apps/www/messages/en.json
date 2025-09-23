@@ -299,7 +299,8 @@
   },
   "CTA": {
     "getStarted": "Get Started",
-    "exploreProjects": "Explore All projects"
+    "exploreProjects": "Explore All projects",
+    "hoursSavedLabel": "Hours saved using AI"
   },
   "Cta": {
     "title": "Unlock your company’s AI advantage",
