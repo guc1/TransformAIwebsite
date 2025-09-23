@@ -15,9 +15,10 @@ const ChatPanel = dynamic(() => import("./ChatPanel").then((mod) => mod.ChatPane
 
 type PricingChatProps = {
   className?: string;
+  onOpenChange?: (isOpen: boolean) => void;
 };
 
-export const PricingChat: React.FC<PricingChatProps> = ({ className }) => {
+export const PricingChat: React.FC<PricingChatProps> = ({ className, onOpenChange }) => {
   const t = useTranslations("Pricing.Chat");
   const locale = useMemo<ChatLocale>(
     () => ({
@@ -91,6 +92,10 @@ export const PricingChat: React.FC<PricingChatProps> = ({ className }) => {
       buttonRef.current.focus();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    onOpenChange?.(isOpen);
+  }, [isOpen, onOpenChange]);
 
   const sendToAssistant = useCallback(
     async (conversation: ChatMessage[], prompt: string | null) => {
