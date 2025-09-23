@@ -307,7 +307,9 @@
   },
   "CTA": {
     "getStarted": "Get Started",
-    "exploreProjects": "Explore All projects"
+    "exploreProjects": "Explore All projects",
+    "hoursSavedLabel": "Hours saved using AI",
+    "hoursSavedSince": "Base value: 100,000 hours · Since 23 September"
   },
   "Cta": {
     "title": "Unlock your company’s AI advantage",
