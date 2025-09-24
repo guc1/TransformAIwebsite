@@ -1,7 +1,5 @@
 "use client";
 
-import { Color, EnterpriseCardHighlight } from "@/app/[locale]/(site)/pricing/components";
-import { Particles } from "@/components/particles";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
@@ -17,6 +15,7 @@ type PricingTableRow = {
   id: string;
   labelKey: string;
   availability: Record<TierId, Availability>;
+  infoKey: string;
   noteKey?: string;
 };
 
@@ -29,6 +28,10 @@ type PricingTableCategory = {
 type PricingTableData = {
   tiers: Array<{ id: TierId; labelKey: string; priceKey: string; anchor: string; priceRangeKey: string }>;
   categories: PricingTableCategory[];
+};
+
+type PricingCompareTableProps = {
+  className?: string;
 };
 
 const TABLE_DATA: PricingTableData = {
@@ -63,26 +66,31 @@ const TABLE_DATA: PricingTableData = {
         {
           id: "educationCourseV1",
           labelKey: "rows.educationCourseV1",
+          infoKey: "info.items.educationCourseV1",
           availability: { t1: "yes", t2: "yes", t3: "yes" },
         },
         {
           id: "educationCourseV2",
           labelKey: "rows.educationCourseV2",
+          infoKey: "info.items.educationCourseV2",
           availability: { t1: "yes", t2: "yes", t3: "yes" },
         },
         {
           id: "workshops",
           labelKey: "rows.workshops",
+          infoKey: "info.items.workshops",
           availability: { t1: "yes", t2: "yes", t3: "yes" },
         },
         {
           id: "trainingMaterials",
           labelKey: "rows.trainingMaterials",
+          infoKey: "info.items.trainingMaterials",
           availability: { t1: "yes", t2: "yes", t3: "yes" },
         },
         {
           id: "certification",
           labelKey: "rows.certification",
+          infoKey: "info.items.certification",
           availability: { t1: "yes", t2: "yes", t3: "yes" },
         },
       ],
@@ -94,26 +102,31 @@ const TABLE_DATA: PricingTableData = {
         {
           id: "aiReadiness",
           labelKey: "rows.aiReadiness",
+          infoKey: "info.items.aiReadiness",
           availability: { t1: "no", t2: "yes", t3: "yes" },
         },
         {
           id: "automationSetup",
           labelKey: "rows.automationSetup",
+          infoKey: "info.items.automationSetup",
           availability: { t1: "no", t2: "yes", t3: "yes" },
         },
         {
           id: "pilotIntegration",
           labelKey: "rows.pilotIntegration",
+          infoKey: "info.items.pilotIntegration",
           availability: { t1: "no", t2: "yes", t3: "yes" },
         },
         {
           id: "assessment",
           labelKey: "rows.assessment",
+          infoKey: "info.items.assessment",
           availability: { t1: "no", t2: "yes", t3: "yes" },
         },
         {
           id: "guidance",
           labelKey: "rows.guidance",
+          infoKey: "info.items.guidance",
           availability: { t1: "no", t2: "yes", t3: "yes" },
         },
       ],
@@ -125,26 +138,31 @@ const TABLE_DATA: PricingTableData = {
         {
           id: "tailoredIntegrations",
           labelKey: "rows.tailoredIntegrations",
+          infoKey: "info.items.tailoredIntegrations",
           availability: { t1: "no", t2: "no", t3: "yes" },
         },
         {
           id: "researchSupport",
           labelKey: "rows.researchSupport",
+          infoKey: "info.items.researchSupport",
           availability: { t1: "no", t2: "no", t3: "yes" },
         },
         {
           id: "customModel",
           labelKey: "rows.customModel",
+          infoKey: "info.items.customModel",
           availability: { t1: "no", t2: "no", t3: "yes" },
         },
         {
           id: "consulting",
           labelKey: "rows.consulting",
+          infoKey: "info.items.consulting",
           availability: { t1: "no", t2: "no", t3: "yes" },
         },
         {
           id: "continuousSupport",
           labelKey: "rows.continuousSupport",
+          infoKey: "info.items.continuousSupport",
           availability: { t1: "no", t2: "no", t3: "yes" },
         },
       ],
@@ -179,6 +197,56 @@ const sizeMap = {
   md: "h-10 w-10 text-base",
   sm: "h-8 w-8 text-sm",
 } satisfies Record<NonNullable<AvailabilityIndicatorProps["size"]>, string>;
+
+const infoTriggerSizeMap = {
+  md: "h-9 w-9 text-sm",
+  sm: "h-8 w-8 text-xs",
+} satisfies Record<"md" | "sm", string>;
+
+const infoLetterSizeMap = {
+  md: "text-base",
+  sm: "text-sm",
+} satisfies Record<"md" | "sm", string>;
+
+type RowInfoProps = {
+  info: string;
+  readMoreLabel: string;
+  ariaLabel: string;
+  size?: "md" | "sm";
+};
+
+function RowInfo({ info, readMoreLabel, ariaLabel, size = "md" }: RowInfoProps) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          className={cn(
+            "inline-flex shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/80 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900",
+            infoTriggerSizeMap[size],
+          )}
+          aria-label={ariaLabel}
+        >
+          <span aria-hidden className={cn("font-semibold", infoLetterSizeMap[size])}>i</span>
+        </button>
+      </TooltipTrigger>
+      <TooltipContent
+        side="top"
+        align="start"
+        sideOffset={12}
+        className="max-w-xs space-y-3 border-white/10 bg-neutral-950/90 px-4 py-4 text-left text-white shadow-[0_30px_90px_rgba(15,23,42,0.45)] backdrop-blur-md"
+      >
+        <p className="text-sm leading-relaxed text-white/80">{info}</p>
+        <Link
+          href="#"
+          className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/[0.07] px-3 py-1.5 text-xs font-medium text-white transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
+        >
+          {readMoreLabel}
+        </Link>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
 
 function AvailabilityIndicator({ value, label, note, priceRange, size = "md" }: AvailabilityIndicatorProps) {
   const meta = AVAILABILITY_META[value];
@@ -240,7 +308,7 @@ function AvailabilityIndicator({ value, label, note, priceRange, size = "md" }: 
   );
 }
 
-export function PricingCompareTable() {
+export function PricingCompareTable({ className }: PricingCompareTableProps) {
   const t = useTranslations("Pricing.Table");
 
   const availabilityLabels: Record<Availability, string> = {
@@ -249,73 +317,74 @@ export function PricingCompareTable() {
     partial: t("legend.partial"),
   };
 
+  const infoReadMoreLabel = t("info.readMore");
+  const getInfoAriaLabel = (feature: string) => t("info.ariaLabel", { feature });
+
   return (
     <TooltipProvider delayDuration={200} skipDelayDuration={200}>
-      <section aria-labelledby="pricing-compare-heading" className="relative w-full max-w-4xl mx-auto">
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/60 shadow-[0_40px_120px_-60px_rgba(88,54,179,0.85)]">
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-br from-[#140F2C]/90 via-[#1A1440]/70 to-[#031B4A]/80"
-          />
-          <div
-            aria-hidden
-            className="absolute inset-x-8 -top-40 h-96 bg-[radial-gradient(circle_at_top,_rgba(157,114,255,0.45),_transparent_60%)]"
-          />
-          <EnterpriseCardHighlight className="absolute -top-28 -right-24 w-[420px] opacity-60 mix-blend-screen" />
-          <Particles
-            className="absolute inset-0 opacity-40 transition-opacity duration-700 pointer-events-none motion-reduce:hidden"
-            quantity={60}
-            color={Color.Purple}
-            vx={0.08}
-            vy={-0.06}
-          />
-          <div className="relative z-10 px-6 py-10 sm:px-10 sm:py-12">
-            <div className="text-center">
-              <h2
-                id="pricing-compare-heading"
-                className="text-3xl font-semibold tracking-tight text-white sm:text-[2.25rem]"
-              >
-                {t("title")}
-              </h2>
-            </div>
+      <section
+        aria-labelledby="pricing-compare-heading"
+        className={cn("relative w-full max-w-4xl mx-auto", className)}
+      >
+        <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-2 text-left">
+            <h2
+              id="pricing-compare-heading"
+              className="text-sm font-semibold uppercase tracking-[0.3em] text-white/60"
+            >
+              {t("title")}
+            </h2>
+          </div>
 
-            <div className="mt-10 hidden md:block">
-              <table className="w-full border-collapse text-left">
-                <caption className="sr-only">{t("title")}</caption>
-                <thead>
-                  <tr className="text-sm text-white/80">
-                    <th scope="col" className="px-6 py-4 text-left font-medium text-white/70">
-                      {t("headers.feature")}
+          <div className="hidden overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] shadow-[0_24px_90px_rgba(15,23,42,0.35)] backdrop-blur-sm md:block">
+            <table className="w-full border-collapse text-left">
+              <caption className="sr-only">{t("title")}</caption>
+              <thead>
+                <tr className="text-sm text-white/80">
+                  <th scope="col" className="px-6 py-4 text-left font-medium text-white/70">
+                    {t("headers.feature")}
+                  </th>
+                  <th scope="col" className="px-4 py-4 text-left font-medium text-white/70">
+                    {t("headers.info")}
+                  </th>
+                  {TABLE_DATA.tiers.map((tier) => (
+                    <th key={tier.id} scope="col" className="px-6 py-4 text-center font-semibold text-white">
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="text-base sm:text-lg">{t(tier.labelKey)}</span>
+                        <span className="text-sm font-normal text-muted-foreground">{t(tier.priceKey)}</span>
+                      </div>
                     </th>
-                    {TABLE_DATA.tiers.map((tier) => (
-                      <th key={tier.id} scope="col" className="px-6 py-4 text-center font-semibold text-white">
-                        <div className="flex flex-col items-center gap-1">
-                          <span className="text-base sm:text-lg">{t(tier.labelKey)}</span>
-                          <span className="text-sm font-normal text-muted-foreground">{t(tier.priceKey)}</span>
-                        </div>
-                      </th>
-                    ))}
+                  ))}
+                </tr>
+              </thead>
+              {TABLE_DATA.categories.map((category) => (
+                <tbody key={category.id}>
+                  <tr>
+                    <th
+                      scope="colgroup"
+                      colSpan={TABLE_DATA.tiers.length + 2}
+                      className="px-6 pt-8 pb-3 text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
+                    >
+                      {t(category.labelKey)}
+                    </th>
                   </tr>
-                </thead>
-                {TABLE_DATA.categories.map((category) => (
-                  <tbody key={category.id}>
-                    <tr>
-                      <th
-                        scope="colgroup"
-                        colSpan={TABLE_DATA.tiers.length + 1}
-                        className="px-6 pt-8 pb-3 text-xs font-semibold uppercase tracking-[0.3em] text-white/60"
-                      >
-                        {t(category.labelKey)}
-                      </th>
-                    </tr>
-                    {category.rows.map((row) => (
-                      <tr
-                        key={row.id}
-                        className="border-t border-white/10 text-sm"
-                      >
+                  {category.rows.map((row) => {
+                    const featureLabel = t(row.labelKey);
+                    const infoText = t(row.infoKey);
+                    const infoAriaLabel = getInfoAriaLabel(featureLabel);
+
+                    return (
+                      <tr key={row.id} className="border-t border-white/10 text-sm">
                         <th scope="row" className="px-6 py-5 text-left font-medium text-white/90">
-                          {t(row.labelKey)}
+                          {featureLabel}
                         </th>
+                        <td className="px-4 py-5 text-left align-top">
+                          <RowInfo
+                            info={infoText}
+                            readMoreLabel={infoReadMoreLabel}
+                            ariaLabel={infoAriaLabel}
+                          />
+                        </td>
                         {TABLE_DATA.tiers.map((tier) => (
                           <td key={tier.id} className="px-6 py-5 text-center">
                             <AvailabilityIndicator
@@ -331,31 +400,58 @@ export function PricingCompareTable() {
                           </td>
                         ))}
                       </tr>
-                    ))}
-                  </tbody>
-                ))}
-              </table>
-            </div>
+                    );
+                  })}
+                </tbody>
+              ))}
+            </table>
+          </div>
 
-            <div className="mt-10 md:hidden">
-              <Accordion type="multiple" defaultValue={TABLE_DATA.categories.map((category) => category.id)}>
-                {TABLE_DATA.categories.map((category) => (
-                  <AccordionItem key={category.id} value={category.id} className="border-b border-white/10">
-                    <AccordionTrigger className="text-left text-base font-semibold text-white">
-                      {t(category.labelKey)}
-                    </AccordionTrigger>
-                    <AccordionContent className="px-1">
-                      <div className="space-y-4">
-                        {category.rows.map((row) => (
+          <div className="md:hidden">
+            <Accordion
+              type="multiple"
+              defaultValue={TABLE_DATA.categories.map((category) => category.id)}
+            >
+              {TABLE_DATA.categories.map((category) => (
+                <AccordionItem
+                  key={category.id}
+                  value={category.id}
+                  className="border-b border-white/10"
+                >
+                  <AccordionTrigger className="text-left text-base font-semibold text-white">
+                    {t(category.labelKey)}
+                  </AccordionTrigger>
+                  <AccordionContent className="px-1">
+                    <div className="space-y-4">
+                      {category.rows.map((row) => {
+                        const featureLabel = t(row.labelKey);
+                        const infoText = t(row.infoKey);
+                        const infoAriaLabel = getInfoAriaLabel(featureLabel);
+
+                        return (
                           <div
                             key={row.id}
                             className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm"
                           >
-                            <p className="text-sm font-medium text-white">{t(row.labelKey)}</p>
+                            <div className="flex items-start justify-between gap-3">
+                              <p className="text-sm font-medium text-white">{featureLabel}</p>
+                              <RowInfo
+                                info={infoText}
+                                readMoreLabel={infoReadMoreLabel}
+                                ariaLabel={infoAriaLabel}
+                                size="sm"
+                              />
+                            </div>
+                            <p className="mt-2 text-xs text-white/60">{infoText}</p>
                             <div className="mt-4 grid grid-cols-3 gap-3">
                               {TABLE_DATA.tiers.map((tier) => (
-                                <div key={tier.id} className="flex flex-col items-center gap-2 text-center">
-                                  <span className="text-xs font-medium text-white/80">{t(tier.labelKey)}</span>
+                                <div
+                                  key={tier.id}
+                                  className="flex flex-col items-center gap-2 text-center"
+                                >
+                                  <span className="text-xs font-medium text-white/80">
+                                    {t(tier.labelKey)}
+                                  </span>
                                   <AvailabilityIndicator
                                     value={row.availability[tier.id]}
                                     label={availabilityLabels[row.availability[tier.id]]}
@@ -367,35 +463,39 @@ export function PricingCompareTable() {
                                     }
                                     size="sm"
                                   />
-                                  <span className="text-[11px] text-muted-foreground">{t(tier.priceKey)}</span>
+                                  <span className="text-[11px] text-muted-foreground">
+                                    {t(tier.priceKey)}
+                                  </span>
                                 </div>
                               ))}
                             </div>
                             {row.noteKey ? (
-                              <p className="mt-3 text-xs text-muted-foreground md:hidden">{t(row.noteKey)}</p>
+                              <p className="mt-3 text-xs text-muted-foreground md:hidden">
+                                {t(row.noteKey)}
+                              </p>
                             ) : null}
                           </div>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
+                        );
+                      })}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
 
-            <div className="mt-10 flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
-              <p className="text-sm text-muted-foreground">{t("cta.scrollLabel")}</p>
-              <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-                {TABLE_DATA.tiers.map((tier) => (
-                  <Link
-                    key={tier.id}
-                    href={tier.anchor}
-                    className="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
-                  >
-                    {t(`cta.chooseTier${tier.id.slice(1)}`)}
-                  </Link>
-                ))}
-              </div>
+          <div className="flex flex-col gap-4 border-t border-white/10 pt-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+            <p className="text-sm text-muted-foreground">{t("cta.scrollLabel")}</p>
+            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+              {TABLE_DATA.tiers.map((tier) => (
+                <Link
+                  key={tier.id}
+                  href={tier.anchor}
+                  className="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
+                >
+                  {t(`cta.chooseTier${tier.id.slice(1)}`)}
+                </Link>
+              ))}
             </div>
           </div>
         </div>

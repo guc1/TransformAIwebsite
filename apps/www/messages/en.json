@@ -99,7 +99,8 @@
     "Table": {
       "title": "Compare packages",
       "headers": {
-        "feature": "Feature"
+        "feature": "Feature",
+        "info": "Info"
       },
       "tiers": {
         "t1": "Education Package",
@@ -148,6 +149,27 @@
         "chooseTier1": "Explore the Education Package",
         "chooseTier2": "Explore the Introduction Package",
         "chooseTier3": "Talk to Enterprise Solutions"
+      },
+      "info": {
+        "readMore": "Read more",
+        "ariaLabel": "More information about {feature}",
+        "items": {
+          "educationCourseV1": "Introductory training on AI foundations and practical impact for your teams. Builds shared language so employees can spot opportunities quickly.",
+          "educationCourseV2": "Advanced sessions that dive into governance, prompt engineering, and sector-specific workflows. Ideal for teams ready to apply AI inside daily operations.",
+          "workshops": "Facilitated workshops where cross-functional teams co-create adoption scenarios. Every session results in prioritized experiments to launch within weeks.",
+          "trainingMaterials": "Curated playbooks, checklists, and templates to reinforce learning after live sessions. They make it easy to repeat training internally for new hires.",
+          "certification": "Participants earn a TransformAI certificate validating their readiness to work with AI processes. It provides proof of capability for internal HR and clients.",
+          "aiReadiness": "We analyze your current systems, governance, and data quality to gauge AI readiness. The findings map the fastest path to value and highlight any blockers.",
+          "automationSetup": "Our specialists configure initial automations aligned to high-impact processes. You receive documented workflows that teams can extend after hand-off.",
+          "pilotIntegration": "We connect AI services into one live use case to demonstrate measurable value. The pilot is scoped to prove ROI without disrupting critical operations.",
+          "assessment": "A structured review of efficiency gains, adoption metrics, and compliance requirements. Decision-makers get clear benchmarks to justify the next investment.",
+          "guidance": "Senior advisors meet with stakeholders to align roadmap, roles, and success metrics. The session ensures leadership and teams stay synchronized on priorities.",
+          "tailoredIntegrations": "We design custom integrations that link AI services with your existing stack and data. Security, compliance, and change management are handled end-to-end.",
+          "researchSupport": "Our research team investigates emerging models, regulations, and best practices relevant to your sector. You receive actionable briefs to steer strategic choices.",
+          "customModel": "Data scientists evaluate your datasets and train bespoke models when off-the-shelf tools fall short. Deployment includes monitoring and retraining guidance.",
+          "consulting": "Dedicated consultants work alongside your teams during major transformation milestones. They help govern execution, manage risks, and accelerate adoption.",
+          "continuousSupport": "We provide ongoing office hours, incident response, and performance reviews after launch. The support team keeps automation, models, and people aligned."
+        }
       }
     },
     "Chat": {

@@ -99,7 +99,8 @@
     "Table": {
       "title": "Vergelijk pakketten",
       "headers": {
-        "feature": "Kenmerk"
+        "feature": "Kenmerk",
+        "info": "Informatie"
       },
       "tiers": {
         "t1": "Educatiepakket",
@@ -148,6 +149,27 @@
         "chooseTier1": "Bekijk het educatiepakket",
         "chooseTier2": "Bekijk het introductiepakket",
         "chooseTier3": "Neem contact op voor enterprise"
+      },
+      "info": {
+        "readMore": "Lees meer",
+        "ariaLabel": "Meer informatie over {feature}",
+        "items": {
+          "educationCourseV1": "Introductietraining over AI-basiskennis en de praktische impact voor jullie teams. Zorgt voor een gedeelde taal zodat medewerkers kansen sneller herkennen.",
+          "educationCourseV2": "Verdiepende sessies over governance, prompt-engineering en sectorspecifieke workflows. Ideaal voor teams die AI meteen in hun dagelijkse werk willen toepassen.",
+          "workshops": "Begeleide workshops waarin multidisciplinaire teams adoptiescenario's cocreëren. Elke sessie levert geprioriteerde experimenten op die binnen enkele weken live kunnen gaan.",
+          "trainingMaterials": "Geselecteerde playbooks, checklists en templates die de lessen uit de live sessies versterken. Zo kan het trainingsprogramma eenvoudig intern worden herhaald voor nieuwe medewerkers.",
+          "certification": "Deelnemers ontvangen een TransformAI-certificaat dat aantoont dat ze klaar zijn om met AI-processen te werken. Het biedt een tastbaar bewijs van vaardigheden voor HR en klanten.",
+          "aiReadiness": "We analyseren jullie systemen, governance en datakwaliteit om de AI-gereedheid te bepalen. De inzichten tonen de snelste route naar waarde en maken eventuele blokkades zichtbaar.",
+          "automationSetup": "Onze specialisten richten de eerste automatiseringen in rond processen met de grootste impact. Je ontvangt gedocumenteerde workflows die teams na overdracht kunnen uitbreiden.",
+          "pilotIntegration": "We koppelen AI-services in één live use-case om meetbare waarde te tonen. De pilot is zo opgezet dat hij ROI bewijst zonder kritieke processen te verstoren.",
+          "assessment": "Een gestructureerde evaluatie van efficiëntiewinst, adoptie-indicatoren en compliance-eisen. Beslissers ontvangen heldere benchmarks om vervolginvesteringen te onderbouwen.",
+          "guidance": "Senior adviseurs stemmen met stakeholders de roadmap, rollen en succesindicatoren af. De sessie zorgt dat leiderschap en teams synchroon blijven op de belangrijkste prioriteiten.",
+          "tailoredIntegrations": "We ontwerpen maatwerk-integraties die AI-diensten koppelen aan jullie bestaande stack en data. Veiligheid, compliance en change management worden volledig meegenomen.",
+          "researchSupport": "Ons researchteam onderzoekt nieuwe modellen, regelgeving en best practices die relevant zijn voor jullie sector. Je ontvangt bruikbare briefs die strategische keuzes richting geven.",
+          "customModel": "Data scientists beoordelen jullie datasets en trainen maatwerkmodellen wanneer standaardtools tekortschieten. Oplevering bevat begeleiding voor monitoring en hertraining.",
+          "consulting": "Toegewijde consultants werken naast jullie teams tijdens cruciale transformatiefases. Ze helpen de uitvoering te sturen, risico's te beheren en adoptie te versnellen.",
+          "continuousSupport": "We bieden doorlopende office hours, incidentrespons en prestatierapportages na de lancering. Het supportteam houdt automatisering, modellen en mensen op één lijn."
+        }
       }
     },
     "Chat": {
