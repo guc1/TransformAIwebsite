@@ -50,21 +50,10 @@ import allison from "@/images/about/investors/allison5.png";
 import liu from "@/images/about/investors/liujiang.jpeg";
 import tim from "@/images/about/investors/tim.png";
 
-import art_intensifies from "@/images/offsite/art_intensifies.jpg";
-import breakfast from "@/images/offsite/breakfast.jpg";
-import cooking_crew from "@/images/offsite/cooking_crew.jpg";
-import cto_prayers_answered from "@/images/offsite/cto_prayers_answered.jpg";
-import dom_thinking from "@/images/offsite/dom_thinking.jpg";
-import doomsday from "@/images/offsite/doomsday.jpg";
-import james_fence from "@/images/offsite/james_fence.jpg";
-import james_thinking from "@/images/offsite/james_thinking.jpg";
-import mike_morning_neck_exercise from "@/images/offsite/mike_morning_neck_exercise.jpg";
-import yardwork from "@/images/offsite/yardwork.jpg";
 import andreas from "@/images/team/andreas.jpeg";
 import james from "@/images/team/james.jpg";
 
 import { ImageWithBlur } from "@/components/image-with-blur";
-import { cn } from "@/lib/utils";
 import { loadMessages } from "@/i18n/messages";
 import type { Messages } from "@/i18n/messages";
 import { isLocale } from "@/i18n/routing";
@@ -112,23 +101,6 @@ const investors = [
 
 const SELECTED_POSTS = ["uuid-ux", "why-we-built-unkey", "unkey-raises-1-5-million"];
 
-const offsiteImages = [
-  { src: breakfast, label: "Cooking breakfast" },
-  { src: art_intensifies, label: "Art intensifies" },
-  { src: dom_thinking, label: "Hard at work" },
-  { src: cooking_crew, label: "Lunch refuel" },
-  { src: cto_prayers_answered, label: "Golden hour" },
-  { src: doomsday, label: "Escape room W" },
-  { src: james_fence, label: "James recruiting" },
-  { src: james_thinking, label: "Deep in thought", className: "object-left" },
-  {
-    src: mike_morning_neck_exercise,
-    label: "CEO + CTO",
-    className: "object-left",
-  },
-  { src: yardwork, label: "Caffeinated" },
-];
-
 type PageProps = {
   params: {
     locale: string;
@@ -150,6 +122,9 @@ export default async function Page({ params }: PageProps) {
   const founderStoryTitle = t("FounderStory.title");
   const founderTitle = t("Founder.title");
   const founderSubtitle = t("Founder.subtitle");
+  const teamTitle = t("Team.title");
+  const teamIntro = t("Team.intro");
+  const teamCtaLabel = t("Team.cta");
 
   const fallbackMessages = locale === "en" ? undefined : await loadMessages("en");
 
@@ -171,6 +146,22 @@ export default async function Page({ params }: PageProps) {
 
   const founderStoryBody = formatFounderBody(founderStoryBodyCopy ?? "");
   const founderBody = formatFounderBody(founderBodyCopy ?? "");
+  const teamMembersData = [
+    { key: "yergush", image: "/images/NewTeam/gush.JPG" },
+    { key: "david", image: "/images/NewTeam/david.png" },
+    { key: "tim", image: "/images/NewTeam/tim.png" },
+    { key: "sara", image: "/images/NewTeam/sara.png" },
+    { key: "jasper", image: "/images/NewTeam/jasper.png" },
+    { key: "chiHueng", image: "/images/NewTeam/Chi-hueng.png" },
+    { key: "aiAgents", image: "/images/NewTeam/Aiagents.png" },
+  ] as const;
+
+  const teamMembers = teamMembersData.map(({ key, image }) => ({
+    key,
+    image,
+    name: t(`Team.members.${key}.name` as Parameters<typeof t>[0]),
+    description: t(`Team.members.${key}.description` as Parameters<typeof t>[0]),
+  }));
 
   const values = [
     {
@@ -277,27 +268,25 @@ export default async function Page({ params }: PageProps) {
             </div>
           </div>
           <SectionTitle
-            className="mt-80"
+            className="mt-60"
             align="center"
-            title="Meet the team"
-            text="Although we collaborate as a fully remote team, we like to unite for regular offsites. Here are a few moments from our most recent:"
+            title={teamTitle}
+            text={teamIntro}
           />
-          <div className="grid about-image-grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 mt-[62px] w-full xl:w-[calc(100dvw-10rem)]">
-            {offsiteImages.map(({ src, label, className }) => {
-              return (
-                <div key={label} className="image w-full h-[400px] rounded-lg relative">
-                  <PhotoLabel
-                    className="absolute bottom-[40px] left-1/2 transform -translate-x-1/2"
-                    text={label}
-                  />
-                  <ImageWithBlur
-                    src={src}
-                    alt={label}
-                    className={cn("object-cover w-full h-full rounded-lg", className)}
-                  />
-                </div>
-              );
-            })}
+          <div className="mt-12 grid w-full gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {teamMembers.map((member) => (
+              <TeamMemberCard
+                key={member.key}
+                name={member.name}
+                description={member.description}
+                image={member.image}
+              />
+            ))}
+          </div>
+          <div className="mt-10 flex justify-center">
+            <Link href={`/${locale}/careers`}>
+              <RainbowDarkButton label={teamCtaLabel} />
+            </Link>
           </div>
 
           <div className="relative w-screen max-w-full">
@@ -549,15 +538,28 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function PhotoLabel({ text, className }: { text: string; className: string }) {
+type TeamMemberCardProps = {
+  name: string;
+  description: string;
+  image: string;
+};
+
+function TeamMemberCard({ name, description, image }: TeamMemberCardProps) {
   return (
-    <div
-      className={cn(
-        className,
-        "bg-gradient-to-r from-black/70 to-black/40 px-4 py-1.5 rounded-[6px] backdrop-blur-md border-[0.75px] border-white/20 min-w-[140px] flex justify-center",
-      )}
-    >
-      <p className="text-xs text-white">{text}</p>
+    <div className="group flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/[0.04] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.08]">
+      <div className="flex items-center gap-4">
+        <div className="relative h-16 w-16 overflow-hidden rounded-2xl border border-white/15 bg-white/10">
+          <Image
+            src={image}
+            alt={name}
+            width={64}
+            height={64}
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <h3 className="text-lg font-semibold text-white">{name}</h3>
+      </div>
+      <p className="text-sm leading-6 text-white/70">{description}</p>
     </div>
   );
 }

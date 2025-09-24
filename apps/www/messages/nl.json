@@ -221,6 +221,41 @@
       "subtitle": "Waarom we TransformAI zijn gestart",
       "body": "Hallo, mijn naam is Yergush. Ik heb TransformAI opgericht nadat ik zag hoe veel organisaties worstelden met de complexiteit en het tempo van AI-adoptie. Ik wilde bijdragen aan een toekomst waarin bedrijven de kracht van AI echt kunnen benutten.\n\nMet TransformAI zetten we de juiste stappen. Het is inspirerend om ons team te zien groeien met zoveel talent en om het resultaat van onze projecten terug te zien bij onze klanten. Tegelijkertijd ligt er nog een enorme weg voor ons — en dat maakt mij enthousiast. Ik kijk ernaar uit om samen met toekomstige partners verder te bouwen aan de toekomst."
     },
+    "Team": {
+      "title": "Ontmoet ons team",
+      "intro": "De compactheid van dit team is onze grootste kracht: we kunnen supersnel leveren met uitstekende kwaliteit. Onze teamleden zijn 10x productiever dan werknemers in soortgelijke functies die AI gebruiken, en 52x productiever dan collega’s die geen AI gebruiken. Iedereen is veelzijdig en tegelijkertijd gespecialiseerd in bepaalde gebieden, wat een high-performance omgeving creëert waar ik enorm trots op ben. — Yergush",
+      "members": {
+        "yergush": {
+          "name": "Yergush",
+          "description": "De oprichter van het bedrijf die ervoor zorgt dat de waarde binnen de organisatie behouden blijft en dat de kwaliteit van het geleverde niets minder dan uitstekend is. Naast managen richt hij zich primair op het verbeteren van de huidige producten en diensten."
+        },
+        "david": {
+          "name": "David",
+          "description": "De leider in het verkennen van AI-mogelijkheden. David test en verzamelt voortdurend bronnen over de capaciteiten van AI-systemen. Hij richt zich ook op het testen en creëren van maatwerk-integraties voor bedrijven."
+        },
+        "tim": {
+          "name": "Tim",
+          "description": "Tim heeft eerdere ervaring in het transformeren van grote organisaties. Zijn kennis is essentieel om praktische oplossingen voor bedrijven te vinden → echte use cases. Hij is gespecialiseerd in het integreren van transformatie in bedrijfsprocessen."
+        },
+        "sara": {
+          "name": "Sara",
+          "description": "Sara is hoofd Branding en Marketing. Zij is verantwoordelijk voor de branding van TransformAI. Daarbij maakt zij vooral gebruik van AI, en haar praktische kennis van het implementeren van AI in dagelijkse workflows – vooral branding en marketing – maakt haar een essentieel onderdeel van het team."
+        },
+        "jasper": {
+          "name": "Jasper",
+          "description": "Jasper is hoofd engineering en data-analyse. Hij is expert in het omgaan met complexe technische vraagstukken, waaronder dataverwerking. Hij is meester in het inzetten van AI voor software-engineering taken."
+        },
+        "chiHueng": {
+          "name": "Chi-hueng",
+          "description": "Chi-hueng is hoofd van de onderzoeksafdeling. Hij onderzoekt zowel nieuwe AI use cases met custom modellen, als samen met Jasper de data-analyse van beide processen. Daarnaast doet hij ander onderzoek zoals sectoradaptatie door AI. Het meeste wordt geautomatiseerd."
+        },
+        "aiAgents": {
+          "name": "AI AGENTS",
+          "description": "Het hebben van AI als werknemers is een vrij nieuw fenomeen, en hoewel ze nog niet alles autonoom aankunnen, zijn ze een waardevolle aanwinst voor het bedrijf. Wij hebben systemen gecreëerd die door AI worden aangestuurd en die functioneren als een medewerker, waardoor onze workflow zo efficiënt is dat we een compact team kunnen behouden."
+        }
+      },
+      "cta": "Wil je ons team versterken?"
+    },
     "FAQ": {
       "q1": {
         "title": "Wat is jullie doel met TransformAI?",
