@@ -99,7 +99,8 @@
     "Table": {
       "title": "Compare packages",
       "headers": {
-        "feature": "Feature"
+        "feature": "Feature",
+        "info": "Information"
       },
       "tiers": {
         "t1": "Education Package",
@@ -137,6 +138,17 @@
         "t1": "Estimated investment per included service: €450 – €1,200",
         "t2": "Estimated investment per included service: €900 – €2,500",
         "t3": "Custom engagements typically range from €2,500 – €8,500"
+      },
+      "infoColumn": {
+        "label": "Information",
+        "availableIn": "Available in {packages}",
+        "partialIn": "Limited availability in {packages}",
+        "notIncluded": "Not included in any package",
+        "tooltip": {
+          "line1": "Get a quick view of how each service spans across our packages.",
+          "line2": "Use it to guide conversations with your team before you dive into the detailed comparisons.",
+          "cta": "Read more"
+        }
       },
       "legend": {
         "included": "Included",
