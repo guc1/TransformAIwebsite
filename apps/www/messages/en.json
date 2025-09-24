@@ -30,6 +30,176 @@
       "discord": "Discord"
     }
   },
+  "Pricing": {
+    "Header": {
+      "eyebrow": "Packages for decisive teams",
+      "title": "Choose the AI launch plan that matches your momentum",
+      "subtitle": "Each package compresses strategy and execution into weeks, keeping leaders, teams, and ROI aligned.",
+      "highlights": {
+        "speed": "AI wins in 90 days.",
+        "support": "Guided by Dutch-speaking experts.",
+        "roi": "ROI benchmarks from 40+ cases."
+      }
+    },
+    "Packages": {
+      "common": {
+        "included": "What's included:"
+      },
+      "education": {
+        "title": "Education Package",
+        "description": "Focused on educating the workforce and making employees future-proof for AI adoption.",
+        "price": "$6,000",
+        "frequency": "one-time investment",
+        "cta": "Request education proposal",
+        "bullets": {
+          "courseV1": "AI Education Course V1",
+          "courseV2": "AI Education Course V2",
+          "workshops": "Workshops for teams",
+          "trainingMaterials": "Practical training materials",
+          "certification": "Certification of completion"
+        },
+        "footer": {
+          "title": "Need a tailored curriculum?",
+          "body": "We can adapt the education program to the unique roles across your organization."
+        }
+      },
+      "introduction": {
+        "title": "Introduction Package",
+        "description": "Designed for companies starting their AI transition journey.",
+        "price": "$5,000",
+        "frequency": "one-time engagement",
+        "cta": "Plan your AI kickoff",
+        "bullets": {
+          "aiReadiness": "AI-readiness analysis of the company",
+          "automationSetup": "Initial workflow automation setup",
+          "pilotIntegration": "Pilot project integration",
+          "assessment": "Productivity & cost-efficiency assessment",
+          "guidance": "Strategic guidance session with our team"
+        },
+        "footer": {
+          "title": "Preparing to scale further?",
+          "body": "We can expand these foundations into enterprise-wide automation and governance."
+        }
+      },
+      "enterprise": {
+        "title": "Enterprise Solutions",
+        "description": "Custom AI transformation solutions built around your organization.",
+        "price": "Custom $",
+        "frequency": "Tailored proposal",
+        "cta": "Contact Us",
+        "bullets": {
+          "tailoredIntegrations": "Tailored AI integrations",
+          "researchSupport": "Advanced research support",
+          "customModel": "Custom model development",
+          "consulting": "Dedicated consulting",
+          "continuousSupport": "Continuous support"
+        }
+      }
+    },
+    "Table": {
+      "title": "Compare packages",
+      "headers": {
+        "feature": "Feature",
+        "info": "Information"
+      },
+      "tiers": {
+        "t1": "Education Package",
+        "t2": "Introduction Package",
+        "t3": "Enterprise Solutions",
+        "price": {
+          "t1": "$6,000 one-time",
+          "t2": "$5,000 one-time",
+          "t3": "Custom proposal"
+        }
+      },
+      "categories": {
+        "educationEnablement": "Education & enablement",
+        "implementation": "Implementation & strategy",
+        "enterprise": "Enterprise scale"
+      },
+      "rows": {
+        "educationCourseV1": "AI Education Course V1",
+        "educationCourseV2": "AI Education Course V2",
+        "workshops": "Workshops for teams",
+        "trainingMaterials": "Practical training materials",
+        "certification": "Certification of completion",
+        "aiReadiness": "AI-readiness analysis of the company",
+        "automationSetup": "Initial workflow automation setup",
+        "pilotIntegration": "Pilot project integration",
+        "assessment": "Productivity & cost-efficiency assessment",
+        "guidance": "Strategic guidance session with our team",
+        "tailoredIntegrations": "Tailored AI integrations",
+        "researchSupport": "Advanced research support",
+        "customModel": "Custom model development",
+        "consulting": "Dedicated consulting",
+        "continuousSupport": "Continuous support"
+      },
+      "priceRanges": {
+        "t1": "Estimated investment per included service: €450 – €1,200",
+        "t2": "Estimated investment per included service: €900 – €2,500",
+        "t3": "Custom engagements typically range from €2,500 – €8,500"
+      },
+      "infoColumn": {
+        "label": "Information",
+        "availableIn": "Available in {packages}",
+        "partialIn": "Limited availability in {packages}",
+        "notIncluded": "Not included in any package",
+        "tooltip": {
+          "line1": "Get a quick view of how each service spans across our packages.",
+          "line2": "Use it to guide conversations with your team before you dive into the detailed comparisons.",
+          "cta": "Read more"
+        }
+      },
+      "legend": {
+        "included": "Included",
+        "notIncluded": "Not included",
+        "partial": "Limited availability"
+      },
+      "cta": {
+        "scrollLabel": "Ready to choose the right fit?",
+        "chooseTier1": "Explore the Education Package",
+        "chooseTier2": "Explore the Introduction Package",
+        "chooseTier3": "Talk to Enterprise Solutions"
+      }
+    },
+    "Chat": {
+      "cta": {
+        "label": "Ask our TransformAI"
+      },
+      "header": {
+        "title": "TransformAI Pricing Assistant",
+        "status": "Online",
+        "statusA11y": "Assistant status: online",
+        "close": "Hide the pricing assistant"
+      },
+      "input": {
+        "placeholder": "Ask about packages, ROI, or the best fit for your team…",
+        "tooltip": "Send message",
+        "send": "Send"
+      },
+      "empty": {
+        "title": "Popular pricing questions",
+        "prompts": [
+          "Which package is best for onboarding our whole team?",
+          "Can you compare the Education and Introduction packages?",
+          "Do you support staged rollouts before committing to Enterprise?",
+          "What does a typical Enterprise proposal include?"
+        ],
+        "action": "Ask this question"
+      },
+      "messages": {
+        "assistant": "TransformAI Pricing Assistant",
+        "user": "You",
+        "typing": "TransformAI Pricing Assistant is typing…",
+        "transcriptLabel": "Conversation about pricing with the assistant"
+      },
+      "errors": {
+        "title": "Unable to reach the assistant",
+        "body": "Please try again in a few moments.",
+        "retry": "Retry"
+      }
+    }
+  },
   "Hero": {
     "title": "Your Transformation Partner for the Age of AI",
     "body": "We help companies adapt successfully and sustainably to the challenges and opportunities that Artificial Intelligence brings.",
@@ -41,6 +211,98 @@
       "title": "Creating and integrating resilient AI structures within companies",
       "body": "AI is transformative, demanding structural change across all business departments. Because of its complexity, successful integration can be challenging. With our expertise, your company can adapt sustainably and thrive in the AI era.",
       "cta": "Case study: AI adaptation"
+    },
+    "FounderStory": {
+      "title": "Founded to redefine the AI transformation landscape",
+      "body": "TransformAI was founded by <highlight>Yergush Bloetjes</highlight> out of frustration with the slow and poorly executed way companies were adapting to the most transformative technology of our time. Combining deep theoretical knowledge, hands-on experience in the AI field, and successful integrations at other firms, he recognized the lack of high-quality solutions for business-wide AI transformation. This gap led to the creation of TransformAI, with the mission of making AI adoption both successful and sustainable."
+    },
+    "Founder": {
+      "title": "Few words from our Founder",
+      "subtitle": "Why we started TransformAI",
+      "body": "Hi, my name is Yergush. I founded TransformAI after seeing how many organizations struggled with the complexity and pace of AI adoption. I wanted to help build a future where businesses can truly harness the power of AI.\n\nWith TransformAI, we’re heading in the right direction. It’s inspiring to see our team grow with such talented people and to witness the impact of the projects we’ve already delivered. At the same time, there is still so much more to achieve — and that excites me. I look forward to working with future partners to keep building the future, together."
+    },
+    "Team": {
+      "title": "Meet our team",
+      "intro": "The compactness of this team is our biggest strength, we are able to ship super fast and with excellent quality. Our team members have 10x higher productivity than employees in similar jobs who use AI, and 52x higher productivity compared to fellows who don’t use AI. Everybody is super all-round, and also specialized in certain areas at the same time, creating a high-performance environment on which I am super proud. — Yergush",
+      "members": {
+        "yergush": {
+          "name": "Yergush",
+          "description": "The founder of the company who ensures that the value is retained within the organisation, and makes sure that the quality delivered is nothing less than excellent. Besides managing, his primary focus is on improving current products and services."
+        },
+        "david": {
+          "name": "David",
+          "description": "The lead in exploring AI capabilities. David is constantly testing and collecting resources on the capabilities of AI systems. David also focuses on testing and creating custom integrations for companies."
+        },
+        "tim": {
+          "name": "Tim",
+          "description": "Tim has prior experience in working in transforming corporate organisations. His knowledge is essential in finding practical solutions for companies → real world use cases. He is specialised in integrating transformation into businesses."
+        },
+        "sara": {
+          "name": "Sara",
+          "description": "Sara is the head of Branding and Marketing. She is responsible for branding TransformAI. In the process she uses primarily AI, and this practical knowledge of implementing AI in everyday workflows especially branding and marketing makes her an essential part of the team."
+        },
+        "jasper": {
+          "name": "Jasper",
+          "description": "Jasper is the head of engineering and data analysis. He is an expert in handling complex engineering cases including the ones regarding data processing. He is a master in leveraging AI into software engineering tasks."
+        },
+        "chiHueng": {
+          "name": "Chi-hueng",
+          "description": "Chi-hueng is our head of the research department, researching both creating new AI use cases using custom models, and together with Jasper he handles the data analysis part of both processes and other research like sector adaptation by AI. Automating most pipelines."
+        },
+        "aiAgents": {
+          "name": "AI AGENTS",
+          "description": "Having AI as employees is a quite new phenomenon, and although they cannot handle most things autonomously yet, they are a valuable asset to the company and therefore worth mentioning. We have created systems powered by AI, which act as an employee and make our workflow so efficient meaning we can keep a compact team."
+        }
+      },
+      "cta": "Want to join our team?"
+    },
+    "FAQ": {
+      "q1": {
+        "title": "What’s your goal with TransformAI?",
+        "body": "Our goal is to make AI adoption clear, structured, and achievable for every organization. Too often, businesses struggle with complexity and uncertainty. We help by creating resilient workflows, guiding strategic decisions, and ensuring AI is integrated at the right time, in the right way."
+      },
+      "q2": {
+        "title": "What’s something you’re most proud of at TransformAI?",
+        "body": "We are proud of how we bring together research, education, and hands-on integration. Our team combines technical expertise with business understanding, which allows us to deliver practical solutions that create real value. Seeing companies become more productive and future-proof is what motivates us every day."
+      },
+      "q3": {
+        "title": "What’s something that still challenges you?",
+        "body": "AI evolves quickly, and so do the regulations and expectations around it. One of our ongoing challenges is balancing innovation with responsibility — making sure that companies can move fast, but always with the right governance, timing, and ethical considerations."
+      }
+    },
+    "ValuesIntro": {
+      "title": "Driven by values",
+      "body": "AI transformation touches every part of a business — from technology to people, processes, and strategy. To maximize outcomes, we work from a set of guiding values that shape how we integrate AI sustainably and effectively."
+    },
+    "Values": {
+      "integrityInAi": {
+        "title": "Integrity in AI",
+        "body": "We ensure that every AI integration is transparent, ethical, and aligned with your company’s values — building trust at every step."
+      },
+      "rightTimedAdaptation": {
+        "title": "Right-Timed Adaptation",
+        "body": "We introduce AI solutions at the right phase. We never push what isn’t needed — we guide adoption where and when it delivers the most value."
+      },
+      "reinforcingWorkforce": {
+        "title": "Reinforcing Workforce",
+        "body": "We strengthen your existing teams. Through training and support, your people stay essential, productive, and future-ready in the AI era."
+      },
+      "innovationWithPurpose": {
+        "title": "Innovation with Purpose",
+        "body": "Our research-driven approach brings cutting-edge AI to real business problems — value over hype, outcomes over buzzwords."
+      },
+      "strategicAgility": {
+        "title": "Strategic Agility",
+        "body": "We move fast so you don’t fall behind. A lean structure enables rapid implementation and continuous improvement."
+      },
+      "partnership": {
+        "title": "Partnership, not just Service",
+        "body": "We don’t deliver and leave. We collaborate deeply, co-creating workflows and strategy so AI becomes a lasting advantage."
+      }
+    },
+    "Blog": {
+      "title": "From our blog",
+      "body": "Explore insights, tips, and updates directly from our team members"
     }
   },
   "LogoCloud": {
@@ -51,6 +313,51 @@
       "title": "Ask anything about TransformAI to our AI Assistant",
       "text": "Ask questions, schedule a call, or learn more about our solutions and services."
     },
+    "chat": {
+      "cta": {
+        "label": "Ask the TransformAI"
+      },
+      "header": {
+        "title": "TransformAI Assistant",
+        "status": "Online",
+        "statusA11y": "Assistant status: online",
+        "close": "Close the assistant"
+      },
+      "input": {
+        "placeholder": "Ask anything about our solutions, pricing, or a free intro call…",
+        "tooltip": "Send message",
+        "send": "Send"
+      },
+      "empty": {
+        "title": "How we can help…",
+        "prompts": [
+          "What AI transformation services does TransformAI offer for mid-sized companies?",
+          "How do I schedule a free introduction call?",
+          "Can you compare the Education and Introduction packages?",
+          "How does TransformAI ensure AI adoption stays compliant?"
+        ],
+        "action": "Ask this question"
+      },
+      "messages": {
+        "assistant": "TransformAI Assistant",
+        "user": "You",
+        "typing": "TransformAI Assistant is typing…",
+        "transcriptLabel": "Conversation between you and the assistant"
+      },
+      "errors": {
+        "title": "Unable to reach the assistant",
+        "body": "Please try again in a few moments.",
+        "retry": "Retry"
+      }
+    },
+    "projects": {
+      "platform": {
+        "title": "Education platform for using AI.",
+        "description": "We created an education platform that makes it fun and interactive to learn how to use AI within a company. We design custom modules based on each partner’s needs.",
+        "result": "This platform has delivered massive AI productivity gains across the company.",
+        "cta": "Read more"
+      }
+    },
     "bottom": {
       "title": "Explore the projects we’ve been part of",
       "text": "Click through the interface below to explore sample projects."
@@ -58,7 +365,9 @@
   },
   "CTA": {
     "getStarted": "Get Started",
-    "exploreProjects": "Explore All projects"
+    "exploreProjects": "Explore All projects",
+    "hoursSavedLabel": "Hours saved using AI",
+    "hoursSavedAmount": "100000+"
   },
   "Cta": {
     "title": "Unlock your company’s AI advantage",

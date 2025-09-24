@@ -1,4 +1,5 @@
 "use client";
+import { StickyChat } from "@/components/ask";
 import { PrimaryButton, SecondaryButton } from "@/components/button";
 import { SectionTitle } from "@/components/section";
 import type { LangIconProps } from "@/components/svg/lang-icons";
@@ -17,12 +18,15 @@ import { MeteorLines } from "@/components/ui/meteorLines";
 import { cn } from "@/lib/utils";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type { PrismTheme } from "prism-react-renderer";
 import React, { useEffect } from "react";
 import { useState } from "react";
 const Tabs = TabsPrimitive.Root;
+const ASK_CHAT_TRIGGER_ID = "ask-transformai-assistant-intro";
+const ASK_CHAT_BOUNDARY_ID = "ask-transformai-assistant-boundary";
 
 const editorTheme = {
   plain: {
@@ -380,9 +384,18 @@ public class APIController {
 type Framework = {
   name: string;
   Icon: React.FC<LangIconProps>;
-  codeBlock: string;
-  editorLanguage: string;
+  codeBlock?: string;
+  editorLanguage?: string;
+  image?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+  contentKey?: string;
 };
+
+type ProjectCopyFormatter = (key: string) => string;
 
 const languagesList = {
   Typescript: [
@@ -469,10 +482,15 @@ const languagesList = {
   ],
   Rust: [
     {
-      name: "Verify key",
+      name: "Platform",
       Icon: RustIcon,
-      codeBlock: rustCodeBlock,
-      editorLanguage: "rust",
+      image: {
+        src: "/projects/platform.png",
+        alt: "Platform project preview",
+        width: 1200,
+        height: 800,
+      },
+      contentKey: "platform",
     },
   ],
   Curl: [
@@ -555,40 +573,28 @@ LanguageTrigger.displayName = TabsPrimitive.Trigger.displayName;
 export const CodeExamples: React.FC<Props> = ({ className }) => {
   const t = useTranslations("CodeExamples");
   const cta = useTranslations("CTA");
+  const projectCopy = useTranslations("CodeExamples.projects");
   const [language, setLanguage] = useState<Language>("Typescript");
   const [framework, setFramework] = useState<FrameworkName>("Typescript");
   const [languageHover, setLanguageHover] = useState("Typescript");
-  function getLanguage({
-    language,
-    framework,
-  }: {
-    language: Language;
-    framework: FrameworkName;
-  }) {
-    const frameworks = languagesList[language];
-    const currentFramework = frameworks.find((f) => f.name === framework);
-    return currentFramework?.editorLanguage || "tsx";
-  }
+  const frameworksForLanguage: Framework[] = languagesList[language];
+  const currentFrameworkData: Framework | undefined =
+    frameworksForLanguage.find((f) => f.name === framework) ??
+    frameworksForLanguage[0];
+  const activeCodeBlock = currentFrameworkData?.codeBlock ?? "";
+  const activeEditorLanguage = currentFrameworkData?.editorLanguage ?? "tsx";
 
   useEffect(() => {
-    setFramework(languagesList[language].at(0)!.name);
+    const [firstFramework] = languagesList[language];
+    if (firstFramework) {
+      setFramework(firstFramework.name);
+    }
   }, [language]);
-
-  function getCodeBlock({
-    language,
-    framework,
-  }: {
-    language: Language;
-    framework: FrameworkName;
-  }) {
-    const frameworks = languagesList[language];
-    const currentFramework = frameworks.find((f) => f.name === framework);
-    return currentFramework?.codeBlock || "";
-  }
 
   return (
     <section className={className}>
       <SectionTitle
+        id={ASK_CHAT_TRIGGER_ID}
         title={t("top.title")}
         text={t("top.text")}
         align="center"
@@ -605,11 +611,17 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
           <MeteorLines className="ml-16 fade-in-100" delay={2} number={1} />
         </div>
       </SectionTitle>
+      <StickyChat
+        className="mt-16"
+        triggerId={ASK_CHAT_TRIGGER_ID}
+        boundaryId={ASK_CHAT_BOUNDARY_ID}
+      />
       <SectionTitle
+        id={ASK_CHAT_BOUNDARY_ID}
         title={t("bottom.title")}
         text={t("bottom.text")}
         align="center"
-        className="relative mt-12"
+        className="relative mt-24"
       />
       <div className="relative w-full mt-10 rounded-4xl border-[.75px] border-white/10 bg-gradient-to-b from-[#111111] to-black border-t-[.75px] border-t-white/20">
         <div
@@ -637,20 +649,38 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
         </Tabs>
         <div className="flex flex-col sm:flex-row overflow-x-auto scrollbar-hidden sm:h-[520px]">
           <FrameworkSwitcher
-            frameworks={languagesList[language]}
+            frameworks={frameworksForLanguage}
             currentFramework={framework}
             setFramework={setFramework}
           />
-          <div className="relative flex w-full pt-4 pb-8 pl-8 font-mono text-xs text-white sm:text-sm">
-            <CodeEditor
-              language={getLanguage({ language, framework })}
-              theme={editorTheme}
-              codeBlock={getCodeBlock({ language, framework })}
-            />
-            <CopyCodeSnippetButton
-              textToCopy={getCodeBlock({ language, framework })}
-              className="absolute hidden cursor-pointer top-5 right-5 lg:flex"
-            />
+          <div
+            className={cn(
+              "relative flex w-full pt-4 pb-8 pl-8 pr-8 text-white",
+              currentFrameworkData?.image
+                ? "flex-col gap-8 lg:flex-row lg:items-center"
+                : "font-mono text-xs sm:text-sm",
+            )}
+          >
+            {currentFrameworkData?.image ? (
+              <ProjectShowcase
+                image={currentFrameworkData.image}
+                contentKey={currentFrameworkData.contentKey}
+                language={language}
+                projectCopy={projectCopy}
+              />
+            ) : (
+              <>
+                <CodeEditor
+                  language={activeEditorLanguage}
+                  theme={editorTheme}
+                  codeBlock={activeCodeBlock}
+                />
+                <CopyCodeSnippetButton
+                  textToCopy={activeCodeBlock}
+                  className="absolute hidden cursor-pointer top-5 right-5 lg:flex"
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -672,6 +702,70 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
     </section>
   );
 };
+
+function ProjectShowcase({
+  image,
+  contentKey,
+  language,
+  projectCopy,
+}: {
+  image: NonNullable<Framework["image"]>;
+  contentKey?: string;
+  language: Language;
+  projectCopy: ProjectCopyFormatter;
+}) {
+  const title = contentKey ? projectCopy(`${contentKey}.title`) : undefined;
+  const description = contentKey
+    ? projectCopy(`${contentKey}.description`)
+    : undefined;
+  const result = contentKey ? projectCopy(`${contentKey}.result`) : undefined;
+  const cta = contentKey ? projectCopy(`${contentKey}.cta`) : undefined;
+
+  return (
+    <div className="flex flex-col w-full gap-8 lg:flex-row lg:items-center">
+      <div className="flex justify-start w-full lg:flex-1">
+        <div className="relative w-full max-w-[720px] overflow-hidden rounded-[32px] border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            className="h-full w-full object-contain"
+            sizes="(min-width: 1280px) 720px, (min-width: 640px) 70vw, 90vw"
+            priority={language === "Rust"}
+          />
+        </div>
+      </div>
+      {(title || description || result || cta) && (
+        <div className="flex flex-col justify-center gap-4 text-white/80 lg:max-w-sm">
+          {title ? (
+            <h3 className="text-2xl font-semibold leading-tight text-white sm:text-3xl">
+              {title}
+            </h3>
+          ) : null}
+          {description ? (
+            <p className="text-sm leading-relaxed text-white/80">
+              {description}
+            </p>
+          ) : null}
+          {result ? (
+            <p className="text-sm leading-relaxed text-white/80">
+              {result}
+            </p>
+          ) : null}
+          {cta ? (
+            <button
+              type="button"
+              className="inline-flex items-center justify-center self-start px-5 py-2 text-sm font-semibold text-black transition-colors duration-200 bg-white rounded-lg shadow-sm hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            >
+              {cta}
+            </button>
+          ) : null}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function FrameworkSwitcher({
   frameworks,

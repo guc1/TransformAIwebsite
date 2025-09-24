@@ -1,8 +1,19 @@
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Clock,
+  Handshake,
+  RefreshCcw,
+  ShieldCheck,
+  Sparkles,
+  Users2,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+
+import { Fragment, type ReactNode } from "react";
 
 import { BorderBeam } from "@/components/border-beam";
 import { RainbowDarkButton } from "@/components/button";
@@ -39,21 +50,12 @@ import allison from "@/images/about/investors/allison5.png";
 import liu from "@/images/about/investors/liujiang.jpeg";
 import tim from "@/images/about/investors/tim.png";
 
-import art_intensifies from "@/images/offsite/art_intensifies.jpg";
-import breakfast from "@/images/offsite/breakfast.jpg";
-import cooking_crew from "@/images/offsite/cooking_crew.jpg";
-import cto_prayers_answered from "@/images/offsite/cto_prayers_answered.jpg";
-import dom_thinking from "@/images/offsite/dom_thinking.jpg";
-import doomsday from "@/images/offsite/doomsday.jpg";
-import james_fence from "@/images/offsite/james_fence.jpg";
-import james_thinking from "@/images/offsite/james_thinking.jpg";
-import mike_morning_neck_exercise from "@/images/offsite/mike_morning_neck_exercise.jpg";
-import yardwork from "@/images/offsite/yardwork.jpg";
 import andreas from "@/images/team/andreas.jpeg";
 import james from "@/images/team/james.jpg";
 
 import { ImageWithBlur } from "@/components/image-with-blur";
-import { cn } from "@/lib/utils";
+import { loadMessages } from "@/i18n/messages";
+import type { Messages } from "@/i18n/messages";
 import { isLocale } from "@/i18n/routing";
 
 export const metadata = {
@@ -81,6 +83,9 @@ export const metadata = {
   },
 };
 
+// Keep investor content available but disabled per TransformAI request.
+const SHOW_INVESTORS_SECTION = false;
+
 const investors = [
   { name: "Timothy Chen", firm: "Essence VC", image: tim },
   { name: "Liu Jiang", firm: "Sunflower Capital", image: liu },
@@ -96,23 +101,6 @@ const investors = [
 
 const SELECTED_POSTS = ["uuid-ux", "why-we-built-unkey", "unkey-raises-1-5-million"];
 
-const offsiteImages = [
-  { src: breakfast, label: "Cooking breakfast" },
-  { src: art_intensifies, label: "Art intensifies" },
-  { src: dom_thinking, label: "Hard at work" },
-  { src: cooking_crew, label: "Lunch refuel" },
-  { src: cto_prayers_answered, label: "Golden hour" },
-  { src: doomsday, label: "Escape room W" },
-  { src: james_fence, label: "James recruiting" },
-  { src: james_thinking, label: "Deep in thought", className: "object-left" },
-  {
-    src: mike_morning_neck_exercise,
-    label: "CEO + CTO",
-    className: "object-left",
-  },
-  { src: yardwork, label: "Caffeinated" },
-];
-
 type PageProps = {
   params: {
     locale: string;
@@ -127,9 +115,97 @@ export default async function Page({ params }: PageProps) {
   }
 
   const t = await getTranslations({ locale, namespace: "About" });
+  const messages = await loadMessages(locale);
   const heroTitle = t("Hero.title");
   const heroBody = t("Hero.body");
   const heroCta = t("Hero.cta");
+  const founderStoryTitle = t("FounderStory.title");
+  const founderTitle = t("Founder.title");
+  const founderSubtitle = t("Founder.subtitle");
+  const teamTitle = t("Team.title");
+  const teamIntro = t("Team.intro");
+  const teamCtaLabel = t("Team.cta");
+
+  const fallbackMessages = locale === "en" ? undefined : await loadMessages("en");
+
+  const founderStoryBodyCopy =
+    getNestedMessage(messages, ["About", "FounderStory", "body"]) ??
+    (fallbackMessages
+      ? getNestedMessage(fallbackMessages, [
+          "About",
+          "FounderStory",
+          "body",
+        ])
+      : undefined);
+
+  const founderBodyCopy =
+    getNestedMessage(messages, ["About", "Founder", "body"]) ??
+    (fallbackMessages
+      ? getNestedMessage(fallbackMessages, ["About", "Founder", "body"])
+      : undefined);
+
+  const founderStoryBody = formatFounderBody(founderStoryBodyCopy ?? "");
+  const founderBody = formatFounderBody(founderBodyCopy ?? "");
+  const teamMembersData = [
+    { key: "yergush", image: "/images/NewTeam/gush.JPG" },
+    { key: "david", image: "/images/NewTeam/david.png" },
+    { key: "tim", image: "/images/NewTeam/tim.png" },
+    { key: "sara", image: "/images/NewTeam/sara.png" },
+    { key: "jasper", image: "/images/NewTeam/jasper.png" },
+    { key: "chiHueng", image: "/images/NewTeam/Chi-hueng.png" },
+    { key: "aiAgents", image: "/images/NewTeam/Aiagents.png" },
+  ] as const;
+
+  const teamMembers = teamMembersData.map(({ key, image }) => ({
+    key,
+    image,
+    name: t(`Team.members.${key}.name` as Parameters<typeof t>[0]),
+    description: t(`Team.members.${key}.description` as Parameters<typeof t>[0]),
+  }));
+
+  const values = [
+    {
+      key: "integrityInAi",
+      title: t("Values.integrityInAi.title"),
+      text: t("Values.integrityInAi.body"),
+      icon: ShieldCheck,
+    },
+    {
+      key: "rightTimedAdaptation",
+      title: t("Values.rightTimedAdaptation.title"),
+      text: t("Values.rightTimedAdaptation.body"),
+      icon: Clock,
+    },
+    {
+      key: "reinforcingWorkforce",
+      title: t("Values.reinforcingWorkforce.title"),
+      text: t("Values.reinforcingWorkforce.body"),
+      icon: Users2,
+    },
+    {
+      key: "innovationWithPurpose",
+      title: t("Values.innovationWithPurpose.title"),
+      text: t("Values.innovationWithPurpose.body"),
+      icon: Sparkles,
+    },
+    {
+      key: "strategicAgility",
+      title: t("Values.strategicAgility.title"),
+      text: t("Values.strategicAgility.body"),
+      icon: RefreshCcw,
+    },
+    {
+      key: "partnership",
+      title: t("Values.partnership.title"),
+      text: t("Values.partnership.body"),
+      icon: Handshake,
+    },
+  ];
+
+  const valuesIntroTitle = t("ValuesIntro.title");
+  const valuesIntroBody = t("ValuesIntro.body");
+  const blogTitle = t("Blog.title");
+  const blogBody = t("Blog.body");
 
   const posts = allPosts.filter((post) => SELECTED_POSTS.includes(post.slug));
   return (
@@ -181,14 +257,10 @@ export default async function Page({ params }: PageProps) {
             </div>
             <div className="about-radial relative px-[50px] md:px-[144px] pb-[100px] pt-[60px] overflow-hidden bg-black text-white flex flex-col items-center rounded-[48px] border-l border-r border-b border-white/[0.15]">
               <h2 className="text-[32px] font-medium leading-[48px] mt-10 text-center text-balance">
-                Founded to redefine the API management landscape
+                {founderStoryTitle}
               </h2>
               <p className="mt-[40px] text-white/50 leading-[32px] max-w-[720px] text-center">
-                Unkey emerged in 2023 from the frustration of{" "}
-                <span className="font-medium text-white">James Perkins</span> and
-                <span className="font-medium text-white"> Andreas Thomas</span> with the lack of a
-                straightforward, fast, and scalable API management solution. This void prompted a
-                mission to create a tool themselves.
+                {founderStoryBody}
               </p>
               <div className="absolute pointer-events-none scale-[1.5] bottom-[-350px]">
                 <AboutLight />
@@ -196,27 +268,25 @@ export default async function Page({ params }: PageProps) {
             </div>
           </div>
           <SectionTitle
-            className="mt-80"
+            className="mt-60"
             align="center"
-            title="Meet the team"
-            text="Although we collaborate as a fully remote team, we like to unite for regular offsites. Here are a few moments from our most recent:"
+            title={teamTitle}
+            text={teamIntro}
           />
-          <div className="grid about-image-grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 mt-[62px] w-full xl:w-[calc(100dvw-10rem)]">
-            {offsiteImages.map(({ src, label, className }) => {
-              return (
-                <div key={label} className="image w-full h-[400px] rounded-lg relative">
-                  <PhotoLabel
-                    className="absolute bottom-[40px] left-1/2 transform -translate-x-1/2"
-                    text={label}
-                  />
-                  <ImageWithBlur
-                    src={src}
-                    alt={label}
-                    className={cn("object-cover w-full h-full rounded-lg", className)}
-                  />
-                </div>
-              );
-            })}
+          <div className="mt-12 grid w-full gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {teamMembers.map((member) => (
+              <TeamMemberCard
+                key={member.key}
+                name={member.name}
+                description={member.description}
+                image={member.image}
+              />
+            ))}
+          </div>
+          <div className="mt-10 flex justify-center">
+            <Link href={`/${locale}/careers`}>
+              <RainbowDarkButton label={teamCtaLabel} />
+            </Link>
           </div>
 
           <div className="relative w-screen max-w-full">
@@ -231,37 +301,16 @@ export default async function Page({ params }: PageProps) {
               className="absolute right-0 scale-x-[-1] left-[-300px] pointer-events-none"
             />
             <SectionTitle
-              title="Driven by values"
+              title={valuesIntroTitle}
               className="mt-[200px] max-w-full"
               align="center"
-              text="Just as significant as the products we craft is the culture we cultivate - a culture defined by our unwavering commitment to our core values"
+              text={valuesIntroBody}
             />
             <div className="mx-auto md:px-5 lg:px-8">
               <div className="bg-white/10 overflow-hidden text-white mt-[62px] w-full gap-px grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 border-[1px] border-transparent rounded-3xl mb-10 ">
-                <Value
-                  text="We don't meet expectations; we redefine them by doing all the hard work upfront to craft an effortless user experience."
-                  title="Quality"
-                />
-                <Value
-                  text="Our default is to be open rather than closed. Simplicity, transparency, and honesty lead to the best results."
-                  title="Open company"
-                />
-                <Value
-                  title="Ownership"
-                  text="Our team members are given a high degree of autonomy to develop, implement, and iterate on their ideas."
-                />
-                <Value
-                  text="We prioritize quality while ensuring our team has a work-life balance that ensures they can deliver maximum value."
-                  title="Sustainability"
-                />
-                <Value
-                  text="We ship fast and work together with our users to solve real problems."
-                  title="Customer obsessed"
-                />
-                <Value
-                  text="We take security seriously and don't compromise in favour of velocity or user experience."
-                  title="Security first"
-                />
+                {values.map(({ key, title, text, icon }) => (
+                  <Value key={key} title={title} text={text} icon={icon} />
+                ))}
               </div>
             </div>
           </div>
@@ -269,17 +318,12 @@ export default async function Page({ params }: PageProps) {
             <StarDots className="absolute pointer-events-none" />
             <SectionTitle
               className="mt-60 px-[10px] text-balance"
-              title="A few words from the founders"
+              title={founderTitle}
               align="center"
-              text="Why we started Unkey and what we believe in."
+              text={founderSubtitle}
             />
             <div className="border-[1px] border-white/10 mt-[78px] leading-8 rounded-[48px] py-[60px] xl:py-[96px] px-8 md:px-[88px] text-white text-center max-w-[1008px] flex flex-col justify-center items-center">
-              <p className="about-founders-text-gradient">
-                We're James and Andreas. We founded Unkey with the vision of creating an API
-                management platform that is both powerful and easy to use. We believe that APIs are
-                the building blocks of the modern web, and we want to make it easier for developers
-                to build and manage them.
-              </p>
+              <p className="about-founders-text-gradient">{founderBody}</p>
               <div className="flex flex-col mt-12 md:flex-row">
                 <div className="flex md:left-[5px]">
                   <div className="text-sm text-right">
@@ -315,37 +359,26 @@ export default async function Page({ params }: PageProps) {
                     value="item-1"
                     className="border border-white/10 rounded-tr-[20px] rounded-tl-[20px]"
                   >
-                    <AccordionTriggerAbout>What's your goal with Unkey?</AccordionTriggerAbout>
+                    <AccordionTriggerAbout>
+                      {t("FAQ.q1.title")}
+                    </AccordionTriggerAbout>
                     <AccordionContent className="pl-10">
-                      Our goal with Unkey is build an open source API management platform that
-                      doesn’t require the burden or cost of traditional API management platforms
-                      like Kong or Azure APM. We want to embrace what developers know today, a
-                      global REST API that allows you to deploy and protect your API on the edge in
-                      under 5 minutes.{" "}
+                      {t("FAQ.q1.body")}
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2" className="border border-white/10">
-                    <AccordionTriggerAbout>
-                      What's something you're particularly happy about at Unkey?
-                    </AccordionTriggerAbout>
+                    <AccordionTriggerAbout>{t("FAQ.q2.title")}</AccordionTriggerAbout>
                     <AccordionContent className="pl-10">
-                      We are extremely happy with the culture we have built at Unkey, our team is
-                      small but powerful. Everyone in our team has input on the next feature or idea
-                      we have for Unkey, allowing us to build the best API management platform.{" "}
+                      {t("FAQ.q2.body")}
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem
                     value="item-3"
                     className="border border-white/10 rounded-br-[20px] rounded-bl-[20px]"
                   >
-                    <AccordionTriggerAbout>
-                      What's something you're less happy about?
-                    </AccordionTriggerAbout>
+                    <AccordionTriggerAbout>{t("FAQ.q3.title")}</AccordionTriggerAbout>
                     <AccordionContent className="pl-10">
-                      While we are happy with Unkey overall knowing when to build tall or wide is a
-                      problem we run into frequently. Having a small team and focusing on incredible
-                      DX means that adding new features or improving currents ones means that we
-                      have to be certain that it will bring value to our users.{" "}
+                      {t("FAQ.q3.body")}
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -361,34 +394,38 @@ export default async function Page({ params }: PageProps) {
             </div>
 
             <div className="flex flex-col max-w-full">
-              <SectionTitle
-                className="mt-[250px]"
-                align="center"
-                title="Backed by the finest"
-                text="At Unkey, we're privileged to receive backing from top-tier investors, visionary founders, and seasoned operators from across the globe. Here are just a few of them: "
-              />
-              <div className="grid justify-center w-full grid-cols-2 pt-24 mx-auto md:grid-cols-3 lg:grid-cols-5 ">
-                {investors.map(({ name, firm, image }) => {
-                  return (
-                    <div
-                      key={name}
-                      className="flex flex-col items-center justify-center pb-12 text-center md:last:col-span-3 lg:last:col-span-1"
-                    >
-                      <ImageWithBlur src={image} alt={name} className="w-12 h-12 rounded-full" />
-                      <p className="mt-8 text-sm font-bold text-white md:whitespace-nowrap">
-                        {name}
-                      </p>
-                      <p className="text-sm text-white/60 md:whitespace-nowrap">{firm}</p>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="w-full h-[1px] bg-gradient-to-r from-black to-black via-white/40 mt-[100px] lg:mt-[80px]" />
+              {SHOW_INVESTORS_SECTION ? (
+                <>
+                  <SectionTitle
+                    className="mt-[250px]"
+                    align="center"
+                    title="Backed by the finest"
+                    text="At Unkey, we're privileged to receive backing from top-tier investors, visionary founders, and seasoned operators from across the globe. Here are just a few of them: "
+                  />
+                  <div className="grid justify-center w-full grid-cols-2 pt-24 mx-auto md:grid-cols-3 lg:grid-cols-5 ">
+                    {investors.map(({ name, firm, image }) => {
+                      return (
+                        <div
+                          key={name}
+                          className="flex flex-col items-center justify-center pb-12 text-center md:last:col-span-3 lg:last:col-span-1"
+                        >
+                          <ImageWithBlur src={image} alt={name} className="w-12 h-12 rounded-full" />
+                          <p className="mt-8 text-sm font-bold text-white md:whitespace-nowrap">
+                            {name}
+                          </p>
+                          <p className="text-sm text-white/60 md:whitespace-nowrap">{firm}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="w-full h-[1px] bg-gradient-to-r from-black to-black via-white/40 mt-[100px] lg:mt-[80px]" />
+                </>
+              ) : null}
               <SectionTitle
                 className="mt-[100px] lg:mt-[100px]"
                 align="center"
-                title="From our blog"
-                text="Explore insights, tips, and updates directly from our team members"
+                title={blogTitle}
+                text={blogBody}
               />
               <div className="flex flex-row w-full mx-auto gap-6 mt-[96px] flex-wrap lg:flex-nowrap">
                 {posts.map((post) => {
@@ -417,24 +454,132 @@ export default async function Page({ params }: PageProps) {
   );
 }
 
-function PhotoLabel({ text, className }: { text: string; className: string }) {
+function getNestedMessage(
+  messages: Messages,
+  path: string[],
+): string | undefined {
+  let current: unknown = messages;
+
+  for (const key of path) {
+    if (!isRecord(current)) {
+      return undefined;
+    }
+
+    if (!(key in current)) {
+      return undefined;
+    }
+
+    const record = current as Record<string, unknown>;
+    current = record[key];
+  }
+
+  return typeof current === "string" ? current : undefined;
+}
+
+function formatFounderBody(copy: string): ReactNode[] {
+  const segments = copy
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/\r/g, "")
+    .split(/\n{2,}/)
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+
+  return segments.flatMap((segment, segmentIndex) => {
+    const nodes: ReactNode[] = [];
+    const highlightRegex = /<highlight>(.*?)<\/highlight>/gi;
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = highlightRegex.exec(segment)) !== null) {
+      if (match.index > lastIndex) {
+        nodes.push(
+          <Fragment
+            key={`founder-text-${segmentIndex}-${nodes.length}`}
+          >
+            {segment.slice(lastIndex, match.index)}
+          </Fragment>,
+        );
+      }
+
+      nodes.push(
+        <span
+          key={`founder-highlight-${segmentIndex}-${nodes.length}`}
+          className="font-semibold text-inherit"
+        >
+          {match[1]}
+        </span>,
+      );
+
+      lastIndex = match.index + match[0].length;
+    }
+
+    if (lastIndex < segment.length) {
+      nodes.push(
+        <Fragment key={`founder-text-${segmentIndex}-${nodes.length}`}>
+          {segment.slice(lastIndex)}
+        </Fragment>,
+      );
+    }
+
+    if (segmentIndex < segments.length - 1) {
+      nodes.push(
+        <Fragment key={`founder-break-${segmentIndex}`}>
+          <br />
+          <br />
+        </Fragment>,
+      );
+    }
+
+    return nodes;
+  });
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+type TeamMemberCardProps = {
+  name: string;
+  description: string;
+  image: string;
+};
+
+function TeamMemberCard({ name, description, image }: TeamMemberCardProps) {
   return (
-    <div
-      className={cn(
-        className,
-        "bg-gradient-to-r from-black/70 to-black/40 px-4 py-1.5 rounded-[6px] backdrop-blur-md border-[0.75px] border-white/20 min-w-[140px] flex justify-center",
-      )}
-    >
-      <p className="text-xs text-white">{text}</p>
+    <div className="group flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/[0.04] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.08]">
+      <div className="flex items-center gap-4">
+        <div className="relative h-16 w-16 overflow-hidden rounded-2xl border border-white/15 bg-white/10">
+          <Image
+            src={image}
+            alt={name}
+            width={64}
+            height={64}
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <h3 className="text-lg font-semibold text-white">{name}</h3>
+      </div>
+      <p className="text-sm leading-6 text-white/70">{description}</p>
     </div>
   );
 }
 
-function Value({ title, text }: { title: string; text: string }) {
+function Value({
+  title,
+  text,
+  icon: Icon,
+}: {
+  title: string;
+  text: string;
+  icon: LucideIcon;
+}) {
   return (
     <div className="flex bg-black p-10">
       <div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5">
+            <Icon aria-hidden="true" className="h-6 w-6 text-white" />
+          </span>
           <h3 className="font-medium">{title}</h3>
         </div>
         <p className="text-white/60 text-sm leading-6 lg:max-w-[4500px] xl:max-w-[280px] pt-2">

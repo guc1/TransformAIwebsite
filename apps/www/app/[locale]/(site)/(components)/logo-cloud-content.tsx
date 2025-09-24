@@ -7,19 +7,19 @@ import { getTranslations } from "next-intl/server";
 
 const logos = [
   {
-    name: "Fireworks",
-    url: "/images/logo-cloud/fireworks-ai.svg",
-    href: "https://fireworks.ai",
+    name: "ASR Nederland",
+    url: "/images/logo-cloud/Asrbakc.png",
+    href: "https://www.asr.nl/",
   },
   {
-    name: "cal.com",
-    url: "/images/logo-cloud/calcom.svg",
-    href: "https://cal.com",
+    name: "Mercedes-Benz",
+    url: "/images/logo-cloud/mercfileready.png",
+    href: "https://www.mercedes-benz.com/",
   },
   {
-    name: "Mintlify",
-    url: "/images/logo-cloud/mintlify.svg",
-    href: "https://mintlify.com",
+    name: "Albert Heijn",
+    url: "/images/logo-cloud/albertheinai.png",
+    href: "https://www.ah.nl/",
   },
 ];
 
@@ -53,7 +53,13 @@ export async function DesktopLogoCloud() {
               }
             >
               <Link href={logo.href} target="_blank">
-                <Image src={logo.url} alt={logo.name} fill />
+                <Image
+                  src={logo.url}
+                  alt={logo.name}
+                  fill
+                  className="object-contain"
+                  sizes="229px"
+                />
               </Link>
             </div>
           ))}
@@ -90,7 +96,13 @@ export async function MobileLogoCloud() {
                   className="relative w-[229px] aspect-[229/36]"
                 >
                   <Link href={logo.href} target="_blank">
-                    <Image src={logo.url} alt={logo.name} fill />
+                    <Image
+                      src={logo.url}
+                      alt={logo.name}
+                      fill
+                      className="object-contain"
+                      sizes="229px"
+                    />
                   </Link>
                 </div>
               ))}
