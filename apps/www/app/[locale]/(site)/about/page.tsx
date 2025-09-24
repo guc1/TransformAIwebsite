@@ -18,6 +18,7 @@ import { Fragment, type ReactNode } from "react";
 import { BorderBeam } from "@/components/border-beam";
 import { RainbowDarkButton } from "@/components/button";
 import { Container } from "@/components/container";
+import { FadeIn, FadeInStagger } from "@/components/fade-in";
 import { SectionTitle } from "@/components/section";
 import { ChangelogLight } from "@/components/svg/changelog";
 import {
@@ -50,24 +51,14 @@ import allison from "@/images/about/investors/allison5.png";
 import liu from "@/images/about/investors/liujiang.jpeg";
 import tim from "@/images/about/investors/tim.png";
 
-import art_intensifies from "@/images/offsite/art_intensifies.jpg";
-import breakfast from "@/images/offsite/breakfast.jpg";
-import cooking_crew from "@/images/offsite/cooking_crew.jpg";
-import cto_prayers_answered from "@/images/offsite/cto_prayers_answered.jpg";
-import dom_thinking from "@/images/offsite/dom_thinking.jpg";
-import doomsday from "@/images/offsite/doomsday.jpg";
-import james_fence from "@/images/offsite/james_fence.jpg";
-import james_thinking from "@/images/offsite/james_thinking.jpg";
-import mike_morning_neck_exercise from "@/images/offsite/mike_morning_neck_exercise.jpg";
-import yardwork from "@/images/offsite/yardwork.jpg";
 import andreas from "@/images/team/andreas.jpeg";
 import james from "@/images/team/james.jpg";
 
 import { ImageWithBlur } from "@/components/image-with-blur";
-import { cn } from "@/lib/utils";
 import { loadMessages } from "@/i18n/messages";
 import type { Messages } from "@/i18n/messages";
 import { isLocale } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 export const metadata = {
   title: "About | Unkey",
@@ -112,23 +103,6 @@ const investors = [
 
 const SELECTED_POSTS = ["uuid-ux", "why-we-built-unkey", "unkey-raises-1-5-million"];
 
-const offsiteImages = [
-  { src: breakfast, label: "Cooking breakfast" },
-  { src: art_intensifies, label: "Art intensifies" },
-  { src: dom_thinking, label: "Hard at work" },
-  { src: cooking_crew, label: "Lunch refuel" },
-  { src: cto_prayers_answered, label: "Golden hour" },
-  { src: doomsday, label: "Escape room W" },
-  { src: james_fence, label: "James recruiting" },
-  { src: james_thinking, label: "Deep in thought", className: "object-left" },
-  {
-    src: mike_morning_neck_exercise,
-    label: "CEO + CTO",
-    className: "object-left",
-  },
-  { src: yardwork, label: "Caffeinated" },
-];
-
 type PageProps = {
   params: {
     locale: string;
@@ -150,6 +124,9 @@ export default async function Page({ params }: PageProps) {
   const founderStoryTitle = t("FounderStory.title");
   const founderTitle = t("Founder.title");
   const founderSubtitle = t("Founder.subtitle");
+  const teamTitle = t("Team.title");
+  const teamIntro = t("Team.intro");
+  const teamCtaLabel = t("Team.cta");
 
   const fallbackMessages = locale === "en" ? undefined : await loadMessages("en");
 
@@ -171,6 +148,42 @@ export default async function Page({ params }: PageProps) {
 
   const founderStoryBody = formatFounderBody(founderStoryBodyCopy ?? "");
   const founderBody = formatFounderBody(founderBodyCopy ?? "");
+  const teamMembersData = [
+    { key: "yergush", image: "/images/NewTeam/gush.JPG", variant: "founder" as const },
+    { key: "david", image: "/images/NewTeam/david.png", variant: "default" as const },
+    { key: "tim", image: "/images/NewTeam/tim.png", variant: "default" as const },
+    { key: "sara", image: "/images/NewTeam/sara.png", variant: "default" as const },
+    { key: "jasper", image: "/images/NewTeam/jasper.png", variant: "default" as const },
+    { key: "chiHueng", image: "/images/NewTeam/Chi-hueng.png", variant: "default" as const },
+    { key: "aiAgents", image: "/images/NewTeam/Aiagents.png", variant: "ai" as const },
+  ] as const;
+
+  const teamMembers = teamMembersData.map(({ key, image, variant }) => ({
+    key,
+    image,
+    variant,
+    name: t(`Team.members.${key}.name` as Parameters<typeof t>[0]),
+    badge: t(`Team.members.${key}.badge` as Parameters<typeof t>[0]),
+    description: t(`Team.members.${key}.description` as Parameters<typeof t>[0]),
+  }));
+
+  const teamHighlights = [
+    {
+      key: "velocity",
+      value: t("Team.highlights.velocity.value"),
+      label: t("Team.highlights.velocity.label"),
+    },
+    {
+      key: "efficiency",
+      value: t("Team.highlights.efficiency.value"),
+      label: t("Team.highlights.efficiency.label"),
+    },
+    {
+      key: "range",
+      value: t("Team.highlights.range.value"),
+      label: t("Team.highlights.range.label"),
+    },
+  ];
 
   const values = [
     {
@@ -277,27 +290,60 @@ export default async function Page({ params }: PageProps) {
             </div>
           </div>
           <SectionTitle
-            className="mt-80"
+            className="mt-60"
             align="center"
-            title="Meet the team"
-            text="Although we collaborate as a fully remote team, we like to unite for regular offsites. Here are a few moments from our most recent:"
+            title={teamTitle}
+            text={teamIntro}
           />
-          <div className="grid about-image-grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 mt-[62px] w-full xl:w-[calc(100dvw-10rem)]">
-            {offsiteImages.map(({ src, label, className }) => {
-              return (
-                <div key={label} className="image w-full h-[400px] rounded-lg relative">
-                  <PhotoLabel
-                    className="absolute bottom-[40px] left-1/2 transform -translate-x-1/2"
-                    text={label}
+          <FadeInStagger
+            faster
+            className="mt-8 flex w-full flex-wrap items-center justify-center gap-4"
+          >
+            {teamHighlights.map((highlight) => (
+              <FadeIn key={highlight.key}>
+                <div className="group relative overflow-hidden rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 transition duration-300 hover:border-white/20 hover:bg-white/[0.06]">
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-white/5 opacity-0 transition duration-300 group-hover:opacity-100"
                   />
-                  <ImageWithBlur
-                    src={src}
-                    alt={label}
-                    className={cn("object-cover w-full h-full rounded-lg", className)}
-                  />
+                  <div className="relative flex items-center gap-3">
+                    <span className="text-lg font-semibold text-white">
+                      {highlight.value}
+                    </span>
+                    <span className="text-sm text-white/60">
+                      {highlight.label}
+                    </span>
+                  </div>
                 </div>
-              );
-            })}
+              </FadeIn>
+            ))}
+          </FadeInStagger>
+          <FadeInStagger
+            faster
+            className="mt-12 grid w-full gap-6 md:grid-cols-2 xl:grid-cols-3"
+          >
+            {teamMembers.map((member) => (
+              <FadeIn
+                key={member.key}
+                className={cn(
+                  "h-full",
+                  member.variant === "founder" && "md:col-span-2 xl:col-span-2",
+                )}
+              >
+                <TeamMemberCard
+                  name={member.name}
+                  description={member.description}
+                  image={member.image}
+                  badge={member.badge}
+                  variant={member.variant}
+                />
+              </FadeIn>
+            ))}
+          </FadeInStagger>
+          <div className="mt-10 flex justify-center">
+            <Link href={`/${locale}/careers`}>
+              <RainbowDarkButton label={teamCtaLabel} />
+            </Link>
           </div>
 
           <div className="relative w-screen max-w-full">
@@ -549,15 +595,78 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function PhotoLabel({ text, className }: { text: string; className: string }) {
+type TeamMemberVariant = "default" | "founder" | "ai";
+
+type TeamMemberCardProps = {
+  name: string;
+  description: string;
+  image: string;
+  badge: string;
+  variant: TeamMemberVariant;
+};
+
+function TeamMemberCard({
+  name,
+  description,
+  image,
+  badge,
+  variant,
+}: TeamMemberCardProps) {
+  const BadgeIcon =
+    variant === "ai" ? Sparkles : variant === "founder" ? ShieldCheck : null;
+
   return (
     <div
       className={cn(
-        className,
-        "bg-gradient-to-r from-black/70 to-black/40 px-4 py-1.5 rounded-[6px] backdrop-blur-md border-[0.75px] border-white/20 min-w-[140px] flex justify-center",
+        "group relative flex h-full flex-col gap-5 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-6 transition-all duration-500",
+        "before:pointer-events-none before:absolute before:inset-[1px] before:rounded-[26px] before:border before:border-white/5 before:opacity-0 before:transition before:duration-500 before:content-['']",
+        "hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] hover:before:opacity-100",
+        variant === "founder" && "md:p-8 xl:p-10",
       )}
     >
-      <p className="text-xs text-white">{text}</p>
+      <span
+        aria-hidden="true"
+        className={cn(
+          "pointer-events-none absolute -top-24 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full opacity-50 blur-3xl transition duration-500",
+          variant === "ai"
+            ? "bg-[radial-gradient(circle,rgba(129,140,248,0.45),transparent_70%)]"
+            : "bg-[radial-gradient(circle,rgba(94,234,212,0.35),transparent_70%)]",
+          "group-hover:opacity-90",
+        )}
+      />
+      <div className="relative z-10 flex items-start gap-4">
+        <div className="relative h-16 w-16 shrink-0">
+          <span
+            aria-hidden="true"
+            className="absolute -inset-1 rounded-3xl bg-white/10 opacity-60 blur-lg transition duration-500 group-hover:opacity-100"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 rounded-2xl border border-white/10 bg-white/5 opacity-0 transition duration-500 group-hover:opacity-100"
+          />
+          <Image
+            src={image}
+            alt={name}
+            width={64}
+            height={64}
+            className="relative z-10 h-full w-full rounded-2xl object-cover"
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-white/60">
+            {BadgeIcon ? (
+              <BadgeIcon aria-hidden="true" className="h-3.5 w-3.5 text-white/70" />
+            ) : null}
+            {badge}
+          </span>
+          <h3 className="text-lg font-semibold text-white">{name}</h3>
+        </div>
+      </div>
+      <p className="relative z-10 text-sm leading-6 text-white/70">{description}</p>
+      <span
+        aria-hidden="true"
+        className="relative z-10 mt-auto h-px w-full bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition duration-500 group-hover:opacity-100"
+      />
     </div>
   );
 }
