@@ -99,7 +99,8 @@
     "Table": {
       "title": "Vergelijk pakketten",
       "headers": {
-        "feature": "Kenmerk"
+        "feature": "Kenmerk",
+        "info": "Informatie"
       },
       "tiers": {
         "t1": "Educatiepakket",
@@ -137,6 +138,17 @@
         "t1": "Geschatte investering per inbegrepen service: €450 – €1.200",
         "t2": "Geschatte investering per inbegrepen service: €900 – €2.500",
         "t3": "Maatwerktrajecten variëren doorgaans van €2.500 – €8.500"
+      },
+      "infoColumn": {
+        "label": "Informatie",
+        "availableIn": "Beschikbaar in {packages}",
+        "partialIn": "Beperkt beschikbaar in {packages}",
+        "notIncluded": "Niet inbegrepen in een pakket",
+        "tooltip": {
+          "line1": "Bekijk in één oogopslag hoe elke dienst over de pakketten is verdeeld.",
+          "line2": "Gebruik dit overzicht als vertrekpunt voor gesprekken met je team vóórdat je de details induikt.",
+          "cta": "Lees meer"
+        }
       },
       "legend": {
         "included": "Inbegrepen",
