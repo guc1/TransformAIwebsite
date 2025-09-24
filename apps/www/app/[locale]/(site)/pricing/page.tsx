@@ -83,40 +83,50 @@ export default function PricingPage() {
         </div>
 
         <div className="relative my-16 xl:my-24 flex justify-center">
-          <div className="relative isolate w-full max-w-5xl overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.02] px-6 py-14 text-center shadow-[0_28px_120px_rgba(15,23,42,0.45)] backdrop-blur sm:px-12 sm:py-16">
+          <section className="relative isolate w-full max-w-5xl overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.02] text-center shadow-[0_28px_160px_rgba(15,23,42,0.55)] backdrop-blur">
             <div className="pointer-events-none absolute inset-0 -z-10">
-              <div className="absolute inset-x-10 -top-40 h-[360px] rounded-full bg-gradient-to-r from-sky-400/40 via-blue-500/10 to-fuchsia-500/40 blur-3xl" />
-              <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle_at_center,_rgba(14,165,233,0.25),_rgba(15,23,42,0))]" />
+              <div className="absolute inset-x-8 -top-48 h-[420px] rounded-full bg-gradient-to-r from-sky-400/35 via-blue-500/12 to-fuchsia-500/40 blur-3xl" />
+              <div className="absolute inset-x-0 bottom-[-220px] h-[420px] bg-[radial-gradient(circle_at_center,_rgba(2,222,252,0.15),_rgba(15,23,42,0))]" />
             </div>
-
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/70 shadow-[0_0_32px_rgba(59,130,246,0.15)]">
-              <Sparkles className="h-4 w-4 text-sky-200" />
-              {header("eyebrow")}
-            </span>
-
-            <h1 className="mt-6 text-balance text-4xl font-semibold leading-tight text-transparent sm:text-5xl sm:leading-tight bg-gradient-to-r from-white via-white to-white/70 bg-clip-text">
-              {header("title")}
-            </h1>
-
-            <p className="mt-4 text-balance text-base text-white/70 sm:text-lg">
-              {header("subtitle")}
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              {highlightItems.map(({ icon: Icon, label }) => (
-                <span
-                  key={label}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-white/80 shadow-[0_0_24px_rgba(76,29,149,0.25)]"
-                >
-                  <Icon className="h-4 w-4 text-white/70" />
-                  {label}
+            <Particles
+              className="absolute inset-0 opacity-40 transition-opacity duration-700 pointer-events-none motion-reduce:hidden"
+              quantity={60}
+              color={Color.Purple}
+              vx={0.08}
+              vy={-0.06}
+            />
+            <div className="relative z-10 flex flex-col divide-y divide-white/10">
+              <div className="px-6 py-14 sm:px-12 sm:py-16">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/70 shadow-[0_0_32px_rgba(59,130,246,0.15)]">
+                  <Sparkles className="h-4 w-4 text-sky-200" />
+                  {header("eyebrow")}
                 </span>
-              ))}
-            </div>
-          </div>
-        </div>
 
-        <PricingCompareTable />
+                <h1 className="mt-6 text-balance text-4xl font-semibold leading-tight text-transparent sm:text-5xl sm:leading-tight bg-gradient-to-r from-white via-white to-white/70 bg-clip-text">
+                  {header("title")}
+                </h1>
+
+                <p className="mt-4 text-balance text-base text-white/70 sm:text-lg">
+                  {header("subtitle")}
+                </p>
+
+                <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                  {highlightItems.map(({ icon: Icon, label }) => (
+                    <span
+                      key={label}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-white/80 shadow-[0_0_24px_rgba(76,29,149,0.25)]"
+                    >
+                      <Icon className="h-4 w-4 text-white/70" />
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <PricingCompareTable className="px-4 py-10 sm:px-10 sm:py-12" />
+            </div>
+          </section>
+        </div>
 
         <div id="pricing-tier-grid" className="mt-12">
           <ShinyCardGroup className="grid h-full max-w-4xl grid-cols-2 gap-6 mx-auto group">
