@@ -50,6 +50,8 @@ import allison from "@/images/about/investors/allison5.png";
 import liu from "@/images/about/investors/liujiang.jpeg";
 import tim from "@/images/about/investors/tim.png";
 
+import andreas from "@/images/team/andreas.jpeg";
+import james from "@/images/team/james.jpg";
 
 import { ImageWithBlur } from "@/components/image-with-blur";
 import { loadMessages } from "@/i18n/messages";
@@ -322,17 +324,28 @@ export default async function Page({ params }: PageProps) {
             />
             <div className="border-[1px] border-white/10 mt-[78px] leading-8 rounded-[48px] py-[60px] xl:py-[96px] px-8 md:px-[88px] text-white text-center max-w-[1008px] flex flex-col justify-center items-center">
               <p className="about-founders-text-gradient">{founderBody}</p>
-              <div className="mt-12 flex flex-col items-center">
-                <ImageWithBlur
-                  src="/images/NewTeam/gush.JPG"
-                  width={128}
-                  height={128}
-                  alt="CEO Yergush"
-                  className="h-[64px] w-[64px] rounded-full border-2 border-black"
-                />
-                <div className="mt-4 text-center text-sm">
-                  <p className="font-bold">Yergush</p>
-                  <p className="text-white/50">Founder and CEO</p>
+              <div className="flex flex-col mt-12 md:flex-row">
+                <div className="flex md:left-[5px]">
+                  <div className="text-sm text-right">
+                    <p className="font-bold">James Perkins</p>
+                    <p className="text-white/50">Founder and CEO</p>
+                  </div>
+                  <ImageWithBlur
+                    src={james}
+                    className="border-2 border-black ml-4 md:ml-[32px] rounded-full h-[40px] w-[40px]"
+                    alt="CEO James"
+                  />
+                </div>
+                <div className="flex relative mt-4 md:mt-0 lg:left-[-5px]">
+                  <ImageWithBlur
+                    src={andreas}
+                    alt="CTO Andreas"
+                    className="border-2 border-black mr-4 md:mr-[32px] rounded-full h-[40px] w-[40px]"
+                  />
+                  <div className="text-sm text-left">
+                    <p className="font-bold">Andreas Thomas</p>
+                    <p className="text-white/50">Founder and CTO</p>
+                  </div>
                 </div>
               </div>
             </div>
