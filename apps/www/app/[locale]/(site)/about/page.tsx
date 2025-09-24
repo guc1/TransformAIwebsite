@@ -16,7 +16,7 @@ import { getTranslations } from "next-intl/server";
 import { Fragment, type ReactNode } from "react";
 
 import { BorderBeam } from "@/components/border-beam";
-import { RainbowDarkButton } from "@/components/button";
+import { PrimaryButton, RainbowDarkButton } from "@/components/button";
 import { Container } from "@/components/container";
 import { SectionTitle } from "@/components/section";
 import { ChangelogLight } from "@/components/svg/changelog";
@@ -50,16 +50,6 @@ import allison from "@/images/about/investors/allison5.png";
 import liu from "@/images/about/investors/liujiang.jpeg";
 import tim from "@/images/about/investors/tim.png";
 
-import art_intensifies from "@/images/offsite/art_intensifies.jpg";
-import breakfast from "@/images/offsite/breakfast.jpg";
-import cooking_crew from "@/images/offsite/cooking_crew.jpg";
-import cto_prayers_answered from "@/images/offsite/cto_prayers_answered.jpg";
-import dom_thinking from "@/images/offsite/dom_thinking.jpg";
-import doomsday from "@/images/offsite/doomsday.jpg";
-import james_fence from "@/images/offsite/james_fence.jpg";
-import james_thinking from "@/images/offsite/james_thinking.jpg";
-import mike_morning_neck_exercise from "@/images/offsite/mike_morning_neck_exercise.jpg";
-import yardwork from "@/images/offsite/yardwork.jpg";
 import andreas from "@/images/team/andreas.jpeg";
 import james from "@/images/team/james.jpg";
 
@@ -112,22 +102,39 @@ const investors = [
 
 const SELECTED_POSTS = ["uuid-ux", "why-we-built-unkey", "unkey-raises-1-5-million"];
 
-const offsiteImages = [
-  { src: breakfast, label: "Cooking breakfast" },
-  { src: art_intensifies, label: "Art intensifies" },
-  { src: dom_thinking, label: "Hard at work" },
-  { src: cooking_crew, label: "Lunch refuel" },
-  { src: cto_prayers_answered, label: "Golden hour" },
-  { src: doomsday, label: "Escape room W" },
-  { src: james_fence, label: "James recruiting" },
-  { src: james_thinking, label: "Deep in thought", className: "object-left" },
+const teamMembers = [
   {
-    src: mike_morning_neck_exercise,
-    label: "CEO + CTO",
-    className: "object-left",
+    key: "yergush",
+    imageSrc: "/images/NewTeam/gush.JPG",
   },
-  { src: yardwork, label: "Caffeinated" },
-];
+  {
+    key: "david",
+    imageSrc: "/images/NewTeam/david.png",
+  },
+  {
+    key: "tim",
+    imageSrc: "/images/NewTeam/tim.png",
+  },
+  {
+    key: "sara",
+    imageSrc: "/images/NewTeam/sara.png",
+  },
+  {
+    key: "jasper",
+    imageSrc: "/images/NewTeam/jasper.png",
+  },
+  {
+    key: "chiHueng",
+    imageSrc: "/images/NewTeam/Chi-hueng.png",
+  },
+  {
+    key: "aiAgents",
+    imageSrc: "/images/NewTeam/Aiagents.png",
+    imageClassName: "object-contain",
+  },
+] as const;
+
+type TeamMemberKey = (typeof teamMembers)[number]["key"];
 
 type PageProps = {
   params: {
@@ -171,6 +178,43 @@ export default async function Page({ params }: PageProps) {
 
   const founderStoryBody = formatFounderBody(founderStoryBodyCopy ?? "");
   const founderBody = formatFounderBody(founderBodyCopy ?? "");
+
+  const getMessageWithFallback = (path: string[]): string | undefined =>
+    getNestedMessage(messages, path) ??
+    (fallbackMessages ? getNestedMessage(fallbackMessages, path) : undefined);
+
+  const teamTitle =
+    getMessageWithFallback(["About", "Team", "title"]) ?? "";
+  const teamIntro =
+    getMessageWithFallback(["About", "Team", "intro"]) ?? "";
+  const teamCta =
+    getMessageWithFallback(["About", "Team", "cta"]) ?? "";
+
+  const teamMembersContent: Array<{
+    key: TeamMemberKey;
+    imageSrc: string;
+    imageClassName?: string;
+    name: string;
+    description: string;
+  }> = teamMembers.map((member) => ({
+    ...member,
+    name:
+      getMessageWithFallback([
+        "About",
+        "Team",
+        "members",
+        member.key,
+        "name",
+      ]) ?? "",
+    description:
+      getMessageWithFallback([
+        "About",
+        "Team",
+        "members",
+        member.key,
+        "description",
+      ]) ?? "",
+  }));
 
   const values = [
     {
@@ -276,28 +320,59 @@ export default async function Page({ params }: PageProps) {
               </div>
             </div>
           </div>
-          <SectionTitle
-            className="mt-80"
-            align="center"
-            title="Meet the team"
-            text="Although we collaborate as a fully remote team, we like to unite for regular offsites. Here are a few moments from our most recent:"
-          />
-          <div className="grid about-image-grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 mt-[62px] w-full xl:w-[calc(100dvw-10rem)]">
-            {offsiteImages.map(({ src, label, className }) => {
-              return (
-                <div key={label} className="image w-full h-[400px] rounded-lg relative">
-                  <PhotoLabel
-                    className="absolute bottom-[40px] left-1/2 transform -translate-x-1/2"
-                    text={label}
-                  />
-                  <ImageWithBlur
-                    src={src}
-                    alt={label}
-                    className={cn("object-cover w-full h-full rounded-lg", className)}
-                  />
-                </div>
-              );
-            })}
+          <div className="mt-60 w-full">
+            <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] px-6 py-10 sm:px-10 lg:px-14">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-28 right-[-60px] h-64 w-64 rounded-full bg-white/10 blur-3xl"
+              />
+              <SectionTitle
+                className="relative z-10 items-start text-balance"
+                align="left"
+                title={teamTitle}
+                text={teamIntro}
+              />
+              <div className="relative z-10 mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {teamMembersContent.map(({
+                  key,
+                  name,
+                  description,
+                  imageSrc,
+                  imageClassName,
+                }) => (
+                  <article
+                    key={key}
+                    className="group flex gap-5 rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.08] hover:shadow-[0_12px_40px_-24px_rgba(255,255,255,0.45)]"
+                  >
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-black/40 md:h-20 md:w-20">
+                      <Image
+                        src={imageSrc}
+                        alt={name}
+                        fill
+                        sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
+                        className={cn(
+                          "object-cover",
+                          imageClassName ?? undefined,
+                        )}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-base font-semibold text-white md:text-lg">
+                        {name}
+                      </h3>
+                      <p className="text-sm leading-6 text-white/70">
+                        {description}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <div className="relative z-10 mt-12 flex justify-center md:justify-start">
+                <Link href={`/${locale}/careers`}>
+                  <PrimaryButton shiny label={teamCta} IconRight={ArrowRight} />
+                </Link>
+              </div>
+            </div>
           </div>
 
           <div className="relative w-screen max-w-full">
@@ -547,19 +622,6 @@ function formatFounderBody(copy: string): ReactNode[] {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function PhotoLabel({ text, className }: { text: string; className: string }) {
-  return (
-    <div
-      className={cn(
-        className,
-        "bg-gradient-to-r from-black/70 to-black/40 px-4 py-1.5 rounded-[6px] backdrop-blur-md border-[0.75px] border-white/20 min-w-[140px] flex justify-center",
-      )}
-    >
-      <p className="text-xs text-white">{text}</p>
-    </div>
-  );
 }
 
 function Value({
