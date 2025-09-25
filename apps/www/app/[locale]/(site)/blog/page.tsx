@@ -4,6 +4,7 @@ import { CTA } from "@/components/cta";
 import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/background-shiny";
 import { MeteorLinesAngular } from "@/components/ui/meteorLines";
 import { authors } from "@/content/blog/authors";
+import { shouldIncludePostForLocale } from "@/lib/blog-language";
 import { type Post, allPosts } from "content-collections";
 import Link from "next/link";
 
@@ -34,8 +35,16 @@ export const metadata = {
   },
 };
 
-export default async function Blog() {
-  const posts = allPosts.sort((a: Post, b: Post) => {
+export default async function Blog({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const filteredPosts = allPosts.filter((post) =>
+    shouldIncludePostForLocale(post.language, params.locale),
+  );
+
+  const posts = filteredPosts.sort((a: Post, b: Post) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
   const featuredPost = posts[0];
