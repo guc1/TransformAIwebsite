@@ -1,0 +1,45 @@
+---
+date: 2025-09-15
+title: "Development Using AI Codex: A Practical Playbook"
+description: "How we scaffold an agentic dev workflow—prompts, branches, testing, and guardrails—to ship faster with AI."
+author: yergush
+tags: ["ai","development","codex","engineering"]
+image: "/images/blog-images/ai-codex-cover.png"
+---
+
+# Development Using AI Codex: A Practical Playbook
+
+![Cover](/images/blog-images/ai-codex-cover.png)
+
+**TL;DR**  
+“AI Codex” is our way of working where coding agents handle the boring parts (scaffolding, refactors, docs), while we keep the spec, tests, and review human-owned. We use a tiny set of conventions (prompts, branches, checklists) so work lands cleanly in PRs.
+
+---
+
+## Why “Codex” (our agentic dev mode)
+
+Traditional dev: humans write everything, tools lint.  
+Codex dev: we **describe** the change (inputs, outputs, constraints), then an agent drafts code, docs, and tests in one go. We keep the same repo, CI, and review—just different **entry points**:
+
+- Single source of truth prompt  
+- Deterministic branch naming  
+- Small, testable units  
+- Always end in a PR  
+
+---
+
+## The three files that make it click
+
+- **`AGENTS.md`** – what the agent is allowed to change, style rules, and “definition of done”.
+- **`UPDATE.md`** – append a one-liner per shipped change (changelog for humans).
+- **`FIX.md`** – the “what broke / fix notes / follow-ups” scratchpad.
+
+Keeping these short and alive makes agent output consistent and easy to review.
+
+```md
+# AGENTS.md (excerpt)
+- Scope: apps/www only (marketing site)
+- Do not change: env var names, auth
+- After every change, update UPDATE.md and FIX.md
+- Commit style: `feat(www): short summary`
+

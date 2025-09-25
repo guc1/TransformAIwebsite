@@ -1,0 +1,629 @@
+{
+  "Metadata": {
+    "title": "Unkey",
+    "titleTemplate": "%s | Unkey",
+    "description": "Jouw transformatiepartner voor het AI-tijdperk",
+    "openGraph": {
+      "title": "Unkey",
+      "description": "Jouw transformatiepartner voor het AI-tijdperk",
+      "siteName": "unkey.com"
+    },
+    "twitter": {
+      "title": "Unkey"
+    }
+  },
+  "Navigation": {
+    "ariaHome": "Home",
+    "menu": "Menu",
+    "close": "Sluiten",
+    "createAccount": "Account aanmaken",
+    "signIn": "Inloggen",
+    "language": "Taal",
+    "links": {
+      "home": "Home",
+      "about": "Over ons",
+      "blog": "Blog",
+      "pricing": "Prijzen",
+      "changelog": "Wijzigingen",
+      "templates": "Templates",
+      "docs": "Documentatie",
+      "discord": "Discord"
+    }
+  },
+  "Pricing": {
+    "Header": {
+      "eyebrow": "Pakketten voor beslissers",
+      "title": "Kies het AI-traject dat past bij jullie tempo",
+      "subtitle": "Elk pakket versnelt strategie naar uitvoering in weken, met begeleiding die teams meeneemt en resultaat meetbaar maakt.",
+      "highlights": {
+        "speed": "AI-resultaten binnen 90 dagen.",
+        "support": "Nederlandstalige experts op locatie en remote.",
+        "roi": "ROI bewezen in 40+ klantcases."
+      }
+    },
+    "Packages": {
+      "common": {
+        "included": "Dit zit erin:"
+      },
+      "education": {
+        "title": "Educatiepakket",
+        "description": "Richt zich op het opleiden van medewerkers en maakt teams toekomstbestendig voor AI-adoptie.",
+        "price": "$6.000",
+        "frequency": "eenmalige investering",
+        "cta": "Vraag opleidingsvoorstel aan",
+        "bullets": {
+          "courseV1": "AI-opleidingsmodule V1",
+          "courseV2": "AI-opleidingsmodule V2",
+          "workshops": "Workshops voor teams",
+          "trainingMaterials": "Praktische trainingsmaterialen",
+          "certification": "Certificaat van afronding"
+        },
+        "footer": {
+          "title": "Maatwerk nodig?",
+          "body": "We stemmen het leerprogramma af op de specifieke rollen binnen jouw organisatie."
+        }
+      },
+      "introduction": {
+        "title": "Introductiepakket",
+        "description": "Voor bedrijven die hun AI-transitie opstarten.",
+        "price": "$5.000",
+        "frequency": "eenmalig traject",
+        "cta": "Plan jullie AI-kick-off",
+        "bullets": {
+          "aiReadiness": "AI-ready analyse van het bedrijf",
+          "automationSetup": "Eerste workflow-automatisering",
+          "pilotIntegration": "Integratie van pilotproject",
+          "assessment": "Productiviteits- en kostenevaluatie",
+          "guidance": "Strategische sessie met ons team"
+        },
+        "footer": {
+          "title": "Groeien voorbij de pilot?",
+          "body": "We helpen om deze basis uit te breiden naar organisatiebrede automatisering en governance."
+        }
+      },
+      "enterprise": {
+        "title": "Enterprise-oplossingen",
+        "description": "Maatwerk AI-transformatieoplossingen rond jouw organisatie.",
+        "price": "Custom $",
+        "frequency": "Op maat gemaakte offerte",
+        "cta": "Neem contact op",
+        "bullets": {
+          "tailoredIntegrations": "Maatwerk AI-integraties",
+          "researchSupport": "Geavanceerde onderzoeksbegeleiding",
+          "customModel": "Ontwikkeling van maatwerkmodellen",
+          "consulting": "Toegewijde consulting",
+          "continuousSupport": "Doorlopende ondersteuning"
+        }
+      }
+    },
+    "Table": {
+      "title": "Vergelijk pakketten",
+      "headers": {
+        "feature": "Kenmerk",
+        "info": "Informatie"
+      },
+      "tiers": {
+        "t1": "Educatiepakket",
+        "t2": "Introductiepakket",
+        "t3": "Enterprise-oplossingen",
+        "price": {
+          "t1": "$6.000 eenmalig",
+          "t2": "$5.000 eenmalig",
+          "t3": "Maatwerk voorstel"
+        }
+      },
+      "categories": {
+        "educationEnablement": "Educatie & enablement",
+        "implementation": "Implementatie & strategie",
+        "enterprise": "Enterprise-schaal"
+      },
+      "rows": {
+        "educationCourseV1": "AI-opleidingsmodule V1",
+        "educationCourseV2": "AI-opleidingsmodule V2",
+        "workshops": "Workshops voor teams",
+        "trainingMaterials": "Praktische trainingsmaterialen",
+        "certification": "Certificaat van afronding",
+        "aiReadiness": "AI-ready analyse van het bedrijf",
+        "automationSetup": "Eerste workflow-automatisering",
+        "pilotIntegration": "Integratie van pilotproject",
+        "assessment": "Productiviteits- en kostenevaluatie",
+        "guidance": "Strategische sessie met ons team",
+        "tailoredIntegrations": "Maatwerk AI-integraties",
+        "researchSupport": "Geavanceerde onderzoeksbegeleiding",
+        "customModel": "Ontwikkeling van maatwerkmodellen",
+        "consulting": "Toegewijde consulting",
+        "continuousSupport": "Doorlopende ondersteuning"
+      },
+      "priceRanges": {
+        "t1": "Geschatte investering per inbegrepen service: €450 – €1.200",
+        "t2": "Geschatte investering per inbegrepen service: €900 – €2.500",
+        "t3": "Maatwerktrajecten variëren doorgaans van €2.500 – €8.500"
+      },
+      "infoColumn": {
+        "label": "Informatie",
+        "availableIn": "Beschikbaar in {packages}",
+        "partialIn": "Beperkt beschikbaar in {packages}",
+        "notIncluded": "Niet inbegrepen in een pakket",
+        "tooltip": {
+          "line1": "Bekijk in één oogopslag hoe elke dienst over de pakketten is verdeeld.",
+          "line2": "Gebruik dit overzicht als vertrekpunt voor gesprekken met je team vóórdat je de details induikt.",
+          "cta": "Lees meer"
+        }
+      },
+      "legend": {
+        "included": "Inbegrepen",
+        "notIncluded": "Niet inbegrepen",
+        "partial": "Gedeeltelijk inbegrepen"
+      },
+      "cta": {
+        "scrollLabel": "Klaar om het juiste pakket te kiezen?",
+        "chooseTier1": "Bekijk het educatiepakket",
+        "chooseTier2": "Bekijk het introductiepakket",
+        "chooseTier3": "Neem contact op voor enterprise"
+      }
+    },
+    "Chat": {
+      "cta": {
+        "label": "Vraag het aan onze TransformAI"
+      },
+      "header": {
+        "title": "TransformAI Prijsassistent",
+        "status": "Online",
+        "statusA11y": "Assistentstatus: online",
+        "close": "Sluit de prijsassistent"
+      },
+      "input": {
+        "placeholder": "Stel vragen over pakketten, ROI of maatwerk voor jouw team…",
+        "tooltip": "Verstuur bericht",
+        "send": "Versturen"
+      },
+      "empty": {
+        "title": "Veelgestelde prijsvragen",
+        "prompts": [
+          "Welk pakket past het beste bij het onboarden van ons hele team?",
+          "Kun je het educatie- en introductiepakket vergelijken?",
+          "Ondersteunen jullie gefaseerde uitrol voordat we voor Enterprise kiezen?",
+          "Wat zit er meestal in een Enterprise-voorstel?"
+        ],
+        "action": "Stel deze vraag"
+      },
+      "messages": {
+        "assistant": "TransformAI Prijsassistent",
+        "user": "Jij",
+        "typing": "TransformAI Prijsassistent is aan het typen…",
+        "transcriptLabel": "Gesprek over prijzen met de assistent"
+      },
+      "errors": {
+        "title": "Assistent niet bereikbaar",
+        "body": "Probeer het over een moment opnieuw.",
+        "retry": "Opnieuw proberen"
+      }
+    }
+  },
+  "Hero": {
+    "title": "Jouw transformatiepartner voor het AI-tijdperk",
+    "body": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt.",
+    "secondaryTitle": "Geoptimaliseerd voor AI-productiviteit en prestaties",
+    "secondaryBody": "Ons platform helpt bedrijven productiever te werken, kosten te verlagen en AI-prestaties te verbeteren. Het bouwt voort op bestaande structuren om resultaten te versterken, en biedt aanpasbaarheid, langdurige betrouwbaarheid en eenvoudige modelselectie voor elke use-case."
+  },
+  "About": {
+    "Hero": {
+      "title": "Het bouwen van veerkrachtige AI-structuren binnen organisaties",
+      "body": "AI verandert alles en vraagt om structurele aanpassingen in iedere afdeling van je bedrijf. Door de complexiteit is het niet eenvoudig om dit succesvol te realiseren. Dankzij onze expertise kan jouw organisatie zich duurzaam aanpassen en profiteren van de voordelen van AI.",
+      "cta": "Casestudy: AI-integratie"
+    },
+    "FounderStory": {
+      "title": "Opgericht om AI-transformatie opnieuw vorm te geven",
+      "body": "TransformAI is opgericht door <highlight>Yergush Bloetjes</highlight> uit frustratie over de trage en slecht uitgevoerde manier waarop bedrijven de meest ingrijpende technologie van onze tijd omarmen. Met diepgaande theoretische kennis, praktijkervaring in AI en succesvolle implementaties bij andere organisaties, zag hij dat er een groot tekort was aan hoogwaardige oplossingen voor bedrijfsbrede AI-transformatie. Dit leidde tot de oprichting van TransformAI, met de missie om AI-adoptie zowel succesvol als duurzaam te maken."
+    },
+    "Founder": {
+      "title": "Een woord van onze oprichter",
+      "subtitle": "Waarom TransfromAI is opgericht",
+      "body": "Hallo, mijn naam is Yergush. Ik heb TransformAI opgericht nadat ik zag hoe veel organisaties worstelden met de complexiteit en het tempo van AI-adoptie. Ik wilde bijdragen aan een toekomst waarin bedrijven de kracht van AI echt kunnen benutten.\n\nMet TransformAI zetten we de juiste stappen. Het is inspirerend om ons team te zien groeien met zoveel talent en om het resultaat van onze projecten terug te zien bij onze klanten. Tegelijkertijd ligt er nog een enorme weg voor ons — en dat maakt mij enthousiast. Ik kijk ernaar uit om samen met toekomstige partners verder te bouwen aan de toekomst."
+    },
+    "Team": {
+      "title": "Ontmoet ons team",
+      "intro": "De compactheid van dit team is onze grootste kracht: we kunnen supersnel leveren met uitstekende kwaliteit. Onze teamleden zijn 10x productiever dan werknemers in soortgelijke functies die AI gebruiken, en 52x productiever dan collega’s die geen AI gebruiken. Iedereen is veelzijdig en tegelijkertijd gespecialiseerd in bepaalde gebieden, wat een high-performance omgeving creëert waar ik enorm trots op ben. — Yergush",
+      "members": {
+        "yergush": {
+          "name": "Yergush",
+          "badge": "Oprichter & Product",
+          "description": "De oprichter van het bedrijf die ervoor zorgt dat de waarde binnen de organisatie behouden blijft en dat de kwaliteit van het geleverde niets minder dan uitstekend is. Naast managen richt hij zich primair op het verbeteren van de huidige producten en diensten."
+        },
+        "david": {
+          "name": "David",
+          "badge": "Lead AI-integraties",
+          "description": "De leider in het verkennen van AI-mogelijkheden. David test en verzamelt voortdurend bronnen over de capaciteiten van AI-systemen. Hij richt zich ook op het testen en creëren van maatwerk-integraties voor bedrijven."
+        },
+        "tim": {
+          "name": "Tim",
+          "badge": "Bedrijfstransformatie",
+          "description": "Tim heeft eerdere ervaring in het transformeren van grote organisaties. Zijn kennis is essentieel om praktische oplossingen voor bedrijven te vinden → echte use cases. Hij is gespecialiseerd in het integreren van transformatie in bedrijfsprocessen."
+        },
+        "sara": {
+          "name": "Sara",
+          "badge": "Branding & Marketing",
+          "description": "Sara is hoofd Branding en Marketing. Zij is verantwoordelijk voor de branding van TransformAI. Daarbij maakt zij vooral gebruik van AI, en haar praktische kennis van het implementeren van AI in dagelijkse workflows – vooral branding en marketing – maakt haar een essentieel onderdeel van het team."
+        },
+        "jasper": {
+          "name": "Jasper",
+          "badge": "Engineering & Data",
+          "description": "Jasper is hoofd engineering en data-analyse. Hij is expert in het omgaan met complexe technische vraagstukken, waaronder dataverwerking. Hij is meester in het inzetten van AI voor software-engineering taken."
+        },
+        "chiHueng": {
+          "name": "Chi-hueng",
+          "badge": "Research & Automatisering",
+          "description": "Chi-hueng is hoofd van de onderzoeksafdeling. Hij onderzoekt zowel nieuwe AI use cases met custom modellen, als samen met Jasper de data-analyse van beide processen. Daarnaast doet hij ander onderzoek zoals sectoradaptatie door AI. Het meeste wordt geautomatiseerd."
+        },
+        "aiAgents": {
+          "name": "AI AGENTS",
+          "badge": "AI-systementeam",
+          "description": "Het hebben van AI als werknemers is een vrij nieuw fenomeen, en hoewel ze nog niet alles autonoom aankunnen, zijn ze een waardevolle aanwinst voor het bedrijf. Wij hebben systemen gecreëerd die door AI worden aangestuurd en die functioneren als een medewerker, waardoor onze workflow zo efficiënt is dat we een compact team kunnen behouden."
+        }
+      },
+      "highlights": {
+        "velocity": {
+          "value": "10×",
+          "label": "Productiviteit t.o.v. AI-gebruikers"
+        },
+        "efficiency": {
+          "value": "52×",
+          "label": "Productiviteit t.o.v. niet-AI-rollen"
+        },
+        "range": {
+          "value": "Multidisciplinair",
+          "label": "Specialisten in strategie, branding & engineering"
+        }
+      },
+      "cta": "Wil je ons team versterken?"
+    },
+    "FAQ": {
+      "q1": {
+        "title": "Wat is jullie doel met TransformAI?",
+        "body": "Ons doel is om AI-adoptie helder, gestructureerd en haalbaar te maken voor elke organisatie. Bedrijven worstelen vaak met complexiteit en onzekerheid. Wij helpen door robuuste workflows te bouwen, strategische keuzes te begeleiden en te zorgen dat AI op het juiste moment en op de juiste manier wordt geïntegreerd."
+      },
+      "q2": {
+        "title": "Waar zijn jullie het meest trots op bij TransformAI?",
+        "body": "Wij zijn trots dat we onderzoek, educatie en praktische integratie samenbrengen. Ons team combineert technische kennis met zakelijk inzicht, waardoor we oplossingen leveren die écht waarde creëren. Het zien van bedrijven die productiever en toekomstbestendig worden, motiveert ons elke dag."
+      },
+      "q3": {
+        "title": "Wat blijft nog een uitdaging?",
+        "body": "AI ontwikkelt zich razendsnel, net als de regelgeving en verwachtingen daaromheen. Een blijvende uitdaging is de balans tussen innovatie en verantwoordelijkheid — zorgen dat organisaties snel kunnen handelen, maar altijd met de juiste governance, timing en ethische afwegingen."
+      }
+    },
+    "ValuesIntro": {
+      "title": "Gedreven door waarden",
+      "body": "AI-transformatie raakt alle onderdelen van een organisatie — van technologie tot mensen, processen en strategie. Om het maximale resultaat te behalen, werken wij vanuit kernwaarden die richting geven aan hoe wij AI duurzaam en effectief integreren."
+    },
+    "Values": {
+      "integrityInAi": {
+        "title": "Integriteit in AI",
+        "body": "Wij zorgen dat elke AI-integratie transparant, ethisch en in lijn met jullie waarden gebeurt — vertrouwen staat altijd voorop."
+      },
+      "rightTimedAdaptation": {
+        "title": "Tijdige Adaptatie",
+        "body": "We introduceren AI-oplossingen in de juiste fase. We adviseren nooit wat niet nodig is — we sturen op adoptie waar en wanneer dit de meeste waarde oplevert."
+      },
+      "reinforcingWorkforce": {
+        "title": "Versterken van het Werkpersoneel",
+        "body": "We maken bestaande teams sterker. Met training en ondersteuning blijven medewerkers essentieel, productief en toekomstbestendig."
+      },
+      "innovationWithPurpose": {
+        "title": "Innovatie met Doel",
+        "body": "Onze onderzoeksgerichte aanpak brengt de nieuwste AI naar échte bedrijfsuitdagingen — waarde boven hype, resultaten boven buzzwords."
+      },
+      "strategicAgility": {
+        "title": "Strategische Wendbaarheid",
+        "body": "We schakelen snel zodat jouw organisatie niet achterraakt. Onze slanke structuur maakt snelle implementatie en continue verbetering mogelijk."
+      },
+      "partnership": {
+        "title": "Partnerschap, geen Dienstverlening",
+        "body": "We leveren niet en vertrekken. We werken nauw samen en co-creëren workflows en strategie zodat AI een blijvend voordeel wordt."
+      }
+    },
+    "Blog": {
+      "title": "Uit onze blog",
+      "body": "Ontdek inzichten, tips en updates rechtstreeks van ons team"
+    }
+  },
+  "LogoCloud": {
+    "label": "Partners"
+  },
+  "CodeExamples": {
+    "top": {
+      "title": "Vraag alles over TransformAI aan onze AI-assistent",
+      "text": "Stel je vragen, plan een afspraak of ontdek meer over onze oplossingen en diensten."
+    },
+    "chat": {
+      "cta": {
+        "label": "Stel je vraag aan TransformAI"
+      },
+      "header": {
+        "title": "TransformAI-assistent",
+        "status": "Online",
+        "statusA11y": "Status assistent: online",
+        "close": "Sluit de assistent"
+      },
+      "input": {
+        "placeholder": "Stel alles over onze oplossingen, prijzen of een gratis kennismakingsgesprek…",
+        "tooltip": "Bericht verzenden",
+        "send": "Versturen"
+      },
+      "empty": {
+        "title": "Waarmee kunnen we helpen…",
+        "prompts": [
+          "Welke AI-transformatiediensten biedt TransformAI voor middelgrote bedrijven?",
+          "Hoe plan ik een gratis kennismakingsgesprek?",
+          "Kun je het verschil uitleggen tussen het Education- en het Introduction-pakket?",
+          "Hoe zorgt TransformAI ervoor dat AI-adoptie compliant blijft?"
+        ],
+        "action": "Stel deze vraag"
+      },
+      "messages": {
+        "assistant": "TransformAI-assistent",
+        "user": "Jij",
+        "typing": "TransformAI-assistent is aan het typen…",
+        "transcriptLabel": "Gesprek tussen jou en de assistent"
+      },
+      "errors": {
+        "title": "Assistent niet bereikbaar",
+        "body": "Probeer het over een paar ogenblikken opnieuw.",
+        "retry": "Opnieuw"
+      }
+    },
+    "projects": {
+      "platform": {
+        "title": "Educatieplatform voor het gebruik van AI.",
+        "description": "We hebben een educatieplatform gebouwd dat het leuk en interactief maakt om binnen een bedrijf te leren werken met AI. We ontwikkelen modules op maat op basis van de behoeften van elke partner.",
+        "result": "Dit platform heeft geleid tot enorme productiviteitswinsten met AI binnen het bedrijf.",
+        "cta": "Lees meer"
+      }
+    },
+    "bottom": {
+      "title": "Ontdek de projecten waar wij aan hebben meegewerkt",
+      "text": "Klik door de interface hieronder om enkele projecten te ontdekken."
+    }
+  },
+  "CTA": {
+    "getStarted": "Begin Nu",
+    "exploreProjects": "Ontdek alle projecten",
+    "hoursSavedLabel": "Uren bespaard met AI",
+    "hoursSavedAmount": "100.000+"
+  },
+  "Cta": {
+    "title": "Zet de stap naar het AI-tijdperk",
+    "body": "Wij helpen jouw bedrijf naar meer productiviteit, efficiëntie en innovatie met een naadloze AI-transitie.",
+    "primary": "Chat met ons",
+    "secondary": "Aan de slag",
+    "note": "We helpen slechts een beperkt aantal bedrijven tegelijk—neem snel contact op om jouw plek te verzekeren."
+  },
+  "Analytics": {
+    "requestAccess": "Vraag Toegang",
+    "caption": {
+      "title": "Realtime-analyse",
+      "subtitle": "Direct inzicht in AI-gebruik binnen jouw organisatie."
+    },
+    "dashboard": {
+      "sidebar": {
+        "company": "TransformAI Beta",
+        "section": "AI-werkruimte",
+        "items": {
+          "usage": "Gebruiksoverzicht",
+          "automation": "Automatiseringshub",
+          "policies": "Beleid"
+        },
+        "topUsersTitle": "Topgebruikers & agents",
+        "countLabel": "Gebruik (30 dagen)",
+        "topUsers": {
+          "sales": "Sales – SDR-bot",
+          "support": "Support – Antwoordassistent",
+          "ops": "Operations – Datacleaner",
+          "marketing": "Marketing – Contentstudio",
+          "finance": "Financiën – Forecast Copilot"
+        }
+      },
+      "header": {
+        "title": "Realtime voortgang van AI-gebruik in jouw bedrijf",
+        "pillLabel": "Gebruik (30 dagen)",
+        "pillValue": "8.642",
+        "betaBadge": "Beta"
+      },
+      "tabs": {
+        "overview": "Overzicht",
+        "teams": "Teams",
+        "tools": "Tools",
+        "policies": "Policies"
+      },
+      "metrics": {
+        "title": "Gebruik (laatste 30 dagen)",
+        "subline": "Een overzicht van wie AI gebruikt, hoeveel en waar waarde wordt gecreëerd.",
+        "items": {
+          "prompts": {
+            "label": "Ingediende prompts",
+            "value": "8.642"
+          },
+          "activeUsers": {
+            "label": "Actieve gebruikers",
+            "value": "312"
+          },
+          "teams": {
+            "label": "Teams die AI gebruiken",
+            "value": "12"
+          },
+          "responseTime": {
+            "label": "Gem. responstijd",
+            "value": "2,4 s"
+          },
+          "mostUsedTools": {
+            "label": "Meest gebruikte tools & modellen",
+            "value": "GPT-4o"
+          },
+          "invocations": {
+            "label": "Aanroepen (30 dagen)",
+            "value": "3.214"
+          }
+        },
+        "successRate": {
+          "label": "Succesratio",
+          "value": "94%",
+          "helper": "laatste 30 dagen"
+        },
+        "legend": {
+          "success": "Succes",
+          "failure": "Mislukt",
+          "policyBlocked": "Geblokkeerd door policy",
+          "timeout": "Timeout"
+        },
+        "emptyState": "Nog geen gegevens. Koppel je eerste team om AI-gebruik te meten."
+      }
+    }
+  },
+  "Activity": {
+    "sidebar": {
+      "title": "Houd AI-werk binnen je bedrijf bij",
+      "body": "Volg hoe teams AI inzetten, bekijk de voortgang per project en zie wie bijdraagt aan het werk."
+    },
+    "items": {
+      "0": {
+        "actor": "Andreas",
+        "description": "voltooide een generatie voor Project Atlas met Image Generation",
+        "meta": "12 afbeeldingen · Flux.1 Pro"
+      },
+      "1": {
+        "actor": "Support – Antwoordassistent",
+        "description": "maakte conceptantwoorden voor Incident #4281",
+        "meta": "23 concepten · Llama 3.1-70B"
+      },
+      "2": {
+        "actor": "Operations – Datacleaner",
+        "description": "normaliseerde klantrecords in CRM Sync",
+        "meta": "5.200 rijen · RAG-pijplijn"
+      },
+      "3": {
+        "actor": "Design – Image Studio",
+        "description": "tagde assets in Brand Library",
+        "meta": "48 afbeeldingen · CLIP-tags"
+      },
+      "4": {
+        "actor": "Finance – Forecast Bot",
+        "description": "genereerde kasstroomprognose voor Q3 Plan",
+        "meta": "3 scenario’s · Timeseries v2"
+      }
+    }
+  },
+  "Platform": {
+    "title": "Ons platform (Beta)",
+    "text": "Wij bouwen aan het beste platform waarmee bedrijven AI moeiteloos in hun organisatie kunnen inzetten."
+  },
+  "FeatureSection": {
+    "title": "Breng jouw AI-adoptie naar een hoger niveau",
+    "text": "De overgang naar AI gaat verder dan alleen een platform. Onze oplossing bundelt best practices met praktische begeleiding om bedrijven te helpen zich op alle vlakken aan te passen—technologie, mensen en processen—zodat integraties het meeste succes opleveren.",
+    "boxes": {
+      "futureProofWorkforce": {
+        "title": "Toekomstbestendig personeelsbestand",
+        "description": "Leid medewerkers op om productiever te worden en hun waarde voor de organisatie te behouden."
+      },
+      "revenueStreamAnalysis": {
+        "title": "Analyse van inkomstenstromen",
+        "description": "Breng in kaart hoe AI huidige inkomstenstromen beïnvloedt en pas strategieën aan."
+      },
+      "newOpportunities": {
+        "title": "Nieuwe kansen",
+        "description": "Ontdek en ontwikkel nieuwe inkomstenstromen mogelijk gemaakt door AI."
+      },
+      "platformEfficiency": {
+        "title": "Platformefficiëntie",
+        "description": "Bereik 11x productiviteit, lagere kosten en meer organisatorisch overzicht met ons platform."
+      },
+      "rightTiming": {
+        "title": "Juiste timing",
+        "description": "Zorg dat AI-integraties op het juiste moment worden uitgerold voor maximale impact."
+      },
+      "legalAssurance": {
+        "title": "Juridische zekerheid",
+        "description": "Voldoe altijd aan data- en AI-regelgeving wereldwijd."
+      },
+      "agileExecution": {
+        "title": "Wendbare uitvoering",
+        "description": "Dankzij een klein team bewegen wij sneller dan concurrenten, zodat jij voorop blijft."
+      },
+      "multiFieldExpertise": {
+        "title": "Multidisciplinaire expertise",
+        "description": "Onderzoek, training, integraties en productontwikkeling—onze brede scope leidt tot complete oplossingen."
+      },
+      "dataDrivenDecisions": {
+        "title": "Data-gedreven beslissingen",
+        "description": "Onze onderzoeks- en datateams zorgen dat elke stap onderbouwd is met data."
+      }
+    }
+  },
+  "Footer": {
+    "tagline": "Bouw betere API's sneller.",
+    "copyright": "Unkeyed, Inc. {year}",
+    "sections": {
+      "company": "Bedrijf",
+      "resources": "Resources",
+      "connect": "Contact",
+      "legal": "Juridisch"
+    },
+    "links": {
+      "about": "Over ons",
+      "roadmap": "Roadmap",
+      "careers": "Carrières",
+      "sourceCode": "Broncode",
+      "status": "Statuspagina",
+      "blog": "Blog",
+      "changelog": "Wijzigingen",
+      "templates": "Templates",
+      "docs": "Documentatie",
+      "glossary": "Woordenlijst",
+      "twitter": "X (Twitter)",
+      "discord": "Discord",
+      "ossFriends": "OSS-vrienden",
+      "bookCall": "Plan een gesprek",
+      "terms": "Servicevoorwaarden",
+      "privacy": "Privacybeleid"
+    }
+  },
+  "Security": {
+    "title": "Bescherming van AI-data",
+    "body": "Bescherm het intellectuele eigendom en de gevoelige data van je organisatie bij het inzetten van AI. Handhaaf policies, redacteer vertrouwelijke inhoud en beheer datastromen—zonder teams te vertragen.",
+    "badges": {
+      "confidential": "Beleid: Vertrouwelijk",
+      "internal": "Beleid: Intern",
+      "public": "Beleid: Publiek"
+    },
+    "captions": {
+      "pii": "PII-redactie",
+      "access": "Modeltoegangsbeheer",
+      "residency": "Data-residentie"
+    }
+  },
+  "Workflows": {
+    "title": "Organiseer teamworkflows",
+    "body": "Met de app ontwerpen teams aangepaste workflows om de beste AI-gedreven producten te maken en te leveren.",
+    "imageAlt": "Workflowcompositie-diagram"
+  },
+  "Budgets": {
+    "title": "Rate limits & teambudgetten",
+    "body": "Wijs budgetten toe aan teams en projecten, stel fair-use-limieten in en voorkom overschrijdingen. Houd AI-kosten voorspelbaar met voldoende ruimte voor teams.",
+    "creditsLabel": "Credits: 3.240 / 10.000",
+    "projectPill": "project 22",
+    "rateLimitPill": "Limiet: 100 req/s"
+  },
+  "Language": {
+    "selectTitle": "Selecteer taal",
+    "english": "Engels",
+    "dutch": "Nederlands",
+    "submit": "Doorgaan"
+  },
+  "LanguageSwitcher": {
+    "label": "Taal wijzigen",
+    "current": "Huidige taal: {language}"
+  },
+  "NotFound": {
+    "heading": "Niet gevonden.",
+    "cta": "Ga naar de homepage",
+    "tagline": "Bouw betere API's sneller."
+  }
+}

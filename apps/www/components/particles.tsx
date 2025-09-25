@@ -1,6 +1,5 @@
 "use client";
 
-import { useMousePosition } from "@/lib/mouse";
 import type React from "react";
 import { useCallback, useEffect, useRef } from "react";
 
@@ -41,7 +40,6 @@ export const Particles: React.FC<ParticlesProps> = ({
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const context = useRef<CanvasRenderingContext2D | null>(null);
   const circles = useRef<any[]>([]);
-  const mousePosition = useMousePosition();
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
@@ -71,23 +69,67 @@ export const Particles: React.FC<ParticlesProps> = ({
     initCanvas();
   }, [initCanvas, refresh]);
 
-  const onMouseMove = useCallback(() => {
-    if (canvasRef.current) {
-      const rect = canvasRef.current.getBoundingClientRect();
-      const { w, h } = canvasSize.current;
-      const x = mousePosition.x - rect.left - w / 2;
-      const y = mousePosition.y - rect.top - h / 2;
-      const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
-      if (inside) {
-        mouse.current.x = x;
-        mouse.current.y = y;
-      }
-    }
-  }, [mousePosition.x, mousePosition.y]);
-
   useEffect(() => {
-    onMouseMove();
-  }, [onMouseMove]);
+    const container = canvasContainerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) {
+      return;
+    }
+
+    let pointerFrame: number | null = null;
+
+    const updatePointer = (event: PointerEvent) => {
+      if (pointerFrame !== null) {
+        window.cancelAnimationFrame(pointerFrame);
+      }
+
+      pointerFrame = window.requestAnimationFrame(() => {
+        const { w, h } = canvasSize.current;
+        if (w === 0 || h === 0) {
+          pointerFrame = null;
+          return;
+        }
+
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left - w / 2;
+        const y = event.clientY - rect.top - h / 2;
+        const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
+
+        if (inside) {
+          mouse.current.x = x;
+          mouse.current.y = y;
+        } else {
+          mouse.current.x = 0;
+          mouse.current.y = 0;
+        }
+
+        pointerFrame = null;
+      });
+    };
+
+    const resetPointer = () => {
+      if (pointerFrame !== null) {
+        window.cancelAnimationFrame(pointerFrame);
+      }
+
+      pointerFrame = window.requestAnimationFrame(() => {
+        mouse.current.x = 0;
+        mouse.current.y = 0;
+        pointerFrame = null;
+      });
+    };
+
+    container.addEventListener("pointermove", updatePointer);
+    container.addEventListener("pointerleave", resetPointer);
+
+    return () => {
+      container.removeEventListener("pointermove", updatePointer);
+      container.removeEventListener("pointerleave", resetPointer);
+      if (pointerFrame !== null) {
+        window.cancelAnimationFrame(pointerFrame);
+      }
+    };
+  }, []);
 
   type Circle = {
     x: number;
