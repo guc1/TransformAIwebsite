@@ -37,7 +37,7 @@ export function generateMetadata({
       title: `${post.title} | Unkey`,
       description: post.description,
 
-      url: `https://unkey.com/${post._meta.path}`,
+      url: `https://unkey.com${post.url}`,
       siteName: "unkey.com",
       type: "article",
       images: {

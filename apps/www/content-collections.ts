@@ -9,7 +9,7 @@ import { takeawaysSchema } from "./lib/schemas/takeaways-schema";
 const posts = defineCollection({
   name: "posts",
   directory: "content/blog",
-  include: "*.mdx",
+  include: "**/*.mdx",
   schema: (z) => ({
     title: z.string(),
     description: z.string(),
@@ -33,11 +33,14 @@ const posts = defineCollection({
         slug: content ? slugger.slug(content) : undefined,
       };
     });
+    const slugFromPath =
+      document._meta.path.split("/").pop() ?? document._meta.fileName.replace(/\.mdx$/i, "");
+
     return {
       ...document,
       mdx,
-      slug: document._meta.path,
-      url: `/blog/${document._meta.path}`,
+      slug: slugFromPath,
+      url: `/blog/${slugFromPath}`,
       tableOfContents,
     };
   },
