@@ -9,7 +9,7 @@ import { takeawaysSchema } from "./lib/schemas/takeaways-schema";
 const posts = defineCollection({
   name: "posts",
   directory: "content/blog",
-  include: "*.mdx",
+  include: "**/*.mdx",
   schema: (z) => ({
     title: z.string(),
     description: z.string(),
@@ -36,8 +36,8 @@ const posts = defineCollection({
     return {
       ...document,
       mdx,
-      slug: document._meta.path,
-      url: `/blog/${document._meta.path}`,
+      slug: document._meta.fileName,
+      url: `/blog/${document._meta.fileName}`,
       tableOfContents,
     };
   },
