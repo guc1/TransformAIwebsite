@@ -5,6 +5,7 @@ import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/back
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MeteorLinesAngular } from "@/components/ui/meteorLines";
 import { authors } from "@/content/blog/authors";
+import { localesForPost, shouldIncludePostForLocale } from "@/lib/blog-language";
 import { cn } from "@/lib/utils";
 import { allPosts } from "content-collections";
 import type { Post } from "content-collections";
@@ -16,17 +17,20 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-static";
 
 export const generateStaticParams = async () =>
-  allPosts.map((post) => ({
-    slug: post.slug,
-  }));
+  allPosts.flatMap((post) =>
+    localesForPost(post.language).map((locale) => ({
+      locale,
+      slug: post.slug,
+    })),
+  );
 
 export function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { slug: string; locale: string };
 }): Metadata {
   const post = allPosts.find((post) => post.slug === `${params.slug}`);
-  if (!post) {
+  if (!post || !shouldIncludePostForLocale(post.language, params.locale)) {
     notFound();
   }
   return {
@@ -68,9 +72,13 @@ export function generateMetadata({
   };
 }
 
-const BlogArticleWrapper = async ({ params }: { params: { slug: string } }) => {
-  const post = allPosts.find((post) => post.slug === `${params.slug}`) as Post;
-  if (!post) {
+const BlogArticleWrapper = async ({
+  params,
+}: {
+  params: { slug: string; locale: string };
+}) => {
+  const post = allPosts.find((post) => post.slug === `${params.slug}`) as Post | undefined;
+  if (!post || !shouldIncludePostForLocale(post.language, params.locale)) {
     notFound();
   }
   const author = authors[post.author];
