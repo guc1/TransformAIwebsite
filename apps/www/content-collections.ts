@@ -9,13 +9,14 @@ import { takeawaysSchema } from "./lib/schemas/takeaways-schema";
 const posts = defineCollection({
   name: "posts",
   directory: "content/blog",
-  include: "*.mdx",
+  include: "**/*.mdx",
   schema: (z) => ({
     title: z.string(),
     description: z.string(),
     author: z.string(),
     date: z.string(),
     tags: z.array(z.string()),
+    language: z.union([z.string(), z.array(z.string())]).optional(),
     image: z.string().optional(),
   }),
   transform: async (document, context) => {
@@ -33,11 +34,14 @@ const posts = defineCollection({
         slug: content ? slugger.slug(content) : undefined,
       };
     });
+    const slugFromPath =
+      document._meta.path.split("/").pop() ?? document._meta.fileName.replace(/\.mdx$/i, "");
+
     return {
       ...document,
       mdx,
-      slug: document._meta.path,
-      url: `/blog/${document._meta.path}`,
+      slug: slugFromPath,
+      url: `/blog/${slugFromPath}`,
       tableOfContents,
     };
   },
