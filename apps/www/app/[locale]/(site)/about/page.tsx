@@ -51,8 +51,6 @@ import allison from "@/images/about/investors/allison5.png";
 import liu from "@/images/about/investors/liujiang.jpeg";
 import tim from "@/images/about/investors/tim.png";
 
-import andreas from "@/images/team/andreas.jpeg";
-import james from "@/images/team/james.jpg";
 
 import { ImageWithBlur } from "@/components/image-with-blur";
 import { loadMessages } from "@/i18n/messages";
@@ -368,35 +366,26 @@ export default async function Page({ params }: PageProps) {
           <div className="flex flex-col items-center max-w-full">
             <StarDots className="absolute pointer-events-none" />
             <SectionTitle
-              className="mt-60 px-[10px] text-balance"
+              className="mt-24 md:mt-32 lg:mt-40 px-[10px] text-balance"
               title={founderTitle}
               align="center"
-              text={founderSubtitle}
             />
-            <div className="border-[1px] border-white/10 mt-[78px] leading-8 rounded-[48px] py-[60px] xl:py-[96px] px-8 md:px-[88px] text-white text-center max-w-[1008px] flex flex-col justify-center items-center">
+            <p className="mt-6 text-sm md:text-base text-white/70 leading-7 text-center text-balance max-w-[760px]">
+              {founderSubtitle}
+            </p>
+            <div className="border-[1px] border-white/10 mt-12 md:mt-16 lg:mt-20 leading-8 rounded-[48px] py-[60px] xl:py-[96px] px-8 md:px-[88px] text-white text-center max-w-[1008px] flex flex-col justify-center items-center">
               <p className="about-founders-text-gradient">{founderBody}</p>
-              <div className="flex flex-col mt-12 md:flex-row">
-                <div className="flex md:left-[5px]">
-                  <div className="text-sm text-right">
-                    <p className="font-bold">James Perkins</p>
-                    <p className="text-white/50">Founder and CEO</p>
-                  </div>
-                  <ImageWithBlur
-                    src={james}
-                    className="border-2 border-black ml-4 md:ml-[32px] rounded-full h-[40px] w-[40px]"
-                    alt="CEO James"
-                  />
-                </div>
-                <div className="flex relative mt-4 md:mt-0 lg:left-[-5px]">
-                  <ImageWithBlur
-                    src={andreas}
-                    alt="CTO Andreas"
-                    className="border-2 border-black mr-4 md:mr-[32px] rounded-full h-[40px] w-[40px]"
-                  />
-                  <div className="text-sm text-left">
-                    <p className="font-bold">Andreas Thomas</p>
-                    <p className="text-white/50">Founder and CTO</p>
-                  </div>
+              <div className="mt-12 flex flex-col items-center gap-4 text-center">
+                <ImageWithBlur
+                  src="/images/NewTeam/gush.JPG"
+                  alt="Portrait of CEO Yergush"
+                  width={96}
+                  height={96}
+                  className="h-24 w-24 rounded-full border-2 border-white/20 object-cover"
+                />
+                <div className="space-y-1 text-sm md:text-base text-white">
+                  <p className="text-lg font-semibold">CEO Yergush</p>
+                  <p className="text-white/50">Founder of TransformAI</p>
                 </div>
               </div>
             </div>
