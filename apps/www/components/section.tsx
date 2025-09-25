@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import type { PropsWithChildren } from "react";
 
 type SectionTitleProps = {
+  id?: string;
   label?: string;
   title?: React.ReactNode;
   text?: React.ReactNode;
@@ -11,6 +12,7 @@ type SectionTitleProps = {
 };
 
 export function SectionTitle({
+  id,
   label,
   title,
   text,
@@ -20,6 +22,7 @@ export function SectionTitle({
 }: SectionTitleProps) {
   return (
     <div
+      id={id}
       className={cn(
         "flex flex-col items-center",
         {

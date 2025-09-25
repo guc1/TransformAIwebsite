@@ -1,0 +1,37 @@
+<!-- ah-partner.svg -->
+<svg width="229" height="37" viewBox="0 0 229 37" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Albert Heijn">
+  <defs>
+    <!-- 0) Put your PNG here once; both href and xlink:href for compatibility -->
+    <image id="ahPNG" x="0" y="0" width="229" height="37"
+           href="/YOUR/PNG/PATH.png"
+           xlink:href="/YOUR/PNG/PATH.png"
+           preserveAspectRatio="xMidYMid meet" />
+
+    <!-- 1) Convert image luminance to alpha and invert it so non-white becomes opaque -->
+    <filter id="invertToAlpha" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" x="0" y="0" width="229" height="37">
+      <!-- luminance to alpha -->
+      <feColorMatrix type="luminanceToAlpha" result="A"/>
+      <!-- invert alpha: 0->1, 1->0 -->
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="1 0"/>
+      </feComponentTransfer>
+      <!-- optional: make edges crisper; lower exponent for softer -->
+      <feComponentTransfer>
+        <feFuncA type="gamma" amplitude="1" exponent="2.0" offset="0"/>
+      </feComponentTransfer>
+    </filter>
+
+    <!-- 2) Mask that uses the filtered image; luminance mask works across browsers -->
+    <mask id="ahMask" maskUnits="userSpaceOnUse" x="0" y="0" width="229" height="37" maskContentUnits="userSpaceOnUse" style="mask-type:luminance">
+      <use href="#ahPNG" xlink:href="#ahPNG" filter="url(#invertToAlpha)"/>
+    </mask>
+  </defs>
+
+  <!-- ===== Toggle this background to preview ===== -->
+  <!-- Uncomment the rect below to preview on black -->
+  <!-- <rect x="0" y="0" width="229" height="37" fill="#000"/> -->
+
+  <!-- 3) Fill white, reveal only where the mask is opaque (i.e., where the logo is) -->
+  <rect x="0" y="0" width="229" height="37" fill="#fff" mask="url(#ahMask)"/>
+</svg>
+

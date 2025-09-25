@@ -27,6 +27,41 @@ export const authors: Authors = {
     role: "Co-Founder",
     image: { src: "/images/team/andreas.jpeg" },
   },
+  yergush: {
+    name: "Yergush",
+    role: "Founder & Product",
+    image: { src: "/images/NewTeam/gush.JPG", alt: "Yergush" },
+  },
+  david: {
+    name: "David",
+    role: "AI Integrations Lead",
+    image: { src: "/images/NewTeam/david.png", alt: "David" },
+  },
+  tim: {
+    name: "Tim",
+    role: "Corporate Transformation",
+    image: { src: "/images/NewTeam/tim.png", alt: "Tim" },
+  },
+  sara: {
+    name: "Sara",
+    role: "Brand & Marketing",
+    image: { src: "/images/NewTeam/sara.png", alt: "Sara" },
+  },
+  jasper: {
+    name: "Jasper",
+    role: "Engineering & Data",
+    image: { src: "/images/NewTeam/jasper.png", alt: "Jasper" },
+  },
+  chiHueng: {
+    name: "Chi-hueng",
+    role: "Research & Automation",
+    image: { src: "/images/NewTeam/Chi-hueng.png", alt: "Chi-hueng" },
+  },
+  aiAgents: {
+    name: "AI Agents",
+    role: "AI Systems Crew",
+    image: { src: "/images/NewTeam/Aiagents.png", alt: "AI Agents" },
+  },
   wilfred: {
     name: "Wilfred Almeida",
     role: "Freelance Writer",
