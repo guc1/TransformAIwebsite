@@ -23,6 +23,15 @@ const posts = defineCollection({
     const mdx = await compileMDX(context, document, {
       remarkPlugins: [remarkGfm, remarkHeading, remarkStructure],
     });
+    const fallbackLanguage = (document as Record<string, unknown>)[
+      "Language"
+    ];
+    const normalizedLanguage =
+      document.language ??
+      (typeof fallbackLanguage === "string" ||
+      Array.isArray(fallbackLanguage)
+        ? (fallbackLanguage as string | string[])
+        : undefined);
     const slugger = new GithubSlugger();
     const regXHeader = /\n(?<flag>#+)\s+(?<content>.+)/g;
     const tableOfContents = Array.from(document.content.matchAll(regXHeader)).map(({ groups }) => {
@@ -39,6 +48,7 @@ const posts = defineCollection({
 
     return {
       ...document,
+      language: normalizedLanguage,
       mdx,
       slug: slugFromPath,
       url: `/blog/${slugFromPath}`,
