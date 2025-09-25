@@ -1,4 +1,4 @@
-import { locales } from "@/i18n/routing";
+import { defaultLocale, locales } from "@/i18n/routing";
 
 type PostLanguage = string | string[] | undefined;
 
@@ -34,12 +34,18 @@ export function shouldIncludePostForLocale(language: PostLanguage, locale?: stri
   const normalizedLanguages = normalizeLanguageValues(language);
 
   if (normalizedLanguages.length === 0) {
-    return true;
+    return normalizedLocale === defaultLocale;
   }
 
   return normalizedLanguages.some((value) => allowedLanguages.has(value));
 }
 
 export function localesForPost(language: PostLanguage) {
+  const normalizedLanguages = normalizeLanguageValues(language);
+
+  if (normalizedLanguages.length === 0) {
+    return [defaultLocale];
+  }
+
   return locales.filter((locale) => shouldIncludePostForLocale(language, locale));
 }
