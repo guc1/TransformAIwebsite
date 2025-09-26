@@ -1,21 +1,29 @@
-import map from "../images/map.svg";
+import { getTranslations } from "next-intl/server";
+
+import chainOfApp from "../images/Chain_ofapp.png";
 import { ImageWithBlur } from "./image-with-blur";
 
-export function LatencyBento() {
+export async function LatencyBento() {
+  const t = await getTranslations("Workflows");
+
   return (
     <div className="w-full relative border-[.75px] h-[576px] rounded-[32px] border-[#ffffff]/10 flex overflow-x-hidden">
-      {/* <LatencyMap className="h-[500px] w-full" /> */}
       <ImageWithBlur
-        src={map}
-        alt="Animated map showing Unkey latency globally"
+        src={chainOfApp}
+        alt={t("imageAlt")}
         className="h-full sm:h-auto"
       />
-      <LatencyText />
+      <LatencyText title={t("title")} body={t("body")} />
     </div>
   );
 }
 
-export function LatencyText() {
+type LatencyTextProps = {
+  title: string;
+  body: string;
+};
+
+export function LatencyText({ title, body }: LatencyTextProps) {
   return (
     <div className="flex flex-col text-white absolute left-[20px] sm:left-[40px] xl:left-[40px] bottom-[40px] max-w-[330px]">
       <div className="flex items-center w-full">
@@ -34,11 +42,10 @@ export function LatencyText() {
             fillOpacity="0.4"
           />
         </svg>
-        <h3 className="ml-4 text-lg font-medium text-white">Global low latency</h3>
+        <h3 className="ml-4 text-lg font-medium text-white">{title}</h3>
       </div>
       <p className="mt-4 leading-6 text-white/60">
-        Unkey is fast globally, regardless of which cloud providers you're using or where your users
-        are located.
+        {body}
       </p>
     </div>
   );

@@ -1,11 +1,15 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { HeroMainSection } from "./hero-main-section";
 
 import mainboard from "@/images/mainboard.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
 export const Hero: React.FC = () => {
+  const hero = useTranslations("Hero");
+  const cta = useTranslations("CTA");
+
   const containerVariants = {
     hidden: {},
     visible: {
@@ -32,7 +36,14 @@ export const Hero: React.FC = () => {
       animate="visible"
     >
       <motion.div variants={childVariants}>
-        <HeroMainSection />
+        <HeroMainSection
+          title={hero("title")}
+          body={hero("body")}
+          primaryCtaLabel={cta("getStarted")}
+          secondaryCtaLabel={cta("exploreProjects")}
+          hoursSavedLabel={cta("hoursSavedLabel")}
+          hoursSavedAmount={cta("hoursSavedAmount")}
+        />
       </motion.div>
 
       <div>

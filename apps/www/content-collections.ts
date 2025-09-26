@@ -2,26 +2,36 @@ import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMDX } from "@content-collections/mdx";
 import { remarkGfm, remarkHeading, remarkStructure } from "fumadocs-core/mdx-plugins";
 import GithubSlugger from "github-slugger";
-import { categoryEnum } from "./app/glossary/data";
+import { categoryEnum } from "./app/[locale]/(site)/glossary/data";
 import { faqSchema } from "./lib/schemas/faq-schema";
 import { takeawaysSchema } from "./lib/schemas/takeaways-schema";
 
 const posts = defineCollection({
   name: "posts",
   directory: "content/blog",
-  include: "*.mdx",
+  include: "**/*.mdx",
   schema: (z) => ({
     title: z.string(),
     description: z.string(),
     author: z.string(),
     date: z.string(),
     tags: z.array(z.string()),
+    language: z.union([z.string(), z.array(z.string())]).optional(),
     image: z.string().optional(),
   }),
   transform: async (document, context) => {
     const mdx = await compileMDX(context, document, {
       remarkPlugins: [remarkGfm, remarkHeading, remarkStructure],
     });
+    const fallbackLanguage = (document as Record<string, unknown>)[
+      "Language"
+    ];
+    const normalizedLanguage =
+      document.language ??
+      (typeof fallbackLanguage === "string" ||
+      Array.isArray(fallbackLanguage)
+        ? (fallbackLanguage as string | string[])
+        : undefined);
     const slugger = new GithubSlugger();
     const regXHeader = /\n(?<flag>#+)\s+(?<content>.+)/g;
     const tableOfContents = Array.from(document.content.matchAll(regXHeader)).map(({ groups }) => {
@@ -33,11 +43,15 @@ const posts = defineCollection({
         slug: content ? slugger.slug(content) : undefined,
       };
     });
+    const slugFromPath =
+      document._meta.path.split("/").pop() ?? document._meta.fileName.replace(/\.mdx$/i, "");
+
     return {
       ...document,
+      language: normalizedLanguage,
       mdx,
-      slug: document._meta.path,
-      url: `/blog/${document._meta.path}`,
+      slug: slugFromPath,
+      url: `/blog/${slugFromPath}`,
       tableOfContents,
     };
   },

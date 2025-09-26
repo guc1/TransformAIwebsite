@@ -133,3 +133,37 @@ export const GoIcon: React.FC<LangIconProps> = ({ active }) => (
     />
   </svg>
 );
+
+export const ResearchIcon: React.FC<LangIconProps> = ({ active }) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity={active ? 1 : 0.3}>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19C12.7538 19 14.3745 18.4101 15.6873 17.4085L18.4087 20.13C18.7992 20.5205 19.4324 20.5205 19.8229 20.13C20.2134 19.7395 20.2134 19.1063 19.8229 18.7158L17.1015 15.9944C18.1044 14.6815 18.6944 13.0609 18.6944 11.3069C18.6944 6.88861 15.1127 3.3069 10.6944 3.3069C10.7947 3.10231 10.8936 3 11 3ZM11 5C7.68629 5 5 7.68629 5 11C5 14.3137 7.68629 17 11 17C14.3137 17 17 14.3137 17 11C17 7.68629 14.3137 5 11 5Z"
+        fill={active ? "url(#paint0_linear_research)" : "white"}
+      />
+      <path
+        d="M10.75 7.5C10.3358 7.5 10 7.83579 10 8.25V11.25C10 11.6642 10.3358 12 10.75 12H13.75C14.1642 12 14.5 11.6642 14.5 11.25C14.5 10.8358 14.1642 10.5 13.75 10.5H11.5V8.25C11.5 7.83579 11.1642 7.5 10.75 7.5Z"
+        fill={active ? "url(#paint0_linear_research)" : "white"}
+      />
+      <path
+        d="M8 11.75C8 11.3358 8.33579 11 8.75 11H9.25C9.66421 11 10 11.3358 10 11.75V15.25C10 15.6642 9.66421 16 9.25 16H8.75C8.33579 16 8 15.6642 8 15.25V11.75Z"
+        fill={active ? "url(#paint0_linear_research)" : "white"}
+      />
+    </g>
+    <defs>
+      <linearGradient
+        id="paint0_linear_research"
+        x1="4"
+        y1="2"
+        x2="18.5"
+        y2="21"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="white" stopOpacity="0.4" />
+        <stop offset="1" stopColor="white" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
