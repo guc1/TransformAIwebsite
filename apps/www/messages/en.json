@@ -373,9 +373,44 @@
     },
     "projects": {
       "platform": {
+        "label": "Education platform",
+        "field": "Education",
+        "name": "TransformAI academy",
         "title": "Education platform for using AI.",
         "description": "We created an education platform that makes it fun and interactive to learn how to use AI within a company. We design custom modules based on each partner’s needs.",
         "result": "This platform has delivered massive AI productivity gains across the company.",
+        "cta": "Read more"
+      },
+      "researchAiAdoption": {
+        "label": "AI adoption",
+        "field": "Research",
+        "name": "AI adoption.",
+        "title": "Research in AI adoption by companies",
+        "description": "We’re conducting research into how industries adopt AI—where it’s used, how fast it’s spreading, how deeply it’s integrated, and what results it delivers. Using surveys and AI-assisted evidence gathering, we compile clear sector snapshots with trends and notable anomalies. These findings help teams prioritize next steps and reduce risk.",
+        "cta": "Read more"
+      },
+      "researchCustomModels": {
+        "label": "Custom AI models",
+        "field": "Research",
+        "name": "Training custom models",
+        "title": "We Research when to Train Custom AI Models",
+        "description": "Not every task fits a general model. In this study, we test where custom training actually pays off—measuring quality, latency, and cost against real business value. We compare strong baselines (prompts + RAG) to fine-tuned and distilled models, and share the decision rules we use to pick the cheapest reliable path.",
+        "cta": "Read more"
+      },
+      "researchTimeSeries": {
+        "label": "Time-series prediction",
+        "field": "Research",
+        "name": "AI time-series prediction",
+        "title": "Can LLMs forecast?",
+        "description": "We explore whether transformer LLMs can forecast variables over time—testing how semantic labels, model size, and light fine-tuning affect accuracy and stability. A spotlight on “From Tokens to Temperatures” shows sizable gains when inputs carry meaning, with outliers sharply reduced.",
+        "cta": "Read more"
+      },
+      "researchRanking": {
+        "label": "AI recommendation ranking",
+        "field": "Research",
+        "name": "Influencing AI output",
+        "title": "Ranking in AI model recommendations",
+        "description": "We study how AI assistants decide which products and services to include—and in what order. Our benchmark tests across multiple providers examine signals like evidence clarity, third-party corroboration, and policy alignment. Early results show relative lifts of ~72%, 89%, and 75% in inclusion and visibility.",
         "cta": "Read more"
       }
     },

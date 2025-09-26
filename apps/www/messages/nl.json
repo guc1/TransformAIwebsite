@@ -373,9 +373,44 @@
     },
     "projects": {
       "platform": {
+        "label": "Educatieplatform",
+        "field": "Educatie",
+        "name": "TransformAI academy",
         "title": "Educatieplatform voor het gebruik van AI.",
         "description": "We hebben een educatieplatform gebouwd dat het leuk en interactief maakt om binnen een bedrijf te leren werken met AI. We ontwikkelen modules op maat op basis van de behoeften van elke partner.",
         "result": "Dit platform heeft geleid tot enorme productiviteitswinsten met AI binnen het bedrijf.",
+        "cta": "Lees meer"
+      },
+      "researchAiAdoption": {
+        "label": "AI-adoptie",
+        "field": "Onderzoek",
+        "name": "AI-adoptie.",
+        "title": "Onderzoek in AI adaptatie van bedrijven",
+        "description": "Wij doen onderzoek naar hoe sectoren AI inzetten—waar het wordt gebruikt, hoe snel het zich verspreidt, hoe diep het is geïntegreerd en welke resultaten het oplevert. Met enquêtes en AI-ondersteunde bewijs maken we heldere sectorschetsen met trends en opvallende afwijkingen. Deze inzichten helpen teams hun volgende stappen te prioriteren en risico’s te beperken.",
+        "cta": "Lees meer"
+      },
+      "researchCustomModels": {
+        "label": "Custom AI-modellen",
+        "field": "Onderzoek",
+        "name": "Training op maat",
+        "title": "Wij onderzoeken wanneer : “kies je voor een custom AI-model”?",
+        "description": "Niet elke taak past bij een generiek model. In dit onderzoek testen we wanneer maatwerktraining echt loont—meten we kwaliteit, latentie en kosten tegenover concrete businesswaarde. Wij vergelijken sterke baselines (prompts + RAG) met fijn-getunede en gedistilleerde modellen, en vinden de beslisregels voor het goedkoopste betrouwbare pad bedrijven in situaties kunnen nemen.",
+        "cta": "Lees meer"
+      },
+      "researchTimeSeries": {
+        "label": "Voorspellen met AI",
+        "field": "Onderzoek",
+        "name": "AI-tijdreeksvoorspelling",
+        "title": "Kunnen LLM’s voorspellen?",
+        "description": "Wij onderzoeken of transformer-LLM’s variabelen door de tijd kunnen voorspellen—en hoe semantische labels, modelgrootte en lichte fine-tuning de nauwkeurigheid en stabiliteit beïnvloeden. In “From Tokens to Temperatures” zien we duidelijke winst wanneer inputs betekenisvol gelabeld zijn en uitbijters sterk afnemen.",
+        "cta": "Lees meer"
+      },
+      "researchRanking": {
+        "label": "AI-aanbevelingen",
+        "field": "Onderzoek",
+        "name": "Zichtbaarheid in AI",
+        "title": "Zichtbaarheid in AI-aanbevelingen",
+        "description": "Wij onderzoeken hoe AI-assistants bepalen welke producten en diensten ze opnemen—en in welke volgorde. In benchmarks over meerdere providers analyseren we signalen zoals helderheid van evidentie, derde-partijcorroboratie en policy-afstemming. Vroege resultaten tonen relatieve lifts van ~72%, 89% en 75% in inclusie en zichtbaarheid.",
         "cta": "Lees meer"
       }
     },
