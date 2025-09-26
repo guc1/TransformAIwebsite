@@ -6,9 +6,9 @@ import type { LangIconProps } from "@/components/svg/lang-icons";
 import {
   CurlIcon,
   ElixirIcon,
-  GoIcon,
   JavaIcon,
   PythonIcon,
+  ResearchIcon,
   RustIcon,
   TSIcon,
 } from "@/components/svg/lang-icons";
@@ -20,7 +20,7 @@ import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { PrismTheme } from "prism-react-renderer";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -193,98 +193,7 @@ async function handler(request) {
 
 }`;
 
-const goVerifyKeyCodeBlock = `package main
 
-import(
-	unkeygo "github.com/unkeyed/unkey-go"
-	"context"
-	"github.com/unkeyed/unkey-go/models/components"
-	"log"
-)
-
-func main() {
-    s := unkeygo.New(
-        unkeygo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-    )
-
-    ctx := context.Background()
-    res, err := s.Keys.VerifyKey(ctx, components.V1KeysVerifyKeyRequest{
-        APIID: unkeygo.String("api_1234"),
-        Key: "sk_1234",
-        Ratelimits: []components.Ratelimits{
-            components.Ratelimits{
-                Name: "tokens",
-                Limit: unkeygo.Int64(500),
-                Duration: unkeygo.Int64(3600000),
-            },
-            components.Ratelimits{
-                Name: "tokens",
-                Limit: unkeygo.Int64(20000),
-                Duration: unkeygo.Int64(86400000),
-            },
-        },
-    })
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.V1KeysVerifyKeyResponse != nil {
-        // handle response
-    }
-}`;
-
-const goCreateKeyCodeBlock = `package main
-
-import(
-	unkeygo "github.com/unkeyed/unkey-go"
-	"context"
-	"github.com/unkeyed/unkey-go/models/operations"
-	"log"
-)
-
-func main() {
-    s := unkeygo.New(
-        unkeygo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-    )
-
-    ctx := context.Background()
-    res, err := s.Keys.CreateKey(ctx, operations.CreateKeyRequestBody{
-        APIID: "api_123",
-        Name: unkeygo.String("my key"),
-        ExternalID: unkeygo.String("team_123"),
-        Meta: map[string]any{
-            "billingTier": "PRO",
-            "trialEnds": "2023-06-16T17:16:37.161Z",
-        },
-        Roles: []string{
-            "admin",
-            "finance",
-        },
-        Permissions: []string{
-            "domains.create_record",
-            "say_hello",
-        },
-        Expires: unkeygo.Int64(1623869797161),
-        Remaining: unkeygo.Int64(1000),
-        Refill: &operations.Refill{
-            Interval: operations.IntervalDaily,
-            Amount: 100,
-        },
-        Ratelimit: &operations.Ratelimit{
-            Type: operations.TypeFast.ToPointer(),
-            Limit: 10,
-            Duration: unkeygo.Int64(60000),
-        },
-        Enabled: unkeygo.Bool(false),
-    })
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Object != nil {
-        // handle response
-    }
-}
-
-`;
 
 const curlVerifyCodeBlock = `curl --request POST \\
   --url https://api.unkey.dev/v1/keys.verifyKey \\
@@ -393,9 +302,37 @@ type Framework = {
     height: number;
   };
   contentKey?: string;
+  href?: Record<string, string>;
 };
 
 type ProjectCopyFormatter = (key: string) => string;
+
+const projectsNamespace = "CodeExamples.projects";
+
+const resolveProjectMessage = (
+  projectCopy: ProjectCopyFormatter,
+  contentKey: string | undefined,
+  suffix: string,
+) => {
+  if (!contentKey) {
+    return undefined;
+  }
+
+  const messageKey = `${contentKey}.${suffix}`;
+
+  try {
+    const value = projectCopy(messageKey);
+    const fallbackKey = `${projectsNamespace}.${messageKey}`;
+
+    if (value === messageKey || value === fallbackKey) {
+      return undefined;
+    }
+
+    return value;
+  } catch (error) {
+    return undefined;
+  }
+};
 
 const languagesList = {
   Typescript: [
@@ -444,18 +381,66 @@ const languagesList = {
       editorLanguage: "python",
     },
   ],
-  Golang: [
+  Research: [
     {
-      name: "Verify key",
-      Icon: GoIcon,
-      codeBlock: goVerifyKeyCodeBlock,
-      editorLanguage: "go",
+      name: "AI adoption",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/research/ai-adoptation/images/Maindisplay.png",
+        alt: "Research dashboard illustrating AI adoption insights",
+        width: 1200,
+        height: 800,
+      },
+      contentKey: "researchAiAdoption",
+      href: {
+        en: "/blog/how-we-map-ai-adoption-across-industries",
+        nl: "/blog/zo-meten-we-ai-adoptie-per-sector",
+      },
     },
     {
-      name: "Create key",
-      Icon: GoIcon,
-      codeBlock: goCreateKeyCodeBlock,
-      editorLanguage: "go",
+      name: "Custom models",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/research/LLM-Predictive-Capabilities/images/Custommodel.png",
+        alt: "Graph visualizing return on investment for custom AI models",
+        width: 1200,
+        height: 800,
+      },
+      contentKey: "researchCustomModels",
+      href: {
+        en: "/blog/when-off-the-shelf-ai-falls-short-training-custom-models",
+        nl: "/blog/wanneercustom",
+      },
+    },
+    {
+      name: "Time series",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/research/aipredictions/images/coverpredict.png",
+        alt: "Forecast chart generated by transformer models",
+        width: 1200,
+        height: 800,
+      },
+      contentKey: "researchTimeSeries",
+      href: {
+        en: "/blog/can-llms-forecast-time-exploring-ai-time-series-prediction",
+        nl: "/blog/kunnen-llms-de-tijd-voorspellen-ai-voor-tijdreeksprognoses",
+      },
+    },
+    {
+      name: "AI ranking",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/research/Chatbotranking/images/screenshotofchat.png",
+        alt: "Chat interface ranking products within AI assistants",
+        width: 1200,
+        height: 800,
+      },
+      contentKey: "researchRanking",
+      href: {
+        en: "/blog/winning-the-model-ranking-higher-in-ai-recommendations",
+        nl: "/blog/de-modelrace-winnen-hoger-scoren-in-ai-aanbevelingen",
+      },
     },
   ],
   Java: [
@@ -535,7 +520,14 @@ const languagesList = {
 type Props = {
   className?: string;
 };
-type Language = "Typescript" | "Python" | "Rust" | "Golang" | "Curl" | "Elixir" | "Java";
+type Language =
+  | "Typescript"
+  | "Python"
+  | "Rust"
+  | "Research"
+  | "Curl"
+  | "Elixir"
+  | "Java";
 type LanguagesList = {
   name: Language;
   Icon: React.FC<LangIconProps>;
@@ -544,7 +536,7 @@ const languages = [
   { name: "Typescript", Icon: TSIcon },
   { name: "Python", Icon: PythonIcon },
   { name: "Rust", Icon: RustIcon },
-  { name: "Golang", Icon: GoIcon },
+  { name: "Research", Icon: ResearchIcon },
   { name: "Curl", Icon: CurlIcon },
   { name: "Elixir", Icon: ElixirIcon },
   { name: "Java", Icon: JavaIcon },
@@ -652,6 +644,7 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
             frameworks={frameworksForLanguage}
             currentFramework={framework}
             setFramework={setFramework}
+            projectCopy={projectCopy}
           />
           <div
             className={cn(
@@ -667,6 +660,7 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
                 contentKey={currentFrameworkData.contentKey}
                 language={language}
                 projectCopy={projectCopy}
+                hrefs={currentFrameworkData.href}
               />
             ) : (
               <>
@@ -708,18 +702,30 @@ function ProjectShowcase({
   contentKey,
   language,
   projectCopy,
+  hrefs,
 }: {
   image: NonNullable<Framework["image"]>;
   contentKey?: string;
   language: Language;
   projectCopy: ProjectCopyFormatter;
+  hrefs?: Framework["href"];
 }) {
-  const title = contentKey ? projectCopy(`${contentKey}.title`) : undefined;
-  const description = contentKey
-    ? projectCopy(`${contentKey}.description`)
+  const locale = useLocale();
+
+  const title = resolveProjectMessage(projectCopy, contentKey, "title");
+  const description = resolveProjectMessage(
+    projectCopy,
+    contentKey,
+    "description",
+  );
+  const result = resolveProjectMessage(projectCopy, contentKey, "result");
+  const cta = resolveProjectMessage(projectCopy, contentKey, "cta");
+  const field = resolveProjectMessage(projectCopy, contentKey, "field");
+  const name = resolveProjectMessage(projectCopy, contentKey, "name");
+
+  const href = hrefs
+    ? hrefs[locale] ?? hrefs.en ?? Object.values(hrefs)[0]
     : undefined;
-  const result = contentKey ? projectCopy(`${contentKey}.result`) : undefined;
-  const cta = contentKey ? projectCopy(`${contentKey}.cta`) : undefined;
 
   return (
     <div className="flex flex-col w-full gap-8 lg:flex-row lg:items-center">
@@ -732,12 +738,26 @@ function ProjectShowcase({
             height={image.height}
             className="h-full w-full object-contain"
             sizes="(min-width: 1280px) 720px, (min-width: 640px) 70vw, 90vw"
-            priority={language === "Rust"}
+            priority={language === "Rust" || language === "Research"}
           />
         </div>
       </div>
       {(title || description || result || cta) && (
         <div className="flex flex-col justify-center gap-4 text-white/80 lg:max-w-sm">
+          {field || name ? (
+            <div className="flex flex-col gap-1">
+              {field ? (
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
+                  {field}
+                </span>
+              ) : null}
+              {name ? (
+                <span className="text-sm font-medium text-white/70">
+                  {name}
+                </span>
+              ) : null}
+            </div>
+          ) : null}
           {title ? (
             <h3 className="text-2xl font-semibold leading-tight text-white sm:text-3xl">
               {title}
@@ -754,12 +774,18 @@ function ProjectShowcase({
             </p>
           ) : null}
           {cta ? (
-            <button
-              type="button"
-              className="inline-flex items-center justify-center self-start px-5 py-2 text-sm font-semibold text-black transition-colors duration-200 bg-white rounded-lg shadow-sm hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-            >
-              {cta}
-            </button>
+            href ? (
+              <Link
+                href={href}
+                className="inline-flex items-center justify-center self-start px-5 py-2 text-sm font-semibold text-black transition-colors duration-200 bg-white rounded-lg shadow-sm hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              >
+                {cta}
+              </Link>
+            ) : (
+              <span className="inline-flex items-center justify-center self-start px-5 py-2 text-sm font-semibold text-black transition-colors duration-200 bg-white rounded-lg shadow-sm">
+                {cta}
+              </span>
+            )
           ) : null}
         </div>
       )}
@@ -771,14 +797,27 @@ function FrameworkSwitcher({
   frameworks,
   currentFramework,
   setFramework,
+  projectCopy,
 }: {
   frameworks: Framework[];
   currentFramework: FrameworkName;
   setFramework: React.Dispatch<React.SetStateAction<FrameworkName>>;
+  projectCopy: ProjectCopyFormatter;
 }) {
+  const getLabel = (framework: Framework) => {
+    return (
+      resolveProjectMessage(projectCopy, framework.contentKey, "label") ??
+      framework.name
+    );
+  };
+
+  const getField = (framework: Framework) => {
+    return resolveProjectMessage(projectCopy, framework.contentKey, "field");
+  };
+
   return (
-    <div className="flex flex-col justify-between sm:w-[216px] text-white text-sm pt-6 px-4 font-mono md:border-r md:border-white/10">
-      <div className="flex items-center space-x-2 sm:flex-col sm:space-x-0 sm:space-y-2">
+    <div className="flex flex-col border-b border-white/5 px-4 py-5 text-white sm:w-[232px] sm:border-b-0 sm:border-r sm:border-white/10">
+      <div className="flex gap-3 overflow-x-auto pb-1 sm:flex-col sm:gap-2 sm:overflow-visible">
         {frameworks.map((framework) => (
           <button
             key={framework.name}
@@ -787,14 +826,27 @@ function FrameworkSwitcher({
               setFramework(framework.name as FrameworkName);
             }}
             className={cn(
-              "flex items-center cursor-pointer hover:bg-white/10 py-1 px-2 rounded-lg w-[184px] ",
+              "group flex min-w-[200px] flex-1 cursor-pointer flex-col items-start gap-1 rounded-xl border border-transparent bg-white/0 px-4 py-3 text-left text-sm transition duration-200 sm:min-w-0",
               {
-                "bg-white/10 text-white": currentFramework === framework.name,
-                "text-white/40": currentFramework !== framework.name,
+                "bg-white/10 text-white shadow-[0_18px_40px_rgba(0,0,0,0.45)] border-white/20":
+                  currentFramework === framework.name,
+                "text-white/40 hover:border-white/15 hover:bg-white/5":
+                  currentFramework !== framework.name,
               },
             )}
           >
-            <div>{framework.name}</div>
+            {(() => {
+              const field = getField(framework);
+
+              return field ? (
+                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/30">
+                  {field}
+                </span>
+              ) : null;
+            })()}
+            <span className="text-sm font-medium leading-snug text-inherit">
+              {getLabel(framework)}
+            </span>
           </button>
         ))}
       </div>
