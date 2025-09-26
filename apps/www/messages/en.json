@@ -372,13 +372,37 @@
       }
     },
     "projects": {
-      "platform": {
+      "educationPlatform": {
         "label": "Education platform",
-        "field": "Education",
-        "name": "TransformAI academy",
-        "title": "Education platform for using AI.",
-        "description": "We created an education platform that makes it fun and interactive to learn how to use AI within a company. We design custom modules based on each partner’s needs.",
+        "field": "Research",
+        "name": "Education platform",
+        "title": "Education platform for using AI",
+        "description": "We created an education platform that makes it fun and interactive to learn how to use AI within a company, with custom modules based on each partner’s needs.",
         "result": "This platform has delivered massive AI productivity gains across the company.",
+        "cta": "Read more"
+      },
+      "educationCustomModules": {
+        "label": "Custom modules",
+        "field": "Research",
+        "name": "Custom modules",
+        "title": "Custom modules in education app",
+        "description": "We created custom modules that fit each group, with a short briefing, a clear task, and hands-on work. Peers rank results; a teacher and built-in AI review them, and the AI gives personal improvement tips.",
+        "cta": "Read more"
+      },
+      "educationScaling": {
+        "label": "Educated 1,000+ people",
+        "field": "Research",
+        "name": "Scaling AI education",
+        "title": "Scaling AI education: from workshops to an app",
+        "description": "Since early 2025 we’ve helped 1,000+ people strengthen AI skills and build custom solutions. This post explains why workshops didn’t scale for us and how our education app keeps quality while reaching more people.",
+        "cta": "Read more"
+      },
+      "educationNewsletter": {
+        "label": "Weekly updates",
+        "field": "Research",
+        "name": "Weekly AI updates",
+        "title": "Weekly AI updates newsletter",
+        "description": "Stay current with a weekly roundup of what’s new in AI—beginner and advanced explanations, use cases, reviews, and on-request follow-up information so every team can act on what matters.",
         "cta": "Read more"
       },
       "researchAiAdoption": {

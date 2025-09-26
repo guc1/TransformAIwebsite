@@ -5,11 +5,11 @@ import { SectionTitle } from "@/components/section";
 import type { LangIconProps } from "@/components/svg/lang-icons";
 import {
   CurlIcon,
+  EducationIcon,
   ElixirIcon,
   JavaIcon,
   PythonIcon,
   ResearchIcon,
-  RustIcon,
   TSIcon,
 } from "@/components/svg/lang-icons";
 import { CodeEditor } from "@/components/ui/code-editor";
@@ -290,17 +290,27 @@ public class APIController {
 
 `;
 
+type FrameworkLocalizedImage = {
+  src: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+};
+
+type FrameworkImage = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  locale?: Record<string, FrameworkLocalizedImage>;
+};
+
 type Framework = {
   name: string;
   Icon: React.FC<LangIconProps>;
   codeBlock?: string;
   editorLanguage?: string;
-  image?: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
+  image?: FrameworkImage;
   contentKey?: string;
   href?: Record<string, string>;
 };
@@ -465,17 +475,84 @@ const languagesList = {
       editorLanguage: "tsx",
     },
   ],
-  Rust: [
+  Education: [
     {
-      name: "Platform",
-      Icon: RustIcon,
+      name: "Education platform",
+      Icon: EducationIcon,
       image: {
-        src: "/projects/platform.png",
-        alt: "Platform project preview",
-        width: 1200,
-        height: 800,
+        src: "/images/blog-images/mdxfilesforprojects/education/educationapp/images/covereduapp.png",
+        alt: "Dashboard of the TransformAI education platform",
+        width: 1536,
+        height: 1024,
       },
-      contentKey: "platform",
+      contentKey: "educationPlatform",
+      href: {
+        en: "/blog/why-we-built-our-education-app-and-what-it-changed",
+        nl: "/blog/waarom-we-onze-education-app-bouwden-en-wat-het-veranderde",
+      },
+    },
+    {
+      name: "Custom modules",
+      Icon: EducationIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/education/modules/images/custommodules.png",
+        alt: "Custom modules overview in the TransformAI education app",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/education/modules/images/custommodulesnl.png",
+            alt: "Maatwerkmodules in de TransformAI-educatieapp",
+          },
+        },
+      },
+      contentKey: "educationCustomModules",
+      href: {
+        en: "/blog/custom-ai-learning-modules-with-built-in-co-teachers",
+        nl: "/blog/maatwerk-ai-modules-met-ingebouwde-co-teachers",
+      },
+    },
+    {
+      name: "Educated 1,000+ people",
+      Icon: EducationIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/education/people1000/images/thousendpeople.png",
+        alt: "Overview of AI education impact across more than 1,000 learners",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/education/people1000/images/duizendmensen.png",
+            alt: "Resultaten van AI-onderwijs voor meer dan 1.000 mensen",
+          },
+        },
+      },
+      contentKey: "educationScaling",
+      href: {
+        en: "/blog/scaling-ai-education-from-workshops-to-an-app",
+        nl: "/blog/ai-onderwijs-opschalen-van-workshops-naar-een-app",
+      },
+    },
+    {
+      name: "Weekly updates",
+      Icon: EducationIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/education/newsletter/images/newslettercover.png",
+        alt: "Weekly AI updates newsletter cover",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/education/newsletter/images/newslettercovernl.png",
+            alt: "Omslag van de wekelijkse AI-update nieuwsbrief",
+          },
+        },
+      },
+      contentKey: "educationNewsletter",
+      href: {
+        en: "/blog/weekly-ai-updates-beginner-to-advanced-with-follow-ups",
+        nl: "/blog/wekelijkse-ai-updates-van-beginner-tot-gevorderd-met-follow-ups",
+      },
     },
   ],
   Curl: [
@@ -523,7 +600,7 @@ type Props = {
 type Language =
   | "Typescript"
   | "Python"
-  | "Rust"
+  | "Education"
   | "Research"
   | "Curl"
   | "Elixir"
@@ -535,7 +612,7 @@ type LanguagesList = {
 const languages = [
   { name: "Typescript", Icon: TSIcon },
   { name: "Python", Icon: PythonIcon },
-  { name: "Rust", Icon: RustIcon },
+  { name: "Education", Icon: EducationIcon },
   { name: "Research", Icon: ResearchIcon },
   { name: "Curl", Icon: CurlIcon },
   { name: "Elixir", Icon: ElixirIcon },
@@ -712,6 +789,12 @@ function ProjectShowcase({
 }) {
   const locale = useLocale();
 
+  const localizedImage = image.locale?.[locale];
+  const imageSrc = localizedImage?.src ?? image.src;
+  const imageAlt = localizedImage?.alt ?? image.alt;
+  const imageWidth = localizedImage?.width ?? image.width;
+  const imageHeight = localizedImage?.height ?? image.height;
+
   const title = resolveProjectMessage(projectCopy, contentKey, "title");
   const description = resolveProjectMessage(
     projectCopy,
@@ -732,13 +815,13 @@ function ProjectShowcase({
       <div className="flex justify-start w-full lg:flex-1">
         <div className="relative w-full max-w-[720px] overflow-hidden rounded-[32px] border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
           <Image
-            src={image.src}
-            alt={image.alt}
-            width={image.width}
-            height={image.height}
+            src={imageSrc}
+            alt={imageAlt}
+            width={imageWidth}
+            height={imageHeight}
             className="h-full w-full object-contain"
             sizes="(min-width: 1280px) 720px, (min-width: 640px) 70vw, 90vw"
-            priority={language === "Rust" || language === "Research"}
+            priority={language === "Education" || language === "Research"}
           />
         </div>
       </div>

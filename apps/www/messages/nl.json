@@ -372,13 +372,37 @@
       }
     },
     "projects": {
-      "platform": {
+      "educationPlatform": {
         "label": "Educatieplatform",
-        "field": "Educatie",
-        "name": "TransformAI academy",
-        "title": "Educatieplatform voor het gebruik van AI.",
-        "description": "We hebben een educatieplatform gebouwd dat het leuk en interactief maakt om binnen een bedrijf te leren werken met AI. We ontwikkelen modules op maat op basis van de behoeften van elke partner.",
-        "result": "Dit platform heeft geleid tot enorme productiviteitswinsten met AI binnen het bedrijf.",
+        "field": "Onderzoek",
+        "name": "Educatieplatform",
+        "title": "Educatieplatform voor AI-gebruik",
+        "description": "We bouwden een educatieplatform waarmee teams op een leuke en interactieve manier leren werken met AI, met maatwerkmodules per partner.",
+        "result": "Dit platform zorgde bedrijfsbreed voor grote productiviteitswinst met AI.",
+        "cta": "Lees meer"
+      },
+      "educationCustomModules": {
+        "label": "Maatwerkmodules",
+        "field": "Onderzoek",
+        "name": "Maatwerkmodules",
+        "title": "Maatwerkmodules in onze education app",
+        "description": "We hebben maatwerkmodules gemaakt die per groep passen: korte briefing, duidelijke opdracht en direct doen. Peers rangschikken de resultaten; een docent en ingebouwde AI beoordelen ze, en je krijgt een persoonlijk verbeterrapport.",
+        "cta": "Lees meer"
+      },
+      "educationScaling": {
+        "label": "1.000+ mensen getraind",
+        "field": "Onderzoek",
+        "name": "AI-onderwijs opschalen",
+        "title": "AI-onderwijs opschalen: van workshops naar app",
+        "description": "Sinds begin 2025 hielpen we 1.000+ mensen hun AI-skills te verbeteren en maatwerkoplossingen te bouwen. We laten zien waarom workshops niet schaalden en hoe onze education app kwaliteit bewaart terwijl we meer mensen bereiken.",
+        "cta": "Lees meer"
+      },
+      "educationNewsletter": {
+        "label": "Wekelijkse updates",
+        "field": "Onderzoek",
+        "name": "Wekelijkse AI-updates",
+        "title": "Wekelijkse AI-updates samenvatting",
+        "description": "Blijf op de hoogte met een wekelijkse samenvatting over wat nieuw is in AI: uitleg voor beginners en gevorderden, use cases, reviews en follow-upinformatie op aanvraag—zodat elke laag in het bedrijf gericht kan handelen.",
         "cta": "Lees meer"
       },
       "researchAiAdoption": {

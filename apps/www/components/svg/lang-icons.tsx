@@ -48,6 +48,46 @@ export const RustIcon: React.FC<LangIconProps> = ({ active }) => (
   </svg>
 );
 
+export const EducationIcon: React.FC<LangIconProps> = ({ active }) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity={active ? 1 : 0.3}>
+      <path
+        d="M11.25 5H6.5C5.39543 5 4.5 5.89543 4.5 7V16C4.5 17.1046 5.39543 18 6.5 18H11.25V5Z"
+        fill={active ? "url(#paint0_linear_education)" : "white"}
+      />
+      <path
+        d="M12.75 5H17.5C18.6046 5 19.5 5.89543 19.5 7V16C19.5 17.1046 18.6046 18 17.5 18H12.75V5Z"
+        fill={active ? "url(#paint0_linear_education)" : "white"}
+      />
+      <path
+        d="M11.25 6C11.25 5.58579 11.5858 5.25 12 5.25C12.4142 5.25 12.75 5.58579 12.75 6V18C12.75 18.4142 12.4142 18.75 12 18.75C11.5858 18.75 11.25 18.4142 11.25 18V6Z"
+        fill={active ? "url(#paint0_linear_education)" : "white"}
+      />
+      <path
+        d="M7.25 8.75C7.25 8.33579 7.58579 8 8 8H10C10.4142 8 10.75 8.33579 10.75 8.75C10.75 9.16421 10.4142 9.5 10 9.5H8C7.58579 9.5 7.25 9.16421 7.25 8.75Z"
+        fill={active ? "url(#paint0_linear_education)" : "white"}
+      />
+      <path
+        d="M13.25 8.75C13.25 8.33579 13.5858 8 14 8H16C16.4142 8 16.75 8.33579 16.75 8.75C16.75 9.16421 16.4142 9.5 16 9.5H14C13.5858 9.5 13.25 9.16421 13.25 8.75Z"
+        fill={active ? "url(#paint0_linear_education)" : "white"}
+      />
+    </g>
+    <defs>
+      <linearGradient
+        id="paint0_linear_education"
+        x1="5"
+        y1="4"
+        x2="18.5"
+        y2="20"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="white" stopOpacity="0.4" />
+        <stop offset="1" stopColor="white" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
 export const CurlIcon: React.FC<LangIconProps> = ({ active }) => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g opacity={active ? 1 : 0.3}>
