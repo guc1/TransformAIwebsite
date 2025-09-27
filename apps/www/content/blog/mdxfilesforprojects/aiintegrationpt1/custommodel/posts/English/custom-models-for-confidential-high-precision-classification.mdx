@@ -1,0 +1,52 @@
+---
+date: 2025-06-04
+title: "Custom Models for Confidential, High-Precision Classification"
+description: "When strict formats, cost targets, and confidentiality make prompting insufficient, a custom on-prem model can help. In a test case, a tailored classifier matched near-human accuracy while cutting effort from 24 hours to 1 hour."
+author: jasper
+tags: ["ai", "custom-models", "on-prem", "classification", "case-study"]
+image: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/custommodel/images/covermodel.png"
+language: English
+---
+# Custom Models for Confidential, High-Precision Classification
+
+![Cover: conceptual on-prem custom model for sensitive classification](/images/blog-images/mdxfilesforprojects/aiintegrationpt1/custommodel/images/covermodel.png)
+
+Large language models like ChatGPT excel at language-heavy tasks—but some use cases demand **strict output formats**, **tight cost controls**, and **confidential handling**. In those scenarios, prompting alone isn’t enough (or becomes too expensive). With a partner, we identified a high-impact opportunity to **classify incoming requests** with AI, cutting labor while maintaining quality.
+
+## Why a Custom Model (Instead of Prompting)?
+- **Format rigidity:** inexpensive LLMs **struggled to emit the exact format** required.  
+- **Confidential data:** sensitive content made third-party processing undesirable.  
+- **Economics:** calculations suggested **>95% cost savings** with automation, and a **test case study** indicated quality would improve.
+
+## The Solution: Train and Deploy On-Prem
+We trained a **custom model** on the partner’s data and formatting rules and **deployed it on local hardware**. This kept data in-house and stabilized unit economics.
+
+- **Task focus:** detect **mistakes in user requests** that can signal **potential fraud** (for routing/escalation).  
+- **Output compliance:** schema- and format-aware generation.  
+- **Privacy by design:** **on-prem** inference; no external calls.
+
+> Claim recap from the project sketch: **>95% calculated cost savings**; **quality increase** based on a **test case study**.
+
+## Case Study: Human vs AI (Correctness & Effort)
+We evaluated performance and effort on the same request set:
+
+| System | Correctness | Human labor time |
+| --- | --- | --- |
+| **Human reviewers** | **80%** | **24 hours** |
+| **Custom AI (on-prem)** | **79%** | **1 hour** |
+
+**Interpretation:** The **AI achieved near-human correctness (79% vs 80%)** with dramatically lower effort (1h vs 24h), while satisfying strict formatting and confidentiality constraints.
+
+## Figure (placeholder – paired comparison heatmap)
+![Heatmap of paired outcomes across batch sizes: color = both correct, only AI correct, only human correct; black = neither](/images/blog-images/mdxfilesforprojects/aiintegrationpt1/custommodel/images/imagechartcustommodel.png)
+
+> The heatmap compares **one Human vs one AI per case** across multiple **batch sizes**. Three colors indicate: **both correct**, **only AI correct**, **only Human correct** (background/black = neither). This mirrors our test setup and makes parity and edge cases easy to spot.
+
+## Implementation Notes
+- **Data prep & eval:** fully in-environment; emphasis on format adherence and mistake detection relevant to **potential fraud**.  
+- **Operations:** local serving for predictable latency and cost; iterations focused on schema fidelity and controlling false positives.
+
+## TL;DR
+When formats are strict, data is confidential, and costs matter, a **custom on-prem model** can outperform prompt-only setups. In our test, AI reached **79% vs 80% human** with **1h vs 24h** of effort and **>95%** calculated cost savings.
+
+**If you are interested in learning more, contact us.**
