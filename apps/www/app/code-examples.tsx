@@ -10,7 +10,6 @@ import {
   JavaIcon,
   PythonIcon,
   ResearchIcon,
-  TSIcon,
 } from "@/components/svg/lang-icons";
 import { CodeEditor } from "@/components/ui/code-editor";
 import { CopyCodeSnippetButton } from "@/components/ui/copy-code-button";
@@ -73,42 +72,6 @@ const editorTheme = {
   ],
 } satisfies PrismTheme;
 
-const typescriptCodeBlock = `import { verifyKey } from '@unkey/api';
-
-const { result, error } = await verifyKey({
-  apiId: "api_123",
-  key: "xyz_123"
-})
-
-if ( error ) {
-  // handle network error
-}
-
-if ( !result.valid ) {
-  // reject unauthorized request
-}
-
-// handle request`;
-
-const nextJsCodeBlock = `import { withUnkey } from '@unkey/nextjs';
-export const POST = withUnkey(async (req) => {
-  // Process the request here
-  // You have access to the typed verification response using \`req.unkey\`
-  console.log(req.unkey);
-  return new Response('Your API key is valid!');
-});`;
-
-const nuxtCodeBlock = `export default defineEventHandler(async (event) => {
-  if (!event.context.unkey.valid) {
-    throw createError({ statusCode: 403, message: "Invalid API key" })
-  }
-
-  // return authorised information
-  return {
-    // ...
-  };
-});`;
-
 const pythonCodeBlock = `import asyncio
 import os
 import unkey
@@ -157,43 +120,6 @@ async def protected_route(
 if __name__ == "__main__":
     uvicorn.run(app)
 `;
-
-const honoCodeBlock = `import { Hono } from "hono"
-import { UnkeyContext, unkey } from "@unkey/hono";
-
-const app = new Hono<{ Variables: { unkey: UnkeyContext } }>();
-app.use("*", unkey());
-
-app.get("/somewhere", (c) => {
-  // access the unkey response here to get metadata of the key etc
-  const unkey = c.get("unkey")
- return c.text("yo")
-})`;
-
-const tsRatelimitCodeBlock = `import { Ratelimit } from "@unkey/ratelimit"
-
-const unkey = new Ratelimit({
-  rootKey: process.env.UNKEY_ROOT_KEY,
-  namespace: "my-app",
-  limit: 10,
-  duration: "30s",
-  async: true
-})
-
-// elsewhere
-async function handler(request) {
-  const identifier = request.getUserId() // or ip or anything else you want
-
-  const ratelimit = await unkey.limit(identifier)
-  if (!ratelimit.success){
-    return new Response("try again later", { status: 429 })
-  }
-
-  // handle the request here
-
-}`;
-
-
 
 const curlVerifyCodeBlock = `curl --request POST \\
   --url https://api.unkey.dev/v1/keys.verifyKey \\
@@ -347,36 +273,90 @@ const resolveProjectMessage = (
 };
 
 const languagesList = {
-  Typescript: [
+  "AI integration pt1": [
     {
-      name: "Typescript",
-      Icon: TSIcon,
-      codeBlock: typescriptCodeBlock,
-      editorLanguage: "tsx",
+      name: "HR researcher",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/hrfinderai/images/hrcoverim.png",
+        alt: "Case study cover showing an AI-assisted HR research dashboard",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/hrfinderai/images/hrcoverimnl.png",
+            alt: "Casestudycover met AI-ondersteunde HR-research",
+          },
+        },
+      },
+      contentKey: "aiIntegrationHrResearcher",
+      href: {
+        en: "/blog/ai-solutions-for-hr-finding-the-right-people-faster",
+        nl: "/blog/ai-oplossingen-voor-hr-sneller-de-juiste-mensen-vinden",
+      },
     },
     {
-      name: "Next.js",
-      Icon: TSIcon,
-      codeBlock: nextJsCodeBlock,
-      editorLanguage: "tsx",
+      name: "Email responder",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/emailai/images/coveremail.png",
+        alt: "AI email responder platform interface",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/emailai/images/coveremailnl.png",
+            alt: "AI e-mailworkflowplatform interface",
+          },
+        },
+      },
+      contentKey: "aiIntegrationEmailResponder",
+      href: {
+        en: "/blog/ai-email-workflows-from-best-tool-to-the-right-solution",
+        nl: "/blog/ai-emailworkflows-van-beste-tool-naar-de-juiste-oplossing",
+      },
     },
     {
-      name: "Nuxt",
-      codeBlock: nuxtCodeBlock,
-      Icon: TSIcon,
-      editorLanguage: "tsx",
+      name: "Custom local model",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/custommodel/images/covermodel.png",
+        alt: "Visualization of a custom on-premise AI model",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/custommodel/images/covermodelnl.png",
+            alt: "Visualisatie van een lokaal maatwerk AI-model",
+          },
+        },
+      },
+      contentKey: "aiIntegrationCustomLocalModel",
+      href: {
+        en: "/blog/custom-models-for-confidential-high-precision-classification",
+        nl: "/blog/custom-modellen-voor-vertrouwelijke-precisieclassificatie-on-prem",
+      },
     },
     {
-      name: "Hono",
-      Icon: TSIcon,
-      codeBlock: honoCodeBlock,
-      editorLanguage: "tsx",
-    },
-    {
-      name: "Ratelimiting",
-      Icon: TSIcon,
-      codeBlock: tsRatelimitCodeBlock,
-      editorLanguage: "tsx",
+      name: "AI image workflow",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/imagegenworkflow/images/imagegenwork.png",
+        alt: "Workflow dashboard for large-scale AI image generation",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/imagegenworkflow/images/imagegenworknl.png",
+            alt: "Workflowdashboard voor grootschalige AI-visuals",
+          },
+        },
+      },
+      contentKey: "aiIntegrationImageWorkflow",
+      href: {
+        en: "/blog/production-grade-visuals-at-scale-from-20-hours-to-45-minutes",
+        nl: "/blog/productieklare-visuals-op-schaal-van-20-uur-naar-45-minuten",
+      },
     },
   ],
   Python: [
@@ -600,7 +580,7 @@ type Props = {
   className?: string;
 };
 type Language =
-  | "Typescript"
+  | "AI integration pt1"
   | "Python"
   | "Education"
   | "Research"
@@ -612,7 +592,7 @@ type LanguagesList = {
   Icon: React.FC<LangIconProps>;
 };
 const languages = [
-  { name: "Typescript", Icon: TSIcon },
+  { name: "AI integration pt1", Icon: ResearchIcon },
   { name: "Python", Icon: PythonIcon },
   { name: "Education", Icon: EducationIcon },
   { name: "Research", Icon: ResearchIcon },
@@ -645,9 +625,9 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
   const t = useTranslations("CodeExamples");
   const cta = useTranslations("CTA");
   const projectCopy = useTranslations("CodeExamples.projects");
-  const [language, setLanguage] = useState<Language>("Typescript");
-  const [framework, setFramework] = useState<FrameworkName>("Typescript");
-  const [languageHover, setLanguageHover] = useState("Typescript");
+  const [language, setLanguage] = useState<Language>("AI integration pt1");
+  const [framework, setFramework] = useState<FrameworkName>("HR researcher");
+  const [languageHover, setLanguageHover] = useState("AI integration pt1");
   const frameworksForLanguage: Framework[] = languagesList[language];
   const currentFrameworkData: Framework | undefined =
     frameworksForLanguage.find((f) => f.name === framework) ??
@@ -823,7 +803,11 @@ function ProjectShowcase({
             height={imageHeight}
             className="h-full w-full object-contain"
             sizes="(min-width: 1280px) 720px, (min-width: 640px) 70vw, 90vw"
-            priority={language === "Education" || language === "Research"}
+            priority={
+              language === "Education" ||
+              language === "Research" ||
+              language === "AI integration pt1"
+            }
           />
         </div>
       </div>
