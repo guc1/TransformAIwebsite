@@ -1,0 +1,52 @@
+---
+date: 2025-06-04
+title: "Custom modellen voor vertrouwelijke precisieclassificatie (on-prem)"
+description: "Wanneer strikte formaten, kosten en vertrouwelijkheid prompting beperken, biedt een on-prem custom model uitkomst. In een test haalden we bijna menselijke nauwkeurigheid met fors minder arbeid: 80% (mens, 24 uur) vs 79% (AI, 1 uur)."
+author: jasper
+tags: ["ai", "custom-models", "on-prem", "classification", "case-study"]
+image: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/custommodel/images/covermodelnl.png"
+language: Dutch
+---
+# Custom modellen voor vertrouwelijke precisieclassificatie (on-prem)
+
+![Cover: on-prem custom model voor gevoelige classificatie](/images/blog-images/mdxfilesforprojects/aiintegrationpt1/custommodel/images/covermodelnl.png)
+
+Grote taalmodellen zijn sterk in taal, maar soms is **prompting** niet voldoende—of te duur. Denk aan use-cases met **strikte outputformaten**, **strakke kostendoelen** en **vertrouwelijke data**. Samen met een partner zagen we een kans om **binnenkomende verzoeken te classificeren** met AI, zodat mensuren omlaag konden en de kwaliteit omhoog.
+
+## Waarom geen ‘alleen prompting’?
+- **Formaat strikt:** goedkopere LLM’s **haalden het vereiste formaat niet consistent**.  
+- **Vertrouwelijkheid:** de inhoud was gevoelig; third-party verwerking was ongewenst.  
+- **Economisch potentieel:** berekeningen wezen op **>95% kostenreductie** en een **test case study** liet zien dat de kwaliteit zou stijgen.
+
+## De oplossing: trainen en on-prem deployen
+We trainden een **custom model** op het domein en de formats van de partner en **draaiden inferentie op hun eigen hardware**. Daarmee bleven data in-house en bleven de kosten voorspelbaar.
+
+- **Taakfocus:** detecteer **fouten in verzoeken** die kunnen duiden op **potentiële fraude** (voor routering/escalatie).  
+- **Formaatconsistentie:** model leerde schema’s en outputregels.  
+- **Privacy by design:** **on-prem**; geen externe calls.
+
+> Claims uit het project: **>95% berekende kostenbesparing**; **kwaliteitsverbetering** op basis van een **test case study**.
+
+## Case study: mens vs AI (nauwkeurigheid & effort)
+We vergeleken op dezelfde dataset de nauwkeurigheid en benodigde arbeid:
+
+| Systeem | Nauwkeurigheid | Mensuren |
+| --- | --- | --- |
+| **Menselijke reviewers** | **80%** | **24 uur** |
+| **Custom AI (on-prem)** | **79%** | **1 uur** |
+
+**Interpretatie:** In deze test haalde de **AI vrijwel menselijke nauwkeurigheid (79% vs 80%)** met beduidend minder arbeid (1u vs 24u).
+
+## Figuur (placeholder)
+![Heatmap: per batch ‘beiden correct’, ‘alleen AI correct’, ‘alleen mens correct’ — zwart voor geen van beide](/images/blog-images/mdxfilesforprojects/aiintegrationpt1/custommodel/images/imagechartcustommodel.png)
+
+> De heatmap toont per **batch** en **case** drie klassen met een duidelijke kleurcodering: **beiden correct**, **alleen AI correct**, **alleen mens correct** (achtergrond/zwart = geen van beide). Dit sluit aan bij onze testopzet waarin één mens en één AI per case worden vergeleken.
+
+## Implementatie-notities
+- **Datavoorbereiding & evaluatie:** volledig in de omgeving van de partner; nadruk op format-adherentie en foutdetectie relevant voor **potentiële fraude**.  
+- **Operatie:** lokale serving voor stabiele latency en kosten; iteraties gericht op schemafideliteit en beheersing van false positives.
+
+## TL;DR
+Wanneer formats strikt zijn, data vertrouwelijk en kosten leidend, werkt een **custom on-prem model** beter dan alleen prompting. In onze test haalde AI **79%** tegen **80%** mens, met **1 uur** i.p.v. **24 uur** arbeid—en **>95%** berekende kostenbesparing.
+
+**Ben je geïnteresseerd om meer te weten? Neem contact met ons op.**

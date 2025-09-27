@@ -119,7 +119,7 @@ export default async function LocaleLayout({
             </div>
           ) : null}
         </div>
-        <Footer />
+        <Footer initialYear={new Date().getUTCFullYear()} />
       </ConsentManagerProvider>
     </NextIntlClientProvider>
   );

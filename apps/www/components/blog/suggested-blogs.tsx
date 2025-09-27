@@ -1,6 +1,6 @@
+import { formatDateUtc } from "@/lib/date";
 import { cn } from "@/lib/utils";
 import { type Post, allPosts } from "content-collections";
-import { format } from "date-fns";
 import Link from "next/link";
 import { Frame } from "../frame";
 import { ImageWithBlur } from "../image-with-blur";
@@ -32,7 +32,11 @@ export function SuggestedBlogs({ className, currentPostSlug }: BlogListProps): J
                 </Frame>
                 <p className="text-white">{post?.title}</p>
                 <p className="text-sm text-white/50">
-                  {format(new Date(post?.date!), "MMM dd, yyyy")}
+                  {formatDateUtc(post?.date, {
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                  })}
                 </p>
               </div>
             </div>

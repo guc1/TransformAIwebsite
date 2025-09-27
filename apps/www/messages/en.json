@@ -372,13 +372,73 @@
       }
     },
     "projects": {
-      "platform": {
+      "educationPlatform": {
         "label": "Education platform",
-        "field": "Education",
-        "name": "TransformAI academy",
-        "title": "Education platform for using AI.",
-        "description": "We created an education platform that makes it fun and interactive to learn how to use AI within a company. We design custom modules based on each partner’s needs.",
+        "field": "Research",
+        "name": "Education platform",
+        "title": "Education platform for using AI",
+        "description": "We created an education platform that makes it fun and interactive to learn how to use AI within a company, with custom modules based on each partner’s needs.",
         "result": "This platform has delivered massive AI productivity gains across the company.",
+        "cta": "Read more"
+      },
+      "educationCustomModules": {
+        "label": "Custom modules",
+        "field": "Research",
+        "name": "Custom modules",
+        "title": "Custom modules in education app",
+        "description": "We created custom modules that fit each group, with a short briefing, a clear task, and hands-on work. Peers rank results; a teacher and built-in AI review them, and the AI gives personal improvement tips.",
+        "cta": "Read more"
+      },
+      "educationScaling": {
+        "label": "Educated 1,000+ people",
+        "field": "Research",
+        "name": "Scaling AI education",
+        "title": "Scaling AI education: from workshops to an app",
+        "description": "Since early 2025 we’ve helped 1,000+ people strengthen AI skills and build custom solutions. This post explains why workshops didn’t scale for us and how our education app keeps quality while reaching more people.",
+        "cta": "Read more"
+      },
+      "educationNewsletter": {
+        "label": "Weekly updates",
+        "field": "Research",
+        "name": "Weekly AI updates",
+        "title": "Weekly AI updates newsletter",
+        "description": "Stay current with a weekly roundup of what’s new in AI—beginner and advanced explanations, use cases, reviews, and on-request follow-up information so every team can act on what matters.",
+        "cta": "Read more"
+      },
+      "aiIntegrationHrResearcher": {
+        "label": "HR researcher",
+        "field": "Research",
+        "name": "HR researcher",
+        "title": "12× Faster Candidate Sourcing with AI",
+        "description": "How an AI-powered HR researcher helped a client find suitable candidates 1200% faster, surfaced more complete lists, and reduced hiring costs—so teams reach shortlists sooner.",
+        "result": "Part of our AI Integration Pt.1 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationEmailResponder": {
+        "label": "Email responder",
+        "field": "AI integration",
+        "name": "Email responder",
+        "title": "AI email responder case study",
+        "description": "Custom AI responders trimmed daily email work by 75%+ and lifted reply rates by 50%+. We’re also building a more universal solution informed by these projects.",
+        "result": "Part of our AI Integration Pt.1 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationCustomLocalModel": {
+        "label": "Custom local model",
+        "field": "Research",
+        "name": "Custom local model",
+        "title": "Custom local deployed model",
+        "description": "In our case study, a custom AI classifier reached 79% vs 80% human correctness while cutting effort from 24h to 1h (>95% calculated cost savings), meeting strict format and confidentiality requirements.",
+        "result": "Part of our AI Integration Pt.1 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationImageWorkflow": {
+        "label": "AI image workflow",
+        "field": "AI integration",
+        "name": "Optimized AI foto workflow",
+        "title": "From 20h to 45m: Scalable AI Image Workflows",
+        "description": "How a custom platform with parallel generations and prompt memory cut labor from 20 hours (manual) and 7 hours (normal AI) to 45 minutes for the same-quality image.",
+        "result": "Part of our AI Integration Pt.1 case study series.",
         "cta": "Read more"
       },
       "researchAiAdoption": {
