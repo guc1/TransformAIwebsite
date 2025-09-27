@@ -5,11 +5,11 @@ import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/back
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MeteorLinesAngular } from "@/components/ui/meteorLines";
 import { authors } from "@/content/blog/authors";
+import { formatDateUtc, formatIsoDateUtc } from "@/lib/date";
 import { localesForPost, shouldIncludePostForLocale } from "@/lib/blog-language";
 import { cn } from "@/lib/utils";
 import { allPosts } from "content-collections";
 import type { Post } from "content-collections";
-import { format, parseISO } from "date-fns";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -50,8 +50,8 @@ export function generateMetadata({
         height: 800,
       },
 
-      publishedTime: format(parseISO(post.date.toString()), "yyyy-MM-dd"),
-      modifiedTime: format(parseISO(post.date.toString()), "yyyy-MM-dd"),
+      publishedTime: formatIsoDateUtc(post.date),
+      modifiedTime: formatIsoDateUtc(post.date),
       tags: post.tags,
     },
     twitter: {
@@ -199,7 +199,11 @@ const BlogArticleWrapper = async ({
                       dateTime={post.date}
                       className="inline-flex items-center text-white text-nowrap"
                     >
-                      {format(parseISO(post.date), "MMM dd, yyyy")}
+                      {formatDateUtc(post.date, {
+                        month: "short",
+                        day: "2-digit",
+                        year: "numeric",
+                      })}
                     </time>
                   </div>
                 </div>
@@ -233,7 +237,11 @@ const BlogArticleWrapper = async ({
                 dateTime={post.date}
                 className="inline-flex items-center h-10 text-white text-nowrap"
               >
-                {format(parseISO(post.date), "MMM dd, yyyy")}
+                {formatDateUtc(post.date, {
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
+                })}
               </time>
             </div>
             {post.tableOfContents?.length !== 0 ? (

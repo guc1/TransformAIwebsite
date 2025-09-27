@@ -1,5 +1,6 @@
 import { MDX } from "@/components/mdx-content";
 import { Separator } from "@/components/ui/separator";
+import { formatDateUtc } from "@/lib/date";
 import { cn } from "@/lib/utils";
 import type { Changelog } from "content-collections";
 import Link from "next/link";
@@ -20,10 +21,10 @@ export async function ChangelogGridItem({ className, changelog }: Props) {
     <div id={changelog.slug} className={cn("w-full", className)}>
       <div>
         <div className="flex flex-col sm:flex-row pb-10 gap-4 font-medium">
-          {new Date(changelog.date).toLocaleDateString("en-US", {
-            year: "numeric",
+          {formatDateUtc(changelog.date, {
             month: "long",
             day: "numeric",
+            year: "numeric",
           })}
           <div className="flex flex-row gap-x-3">
             {changelog.tags?.map((tag) => (
