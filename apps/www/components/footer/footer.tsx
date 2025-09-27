@@ -2,6 +2,7 @@
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import { UnkeyLogo } from "./footer-svgs";
 import { Wordmark } from "./wordmark";
 
@@ -105,8 +106,17 @@ const Column: React.FC<{
   );
 };
 
-export function Footer() {
+export function Footer({ initialYear }: { initialYear: number }) {
   const t = useTranslations("Footer");
+  const [year, setYear] = useState(initialYear);
+
+  useEffect(() => {
+    const currentYear = new Date().getUTCFullYear();
+    if (currentYear !== year) {
+      setYear(currentYear);
+    }
+  }, [year]);
+
   return (
     <div className="border-t border-white/20 blog-footer-radial-gradient">
       <footer className="container relative grid grid-cols-2 gap-8 pt-8 mx-auto overflow-hidden lg:gap-16 sm:grid-cols-3 xl:grid-cols-5 sm:pt-12 md:pt-16 lg:pt-24 xl:pt-32">
@@ -116,7 +126,7 @@ export function Footer() {
             {t("tagline")}
           </div>
           <div className="text-sm font-normal leading-6 text-white/40">
-            {t("copyright", { year: new Date().getUTCFullYear() })}
+            {t("copyright", { year })}
           </div>
         </div>
 
