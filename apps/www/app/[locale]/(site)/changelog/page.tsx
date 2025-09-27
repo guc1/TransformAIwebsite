@@ -5,8 +5,8 @@ import { MeteorLines } from "@/components/ui/meteorLines";
 
 import { ChangelogGridItem } from "@/components/changelog/changelog-grid-item";
 import { SideList } from "@/components/changelog/side-list";
+import { formatDateUtc } from "@/lib/date";
 import { allChangelogs } from "content-collections";
-import { formatDate } from "date-fns";
 import { ArrowRight } from "lucide-react";
 type Props = {
   searchParams?: {
@@ -95,7 +95,11 @@ export default async function Changelogs(_props: Props) {
                 <SideList
                   list={changelogs.map((c) => ({
                     href: `/changelog#${c.slug}`,
-                    label: formatDate(c.date, "MMMM dd, yyyy"),
+                    label: formatDateUtc(c.date, {
+                      month: "long",
+                      day: "2-digit",
+                      year: "numeric",
+                    }),
                   }))}
                 />
               </div>

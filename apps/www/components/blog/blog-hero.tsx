@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { Author } from "@/content/blog/authors";
+import { formatDateUtc } from "@/lib/date";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 import { Frame } from "../frame";
 import { ImageWithBlur } from "../image-with-blur";
 export function QuestionCircle({ className }: { className?: string }) {
@@ -93,7 +93,11 @@ export function BlogHero({
               <span className="text-sm text-white/50">Published on</span>
               <div>
                 <span className="pt-2 text-sm text-white">
-                  {format(new Date(publishDate!), "MMM dd, yyyy")}
+                  {formatDateUtc(publishDate, {
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                  })}
                 </span>
               </div>
             </div>
