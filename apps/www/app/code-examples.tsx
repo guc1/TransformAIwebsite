@@ -203,6 +203,8 @@ const curlVerifyCodeBlock = `curl --request POST \\
     "key": "sk_1234",
   }'`;
 
+const exampleKeyExpiration = new Date("2025-01-01T00:00:00Z").getTime();
+
 const curlCreateKeyCodeBlock = `curl --request POST \\
   --url https://api.unkey.dev/v1/keys.createKey \\
   --header 'Authorization: Bearer <UNKEY_ROOT_KEY>' \\
@@ -210,7 +212,7 @@ const curlCreateKeyCodeBlock = `curl --request POST \\
   --data '{
     "apiId": "api_123",
     "ownerId": "user_123",
-    "expires": ${Date.now() + 7 * 24 * 60 * 60 * 1000},
+    "expires": ${exampleKeyExpiration},
     "ratelimit": {
       "type": "fast",
       "limit": 10,
