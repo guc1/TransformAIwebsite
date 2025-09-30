@@ -3,7 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { UnkeyLogo } from "./footer-svgs";
+import { TransformAILogo } from "./footer-svgs";
 import { Wordmark } from "./wordmark";
 
 type NavLink = {
@@ -121,7 +121,7 @@ export function Footer({ initialYear }: { initialYear: number }) {
     <div className="border-t border-white/20 blog-footer-radial-gradient">
       <footer className="container relative grid grid-cols-2 gap-8 pt-8 mx-auto overflow-hidden lg:gap-16 sm:grid-cols-3 xl:grid-cols-5 sm:pt-12 md:pt-16 lg:pt-24 xl:pt-32">
         <div className="flex flex-col items-center col-span-2 sm:items-start sm:col-span-3 xl:col-span-1">
-          <UnkeyLogo />
+          <TransformAILogo className="h-12 w-auto" sizes="(max-width: 768px) 160px, 220px" />
           <div className="mt-8 text-sm font-normal leading-6 text-white/60">
             {t("tagline")}
           </div>
