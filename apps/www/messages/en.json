@@ -494,46 +494,32 @@
     "title": "Our Platform (Beta)",
     "text": "We’re building the best platform to help businesses seamlessly integrate AI into their operations."
   },
-  "FeatureSection": {
-    "title": "Take Your AI Adoption to the Next Level",
-    "text": "The transition to AI is about more than just a platform. Our solution combines best practices with hands-on guidance to help companies adapt across all facets—technology, people, and processes—so integrations deliver maximum success.",
-    "boxes": {
-      "futureProofWorkforce": {
-        "title": "Future-proof workforce",
-        "description": "Upskill employees to boost productivity and ensure they remain valuable contributors."
-      },
-      "revenueStreamAnalysis": {
-        "title": "Revenue stream analysis",
-        "description": "Assess how AI impacts current income streams and adapt strategies accordingly."
-      },
-      "newOpportunities": {
-        "title": "New opportunities",
-        "description": "Identify and develop potential future income streams enabled by AI."
-      },
-      "platformEfficiency": {
-        "title": "Platform efficiency",
-        "description": "Unlock 11x productivity, reduced costs, and greater organisational clarity with our platform."
-      },
-      "rightTiming": {
-        "title": "Right timing",
-        "description": "Ensure AI integrations are launched at the optimal moment for maximum results."
-      },
-      "legalAssurance": {
-        "title": "Legal assurance",
-        "description": "Stay fully aligned with data protection and AI regulations worldwide."
-      },
-      "agileExecution": {
-        "title": "Agile execution",
-        "description": "With a lean team, we adapt faster than competitors to keep you ahead."
-      },
-      "multiFieldExpertise": {
-        "title": "Multi-field expertise",
-        "description": "Research, training, integrations, and product development—our wide scope creates well-rounded solutions."
-      },
-      "dataDrivenDecisions": {
-        "title": "Data-driven decisions",
-        "description": "Our research and analytics teams ensure every step is backed by data."
-      }
+  "Values": {
+    "sectionTitle": "Take Your AI Adoption to the Next Level",
+    "sectionText": "The transition to AI is about more than just a platform. Our solution combines best practices with hands-on guidance to help companies adapt across all facets—technology, people, and processes—so integrations deliver maximum success.",
+    "integrityInAI": {
+      "title": "Integrity in AI",
+      "body": "We ensure that every AI integration is transparent, ethical, and aligned with your company’s values — building trust at every step."
+    },
+    "rightTimedAdaptation": {
+      "title": "Right-Timed Adaptation",
+      "body": "We introduce AI solutions at the right phase. We never push what isn’t needed — we guide adoption where and when it delivers the most value."
+    },
+    "reinforcingWorkforce": {
+      "title": "Reinforcing Workforce",
+      "body": "We strengthen your existing teams. Through training and support, your people stay essential, productive, and future-ready in the AI era."
+    },
+    "innovationWithPurpose": {
+      "title": "Innovation with Purpose",
+      "body": "Our research-driven approach brings cutting-edge AI to real business problems — value over hype, outcomes over buzzwords."
+    },
+    "strategicAgility": {
+      "title": "Strategic Agility",
+      "body": "We move fast so you don’t fall behind. A lean structure enables rapid implementation and continuous improvement."
+    },
+    "partnershipNotService": {
+      "title": "Partnership, not just Service",
+      "body": "We don’t deliver and leave. We collaborate deeply, co-creating workflows and strategy so AI becomes a lasting advantage."
     }
   },
   "Footer": {

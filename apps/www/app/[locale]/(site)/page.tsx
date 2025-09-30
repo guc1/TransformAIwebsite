@@ -17,17 +17,14 @@ import { OssLight } from "@/components/svg/oss-light";
 import { UsageBento } from "@/components/usage-bento";
 import { isLocale } from "@/i18n/routing";
 import {
-  BarChart3,
   ChevronRight,
   Clock,
-  GraduationCap,
-  LineChart,
+  Handshake,
   LogIn,
-  Puzzle,
-  Rocket,
-  Scale,
-  Sprout,
-  Zap,
+  RefreshCcw,
+  ShieldCheck,
+  Sparkles,
+  Users2,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -97,29 +94,26 @@ export default async function Landing({
     notFound();
   }
 
-  const [cta, platform, hero, featureSection] = await Promise.all([
+  const [cta, platform, hero, values] = await Promise.all([
     getTranslations({ locale, namespace: "CTA" }),
     getTranslations({ locale, namespace: "Platform" }),
     getTranslations({ locale, namespace: "Hero" }),
-    getTranslations({ locale, namespace: "FeatureSection" }),
+    getTranslations({ locale, namespace: "Values" }),
   ]);
 
   const featureBoxes = [
-    { key: "futureProofWorkforce", icon: GraduationCap },
-    { key: "revenueStreamAnalysis", icon: BarChart3 },
-    { key: "newOpportunities", icon: Sprout },
-    { key: "platformEfficiency", icon: Zap },
-    { key: "rightTiming", icon: Clock },
-    { key: "legalAssurance", icon: Scale },
-    { key: "agileExecution", icon: Rocket },
-    { key: "multiFieldExpertise", icon: Puzzle },
-    { key: "dataDrivenDecisions", icon: LineChart },
+    { key: "integrityInAI", icon: ShieldCheck },
+    { key: "rightTimedAdaptation", icon: Clock },
+    { key: "reinforcingWorkforce", icon: Users2 },
+    { key: "innovationWithPurpose", icon: Sparkles },
+    { key: "strategicAgility", icon: RefreshCcw },
+    { key: "partnershipNotService", icon: Handshake },
   ] as const;
 
   const featureItems = featureBoxes.map(({ key, icon }) => ({
     icon,
-    title: featureSection(`boxes.${key}.title`),
-    description: featureSection(`boxes.${key}.description`),
+    title: values(`${key}.title`),
+    description: values(`${key}.body`),
   }));
 
   return (
@@ -222,11 +216,11 @@ export default async function Landing({
           <Section className="mt-16 md:mt-32">
             <div className="relative">
               {/* TODO: horizontal scroll */}
-              <SectionTitle
-                className="mt-8 md:mt-16 lg:mt-32 xl:mt-48"
-                title={featureSection("title")}
-                text={featureSection("text")}
-              >
+            <SectionTitle
+              className="mt-8 md:mt-16 lg:mt-32 xl:mt-48"
+              title={values("sectionTitle")}
+              text={values("sectionText")}
+            >
                 <div className="flex mt-10 mb-10 space-x-6">
                   <Link href="https://app.unkey.com" className="group">
                     <PrimaryButton
