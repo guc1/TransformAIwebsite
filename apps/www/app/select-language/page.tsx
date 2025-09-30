@@ -1,4 +1,4 @@
-import { UnkeyLogo } from "@/components/footer/footer-svgs";
+import { TransformAILogo } from "@/components/footer/footer-svgs";
 import { type Locale, defaultLocale, isLocale } from "@/i18n/routing";
 import { createTranslator } from "next-intl";
 import { cookies } from "next/headers";
@@ -47,7 +47,7 @@ export default async function SelectLanguagePage() {
             </div>
 
             <div className="flex flex-col items-center gap-6">
-              <UnkeyLogo className="h-10 w-auto" />
+              <TransformAILogo className="h-12 w-auto" variant="transparent" sizes="200px" />
               <p className="text-sm text-white/70">{t("tagline")}</p>
               <h1 className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                 {t("selectTitle")}
