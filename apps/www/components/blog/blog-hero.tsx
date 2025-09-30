@@ -51,9 +51,10 @@ export function BlogHero({
             placeholder="blur"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8+e1bKQAJMQNc5W2CQwAAAABJRU5ErkJggg=="
             src={imageUrl!}
-            width={1920}
-            height={1080}
+            width={1536}
+            height={1024}
             alt="Hero Image"
+            className="h-full w-full object-cover"
           />
         </Frame>
       </div>
