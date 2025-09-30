@@ -82,7 +82,7 @@ export const metadata = {
     card: "summary_large_image",
   },
   icons: {
-    shortcut: "/images/landing/unkey.png",
+    shortcut: "/images/logos/transformai/purelogo.png",
   },
 };
 
