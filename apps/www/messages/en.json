@@ -326,6 +326,49 @@
       "body": "Explore insights, tips, and updates directly from our team members"
     }
   },
+  "Careers": {
+    "hero": {
+      "title": "Open positions",
+      "subtitle": "Based in Amsterdam, the Netherlands — working remote is also discussable."
+    },
+    "apply": {
+      "label": "Apply here"
+    },
+    "details": {
+      "focus": "Focus",
+      "experience": "Experience",
+      "portfolio": "Portfolio",
+      "evaluation": "Evaluation",
+      "salary": "Salary"
+    },
+    "positions": {
+      "socialMediaMarketingManager": {
+        "title": "Social Media Marketing Manager",
+        "summary": "Grow TransformAI’s voice across every social channel and translate product stories into measurable brand momentum.",
+        "focus": "Lead strategic campaigns, collaborate with founders on storytelling, and keep our community engaged with fresh, insight-driven content.",
+        "experience": "+3 years shaping social media marketing programs with proven growth metrics.",
+        "portfolio": "Share a portfolio that highlights campaign creativity, performance data, and content craft.",
+        "salary": "€4,500+ net per month.",
+        "emailSubject": "Application – Social Media Marketing Manager"
+      },
+      "aiIntegrationExpert": {
+        "title": "AI Integration Expert",
+        "summary": "Design and deliver AI-driven workflows for clients ready to operationalise advanced automation.",
+        "focus": "Architect integrations that blend strategy, technical execution, and change management for Dutch enterprises.",
+        "evaluation": "An interview test covering technical depth, AI integration insights, and a personality assessment will determine fit.",
+        "salary": "€12,500 net per month.",
+        "emailSubject": "Application – AI Integration Expert"
+      },
+      "juniorDataAnalyst": {
+        "title": "Junior Data Analyst",
+        "summary": "Accelerate how we analyse AI programme data and keep our internal CRM intelligence sharp.",
+        "focus": "Automate reporting pipelines, organise experiment results, and support the insights team across active engagements.",
+        "experience": "No prior experience required — bring curiosity and a willingness to learn.",
+        "salary": "€6,750+ net per month.",
+        "emailSubject": "Application – Junior Data Analyst"
+      }
+    }
+  },
   "LogoCloud": {
     "label": "Partners"
   },
