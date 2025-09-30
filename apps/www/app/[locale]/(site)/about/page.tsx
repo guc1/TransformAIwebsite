@@ -11,6 +11,7 @@ import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { unstable_noStore as noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 
 import { Fragment, type ReactNode } from "react";
@@ -56,6 +57,8 @@ import { ImageWithBlur } from "@/components/image-with-blur";
 import { loadMessages } from "@/i18n/messages";
 import type { Messages } from "@/i18n/messages";
 import { isLocale } from "@/i18n/routing";
+import { shouldIncludePostForLocale } from "@/lib/blog-language";
+import { filterProjectPosts, selectRandomPosts } from "@/lib/blog-posts";
 import { cn } from "@/lib/utils";
 
 export const metadata = {
@@ -99,8 +102,6 @@ const investors = [
   { name: "Zain Allarakhia", firm: "Former CTO @ Pipe", image: zain },
 ];
 
-const SELECTED_POSTS = ["uuid-ux", "why-we-built-unkey", "unkey-raises-1-5-million"];
-
 type PageProps = {
   params: {
     locale: string;
@@ -113,6 +114,8 @@ export default async function Page({ params }: PageProps) {
   if (!isLocale(locale)) {
     notFound();
   }
+
+  noStore();
 
   const t = await getTranslations({ locale, namespace: "About" });
   const messages = await loadMessages(locale);
@@ -227,7 +230,22 @@ export default async function Page({ params }: PageProps) {
   const blogTitle = t("Blog.title");
   const blogBody = t("Blog.body");
 
-  const posts = allPosts.filter((post) => SELECTED_POSTS.includes(post.slug));
+  const projectPosts = filterProjectPosts(allPosts);
+  const localizedPosts = projectPosts.filter((post) =>
+    shouldIncludePostForLocale(post.language, locale),
+  );
+  const initialPosts = selectRandomPosts(
+    localizedPosts,
+    Math.min(3, localizedPosts.length),
+  );
+  const fallbackPosts = projectPosts.filter(
+    (post) => !initialPosts.some((selected) => selected.slug === post.slug),
+  );
+  const supplementalPosts = selectRandomPosts(
+    fallbackPosts,
+    Math.max(3 - initialPosts.length, 0),
+  );
+  const posts = [...initialPosts, ...supplementalPosts];
   return (
     <div>
       <Container>
