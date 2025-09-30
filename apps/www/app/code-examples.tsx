@@ -3,13 +3,7 @@ import { StickyChat } from "@/components/ask";
 import { PrimaryButton, SecondaryButton } from "@/components/button";
 import { SectionTitle } from "@/components/section";
 import type { LangIconProps } from "@/components/svg/lang-icons";
-import {
-  CurlIcon,
-  EducationIcon,
-  ElixirIcon,
-  JavaIcon,
-  ResearchIcon,
-} from "@/components/svg/lang-icons";
+import { EducationIcon, ResearchIcon } from "@/components/svg/lang-icons";
 import { CodeEditor } from "@/components/ui/code-editor";
 import { CopyCodeSnippetButton } from "@/components/ui/copy-code-button";
 import { MeteorLines } from "@/components/ui/meteorLines";
@@ -70,103 +64,6 @@ const editorTheme = {
     },
   ],
 } satisfies PrismTheme;
-
-const curlVerifyCodeBlock = `curl --request POST \\
-  --url https://api.unkey.dev/v1/keys.verifyKey \\
-  --header 'Content-Type: application/json' \\
-  --data '{
-    "apiId": "api_1234",
-    "key": "sk_1234",
-  }'`;
-
-const exampleKeyExpiration = new Date("2025-01-01T00:00:00Z").getTime();
-
-const curlCreateKeyCodeBlock = `curl --request POST \\
-  --url https://api.unkey.dev/v1/keys.createKey \\
-  --header 'Authorization: Bearer <UNKEY_ROOT_KEY>' \\
-  --header 'Content-Type: application/json' \\
-  --data '{
-    "apiId": "api_123",
-    "ownerId": "user_123",
-    "expires": ${exampleKeyExpiration},
-    "ratelimit": {
-      "type": "fast",
-      "limit": 10,
-      "duration": 60_000
-    },
-  }'`;
-
-const curlRatelimitCodeBlock = `curl --request POST \
-  --url https://api.unkey.dev/v1/ratelimits.limit \
-  --header 'Authorization: Bearer <token>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "namespace": "email.outbound",
-    "identifier": "user_123",
-    "limit": 10,
-    "duration": 60000,
-    "async": true
-}'`;
-
-const elixirCodeBlock = `UnkeyElixirSdk.verify_key("xyz_AS5HDkXXPot2MMoPHD8jnL")
-# returns
-%{"valid" => true,
-  "ownerId" => "chronark",
-  "meta" => %{
-    "hello" => "world"
-  }}`;
-
-const rustCodeBlock = `use unkey::models::{VerifyKeyRequest, Wrapped};
-use unkey::Client;
-
-async fn verify_key() {
-    let api_key = env::var("UNKEY_API_KEY").expect("Environment variable UNKEY_API_KEY not found");
-    let c = Client::new(&api_key);
-    let req = VerifyKeyRequest::new("test_req", "api_458vdYdbwut5LWABzXZP3Z8jPVas");
-
-    match c.verify_key(req).await {
-        Wrapped::Ok(res) => println!("{res:?}"),
-        Wrapped::Err(err) => eprintln!("{err:?}"),
-    }
-}`;
-
-const javaVerifyKeyCodeBlock = `package com.example.myapp;
-import com.unkey.unkeysdk.dto.KeyVerifyRequest;
-import com.unkey.unkeysdk.dto.KeyVerifyResponse;
-
-@RestController
-public class APIController {
-
-    private static IKeyService keyService = new KeyService();
-
-    @PostMapping("/verify")
-    public KeyVerifyResponse verifyKey(
-        @RequestBody KeyVerifyRequest keyVerifyRequest) {
-        // Delegate the creation of the key to the KeyService from the SDK
-        return keyService.verifyKey(keyVerifyRequest);
-    }
-}`;
-
-const javaCreateKeyCodeBlock = `package com.example.myapp;
-
-import com.unkey.unkeysdk.dto.KeyCreateResponse;
-import com.unkey.unkeysdk.dto.KeyCreateRequest;
-
-@RestController
-public class APIController {
-
-    private static IKeyService keyService = new KeyService();
-
-    @PostMapping("/createKey")
-    public KeyCreateResponse createKey(
-            @RequestBody KeyCreateRequest keyCreateRequest,
-            @RequestHeader("Authorization") String authToken) {
-        // Delegate the creation of the key to the KeyService from the SDK
-        return keyService.createKey(keyCreateRequest, authToken);
-    }
-}
-
-`;
 
 type FrameworkLocalizedImage = {
   src: string;
@@ -478,28 +375,6 @@ const languagesList = {
       },
     },
   ],
-  Java: [
-    {
-      name: "Verify key",
-      Icon: JavaIcon,
-      codeBlock: javaVerifyKeyCodeBlock,
-      editorLanguage: "tsx",
-    },
-    {
-      name: "Create key",
-      Icon: JavaIcon,
-      codeBlock: javaCreateKeyCodeBlock,
-      editorLanguage: "tsx",
-    },
-  ],
-  Elixir: [
-    {
-      name: "Verify key",
-      Icon: ElixirIcon,
-      codeBlock: elixirCodeBlock,
-      editorLanguage: "tsx",
-    },
-  ],
   Education: [
     {
       name: "Education platform",
@@ -580,26 +455,6 @@ const languagesList = {
       },
     },
   ],
-  Curl: [
-    {
-      name: "Verify key",
-      Icon: CurlIcon,
-      codeBlock: curlVerifyCodeBlock,
-      editorLanguage: "tsx",
-    },
-    {
-      name: "Create key",
-      Icon: CurlIcon,
-      codeBlock: curlCreateKeyCodeBlock,
-      editorLanguage: "tsx",
-    },
-    {
-      name: "Ratelimit",
-      Icon: CurlIcon,
-      codeBlock: curlRatelimitCodeBlock,
-      editorLanguage: "tsx",
-    },
-  ],
 } as const satisfies {
   [key: string]: Framework[];
 };
@@ -626,10 +481,7 @@ type Language =
   | "AI integration pt1"
   | "AI integration pt2"
   | "Education"
-  | "Research"
-  | "Curl"
-  | "Elixir"
-  | "Java";
+  | "Research";
 type LanguagesList = {
   name: Language;
   Icon: React.FC<LangIconProps>;
@@ -639,9 +491,6 @@ const languages = [
   { name: "AI integration pt2", Icon: ResearchIcon },
   { name: "Education", Icon: EducationIcon },
   { name: "Research", Icon: ResearchIcon },
-  { name: "Curl", Icon: CurlIcon },
-  { name: "Elixir", Icon: ElixirIcon },
-  { name: "Java", Icon: JavaIcon },
 ] as LanguagesList[];
 
 // TODO extract this automatically from our languages array
