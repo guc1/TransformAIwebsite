@@ -213,7 +213,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       creator: "@unkeydev",
     },
     icons: {
-      shortcut: "/images/logos/transformai/purelogo.png",
+      shortcut: "/images/logos/transformai/logosvg.svg",
     },
   };
 }
