@@ -8,7 +8,6 @@ import {
   EducationIcon,
   ElixirIcon,
   JavaIcon,
-  PythonIcon,
   ResearchIcon,
 } from "@/components/svg/lang-icons";
 import { CodeEditor } from "@/components/ui/code-editor";
@@ -71,55 +70,6 @@ const editorTheme = {
     },
   ],
 } satisfies PrismTheme;
-
-const pythonCodeBlock = `import asyncio
-import os
-import unkey
-
-async def main() -> None:
-  client = unkey.Client(api_key=os.environ["API_KEY"])
-  await client.start()
-
-  result = await client.keys.verify_key("prefix_abc123")
-
- if result.is_ok:
-   print(data.valid)
- else:
-   print(result.unwrap_err())`;
-
-const pythonFastAPICodeBlock = `import os
-from typing import Any, Dict, Optional
-
-import fastapi  # pip install fastapi
-import unkey  # pip install unkey.py
-import uvicorn  # pip install uvicorn
-
-app = fastapi.FastAPI()
-
-
-def key_extractor(*args: Any, **kwargs: Any) -> Optional[str]:
-    if isinstance(auth := kwargs.get("authorization"), str):
-        return auth.split(" ")[-1]
-
-    return None
-
-
-@app.get("/protected")
-@unkey.protected(os.environ["UNKEY_API_ID"], key_extractor)
-async def protected_route(
-    *,
-    authorization: str = fastapi.Header(None),
-    unkey_verification: Any = None,
-) -> Dict[str, Optional[str]]:
-    assert isinstance(unkey_verification, unkey.ApiKeyVerification)
-    assert unkey_verification.valid
-    print(unkey_verification.owner_id)
-    return {"message": "protected!"}
-
-
-if __name__ == "__main__":
-    uvicorn.run(app)
-`;
 
 const curlVerifyCodeBlock = `curl --request POST \\
   --url https://api.unkey.dev/v1/keys.verifyKey \\
@@ -275,6 +225,27 @@ const resolveProjectMessage = (
 const languagesList = {
   "AI integration pt1": [
     {
+      name: "AI transformation",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/aitransformation/images/transformcover.png",
+        alt: "TransformAI case study cover about the company-wide AI transition",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/aitransformation/images/transformcovernl.png",
+            alt: "TransformAI casestudycover over de bedrijfsbrede AI-transitie",
+          },
+        },
+      },
+      contentKey: "aiIntegrationAiTransformation",
+      href: {
+        en: "/blog/the-ai-transition-simple-overview",
+        nl: "/blog/de-ai-transitie-snelle-uitleg-en-onderzoeksupdate",
+      },
+    },
+    {
       name: "HR researcher",
       Icon: ResearchIcon,
       image: {
@@ -359,18 +330,90 @@ const languagesList = {
       },
     },
   ],
-  Python: [
+  "AI integration pt2": [
     {
-      name: "Python",
-      Icon: PythonIcon,
-      codeBlock: pythonCodeBlock,
-      editorLanguage: "python",
+      name: "Company Finder",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/b2bfinder/images/b2bcoverim.png",
+        alt: "Case study cover showing an AI B2B company finder interface",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/b2bfinder/images/b2bcoverimnl.png",
+            alt: "Casestudycover met een AI B2B-bedrijvengids interface",
+          },
+        },
+      },
+      contentKey: "aiIntegrationPt2CompanyFinder",
+      href: {
+        en: "/blog/ai-powered-b2b-prospecting-find-the-right-companies-responsibly",
+        nl: "/blog/ai-gedreven-b2b-prospecting-vind-de-juiste-bedrijven-verantwoord",
+      },
     },
     {
-      name: "FastAPI",
-      Icon: PythonIcon,
-      codeBlock: pythonFastAPICodeBlock,
-      editorLanguage: "python",
+      name: "Backend",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/backendtransform/images/coverback.png",
+        alt: "Cover showing backend AI integration strategy visuals",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/backendtransform/images/coverbacknl.png",
+            alt: "Cover met visuals over backend AI-integratiestrategie",
+          },
+        },
+      },
+      contentKey: "aiIntegrationPt2Backend",
+      href: {
+        en: "/blog/backend-ai-integration-why-it-comes-first",
+        nl: "/blog/backend-ai-integratie-waarom-dit-eerst-komt",
+      },
+    },
+    {
+      name: "Frontend",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/frontendtransfrom/images/coverfront.png",
+        alt: "Cover illustrating front-end AI product integration",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/frontendtransfrom/images/coverfrontnl.png",
+            alt: "Cover die front-end AI-productintegratie toont",
+          },
+        },
+      },
+      contentKey: "aiIntegrationPt2Frontend",
+      href: {
+        en: "/blog/front-end-ai-integration-products-revenue-and-market-share",
+        nl: "/blog/front-end-ai-integratie-producten-omzet-en-marktaandeel",
+      },
+    },
+    {
+      name: "Agentic Researcher",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/researchagent/images/researchcoverim.png",
+        alt: "Case study cover of the agentic AI researcher workflow",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/researchagent/images/researchcoverimnl.png",
+            alt: "Casestudycover van de agentische AI-onderzoekerworkflow",
+          },
+        },
+      },
+      contentKey: "aiIntegrationPt2AgenticResearcher",
+      href: {
+        en: "/blog/agentic-research-phd-level-ai-for-small-decisions-humans-for-big-calls",
+        nl: "/blog/agentische-research-phd-niveau-ai-voor-kleine-beslissingen-mensen-voor-de-grote",
+      },
     },
   ],
   Research: [
@@ -581,7 +624,7 @@ type Props = {
 };
 type Language =
   | "AI integration pt1"
-  | "Python"
+  | "AI integration pt2"
   | "Education"
   | "Research"
   | "Curl"
@@ -593,7 +636,7 @@ type LanguagesList = {
 };
 const languages = [
   { name: "AI integration pt1", Icon: ResearchIcon },
-  { name: "Python", Icon: PythonIcon },
+  { name: "AI integration pt2", Icon: ResearchIcon },
   { name: "Education", Icon: EducationIcon },
   { name: "Research", Icon: ResearchIcon },
   { name: "Curl", Icon: CurlIcon },
@@ -626,7 +669,7 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
   const cta = useTranslations("CTA");
   const projectCopy = useTranslations("CodeExamples.projects");
   const [language, setLanguage] = useState<Language>("AI integration pt1");
-  const [framework, setFramework] = useState<FrameworkName>("HR researcher");
+  const [framework, setFramework] = useState<FrameworkName>("AI transformation");
   const [languageHover, setLanguageHover] = useState("AI integration pt1");
   const frameworksForLanguage: Framework[] = languagesList[language];
   const currentFrameworkData: Framework | undefined =

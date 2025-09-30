@@ -405,6 +405,15 @@
         "description": "Blijf op de hoogte met een wekelijkse samenvatting over wat nieuw is in AI: uitleg voor beginners en gevorderden, use cases, reviews en follow-upinformatie op aanvraag—zodat elke laag in het bedrijf gericht kan handelen.",
         "cta": "Lees meer"
       },
+      "aiIntegrationAiTransformation": {
+        "label": "AI-transformatie",
+        "field": "AI-integratie",
+        "name": "AI-transformatie",
+        "title": "De AI-transitie",
+        "description": "Onze visie: AI is geen losse functie maar een bedrijfsbrede transitie. Door opstapelende effecten van compute, mogelijkheden en adoptie is een backend-eerst aanpak noodzakelijk voor blijvende waarde en om toekomstige sprongen te benutten.",
+        "result": "Onderdeel van onze AI-integratie Pt.1 casestudyreeks.",
+        "cta": "Lees meer"
+      },
       "aiIntegrationHrResearcher": {
         "label": "HR researcher",
         "field": "Onderzoek",
@@ -439,6 +448,42 @@
         "title": "Van 20u naar 45m: schaalbare AI-visuals",
         "description": "Met parallelle generaties en een promptbibliotheek verkortte een custom platform de arbeidstijd van 20 uur (handmatig) en 7 uur (standaard AI) naar 45 minuten voor dezelfde kwaliteit.",
         "result": "Onderdeel van onze AI-integratie Pt.1 casestudyreeks.",
+        "cta": "Lees meer"
+      },
+      "aiIntegrationPt2CompanyFinder": {
+        "label": "Company Finder",
+        "field": "AI-integratie pt2",
+        "name": "Company Finder",
+        "title": "AI search voor B2B outreach",
+        "description": "Onze agent gebruikt tool calling om het openbare web te doorzoeken, bedrijven te matchen met jouw criteria en alleen legitieme, publieke contact routes aan te leveren—terwijl ethische en regulatorische kwesties worden nageleefd.",
+        "result": "Onderdeel van onze AI-integratie Pt.2 casestudyreeks.",
+        "cta": "Lees meer"
+      },
+      "aiIntegrationPt2Backend": {
+        "label": "Backend",
+        "field": "AI-integratie pt2",
+        "name": "Backend",
+        "title": "Backend AI-integratie: waarom dit eerst komt",
+        "description": "De backend is waar waarde ontstaat—in finance, support, sales, HR, IT en risk. We schetsen de fasen (geïntegreerd → verankerd → adaptief) en waarom backend-eerst front-end sneller en veiliger maakt, met oog voor valkuilen als verkeerde keuzes, stappen overslaan en lock-in.",
+        "result": "Onderdeel van onze AI-integratie Pt.2 casestudyreeks.",
+        "cta": "Lees meer"
+      },
+      "aiIntegrationPt2Frontend": {
+        "label": "Frontend",
+        "field": "AI-integratie pt2",
+        "name": "Frontend",
+        "title": "Front-end AI-integratie: Producten, Omzet & Marktaandeel",
+        "description": "Aan de front-end wordt capability omzet. We maken het verschil met backend helder, schetsen wat “front-end” in de praktijk is, de resultaatgerichte fasen (AI-Integrated → AI-Internalised → AI-Adaptive), de specifieke productrisico’s en hoe dit parallel met backend loopt om marktaandeel te behouden en te vergroten.",
+        "result": "Onderdeel van onze AI-integratie Pt.2 casestudyreeks.",
+        "cta": "Lees meer"
+      },
+      "aiIntegrationPt2AgenticResearcher": {
+        "label": "Agentische onderzoeker",
+        "field": "AI-integratie pt2",
+        "name": "Agentische onderzoeker",
+        "title": "Agentische AI onderzoeker",
+        "description": "In onze human-in-the-loop workflow doet de AI onderzoeker het repetitieve werk (~10 min per datapunt bespaard) en nemen onderzoekers de grote beslissingen—opschalend naar miljoenen datapunten.",
+        "result": "Onderdeel van onze AI-integratie Pt.2 casestudyreeks.",
         "cta": "Lees meer"
       },
       "researchAiAdoption": {

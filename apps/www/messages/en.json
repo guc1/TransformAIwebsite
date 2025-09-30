@@ -405,6 +405,15 @@
         "description": "Stay current with a weekly roundup of what’s new in AI—beginner and advanced explanations, use cases, reviews, and on-request follow-up information so every team can act on what matters.",
         "cta": "Read more"
       },
+      "aiIntegrationAiTransformation": {
+        "label": "AI transformation",
+        "field": "AI integration",
+        "name": "AI transformation",
+        "title": "The AI Transition",
+        "description": "Our view: AI is a company-wide transition, not a feature. Compounding curves in compute, capability, and adoption make a backend-first approach a necessity to create durable value and stay ready for future step-ups.",
+        "result": "Part of our AI Integration Pt.1 case study series.",
+        "cta": "Read more"
+      },
       "aiIntegrationHrResearcher": {
         "label": "HR researcher",
         "field": "Research",
@@ -439,6 +448,42 @@
         "title": "From 20h to 45m: Scalable AI Image Workflows",
         "description": "How a custom platform with parallel generations and prompt memory cut labor from 20 hours (manual) and 7 hours (normal AI) to 45 minutes for the same-quality image.",
         "result": "Part of our AI Integration Pt.1 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationPt2CompanyFinder": {
+        "label": "Company Finder",
+        "field": "AI integration pt2",
+        "name": "Company Finder",
+        "title": "AI search for B2B outreach",
+        "description": "Our agent uses tool calling to scan the public web, match companies to your criteria, and return legitimate contact routes—built with ethics and compliance in mind.",
+        "result": "Part of our AI Integration Pt.2 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationPt2Backend": {
+        "label": "Backend",
+        "field": "AI integration pt2",
+        "name": "Backend",
+        "title": "Backend AI Integration: Why It Comes First",
+        "description": "Backend is where value is created—across finance, support, sales, HR, IT, and risk. Our phased view focuses on outcomes (integrated → internalised → adaptive) and explains why backend-first multiplies front-end results, while avoiding mis-adoption, skipped steps, and lock-in.",
+        "result": "Part of our AI Integration Pt.2 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationPt2Frontend": {
+        "label": "Frontend",
+        "field": "AI integration pt2",
+        "name": "Frontend",
+        "title": "Front-End AI Integration: Products, Revenue & Market Share",
+        "description": "Front end is where capability becomes revenue. We explain how it differs from backend, what “front end” includes in practice, the outcome-based phases (AI-Integrated → AI-Internalised → AI-Adaptive), key product-side risks, and how it runs in parallel with backend to defend and grow share.",
+        "result": "Part of our AI Integration Pt.2 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationPt2AgenticResearcher": {
+        "label": "Agentic Researcher",
+        "field": "AI integration pt2",
+        "name": "Agentic Researcher",
+        "title": "Agentic AI Research",
+        "description": "Our human-in-the-loop workflow lets PhD-level AI researcher handle repetitive tasks—saving ~10 minutes per data point—while researchers make the big calls, scaling to millions of data points.",
+        "result": "Part of our AI Integration Pt.2 case study series.",
         "cta": "Read more"
       },
       "researchAiAdoption": {
