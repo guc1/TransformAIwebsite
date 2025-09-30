@@ -1,0 +1,73 @@
+---
+date: 2025-02-11
+title: "Winning the Model: Ranking Higher in AI Recommendations"
+description: "AI assistants are becoming buying guides. We study what influences inclusion and prominence in model outputs and report benchmark lifts of ~72%, 89%, and 75% across configurations."
+author: david
+tags: ["ai", "research", "model-optimization", "seo"]
+image: "/images/blog-images/mdxfilesforprojects/research/Chatbotranking/images/screenshotofchat.png"
+language: English
+---
+# Winning the Model: Ranking Higher in AI Recommendations
+
+![Homescreen preview](/images/blog-images/mdxfilesforprojects/research/Chatbotranking/images/screenshotofchat.png)
+
+Over the last year, purchases made via ChatGPT-like assistants have grown by orders of magnitude. People ask AI what to buy, which service to choose, and which plan fits their needs. The assistant hasn’t used those products; it reasons from training data, any retrieved evidence, and the prompt. That makes **visibility inside model outputs** a new growth channel—akin to SEO for Google, but fundamentally different.
+
+This post explains why “Model Optimization” matters, how it differs from classic SEO, what tends to influence inclusion and prominence, and what our early benchmarks show.
+
+## Why “ranking” in AI models matters
+
+When a user asks, “What’s the best X for Y?”, the model synthesizes an answer from:
+- Pretraining priors (what it already “knows”)
+- Retrieval or browsing (what it can find now)
+- Prompt constraints (format, guardrails, scope)
+- Internal tendencies (safety, diversity, deduplication)
+
+If your brand isn’t represented in those ingredients—or isn’t easy for the model to cite confidently—you’re unlikely to appear. If you *are* represented in ways that align with selection criteria, you tend to show up more often and higher.
+
+## It’s like SEO, but not SEO
+
+Similarities:
+- Competition for **inclusion and prominence**
+- Emphasis on **high-quality, structured evidence**
+- Continuous **measurement and iteration**
+
+Key differences:
+- **Single-shot synthesis**: No results page to scroll; exclusion often means invisibility.
+- **Citation confidence** over backlinks: Models reward content that’s clear, consistent, and machine-parseable.
+- **Policy & safety filters**: Provider-specific heuristics influence what’s eligible to appear.
+- **Cross-model variance**: Different providers weigh signals differently.
+
+## What influences model outputs (aggregate view)
+
+Our research evaluates, in aggregate, how these factors correlate with inclusion and position across providers:
+
+- **Evidence surfaces**: The presence, clarity, and depth of product/service pages, specs, pricing, reviews, FAQs, comparisons, and docs.  
+- **Structure & clarity**: Clean headings, canonical claims, consistent names/SKUs, versions, and units that models can parse reliably.  
+- **Third-party corroboration**: Independent sources that restate key facts and reduce uncertainty for the model.  
+- **Prompt-resilience**: Stability of facts across different phrasings, languages, and specificity levels.  
+- **Policy alignment**: Safety cues, disclaimers, support transparency, and handling of regulated categories.
+
+## Benchmark setup (high level)
+
+- 150+ queries across 6 product/service categories  
+- Leading models from multiple providers, tested with and without retrieval/browse  
+- Metrics tracked: **inclusion rate**, **average position**, and **share of voice** per query cluster
+
+## Early results (directional)
+
+![Relative lift overview](/images/blog-images/mdxfilesforprojects/research/Chatbotranking/images/Chartofranking.png)
+
+Across categories in our testbed, emphasizing the factors above produced substantial lifts in inclusion and visibility relative to baselines—**on the order of ~72%, 89%, and 75%**, varying by domain, competition, and provider settings.
+
+> Note: Percentages reflect relative lift versus category baselines in our environment. Effects vary by market and model configuration.
+
+## What’s next
+
+We’re expanding the benchmark to more verticals and will publish provider-specific nuances where they’re stable and ethical to share. If you want a scoped assessment, we can run a light audit and report on inclusion, position, and the most impactful content gaps.
+
+### TL;DR
+
+- AI assistants are becoming **buying guides**; inclusion in their answers is a real growth lever.  
+- It’s “SEO-like,” but models respond most to **clear, structured evidence, corroboration, and policy alignment**.  
+- In our tests, those emphases yielded **~72%, 89%, and 75%** relative lifts in inclusion and visibility across models.

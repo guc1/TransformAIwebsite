@@ -2,23 +2,22 @@
 import { SectionTitle } from "@/components/section";
 import { track } from "@vercel/analytics/server";
 import { CalendarDays, ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type React from "react";
 import { PrimaryButton, SecondaryButton } from "./button";
 
 export const CTA: React.FC = () => {
+  const t = useTranslations("Cta");
+
   return (
     <div className="w-full h-full overflow-hidden">
       <div className="relative pb-40 pt-14 ">
         <Highlights className="absolute inset-x-0 w-full mx-auto pointer-events-none -bottom-80 max-sm:w-8" />
         <SectionTitle
           align="center"
-          title={
-            <>
-              Protect your API.
-              <br /> Start today.
-            </>
-          }
+          title={t("title")}
+          text={t("body")}
         >
           <div className="flex flex-col items-center justify-center gap-6 mt-2 sm:mt-5 sm:flex-row">
             <Link
@@ -28,7 +27,7 @@ export const CTA: React.FC = () => {
               }}
               href="https://cal.com/team/unkey/user-interview?utm_source=banner&utm_campaign=oss"
             >
-              <SecondaryButton label="Chat with us" IconRight={CalendarDays} />
+              <SecondaryButton label={t("primary")} IconRight={CalendarDays} />
             </Link>
             <Link
               onClick={async () => {
@@ -36,13 +35,13 @@ export const CTA: React.FC = () => {
               }}
               href="https://app.unkey.com"
             >
-              <PrimaryButton shiny label="Start Now" IconRight={ChevronRight} />
+              <PrimaryButton shiny label={t("secondary")} IconRight={ChevronRight} />
             </Link>
           </div>
         </SectionTitle>
         <div className="mt-8 sm:mt-10 text-balance">
           <p className="w-full mx-auto text-sm leading-6 text-center text-white/60 max-w-[500px]">
-            150,000 requests per month. No CC required.
+            {t("note")}
           </p>
         </div>
       </div>

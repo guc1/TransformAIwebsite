@@ -1,26 +1,57 @@
 "use client";
 import { AnimatedList } from "@/components/animated-list";
+import { useTranslations } from "next-intl";
 
 import { UsageSparkles } from "@/components/svg/usage";
 export function UsageBento() {
+  const t = useTranslations("Activity");
+
+  const items = [
+    {
+      icon: <ImageGenerationIcon />,
+      actor: t("items.0.actor"),
+      description: t("items.0.description"),
+      meta: t("items.0.meta"),
+      time: "2.0 s",
+    },
+    {
+      icon: <ReplyAssistIcon />,
+      actor: t("items.1.actor"),
+      description: t("items.1.description"),
+      meta: t("items.1.meta"),
+      time: "1.1 s",
+    },
+    {
+      icon: <DataCleanerIcon />,
+      actor: t("items.2.actor"),
+      description: t("items.2.description"),
+      meta: t("items.2.meta"),
+      time: "0.45 s",
+    },
+    {
+      icon: <TaggingIcon />,
+      actor: t("items.3.actor"),
+      description: t("items.3.description"),
+      meta: t("items.3.meta"),
+      time: "0.08 s",
+    },
+    {
+      icon: <ForecastIcon />,
+      actor: t("items.4.actor"),
+      description: t("items.4.description"),
+      meta: t("items.4.meta"),
+      time: "3.0 s",
+    },
+  ];
+
   return (
     <div className="w-full overflow-hidden relative border-[.75px] h-[576px] rounded-[32px] usage-bento-bg-gradient border-[#ffffff]/10">
       <UsageSparkles className="absolute top-0" />
       <div className="relative ">
         <AnimatedList className="w-full">
-          <BillingItem icon={<ExchangeIcon />} text="Unkey created API key" latency="3 s" />
-          <BillingItem
-            icon={<LocationIcon />}
-            text="User verified key and logged usage"
-            latency="1 s"
-          />
-          <BillingItem
-            icon={<OptionsIcon />}
-            text="Andreas enabled automatic billing"
-            latency="8 ms"
-          />
-          <BillingItem icon={<BillingIcon />} text="Unkey sent invoice to customer" latency="1 s" />
-          <BillingItem icon={<PaymentsIcon />} text="Andreas collected payments" latency="2 s" />
+          {items.map((item) => (
+            <ActivityItem key={item.actor} {...item} />
+          ))}
         </AnimatedList>
       </div>
       <UsageText />
@@ -28,78 +59,66 @@ export function UsageBento() {
   );
 }
 
-const ExchangeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path d="M2.5 4.5H13.5M13.5 4.5L10.5 1.5M13.5 4.5L10.5 7.5" stroke="white" />
-    <path d="M13.5 11.5H2.5M2.5 11.5L5.5 8.5M2.5 11.5L5.5 14.5" stroke="white" />
+const ImageGenerationIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="white" />
+    <path d="M9.5 9.5H9.51" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M7 16L10.5 12.5L13 15L15.5 12.5L18 15" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
-const OptionsIcon = () => (
+const ReplyAssistIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M5 8.5H9" stroke="white" strokeLinejoin="round" />
-    <path d="M5 15.5H13" stroke="white" strokeLinejoin="round" />
-    <path d="M12 8.5H19" stroke="white" strokeLinejoin="round" />
-    <path d="M16 15.5H19" stroke="white" strokeLinejoin="round" />
     <path
-      d="M10.5 10.5C11.6046 10.5 12.5 9.60457 12.5 8.5C12.5 7.39543 11.6046 6.5 10.5 6.5C9.39543 6.5 8.5 7.39543 8.5 8.5C8.5 9.60457 9.39543 10.5 10.5 10.5Z"
+      d="M5.5 6.5H18.5C19.3284 6.5 20 7.17157 20 8V14C20 14.8284 19.3284 15.5 18.5 15.5H13.75L10 19.25V15.5H5.5C4.67157 15.5 4 14.8284 4 14V8C4 7.17157 4.67157 6.5 5.5 6.5Z"
       stroke="white"
       strokeLinejoin="round"
     />
-    <path
-      d="M14.5 17.5C15.6046 17.5 16.5 16.6046 16.5 15.5C16.5 14.3954 15.6046 13.5 14.5 13.5C13.3954 13.5 12.5 14.3954 12.5 15.5C12.5 16.6046 13.3954 17.5 14.5 17.5Z"
-      stroke="white"
-      strokeLinejoin="round"
-    />
+    <path d="M7.5 11H16.5" stroke="white" strokeLinecap="round" />
+    <path d="M7.5 9H16.5" stroke="white" strokeLinecap="round" />
   </svg>
 );
 
-const LocationIcon = () => (
+const DataCleanerIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M9 12L11.5 14L15.5 9.5" stroke="white" />
-    <path
-      d="M5.10608 7.24025L11.1227 4.66171C11.3716 4.55502 11.6397 4.5 11.9105 4.5H12.0895C12.3603 4.5 12.6284 4.55502 12.8773 4.66171L18.8939 7.24025C19.2616 7.39783 19.5 7.75937 19.5 8.1594V8.5L19.0821 11.6346C18.7148 14.3888 17.096 16.819 14.6958 18.2191L12.9319 19.2481C12.649 19.4131 12.3275 19.5 12 19.5C11.6725 19.5 11.351 19.4131 11.0681 19.2481L9.30415 18.2191C6.90403 16.819 5.28517 14.3888 4.91794 11.6346L4.5 8.5V8.1594C4.5 7.75937 4.7384 7.39783 5.10608 7.24025Z"
-      stroke="white"
-    />
+    <rect x="4" y="5" width="16" height="4" rx="1.5" stroke="white" />
+    <rect x="4" y="10" width="16" height="4" rx="1.5" stroke="white" />
+    <rect x="4" y="15" width="16" height="4" rx="1.5" stroke="white" />
+    <circle cx="9" cy="7" r="1.5" fill="white" />
+    <circle cx="15" cy="12" r="1.5" fill="white" />
+    <circle cx="11" cy="17" r="1.5" fill="white" />
   </svg>
 );
 
-const BillingIcon = () => (
+const TaggingIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
     <path
-      d="M14.5 9.5H11.5M9.5 15.5H12.5M12.5 15.5H13C13.8284 15.5 14.5 14.8284 14.5 14V14C14.5 13.1716 13.8284 12.5 13 12.5H11C10.1716 12.5 9.5 11.8284 9.5 11V11C9.5 10.1716 10.1716 9.5 11 9.5H11.5M12.5 15.5V17M11.5 9.5V8"
+      d="M5.75 5.5H13.3787C13.7765 5.5 14.158 5.65803 14.4393 5.93934L19.0607 10.5607C19.6464 11.1464 19.6464 12.0962 19.0607 12.6819L13.6819 18.0607C13.0962 18.6464 12.1464 18.6464 11.5607 18.0607L6.93934 13.4393C6.65803 13.158 6.5 12.7765 6.5 12.3787V6.25C6.5 5.83579 6.16421 5.5 5.75 5.5Z"
       stroke="white"
     />
-    <path
-      d="M5.5 18V6C5.5 5.17157 6.17157 4.5 7 4.5H13.8787C14.2765 4.5 14.658 4.65803 14.9393 4.93934L18.0607 8.06066C18.342 8.34196 18.5 8.7235 18.5 9.12132V18C18.5 18.8284 17.8284 19.5 17 19.5H7C6.17157 19.5 5.5 18.8284 5.5 18Z"
-      stroke="white"
-    />
+    <circle cx="9.5" cy="8.5" r="1.5" stroke="white" />
   </svg>
 );
 
-const PaymentsIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path
-      d="M0.5 12V4C0.5 3.17157 1.17157 2.5 2 2.5H14C14.8284 2.5 15.5 3.17157 15.5 4V12C15.5 12.8284 14.8284 13.5 14 13.5H2C1.17157 13.5 0.5 12.8284 0.5 12Z"
-      stroke="white"
-    />
-    <circle cx="8" cy="8" r="2.25" fill="white" fillOpacity="0.99" />
-    <path d="M1 3H3.5C3.5 4.38071 2.38071 5.5 1 5.5V3Z" fill="white" />
-    <path d="M1 10.5C2.38071 10.5 3.5 11.6193 3.5 13H1V10.5Z" fill="white" />
-    <path d="M12.5 3H15V5.5C13.6193 5.5 12.5 4.38071 12.5 3Z" fill="white" />
-    <path d="M12.5 13C12.5 11.6193 13.6193 10.5 15 10.5V13H12.5Z" fill="white" />
+const ForecastIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M5 17.5L9.5 12.5L12.5 15.5L18.5 8.5" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M5 5.5H19" stroke="white" strokeLinecap="round" />
+    <path d="M5 19.5H19" stroke="white" strokeLinecap="round" />
+    <path d="M5 3.5H19" stroke="white" strokeLinecap="round" />
   </svg>
 );
 
-export function BillingItem({
-  className,
-  icon,
-  text,
-  latency,
-}: { className?: string; latency: string; icon: React.ReactNode; text: string }) {
-  let [first, ...rest] = text.split(" ");
-  //@ts-ignore
-  rest = rest.join(" ");
+type ActivityItemProps = {
+  className?: string;
+  icon: React.ReactNode;
+  actor: string;
+  description: string;
+  meta: string;
+  time: string;
+};
+
+export function ActivityItem({ className, icon, actor, description, meta, time }: ActivityItemProps) {
   return (
     <div
       className={`flex relative -top-7 left-14 md:left-0 rounded-xl border-[.75px] w-[440px] usage-item-gradient border-white/20 mt-4 md:ml-5 lg:ml-0 flex items-center py-[12px] px-[16px] ${className}`}
@@ -107,20 +126,23 @@ export function BillingItem({
       <div className="rounded-full bg-gray-500 flex items-center justify-center h-8 w-8 border-.75px border-white/20 bg-white/10">
         {icon}
       </div>
-      <p className="flex items-center ml-6 text-sm text-white">
-        {first}
-        <span className="ml-2 text-white/40">{rest}</span>
-        <svg
-          className="inline-flex ml-2"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path d="M5 13L8 15.5L13.5 8.5M11.5 14L13.5 15.5L19.5 8.5" stroke="#3CEEAE" />
-        </svg>
-      </p>
+      <div className="ml-6 flex flex-col gap-1">
+        <p className="flex items-center text-sm text-white">
+          <span className="font-semibold text-white">{actor}</span>
+          <span className="ml-2 text-white/50">{description}</span>
+          <svg
+            className="inline-flex ml-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path d="M5 13L8 15.5L13.5 8.5M11.5 14L13.5 15.5L19.5 8.5" stroke="#3CEEAE" />
+          </svg>
+        </p>
+        <p className="text-xs text-white/40">{meta}</p>
+      </div>
       <div className="flex items-center h-full ml-auto">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -132,13 +154,15 @@ export function BillingItem({
           <circle cx="8" cy="8" r="5.5" stroke="white" strokeOpacity="0.25" />
           <path d="M8.5 5V8L10.5 9.5" stroke="white" strokeOpacity="0.25" />
         </svg>
-        <p className="ml-2 text-sm text-white/20">{latency}</p>
+        <p className="ml-2 text-sm text-white/20">{time}</p>
       </div>
     </div>
   );
 }
 
 export function UsageText() {
+  const t = useTranslations("Activity");
+
   return (
     <div className="flex flex-col text-white absolute left-[20px] sm:left-[40px] xl:left-[40px] bottom-[40px] max-w-[3300px]">
       <div className="flex items-center w-full">
@@ -158,12 +182,11 @@ export function UsageText() {
           />
         </svg>
         <h3 className="relative z-50 ml-4 text-lg font-medium text-white bg-transparent">
-          Monetize your API
+          {t("sidebar.title")}
         </h3>
       </div>
       <p className="mt-4 text-white/60 leading-6 max-w-[350px]">
-        Unkey tracks all user actions in your API, making it straightforward to bill users based on
-        their usage.
+        {t("sidebar.body")}
       </p>
     </div>
   );

@@ -1,6 +1,6 @@
 import type { Author } from "@/content/blog/authors";
+import { formatDateUtc } from "@/lib/date";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 import { Frame } from "../frame";
 import { ImageWithBlur } from "../image-with-blur";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -73,7 +73,11 @@ export function BlogCard({
               </Avatar>
               <p className="pt-3 ml-4 text-sm font-medium text-white">{author.name}</p>
               <p className="pt-3 ml-6 text-sm font-normal text-white/50">
-                {format(new Date(publishDate!), "MMM dd, yyyy")}
+                {formatDateUtc(publishDate, {
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
+                })}
               </p>
             </div>
           </div>

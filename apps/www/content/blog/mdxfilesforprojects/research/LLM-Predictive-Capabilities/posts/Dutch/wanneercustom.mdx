@@ -1,0 +1,101 @@
+---
+date: 2025-03-23
+title: "Het trainen van Custom Modellen"
+description: "Generieke AI modellen zijn krachtig, maar niet universeel. Hier lees je wanneer maatwerktraining zinvol is, hoe we haalbaarheid en ROI beoordelen, en welke technieken we inzetten om doelen voor kwaliteit, snelheid en kosten te halen"
+author: chiHueng
+tags: ["ai", "research", "fine-tuning"]
+image: "/images/blog-images/mdxfilesforprojects/research/LLM-Predictive-Capabilities/images/Custommodel.png"
+language: Dutch
+---
+# Het trainen van Custom Modellen voor bedrijven
+
+Algemene AI-modellen zijn indrukwekkend—maar niet **voor alles**. Vraag je ze om een taak uit te voeren waarvoor ze niet getraind zijn, of om te redeneren over data die ze nooit hebben gezien, dan zakt de performance. Dat betekent niet dat AI het niet *kan*; het betekent meestal dat je een **custom model** nodig hebt dat is afgestemd op jouw domein en taak.
+
+In deze post leggen we uit wanneer maatwerk zinvol is en hoe we beoordelen of het technologisch haalbaar én economisch verstandig is.
+
+## Waarom maatwerk?
+
+Sommige taken vragen om **specifieke data** of **strak gedefinieerd gedrag**:
+
+- Domeinjargon en randgevallen (bijv. juridische clausules, medische specificaties, interne proces-taal)
+- Private of propriëtaire datasets die niet in publieke corpora voorkomen
+- Strikte outputformaten of compliance-eisen
+- Latentie- of kostenconstraints op schaal
+
+In zulke scenario’s kan een aangepast model een generiek model overtreffen—of dezelfde kwaliteit leveren met **lagere kosten en snellere inferentie**.
+
+## Wat verstaan we onder “custom”?
+
+“Maatwerk” is geen enkelvoudige aanpak. We kiezen de **lichtste** ingreep die het doel haalt:
+
+- **Prompt- & systeemdesign** — Betere instructies, gestructureerde outputs, strakkere formats.
+- **Retrieval-Augmented Generation (RAG)** — Houd data buiten het model en haal die op bij runtime.
+- **Fine-tuning / adapters (LoRA, e.d.)** — Leer een basismodel jouw stijl, data en randgevallen.
+- **Distillatie / compressie** — Draag gedrag over van een groot naar een kleiner, goedkoper model.
+- **Taakspecifieke kleine modellen** — Smalle modellen voor classificatie, routing of extractie.
+
+Vaak levert een **hybride** (bijv. RAG + lichte fine-tuning) de beste kwaliteit-/kostenverhouding.
+
+## Ons onderzoeksprogramma: technologie **én** economie
+
+We jagen geen “records” na; we zoeken **praktische winst**: plekken waar maatwerk haalbaar is en rendeert.
+
+1. **Use-case selectie**  
+   Taken met duidelijke waarde (minder fouten, tijdswinst, conversiestijging) en meetbare definitie van “goed”.
+
+2. **Datastrategie**  
+   Welke data is nodig, hoe bemachtigen we die veilig, en hoe labelen we efficiënt? Synthetische data alleen als die tegen real-world voorbeelden is gevalideerd.
+
+3. **Eerst een baseline**  
+   Sterke prompts en RAG op een generiek model. Is dat “goed genoeg”, dan stoppen we daar.
+
+4. **Gerichte aanpassing**  
+   Mist de baseline (kwaliteit, latentie, kosten), dan proberen we fine-tuning, adapters of kleinere specialistische modellen.
+
+5. **Head-to-head evaluatie**  
+   We meten accuracy, robuustheid, latentie en **kosten per 1.000 requests**—en leggen dat naast de gecreëerde waarde.
+
+## Hoe we beslissen: ons evaluatiekader
+
+| Criterium            | Waar we op letten                                   |
+| ---                  | ---                                                  |
+| **Task fit**         | Begrijpt domeintaal en randgevallen                  |
+| **Kwaliteit**        | Accuracy/F1, format-nauwkeurigheid, fouttypen        |
+| **Snelheid**         | P95-latentie binnen producteisen                     |
+| **Kosten**           | Kosten per resultaat op verwachte schaal             |
+| **Robuustheid**      | Performance bij ruis / lange contexten               |
+| **Onderhoudbaarheid**| Update-inspanning bij data- of beleidswijzigingen    |
+| **Privacy & safety** | Dataverwerking, toegang, auditeerbaarheid            |
+
+Een custom model “wint” als het de kwaliteit **verbetert**, of dezelfde kwaliteit haalt met **lagere latentie/kosten**—én beheersbaar blijft.
+
+## Voorbeeldpatroon (vereenvoudigd)
+
+1. **Probleem**: Gestructureerde velden extraheren uit sectorspecifieke documenten met veel terminologie-variatie.  
+2. **Baseline**: Generiek model + strakke prompts → redelijke accuracy, maar te traag/duur op schaal.  
+3. **Iteratie**: RAG met compact domein-index → beter, maar mist nog randgevallen.  
+4. **Maatwerk**: Fine-tune van een kleiner model op gecureerde voorbeelden + schema-strictheid.  
+5. **Resultaat**: Zelfde of hogere accuracy, **~60–80% lagere kosten** per document, **lagere latentie**.  
+6. **Guardrails**: Validatielaag en drift-monitoring om schemafouten tijdig te vangen.
+
+> Inzicht: Het **goedkoopste betrouwbare** pad is het juiste pad. We schalen alleen op als de data dat aantoont.
+
+## Wanneer je *waarschijnlijk* geen maatwerk nodig hebt
+
+- Prompts + RAG halen al je kwaliteits- en latentiedoelen  
+- Je hebt (nog) geen representatieve data  
+- De taak verandert wekelijks en loopt het model telkens voorbij  
+- Te weinig volume om de investering te rechtvaardigen
+
+In die gevallen documenteren we de kloof en plannen we een herbeoordeling zodra de context verandert.
+
+## Conclusie
+
+Custom modellen draaien niet om nieuwigheid, maar om **fit**. Als een gespecialiseerde aanpak je doelkwaliteit **sneller of goedkoper** haalt, is het de moeite waard. Ons onderzoek identificeert zulke cases, ontwerpt minimaal-nodig maatwerk en bewijst waarde met duidelijke metingen.
+
+### TL;DR
+
+- Generieke modellen zijn sterk, maar **niet universeel**.  
+- Sommige taken vragen om **domeindata** en **strakker gedrag**.  
+- We starten licht (prompts/RAG) en schalen pas op als het moet.  
+- Beslissingen draaien om **kwaliteit, latentie, kosten en beheersbaarheid**—niet om hype.

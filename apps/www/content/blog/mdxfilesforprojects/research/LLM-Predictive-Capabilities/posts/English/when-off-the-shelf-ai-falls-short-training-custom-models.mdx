@@ -1,0 +1,101 @@
+---
+date: 2025-03-23
+title: "When Off-the-Shelf AI Falls Short: Training Custom Models"
+description: "General models are powerful but not universal. Here’s when custom training makes sense, how we evaluate feasibility and ROI, and the lightweight techniques we use to hit quality, speed, and cost goals."
+author: chiHueng
+tags: ["ai", "research", "fine-tuning"]
+image: "/images/blog-images/mdxfilesforprojects/research/LLM-Predictive-Capabilities/images/Custommodel.png"
+language: English
+---
+# When Off-the-Shelf AI Falls Short: Training Custom Models
+
+Most general AI models are incredibly capable—but not at *everything*. When you ask them to perform a task they weren’t trained on, or to reason over data they’ve never seen, performance drops. That doesn’t mean AI “can’t” do the job; it often means you need a **custom model** trained for your specific domain and task.
+
+This post outlines what we’re researching, when custom training makes sense, and how we evaluate whether it’s technologically feasible *and* economically reasonable.
+
+## Why custom training?
+
+Some tasks demand **very specific data** or **tightly defined behavior**:
+
+- Domain jargon and edge cases (e.g., legal clauses, medical device specs, internal process language)
+- Private or proprietary datasets that never appear in public training corpora
+- Strict output formats or compliance rules
+- Latency or cost constraints at scale
+
+In these scenarios, tailoring a model to your use case can outperform a generic model—or match its quality with **lower cost and faster inference**.
+
+## What “custom” can mean
+
+“Custom” isn’t one thing. We select the lightest-weight method that meets the goal:
+
+- **Prompt & system design** — Improve instructions, structure outputs, constrain formats.
+- **Retrieval-Augmented Generation (RAG)** — Keep your data outside the model; retrieve it at runtime.
+- **Fine-tuning / adapters (LoRA, etc.)** — Teach a base model your style, data, and edge cases.
+- **Distillation / compression** — Transfer behavior from a large model to a smaller, cheaper one.
+- **Task-specific small models** — Train narrow models for classification, routing, or extraction.
+
+Often, a **hybrid** (e.g., RAG + light fine-tuning) delivers the best quality-to-cost ratio.
+
+## Our research program: technology and economics
+
+We’re not trying to set records. We’re investigating **practical wins**: places where a custom approach is both achievable and worth it.
+
+1. **Use-case selection**  
+   We look for tasks with clear value (error reduction, time saved, conversion lift) and measurable definitions of “good.”
+
+2. **Data strategy**  
+   Identify what data is needed, how to obtain it safely, and how to label it efficiently. Use synthetic data only when validated against real examples.
+
+3. **Baselines first**  
+   Start with strong prompts and RAG on a general model. If it’s good enough, stop there.
+
+4. **Targeted customization**  
+   If the baseline misses the mark (quality, latency, cost), trial fine-tuning, adapters, or smaller specialist models.
+
+5. **Head-to-head evaluation**  
+   Measure accuracy, robustness, latency, and cost per 1,000 requests—then compare against the value the task creates.
+
+## How we decide: an evaluation frame
+
+| Criterion           | What we look for                                        |
+| ---                | ---                                                     |
+| **Task fit**       | Handles domain language and edge cases                  |
+| **Quality**        | Accuracy/F1, structure adherence, error types           |
+| **Speed**          | P95 latency within product constraints                  |
+| **Cost**           | Per-result cost at expected scale                       |
+| **Robustness**     | Performance under noisy inputs/long contexts            |
+| **Maintainability**| Update effort when data or policy changes               |
+| **Privacy & safety** | Data handling, access controls, auditability         |
+
+A custom model “wins” if it improves quality **or** hits the same quality with **lower latency/cost**—and remains maintainable.
+
+## Example project pattern (simplified)
+
+1. **Problem**: Extract structured fields from industry-specific documents with high terminology variance.  
+2. **Baseline**: General model + strict prompts → decent accuracy, too slow/expensive at scale.  
+3. **Iteration**: RAG with a compact domain index → better, still misses edge cases.  
+4. **Customization**: Fine-tune a smaller model on curated examples + schema adherence.  
+5. **Outcome**: Same or higher accuracy, **~60–80% lower cost** per document, **lower latency**.  
+6. **Guardrails**: Validation layer and drift monitors to catch schema violations over time.
+
+> Insight: The cheapest reliable approach is the right approach. We escalate only when data shows it’s needed.
+
+## When you probably don’t need custom training
+
+- Prompts + RAG already meet quality and latency goals  
+- No representative data (yet)  
+- The task changes weekly and would outpace a tuned model  
+- Traffic volume is too low to justify the work
+
+In those cases, we document the gap and revisit once conditions change.
+
+## Takeaway
+
+Custom models aren’t about novelty; they’re about **fit**. If a specialized approach can reach your target quality **faster or cheaper**, it’s worth exploring. Our research program exists to identify those cases, design minimal-viable customization, and prove value with clear measurements.
+
+### TL;DR
+
+- General models are great, but **not universal**.  
+- Some tasks need **domain data** and **tighter behavior**.  
+- We test lightweight customizations first and scale up only if needed.  
+- Decisions are made on **quality, latency, cost, and maintainability**—not hype.
