@@ -46,7 +46,7 @@ export function generateMetadata({
       creator: "@unkeydev",
     },
     icons: {
-      shortcut: "/images/logos/transformai/purelogo.png",
+      shortcut: "/images/logos/transformai/logosvg.svg",
     },
   };
 }

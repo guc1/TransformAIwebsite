@@ -70,7 +70,7 @@ export function generateMetadata({
       },
     },
     icons: {
-      shortcut: "/images/logos/transformai/purelogo.png",
+      shortcut: "/images/logos/transformai/logosvg.svg",
     },
   };
 }
