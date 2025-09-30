@@ -83,7 +83,7 @@ export async function generateMetadata({
       card: "summary_large_image",
     },
     icons: {
-      shortcut: "/unkey.png",
+      shortcut: "/images/logos/transformai/purelogo.png",
     },
   };
 }
