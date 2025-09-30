@@ -1,10 +1,11 @@
+import { filterProjectPosts } from "@/lib/blog-posts";
 import { allChangelogs, allGlossaries, allPolicies, allPosts } from "content-collections";
 import type { Changelog, Glossary, Policy, Post } from "content-collections";
 import type { MetadataRoute } from "next";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://www.unkey.com";
 
-  const posts: MetadataRoute.Sitemap = allPosts.map((post: Post) => ({
+  const posts: MetadataRoute.Sitemap = filterProjectPosts(allPosts).map((post: Post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: post.date,
   }));

@@ -33,13 +33,13 @@ export function BlogCard({
     >
       <div className="w-full rounded-2xl bg-clip-border">
         <Frame size="sm">
-          <div className="relative aspect-video">
+          <div className="relative aspect-[3/2]">
             <ImageWithBlur
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8+e1bKQAJMQNc5W2CQwAAAABJRU5ErkJggg=="
               src={imageUrl!}
               alt="Hero Image"
-              className="object-center w-full overflow-hidden"
+              className="object-cover object-center w-full h-full overflow-hidden"
               fill={true}
             />
           </div>

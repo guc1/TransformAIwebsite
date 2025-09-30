@@ -7,6 +7,7 @@ import { MeteorLinesAngular } from "@/components/ui/meteorLines";
 import { authors } from "@/content/blog/authors";
 import { formatDateUtc, formatIsoDateUtc } from "@/lib/date";
 import { localesForPost, shouldIncludePostForLocale } from "@/lib/blog-language";
+import { filterProjectPosts } from "@/lib/blog-posts";
 import { cn } from "@/lib/utils";
 import { allPosts } from "content-collections";
 import type { Post } from "content-collections";
@@ -16,8 +17,10 @@ import { notFound } from "next/navigation";
 
 export const dynamic = "force-static";
 
+const projectPosts = filterProjectPosts(allPosts);
+
 export const generateStaticParams = async () =>
-  allPosts.flatMap((post) =>
+  projectPosts.flatMap((post) =>
     localesForPost(post.language).map((locale) => ({
       locale,
       slug: post.slug,
@@ -29,7 +32,7 @@ export function generateMetadata({
 }: {
   params: { slug: string; locale: string };
 }): Metadata {
-  const post = allPosts.find((post) => post.slug === `${params.slug}`);
+  const post = projectPosts.find((post) => post.slug === `${params.slug}`);
   if (!post || !shouldIncludePostForLocale(post.language, params.locale)) {
     notFound();
   }
@@ -77,7 +80,7 @@ const BlogArticleWrapper = async ({
 }: {
   params: { slug: string; locale: string };
 }) => {
-  const post = allPosts.find((post) => post.slug === `${params.slug}`) as Post | undefined;
+  const post = projectPosts.find((post) => post.slug === `${params.slug}`) as Post | undefined;
   if (!post || !shouldIncludePostForLocale(post.language, params.locale)) {
     notFound();
   }
