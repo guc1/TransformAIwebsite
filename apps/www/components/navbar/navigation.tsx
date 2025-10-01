@@ -61,7 +61,7 @@ export function Navigation() {
     >
       <div className="container flex items-center justify-between">
         <div className="flex items-center justify-between w-full sm:w-auto sm:gap-12 lg:gap-20">
-          <Link href="/" aria-label={t("ariaHome")}>
+          <Link href="/" aria-label={t("ariaHome")} className="block shrink-0">
             <Logo />
           </Link>
           <MobileLinks className="lg:hidden" />
@@ -240,11 +240,11 @@ function Logo({ className }: { className?: string }) {
     <TransformAILogo
       variant="transparent"
       className={cn(
-        "h-auto w-[152px] sm:w-[184px] md:w-[212px] lg:w-[232px]",
+        "h-auto w-[128px] sm:w-[164px] md:w-[188px] lg:w-[204px] shrink-0",
         className,
       )}
       priority
-      sizes="(max-width: 640px) 184px, (max-width: 1024px) 212px, 232px"
+      sizes="(max-width: 640px) 164px, (max-width: 1024px) 188px, 204px"
     />
   );
 }
