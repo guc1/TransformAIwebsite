@@ -5,6 +5,7 @@ import { CTA } from "@/components/cta";
 import { FeatureGrid } from "@/components/feature/feature-grid";
 import { HashedKeysBento } from "@/components/hashed-keys-bento";
 import { Hero } from "@/components/hero/hero";
+import { MainboardArtwork } from "@/components/hero/mainboard-artwork";
 import { ImageWithBlur } from "@/components/image-with-blur";
 import { IpWhitelistingBento } from "@/components/ip-whitelisting-bento";
 import { LatencyBento } from "@/components/latency-bento";
@@ -29,12 +30,10 @@ import {
   Sprout,
   Zap,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import mainboard from "@/images/mainboard.svg";
 import { DesktopLogoCloud, MobileLogoCloud } from "./(components)/logo-cloud-content";
 import { CodeExamples } from "../../code-examples";
 
@@ -128,11 +127,9 @@ export default async function Landing({
       <TopLeftShiningLight />
       <div className="relative w-full pt-6 overflow-hidden">
         <div className="container relative mx-auto">
-          <Image
-            src={mainboard}
-            alt="Animated SVG showing computer circuits lighting up"
-            className="absolute inset-x-0 flex  xl:hidden -z-10 scale-[2]"
+          <MainboardArtwork
             priority
+            className="absolute inset-x-0 flex xl:hidden -z-10 scale-[2]"
           />
         </div>
         <div className="container relative flex flex-col mx-auto space-y-16 md:space-y-32">
