@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { HeroMainSection } from "./hero-main-section";
 
-import mainboard from "@/images/mainboard.svg";
+import mainboard from "@/images/logos/transformai/mainbordtransform.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
 export const Hero: React.FC = () => {
   const hero = useTranslations("Hero");
