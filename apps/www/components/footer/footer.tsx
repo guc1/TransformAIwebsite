@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { TransformAILogo } from "./footer-svgs";
-import { Wordmark } from "./wordmark";
 
 type NavLink = {
   titleKey: string;
@@ -119,7 +118,7 @@ export function Footer({ initialYear }: { initialYear: number }) {
 
   return (
     <div className="border-t border-white/20 blog-footer-radial-gradient">
-      <footer className="container relative grid grid-cols-2 gap-8 pt-8 mx-auto overflow-hidden lg:gap-16 sm:grid-cols-3 xl:grid-cols-5 sm:pt-12 md:pt-16 lg:pt-24 xl:pt-32">
+      <footer className="container relative grid grid-cols-2 gap-8 pt-8 pb-12 mx-auto overflow-hidden lg:gap-16 sm:grid-cols-3 xl:grid-cols-5 sm:pt-12 sm:pb-16 md:pt-16 md:pb-20 lg:pt-24 lg:pb-24 xl:pt-32 xl:pb-32">
         <div className="flex flex-col items-center col-span-2 sm:items-start sm:col-span-3 xl:col-span-1">
           <TransformAILogo className="h-12 w-auto" sizes="(max-width: 768px) 160px, 220px" />
           <div className="mt-8 text-sm font-normal leading-6 text-white/60">
@@ -134,9 +133,6 @@ export function Footer({ initialYear }: { initialYear: number }) {
           <Column key={titleKey} titleKey={titleKey} links={links} className="col-span-1 " />
         ))}
       </footer>
-      <div className="container mt-8 h-[100px]">
-        <Wordmark className="flex w-full" />
-      </div>
     </div>
   );
 }
