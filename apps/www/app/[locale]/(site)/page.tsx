@@ -35,6 +35,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import mainboard from "@/images/mainboard.svg";
+import overlayMainboard from "@/images/logos/transformai/theoverlayone.svg";
 import { DesktopLogoCloud, MobileLogoCloud } from "./(components)/logo-cloud-content";
 import { CodeExamples } from "../../code-examples";
 
@@ -131,7 +132,14 @@ export default async function Landing({
           <Image
             src={mainboard}
             alt="Animated SVG showing computer circuits lighting up"
-            className="absolute inset-x-0 flex  xl:hidden -z-10 scale-[2]"
+            className="absolute inset-x-0 flex xl:hidden -z-20 scale-[2]"
+            priority
+          />
+          <Image
+            src={overlayMainboard}
+            alt=""
+            aria-hidden
+            className="absolute inset-x-0 flex xl:hidden -z-10 scale-[2] pointer-events-none"
             priority
           />
         </div>
