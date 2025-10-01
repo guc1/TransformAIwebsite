@@ -147,6 +147,13 @@ function MobileLinks({ className }: { className?: string }) {
               <li>
                 <MobileNavLink
                   onClick={() => setIsOpen(false)}
+                  href="/contact"
+                  label={t("links.contact")}
+                />
+              </li>
+              <li>
+                <MobileNavLink
+                  onClick={() => setIsOpen(false)}
                   href="/changelog"
                   label={t("links.changelog")}
                 />
@@ -218,6 +225,9 @@ function DesktopLinks({ className }: { className: string }) {
       </li>
       <li>
         <DesktopNavLink href="/pricing" label={t("links.pricing")} />
+      </li>
+      <li>
+        <DesktopNavLink href="/contact" label={t("links.contact")} />
       </li>
       <li>
         <DesktopNavLink href="/changelog" label={t("links.changelog")} />
