@@ -24,10 +24,91 @@
       "about": "Over ons",
       "blog": "Blog",
       "pricing": "Prijzen",
+      "contact": "Contact",
       "changelog": "Wijzigingen",
       "templates": "Templates",
       "docs": "Documentatie",
       "discord": "Discord"
+    }
+  },
+  "Contact": {
+    "Hero": {
+      "eyebrow": "Laten we praten",
+      "title": "Neem contact op met TransformAI",
+      "body": "Deel je uitdaging en wij leveren binnen twee werkdagen een op maat gemaakt AI-plan.",
+      "emailNotice": "Liever mailen? Gebruik info@transformai.nl — dit is ons enige officiële adres."
+    },
+    "Highlights": {
+      "label": "Waarom leiders ons benaderen",
+      "title": "Van eerste idee naar schaalbare automatisering",
+      "description": "We begeleiden Nederlandse organisaties om AI-ambities om te zetten in meetbare resultaten.",
+      "items": {
+        "strategy": {
+          "title": "Strategische richting in weken",
+          "description": "Doorloop een AI-strategiesprint met duidelijke prioriteiten, KPI's en een board-ready plan."
+        },
+        "coCreation": {
+          "title": "Samen met jouw teams bouwen",
+          "description": "Werk schouder aan schouder met onze specialisten om automatiseringen te ontdekken en processen te herontwerpen."
+        },
+        "governance": {
+          "title": "Governance zonder vertraging",
+          "description": "Introduceer verantwoorde kaders, databeleid en change management dat teams echt adopteren."
+        }
+      }
+    },
+    "Form": {
+      "title": "Stuur ons een bericht",
+      "subtitle": "Laat weten wat je nodig hebt en we reageren binnen één werkdag.",
+      "requestType": {
+        "label": "Soort aanvraag",
+        "helper": "Kies de optie die het beste bij je vraag past."
+      },
+      "requestTypes": {
+        "strategy": {
+          "title": "AI-strategiesprint",
+          "description": "Breng leiders op één lijn over resultaten, KPI's en de eerste 90-dagen-roadmap."
+        },
+        "automation": {
+          "title": "Automatiseringsscan",
+          "description": "Ontdek automatiseringskansen in teams en kwantificeer de efficiëntiewinst."
+        },
+        "integration": {
+          "title": "Maatwerk AI-integratie",
+          "description": "Ontwerp copilots, agents of dataproducten die aansluiten op jullie stack."
+        },
+        "training": {
+          "title": "Executive enablement & training",
+          "description": "Maak leiders en teams vaardig zodat AI-adoptie organisatiebreed blijft plakken."
+        }
+      },
+      "fields": {
+        "name": {
+          "label": "Volledige naam",
+          "placeholder": "Je naam"
+        },
+        "company": {
+          "label": "Bedrijf (optioneel)",
+          "placeholder": "Bedrijfs- of teamnaam"
+        },
+        "email": {
+          "label": "Contact e-mail (optioneel)",
+          "placeholder": "jij@bedrijf.nl"
+        },
+        "description": {
+          "label": "Beschrijf je aanvraag",
+          "placeholder": "Deel context, doelen, planning of andere details die ons helpen voorbereiden."
+        }
+      },
+      "submit": {
+        "label": "Bericht versturen",
+        "pending": "Versturen…"
+      },
+      "feedback": {
+        "successTitle": "Bericht verzonden",
+        "errorTitle": "Bericht kon niet worden verzonden"
+      },
+      "footnote": "We gebruiken je gegevens alleen om te reageren via {email}."
     }
   },
   "Pricing": {
@@ -710,6 +791,7 @@
       "about": "Over ons",
       "roadmap": "Roadmap",
       "careers": "Carrières",
+      "contact": "Contact",
       "sourceCode": "Broncode",
       "status": "Statuspagina",
       "blog": "Blog",

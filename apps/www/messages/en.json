@@ -24,10 +24,91 @@
       "about": "About",
       "blog": "Blog",
       "pricing": "Pricing",
+      "contact": "Contact",
       "changelog": "Changelog",
       "templates": "Templates",
       "docs": "Docs",
       "discord": "Discord"
+    }
+  },
+  "Contact": {
+    "Hero": {
+      "eyebrow": "Let’s talk",
+      "title": "Contact TransformAI",
+      "body": "Share your challenge and we’ll respond with a tailored AI roadmap within two business days.",
+      "emailNotice": "Prefer email? Reach out at info@transformai.nl — this is our only official inbox."
+    },
+    "Highlights": {
+      "label": "Why leaders reach out",
+      "title": "From first idea to scaled automation",
+      "description": "We partner with Dutch leadership teams to translate AI ambition into measurable results.",
+      "items": {
+        "strategy": {
+          "title": "Strategic direction in weeks",
+          "description": "Run an AI strategy sprint that lands clear priorities, KPIs, and a board-ready plan."
+        },
+        "coCreation": {
+          "title": "Co-create with your operators",
+          "description": "Embed our specialists alongside your teams to map automations and redesign workflows."
+        },
+        "governance": {
+          "title": "Governance without slowing down",
+          "description": "Implement responsible guardrails, data policies, and change management that teams adopt."
+        }
+      }
+    },
+    "Form": {
+      "title": "Send us a message",
+      "subtitle": "Tell us what you need and we’ll reply within one business day.",
+      "requestType": {
+        "label": "Request type",
+        "helper": "Choose the option that best matches your focus."
+      },
+      "requestTypes": {
+        "strategy": {
+          "title": "AI strategy sprint",
+          "description": "Align leadership around outcomes, KPIs, and the first 90-day roadmap."
+        },
+        "automation": {
+          "title": "Automation opportunity audit",
+          "description": "Spot high-impact automations across teams and model the efficiency gains."
+        },
+        "integration": {
+          "title": "Custom AI integration",
+          "description": "Design bespoke copilots, agents, or data products that plug into your stack."
+        },
+        "training": {
+          "title": "Executive enablement & training",
+          "description": "Upskill leaders and teams so AI adoption sticks across the organisation."
+        }
+      },
+      "fields": {
+        "name": {
+          "label": "Full name",
+          "placeholder": "Your name"
+        },
+        "company": {
+          "label": "Company (optional)",
+          "placeholder": "Company or team name"
+        },
+        "email": {
+          "label": "Contact email (optional)",
+          "placeholder": "you@company.com"
+        },
+        "description": {
+          "label": "Describe your request",
+          "placeholder": "Share context, goals, timelines, or anything else that helps us prepare."
+        }
+      },
+      "submit": {
+        "label": "Send message",
+        "pending": "Sending…"
+      },
+      "feedback": {
+        "successTitle": "Message sent",
+        "errorTitle": "We couldn’t send your message"
+      },
+      "footnote": "We’ll only use the details you share to respond from {email}."
     }
   },
   "Pricing": {
@@ -753,6 +834,7 @@
       "about": "About",
       "roadmap": "Roadmap",
       "careers": "Careers",
+      "contact": "Contact",
       "sourceCode": "Source Code",
       "status": "Status Page",
       "blog": "Blog",
