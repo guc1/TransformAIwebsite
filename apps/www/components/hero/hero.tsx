@@ -1,11 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { HeroMainSection } from "./hero-main-section";
 
-import mainboard from "@/images/mainboard.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
+import { MainboardArtwork } from "./mainboard-artwork";
 export const Hero: React.FC = () => {
   const hero = useTranslations("Hero");
   const cta = useTranslations("CTA");
@@ -46,15 +45,11 @@ export const Hero: React.FC = () => {
         />
       </motion.div>
 
-      <div>
-        <Image
-          src={mainboard}
-          alt="Animated SVG showing computer circuits lighting up"
-          className="absolute hidden xl:right-32 xl:flex -z-10 xl:-top-56"
-          style={{ transform: "scale(2)" }}
-          priority
-        />
-      </div>
+      <MainboardArtwork
+        priority
+        className="absolute hidden xl:flex -z-10 xl:right-32 xl:-top-56"
+        style={{ transform: "scale(2)" }}
+      />
       <SubHeroMainboard className="absolute hidden md:flex left-1/2 -translate-x-[calc(50%+85px)] -bottom-[224px] -z-10" />
     </motion.div>
   );
