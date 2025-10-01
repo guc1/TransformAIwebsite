@@ -5,6 +5,7 @@ import { CTA } from "@/components/cta";
 import { FeatureGrid } from "@/components/feature/feature-grid";
 import { HashedKeysBento } from "@/components/hashed-keys-bento";
 import { Hero } from "@/components/hero/hero";
+import { HeroMainboardLights } from "@/components/hero/hero-mainboard-lights";
 import { ImageWithBlur } from "@/components/image-with-blur";
 import { IpWhitelistingBento } from "@/components/ip-whitelisting-bento";
 import { LatencyBento } from "@/components/latency-bento";
@@ -128,12 +129,17 @@ export default async function Landing({
       <TopLeftShiningLight />
       <div className="relative w-full pt-6 overflow-hidden">
         <div className="container relative mx-auto">
-          <Image
-            src={mainboard}
-            alt="Animated SVG showing computer circuits lighting up"
-            className="absolute inset-x-0 flex  xl:hidden -z-10 scale-[2]"
-            priority
-          />
+          <div className="absolute inset-x-0 -z-10 flex justify-center xl:hidden">
+            <div className="relative scale-[2]">
+              <Image
+                src={mainboard}
+                alt="Animated SVG showing computer circuits lighting up"
+                className="h-auto w-full"
+                priority
+              />
+              <HeroMainboardLights />
+            </div>
+          </div>
         </div>
         <div className="container relative flex flex-col mx-auto space-y-16 md:space-y-32">
           <Section>
