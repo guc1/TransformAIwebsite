@@ -14,7 +14,7 @@ import { useConsentManager } from "@c15t/nextjs";
 import { track } from "@vercel/analytics";
 import { motion } from "framer-motion";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { PrimaryButton, SecondaryButton } from "../button";
 import { DesktopNavLink, MobileNavLink } from "./link";
@@ -23,6 +23,8 @@ export function Navigation() {
   const [scrollPercent, setScrollPercent] = useState(0);
   const { hasConsentFor } = useConsentManager();
   const t = useTranslations("Navigation");
+  const locale = useLocale();
+  const homeHref = `/${locale}`;
   const containerVariants = {
     hidden: {
       opacity: 0,
@@ -61,7 +63,7 @@ export function Navigation() {
     >
       <div className="container flex items-center justify-between">
         <div className="flex items-center justify-between w-full sm:w-auto sm:gap-12 lg:gap-20">
-          <Link href="/" aria-label={t("ariaHome")}>
+          <Link href={homeHref} aria-label={t("ariaHome")}>
             <Logo />
           </Link>
           <MobileLinks className="lg:hidden" />
@@ -101,6 +103,8 @@ export function Navigation() {
 function MobileLinks({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("Navigation");
+  const locale = useLocale();
+  const homeHref = `/${locale}`;
   return (
     <div className={className}>
       <Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -121,7 +125,12 @@ function MobileLinks({ className }: { className?: string }) {
           <div className="relative w-full mx-auto antialiased z-[110]">
             <ul className="flex flex-col px-8 divide-y divide-white/25">
               <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/" label={t("links.home")} />
+                <MobileNavLink
+                  onClick={() => setIsOpen(false)}
+                  href={homeHref}
+                  label={t("links.home")}
+                  isHome
+                />
               </li>
               <li>
                 <MobileNavLink
