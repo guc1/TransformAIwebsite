@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { TransformAILogo } from "./footer-svgs";
-import { Wordmark } from "./wordmark";
 
 type NavLink = {
   titleKey: string;
@@ -134,9 +133,6 @@ export function Footer({ initialYear }: { initialYear: number }) {
           <Column key={titleKey} titleKey={titleKey} links={links} className="col-span-1 " />
         ))}
       </footer>
-      <div className="container mt-8 h-[100px]">
-        <Wordmark className="flex w-full" />
-      </div>
     </div>
   );
 }
