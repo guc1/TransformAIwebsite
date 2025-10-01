@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { HeroMainSection } from "./hero-main-section";
 
 import mainboard from "@/images/mainboard.svg";
+import overlayMainboard from "@/images/logos/transformai/theoverlayone.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
 export const Hero: React.FC = () => {
   const hero = useTranslations("Hero");
@@ -50,7 +51,15 @@ export const Hero: React.FC = () => {
         <Image
           src={mainboard}
           alt="Animated SVG showing computer circuits lighting up"
-          className="absolute hidden xl:right-32 xl:flex -z-10 xl:-top-56"
+          className="absolute hidden xl:right-32 xl:flex -z-20 xl:-top-56"
+          style={{ transform: "scale(2)" }}
+          priority
+        />
+        <Image
+          src={overlayMainboard}
+          alt=""
+          aria-hidden
+          className="absolute hidden xl:right-32 xl:flex -z-10 xl:-top-56 pointer-events-none"
           style={{ transform: "scale(2)" }}
           priority
         />
