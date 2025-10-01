@@ -34,9 +34,10 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import mainboard from "@/images/mainboard.svg";
 import { DesktopLogoCloud, MobileLogoCloud } from "./(components)/logo-cloud-content";
 import { CodeExamples } from "../../code-examples";
+
+const MAINBOARD_IMAGE_SRC = "/images/logos/transformai/mainbordtransform.svg";
 
 type LandingPageMetadataProps = {
   params: {
@@ -129,7 +130,10 @@ export default async function Landing({
       <div className="relative w-full pt-6 overflow-hidden">
         <div className="container relative mx-auto">
           <Image
-            src={mainboard}
+            src={MAINBOARD_IMAGE_SRC}
+            width={1512}
+            height={546}
+            unoptimized
             alt="Animated SVG showing computer circuits lighting up"
             className="absolute inset-x-0 flex  xl:hidden -z-10 scale-[2]"
             priority
