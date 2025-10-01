@@ -63,6 +63,9 @@ const config = {
         "fade-in-up": "fade-in-up 1s ease-out forwards",
         "fade-in-down": "fade-in-down 1s ease-out forwards",
         "logo-cloud": "logo-cloud 18s linear infinite",
+        "mainboard-light-horizontal": "mainboard-light-horizontal 7s linear infinite",
+        "mainboard-light-diagonal": "mainboard-light-diagonal 9s linear infinite",
+        "mainboard-light-vertical": "mainboard-light-vertical 8s linear infinite",
       },
       keyframes: {
         shine: {
@@ -147,6 +150,24 @@ const config = {
             transform: "rotate(270deg) translateX(-500px)",
             opacity: "0",
           },
+        },
+        "mainboard-light-horizontal": {
+          "0%": { transform: "translateX(-45%)", opacity: "0" },
+          "15%": { opacity: "0.65" },
+          "60%": { opacity: "0.3" },
+          "100%": { transform: "translateX(45%)", opacity: "0" },
+        },
+        "mainboard-light-diagonal": {
+          "0%": { transform: "translate3d(-60%, -20%, 0)", opacity: "0" },
+          "20%": { opacity: "0.6" },
+          "70%": { opacity: "0.25" },
+          "100%": { transform: "translate3d(60%, 20%, 0)", opacity: "0" },
+        },
+        "mainboard-light-vertical": {
+          "0%": { transform: "translateY(-40%)", opacity: "0" },
+          "20%": { opacity: "0.55" },
+          "75%": { opacity: "0.25" },
+          "100%": { transform: "translateY(40%)", opacity: "0" },
         },
       },
     },
