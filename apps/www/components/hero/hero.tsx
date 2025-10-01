@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { HeroMainSection } from "./hero-main-section";
-
-import mainboard from "@/images/mainboard.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
+
+const HERO_MAINBOARD_IMAGE = "/images/logos/transformai/mainbordtransform.svg";
 export const Hero: React.FC = () => {
   const hero = useTranslations("Hero");
   const cta = useTranslations("CTA");
@@ -48,8 +48,10 @@ export const Hero: React.FC = () => {
 
       <div>
         <Image
-          src={mainboard}
+          src={HERO_MAINBOARD_IMAGE}
           alt="Animated SVG showing computer circuits lighting up"
+          width={1512}
+          height={546}
           className="absolute hidden xl:right-32 xl:flex -z-10 xl:-top-56"
           style={{ transform: "scale(2)" }}
           priority

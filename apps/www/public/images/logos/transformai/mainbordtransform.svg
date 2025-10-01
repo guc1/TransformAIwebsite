@@ -1,0 +1,391 @@
+<style>
+@keyframes a0_t { 0% { transform: translate(1111px,323px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1381px,323px); } 100% { transform: translate(1381px,323px); } }
+@keyframes a1_t { 0% { transform: translate(1111px,314px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1381px,314px); } 100% { transform: translate(1381px,314px); } }
+@keyframes a2_t { 0% { transform: translate(1111px,306px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1391px,306px); } 100% { transform: translate(1391px,306px); } }
+@keyframes a3_t { 0% { transform: translate(1101px,296px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1371px,296px); } 100% { transform: translate(1371px,296px); } }
+@keyframes a4_t { 0% { transform: translate(1101px,287px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1389px,287px); } 100% { transform: translate(1389px,287px); } }
+@keyframes a5_t { 0% { transform: translate(1101px,278px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1401px,278px); } 100% { transform: translate(1401px,278px); } }
+@keyframes a6_t { 0% { transform: translate(1111px,269px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1401px,269px); } 100% { transform: translate(1401px,269px); } }
+@keyframes a7_t { 0% { transform: translate(1102.5px,319px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1102.5px,549px); } 100% { transform: translate(1102.5px,549px); } }
+@keyframes a8_t { 0% { transform: translate(1093px,319px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1093px,549px); } 100% { transform: translate(1093px,549px); } }
+@keyframes a9_t { 0% { transform: translate(1083px,325px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 60% { transform: translate(1083px,555px); } 100% { transform: translate(1083px,555px); } }
+@keyframes a10_t { 0% { transform: translate(1073px,319px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 60% { transform: translate(1073px,559px); } 100% { transform: translate(1073px,559px); } }
+@keyframes a11_t { 0% { transform: translate(1063px,319px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 60% { transform: translate(1063px,546px); } 100% { transform: translate(1063px,546px); } }
+@keyframes a12_t { 0% { transform: translate(1053px,319px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1053px,519px); } 100% { transform: translate(1053px,519px); } }
+@keyframes a13_t { 0% { transform: translate(810px,286px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1019.38px,286px); } 100% { transform: translate(1019.38px,286px); } }
+@keyframes a14_t { 0% { transform: translate(811px,295px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1026px,295px); } 100% { transform: translate(1026px,295px); } }
+@keyframes a15_t { 0% { transform: translate(808px,304px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1024px,304px); } 100% { transform: translate(1024px,304px); } }
+@keyframes a16_t { 0% { transform: translate(829px,129px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 65.2173% { transform: translate(829px,279px); } 100% { transform: translate(829px,279px); } }
+@keyframes a17_t { 0% { transform: translate(813.5px,127px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 65.2173% { transform: translate(813.5px,277px); } 100% { transform: translate(813.5px,277px); } }
+@keyframes a18_t { 0% { transform: translate(829px,20px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 65.2173% { transform: translate(829px,150px); } 100% { transform: translate(829px,150px); } }
+@keyframes a19_t { 0% { transform: translate(813.5px,20px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 65.2173% { transform: translate(813.5px,130px); } 100% { transform: translate(813.5px,130px); } }
+@keyframes a20_o { 0% { opacity: 1; } 22.2222% { opacity: 0.5; } 33.3333% { opacity: 0.3; } 62.2222% { opacity: 1; } 100% { opacity: 1; } }
+@keyframes a21_o { 0% { opacity: 1; } 25.641% { opacity: 0.5; } 38.4615% { opacity: 0.3; } 71.7949% { opacity: 1; } 100% { opacity: 1; } }
+@keyframes a22_o { 0% { opacity: 1; } 25% { opacity: 0.5; } 37.5% { opacity: 0.3; } 70% { opacity: 1; } 100% { opacity: 1; } }
+@keyframes a23_t { 0% { transform: translate(1111px,323px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1381px,323px); } 100% { transform: translate(1381px,323px); } }
+@keyframes a24_t { 0% { transform: translate(1111px,314px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1381px,314px); } 100% { transform: translate(1381px,314px); } }
+@keyframes a25_t { 0% { transform: translate(1111px,306px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1391px,306px); } 100% { transform: translate(1391px,306px); } }
+@keyframes a26_t { 0% { transform: translate(1101px,296px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1371px,296px); } 100% { transform: translate(1371px,296px); } }
+@keyframes a27_t { 0% { transform: translate(1101px,287px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1389px,287px); } 100% { transform: translate(1389px,287px); } }
+@keyframes a28_t { 0% { transform: translate(1101px,278px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1401px,278px); } 100% { transform: translate(1401px,278px); } }
+@keyframes a29_t { 0% { transform: translate(1111px,269px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 76.1904% { transform: translate(1401px,269px); } 100% { transform: translate(1401px,269px); } }
+@keyframes a30_t { 0% { transform: translate(1102.5px,319px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1102.5px,549px); } 100% { transform: translate(1102.5px,549px); } }
+@keyframes a31_t { 0% { transform: translate(1093px,319px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1093px,549px); } 100% { transform: translate(1093px,549px); } }
+@keyframes a32_t { 0% { transform: translate(1083px,325px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 60% { transform: translate(1083px,555px); } 100% { transform: translate(1083px,555px); } }
+@keyframes a33_t { 0% { transform: translate(1073px,319px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 60% { transform: translate(1073px,559px); } 100% { transform: translate(1073px,559px); } }
+@keyframes a34_t { 0% { transform: translate(1063px,319px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 60% { transform: translate(1063px,546px); } 100% { transform: translate(1063px,546px); } }
+@keyframes a35_t { 0% { transform: translate(1053px,319px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1053px,519px); } 100% { transform: translate(1053px,519px); } }
+@keyframes a36_t { 0% { transform: translate(810px,286px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1019.38px,286px); } 100% { transform: translate(1019.38px,286px); } }
+@keyframes a37_t { 0% { transform: translate(811px,295px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1026px,295px); } 100% { transform: translate(1026px,295px); } }
+@keyframes a38_t { 0% { transform: translate(808px,304px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 66.6666% { transform: translate(1024px,304px); } 100% { transform: translate(1024px,304px); } }
+@keyframes a39_t { 0% { transform: translate(829px,129px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 65.2173% { transform: translate(829px,279px); } 100% { transform: translate(829px,279px); } }
+@keyframes a40_t { 0% { transform: translate(813.5px,127px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 65.2173% { transform: translate(813.5px,277px); } 100% { transform: translate(813.5px,277px); } }
+@keyframes a41_t { 0% { transform: translate(829px,20px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 65.2173% { transform: translate(829px,150px); } 100% { transform: translate(829px,150px); } }
+@keyframes a42_t { 0% { transform: translate(813.5px,20px); animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53); } 65.2173% { transform: translate(813.5px,130px); } 100% { transform: translate(813.5px,130px); } }
+@keyframes a43_o { 0% { opacity: 1; } 22.2222% { opacity: 0.5; } 33.3333% { opacity: 0.3; } 62.2222% { opacity: 1; } 100% { opacity: 1; } }
+@keyframes a44_o { 0% { opacity: 1; } 25.641% { opacity: 0.5; } 38.4615% { opacity: 0.3; } 71.7949% { opacity: 1; } 100% { opacity: 1; } }
+@keyframes a45_o { 0% { opacity: 1; } 25% { opacity: 0.5; } 37.5% { opacity: 0.3; } 70% { opacity: 1; } 100% { opacity: 1; } }
+    </style>
+<g id="lines-5" transform="translate(1268.5,306) translate(-109.5,-37)">
+                    <g mask="url(#mask14_1398_56)" transform="translate(109.5,64) translate(-1268.5,-333)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,333.5L1159,333.5L1159,333L1378,333L1378,333.5Z" fill="url(#Gradient-35)" fill-opacity="0.1" transform="translate(1268.5,333.25) translate(-1268.5,-333.25)"/>
+                        <rect width="45" height="20" fill="url(#Gradient-36)" transform="translate(1133.5,333) translate(-22.5,-10)" style="animation: 2.1s linear 5.7s infinite both a0_t;"/>
+                    </g>
+                    <g mask="url(#mask15_1398_56)" transform="translate(109.5,55) translate(-1268.5,-324)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,324.5L1159,324.5L1159,324L1378,324L1378,324.5Z" fill="url(#Gradient-37)" fill-opacity="0.1" transform="translate(1268.5,324.25) translate(-1268.5,-324.25)"/>
+                        <rect width="45" height="20" fill="url(#Gradient-38)" transform="translate(1133.5,324) translate(-22.5,-10)" style="animation: 2.1s linear 5.2s infinite both a1_t;"/>
+                    </g>
+                    <g mask="url(#mask16_1398_56)" transform="translate(109.5,47) translate(-1268.5,-316)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,316.5L1159,316.5L1159,316L1378,316L1378,316.5Z" fill="url(#Gradient-39)" fill-opacity="0.1" transform="translate(1268.5,316.25) translate(-1268.5,-316.25)"/>
+                        <rect width="45" height="20" fill="url(#Gradient-40)" transform="translate(1133.5,316) translate(-22.5,-10)" style="animation: 2.1s linear 5.4s infinite both a2_t;"/>
+                    </g>
+                    <g mask="url(#mask17_1398_56)" transform="translate(109.5,37) translate(-1268.5,-306)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,306.5L1159,306.5L1159,306L1378,306L1378,306.5Z" fill="url(#Gradient-41)" fill-opacity="0.1" transform="translate(1268.5,306.25) translate(-1268.5,-306.25)"/>
+                        <rect width="45" height="20" fill="url(#Gradient-42)" transform="translate(1123.5,306) translate(-22.5,-10)" style="animation: 2.1s linear 6.1s infinite both a3_t;"/>
+                    </g>
+                    <g mask="url(#mask18_1398_56)" transform="translate(109.5,28) translate(-1268.5,-297)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,297.5L1159,297.5L1159,297L1378,297L1378,297.5Z" fill="url(#Gradient-43)" fill-opacity="0.1" transform="translate(1268.5,297.25) translate(-1268.5,-297.25)"/>
+                        <rect width="45" height="20" fill="url(#Gradient-44)" transform="translate(1123.5,297) translate(-22.5,-10)" style="animation: 2.1s linear 5s infinite both a4_t;"/>
+                    </g>
+                    <g mask="url(#mask19_1398_56)" transform="translate(109.5,19) translate(-1268.5,-288)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,288.5L1159,288.5L1159,288L1378,288L1378,288.5Z" fill="url(#Gradient-45)" fill-opacity="0.1" transform="translate(1268.5,288.25) translate(-1268.5,-288.25)"/>
+                        <rect width="45" height="20" fill="url(#Gradient-46)" transform="translate(1123.5,288) translate(-22.5,-10)" style="animation: 2.1s linear 4.7s infinite both a5_t;"/>
+                    </g>
+                    <g mask="url(#mask20_1398_56)" transform="translate(109.5,10) translate(-1268.5,-279)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,279.5L1159,279.5L1159,279L1378,279L1378,279.5Z" fill="url(#Gradient-47)" fill-opacity="0.1" transform="translate(1268.5,279.25) translate(-1268.5,-279.25)"/>
+                        <rect width="45" height="20" fill="url(#Gradient-48)" transform="translate(1133.5,279) translate(-22.5,-10)" style="animation: 2.1s linear 5.2s infinite both a6_t;"/>
+                    </g>
+                </g>
+                <g id="lines-4" transform="translate(1086.25,440) translate(-33.25,-58)">
+                    <g mask="url(#mask3_1398_56)" transform="translate(58,58) translate(-1111,-440)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1111,382L1111,498L1110.5,498L1110.5,382L1111,382Z" fill="white" fill-opacity="0.15" transform="translate(1110.75,440) translate(-1110.75,-440)"/>
+                        <rect width="17" height="51" fill="url(#Gradient-49)" transform="translate(1111,344.5) translate(-8.5,-25.5)" style="animation: 1.8s linear 6s infinite both a7_t;"/>
+                    </g>
+                    <g mask="url(#mask4_1398_56)" transform="translate(48.5,58) translate(-1101.5,-440)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1101.5,382L1101.5,498L1101,498L1101,382L1101.5,382Z" fill="white" fill-opacity="0.15" transform="translate(1101.25,440) translate(-1101.25,-440)"/>
+                        <rect width="17" height="51" fill="url(#Gradient-50)" transform="translate(1101.5,344.5) translate(-8.5,-25.5)" style="animation: 1.8s linear 6.6s infinite both a8_t;"/>
+                    </g>
+                    <g mask="url(#mask5_1398_56)" transform="translate(38.5,58) translate(-1091.5,-440)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1091.5,382L1091.5,498L1091,498L1091,382L1091.5,382Z" fill="white" fill-opacity="0.15" transform="translate(1091.25,440) translate(-1091.25,-440)"/>
+                        <rect width="17" height="51" fill="url(#Gradient-51)" transform="translate(1091.5,350.5) translate(-8.5,-25.5)" style="animation: 2s linear 6.1s infinite both a9_t;"/>
+                    </g>
+                    <g mask="url(#mask6_1398_56)" transform="translate(28.5,58) translate(-1081.5,-440)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1081.5,382L1081.5,498L1081,498L1081,382L1081.5,382Z" fill="white" fill-opacity="0.15" transform="translate(1081.25,440) translate(-1081.25,-440)"/>
+                        <rect width="17" height="51" fill="url(#Gradient-52)" transform="translate(1081.5,344.5) translate(-8.5,-25.5)" style="animation: 2s linear 5.3s infinite both a10_t;"/>
+                    </g>
+                    <g mask="url(#mask7_1398_56)" transform="translate(18.5,58) translate(-1071.5,-440)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1071.5,382L1071.5,498L1071,498L1071,382L1071.5,382Z" fill="white" fill-opacity="0.15" transform="translate(1071.25,440) translate(-1071.25,-440)"/>
+                        <rect width="17" height="51" fill="url(#Gradient-53)" transform="translate(1071.5,344.5) translate(-8.5,-25.5)" style="animation: 2s linear 5.7s infinite both a11_t;"/>
+                    </g>
+                    <g mask="url(#mask8_1398_56)" transform="translate(8.5,58) translate(-1061.5,-440)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1061.5,382L1061.5,498L1061,498L1061,382L1061.5,382Z" fill="white" fill-opacity="0.15" transform="translate(1061.25,440) translate(-1061.25,-440)"/>
+                        <rect width="17" height="51" fill="url(#Gradient-54)" transform="translate(1061.5,344.5) translate(-8.5,-25.5)" style="animation: 1.8s linear 5s infinite both a12_t;"/>
+                    </g>
+                </g>
+                <g id="lines-3" transform="translate(936,305) translate(-78,-19)">
+                    <g mask="url(#mask9_1398_56)" transform="translate(78,10) translate(-936,-296)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1014,296.5L858,296.5L858,296L1014,296L1014,296.5Z" fill="url(#Gradient-55)" fill-opacity="0.1" transform="translate(936,296.25) translate(-936,-296.25)"/>
+                        <rect width="45" height="20" fill="url(#Gradient-56)" transform="translate(832.5,296) translate(-22.5,-10)" style="animation: 1.8s linear 4.1s infinite both a13_t;"/>
+                    </g>
+                    <g mask="url(#mask10_1398_56)" transform="translate(78,19) translate(-936,-305)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1014,305.5L858,305.5L858,305L1014,305L1014,305.5Z" fill="url(#Gradient-57)" fill-opacity="0.1" transform="translate(936,305.25) translate(-936,-305.25)"/>
+                        <rect width="45" height="20" fill="url(#Gradient-58)" transform="translate(833.5,305) translate(-22.5,-10)" style="animation: 1.8s linear 4.2s infinite both a14_t;"/>
+                    </g>
+                    <g mask="url(#mask11_1398_56)" transform="translate(78,28) translate(-936,-314)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1014,314.5L858,314.5L858,314L1014,314L1014,314.5Z" fill="url(#Gradient-59)" fill-opacity="0.1" transform="translate(936,314.25) translate(-936,-314.25)"/>
+                        <rect width="45" height="20" fill="url(#Gradient-60)" transform="translate(830.5,314) translate(-22.5,-10)" style="animation: 1.8s linear 3.7s infinite both a15_t;"/>
+                    </g>
+                </g>
+                <g id="lines-2" transform="translate(829.75,229.5) translate(-16.25,-40.5)">
+                    <g mask="url(#mask1_1398_56)" transform="translate(24,40.5) translate(-837.5,-229.5)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M838,189L838,270L837.5,270L837.5,189L838,189Z" fill="white" fill-opacity="0.1" transform="translate(837.75,229.5) translate(-837.75,-229.5)"/>
+                        <rect width="17" height="51" fill="url(#Gradient-61)" transform="translate(837.5,154.5) translate(-8.5,-25.5)" style="animation: 2.3s linear 3s infinite both a16_t;"/>
+                    </g>
+                    <g mask="url(#mask2_1398_56)" transform="translate(8.5,40.5) translate(-822,-229.5)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M822.5,189L822.5,270L822,270L822,189L822.5,189Z" fill="white" fill-opacity="0.1" transform="translate(822.25,229.5) translate(-822.25,-229.5)"/>
+                        <rect width="17" height="51" fill="url(#Gradient-62)" transform="translate(822,152.5) translate(-8.5,-25.5)" style="animation: 2.3s linear 2s infinite both a17_t;"/>
+                    </g>
+                </g>
+                <g id="lines-1" transform="translate(829.75,105.5) translate(-16.25,-35.5)">
+                    <g mask="url(#mask12_1398_56)" transform="translate(24,35.5) translate(-837.5,-105.5)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M838,70L838,141L837.5,141L837.5,70L838,70Z" fill="white" fill-opacity="0.1" transform="translate(837.75,105.5) translate(-837.75,-105.5)"/>
+                        <rect width="17" height="51" fill="url(#Gradient-63)" transform="translate(837.5,45.5) translate(-8.5,-25.5)" style="animation: 2.3s linear 1s infinite both a18_t;"/>
+                    </g>
+                    <g mask="url(#mask13_1398_56)" transform="translate(8.5,35.5) translate(-822,-105.5)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M822.5,70L822.5,141L822,141L822,70L822.5,70Z" fill="white" fill-opacity="0.1" transform="translate(822.25,105.5) translate(-822.25,-105.5)"/>
+                        <rect width="17" height="51" fill="url(#Gradient-64)" transform="translate(822,45.5) translate(-8.5,-25.5)" style="animation: 2.3s linear infinite both a19_t;"/>
+                    </g>
+                </g>
+                <g id="light-3" filter="url(#filter29_dd_1398_56)" transform="translate(1144.5,247.5) translate(-1144.5,-247.5)">
+                    <rect width="3" height="3" rx="1.5" fill="url(#Gradient-65)" opacity="1" transform="translate(1144.5,247.5) translate(-1.5,-1.5)" style="animation: 4.5s linear 1.2s infinite both a20_o;"/>
+                    <rect width="2.5" height="2.5" rx="1.25" stroke="black" stroke-opacity="0.05" stroke-width="0.5" transform="translate(1144.5,247.5) translate(-1.25,-1.25)"/>
+                </g>
+                <g id="light-2" filter="url(#filter31_dd_1398_56)" transform="translate(850.5,281.5) translate(-850.5,-281.5)">
+                    <rect width="3" height="3" rx="1.5" fill="url(#Gradient-66)" opacity="1" transform="translate(850.5,281.5) translate(-1.5,-1.5)" style="animation: 3.9s linear 0.5s infinite both a21_o;"/>
+                    <rect width="2.5" height="2.5" rx="1.25" stroke="black" stroke-opacity="0.05" stroke-width="0.5" transform="translate(850.5,281.5) translate(-1.25,-1.25)"/>
+                </g>
+                <g id="light-1" filter="url(#filter18_dd_1398_56)" transform="translate(850.5,152.5) translate(-850.5,-152.5)">
+                    <rect width="3" height="3" rx="1.5" fill="url(#Gradient-67)" shape-rendering="crispEdges" opacity="1" transform="translate(850.5,152.5) translate(-1.5,-1.5)" style="animation: 4s linear infinite both a22_o;"/>
+                    <rect width="3.5" height="3.5" rx="1.75" stroke="black" stroke-opacity="0.05" stroke-width="0.5" shape-rendering="crispEdges" transform="translate(850.5,152.5) translate(-1.75,-1.75)"/>
+                </g>
+<linearGradient id="Gradient-35" x1="1211.4" y1="118" x2="1211.4" y2="333.25" gradientUnits="userSpaceOnUse">
+            <stop offset="0.204413" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+<radialGradient id="Gradient-36" cx="-26.0222" cy="-0.103526" r="1" fx="-26.0222" fy="-0.103526" gradientUnits="userSpaceOnUse" gradientTransform="matrix(45 0 0 3120 1171 333)">
+            <stop offset="0" stop-color="#3dc5fa" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3dc5fa"/>
+        </radialGradient>
+<linearGradient id="Gradient-37" x1="1211.4" y1="109" x2="1211.4" y2="324.25" gradientUnits="userSpaceOnUse">
+            <stop offset="0.204413" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+<radialGradient id="Gradient-38" cx="-28.4667" cy="-0.100641" r="1" fx="-28.4667" fy="-0.100641" gradientUnits="userSpaceOnUse" gradientTransform="matrix(45 0 0 3120 1281 324)">
+            <stop offset="0" stop-color="#3dc5fa" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3dc5fa"/>
+        </radialGradient>
+<linearGradient id="Gradient-39" x1="1211.4" y1="101" x2="1211.4" y2="316.25" gradientUnits="userSpaceOnUse">
+            <stop offset="0.204413" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+<radialGradient id="Gradient-40" cx="-27.3556" cy="-0.0980769" r="1" fx="-27.3556" fy="-0.0980769" gradientUnits="userSpaceOnUse" gradientTransform="matrix(45 0 0 3120 1231 316)">
+            <stop offset="0" stop-color="#3dc5fa" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3dc5fa"/>
+        </radialGradient>
+<linearGradient id="Gradient-41" x1="1211.4" y1="91" x2="1211.4" y2="306.25" gradientUnits="userSpaceOnUse">
+            <stop offset="0.204413" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+<radialGradient id="Gradient-42" cx="-29.1333" cy="-0.0948718" r="1" fx="-29.1333" fy="-0.0948718" gradientUnits="userSpaceOnUse" gradientTransform="matrix(45 0 0 3120 1311 306)">
+            <stop offset="0" stop-color="#3dc5fa" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3dc5fa"/>
+        </radialGradient>
+<linearGradient id="Gradient-43" x1="1211.4" y1="82" x2="1211.4" y2="297.25" gradientUnits="userSpaceOnUse">
+            <stop offset="0.204413" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+<radialGradient id="Gradient-44" cx="-26.6889" cy="-0.0919872" r="1" fx="-26.6889" fy="-0.0919872" gradientUnits="userSpaceOnUse" gradientTransform="matrix(45 0 0 3120 1201 297)">
+            <stop offset="0" stop-color="#3dc5fa" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3dc5fa"/>
+        </radialGradient>
+<linearGradient id="Gradient-45" x1="1211.4" y1="73" x2="1211.4" y2="288.25" gradientUnits="userSpaceOnUse">
+            <stop offset="0.204413" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+<radialGradient id="Gradient-46" cx="-27.5778" cy="-0.0891026" r="1" fx="-27.5778" fy="-0.0891026" gradientUnits="userSpaceOnUse" gradientTransform="matrix(45 0 0 3120 1241 288)">
+            <stop offset="0" stop-color="#3dc5fa" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3dc5fa"/>
+        </radialGradient>
+<linearGradient id="Gradient-47" x1="1211.4" y1="64" x2="1211.4" y2="279.25" gradientUnits="userSpaceOnUse">
+            <stop offset="0.204413" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+<radialGradient id="Gradient-48" cx="-28.4667" cy="-0.0862179" r="1" fx="-28.4667" fy="-0.0862179" gradientUnits="userSpaceOnUse" gradientTransform="matrix(45 0 0 3120 1281 279)">
+            <stop offset="0" stop-color="#3dc5fa" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3dc5fa"/>
+        </radialGradient>
+<radialGradient id="Gradient-49" cx="7.62745" cy="-21.6176" r="1" fx="7.62745" fy="-21.6176" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -51 51 0 1111.5 440)">
+            <stop offset="0" stop-color="#3dc5fa"/>
+            <stop offset="0.778822" stop-color="#3dc5fa" stop-opacity="0"/>
+        </radialGradient>
+<radialGradient id="Gradient-50" cx="7.62745" cy="-21.4314" r="1" fx="7.62745" fy="-21.4314" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -51 51 0 1102 440)">
+            <stop offset="0" stop-color="#3dc5fa"/>
+            <stop offset="0.778822" stop-color="#3dc5fa" stop-opacity="0"/>
+        </radialGradient>
+<radialGradient id="Gradient-51" cx="7.62745" cy="-21.2353" r="1" fx="7.62745" fy="-21.2353" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -51 51 0 1092 440)">
+            <stop offset="0" stop-color="#3dc5fa"/>
+            <stop offset="0.778822" stop-color="#3dc5fa" stop-opacity="0"/>
+        </radialGradient>
+<radialGradient id="Gradient-52" cx="7.62745" cy="-21.0392" r="1" fx="7.62745" fy="-21.0392" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -51 51 0 1082 440)">
+            <stop offset="0" stop-color="#3dc5fa"/>
+            <stop offset="0.778822" stop-color="#3dc5fa" stop-opacity="0"/>
+        </radialGradient>
+<radialGradient id="Gradient-53" cx="7.62745" cy="-20.8431" r="1" fx="7.62745" fy="-20.8431" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -51 51 0 1072 440)">
+            <stop offset="0" stop-color="#3dc5fa"/>
+            <stop offset="0.778822" stop-color="#3dc5fa" stop-opacity="0"/>
+        </radialGradient>
+<radialGradient id="Gradient-54" cx="7.62745" cy="-20.6471" r="1" fx="7.62745" fy="-20.6471" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -51 51 0 1062 440)">
+            <stop offset="0" stop-color="#3dc5fa"/>
+            <stop offset="0.778822" stop-color="#3dc5fa" stop-opacity="0"/>
+        </radialGradient>
+<linearGradient id="Gradient-55" x1="895.328" y1="81" x2="895.328" y2="296.25" gradientUnits="userSpaceOnUse">
+            <stop offset="0.204413" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+<radialGradient id="Gradient-56" cx="-19.8" cy="-0.0916667" r="1" fx="-19.8" fy="-0.0916667" gradientUnits="userSpaceOnUse" gradientTransform="matrix(45 0 0 3120 891 296)">
+            <stop offset="0" stop-color="#3ceeae" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3ceeae"/>
+        </radialGradient>
+<linearGradient id="Gradient-57" x1="895.328" y1="90" x2="895.328" y2="305.25" gradientUnits="userSpaceOnUse">
+            <stop offset="0.204413" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+<radialGradient id="Gradient-58" cx="-21" cy="-0.0945513" r="1" fx="-21" fy="-0.0945513" gradientUnits="userSpaceOnUse" gradientTransform="matrix(45 0 0 3120 945 305)">
+            <stop offset="0" stop-color="#3ceeae" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3ceeae"/>
+        </radialGradient>
+<linearGradient id="Gradient-59" x1="895.328" y1="99" x2="895.328" y2="314.25" gradientUnits="userSpaceOnUse">
+            <stop offset="0.204413" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ffffff"/>
+        </linearGradient>
+<radialGradient id="Gradient-60" cx="-20.4667" cy="-0.0974359" r="1" fx="-20.4667" fy="-0.0974359" gradientUnits="userSpaceOnUse" gradientTransform="matrix(45 0 0 3120 921 314)">
+            <stop offset="0" stop-color="#3ceeae" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3ceeae"/>
+        </radialGradient>
+<radialGradient id="Gradient-61" cx="3.70588" cy="-16.2549" r="1" fx="3.70588" fy="-16.2549" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -51 51 0 838 240)">
+            <stop offset="0" stop-color="#9d72ff"/>
+            <stop offset="0.778822" stop-color="#9d72ff" stop-opacity="0"/>
+        </radialGradient>
+<radialGradient id="Gradient-62" cx="3.70588" cy="-15.951" r="1" fx="3.70588" fy="-15.951" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -51 51 0 822.5 240)">
+            <stop offset="0" stop-color="#9d72ff"/>
+            <stop offset="0.778822" stop-color="#9d72ff" stop-opacity="0"/>
+        </radialGradient>
+<radialGradient id="Gradient-63" cx="1.37255" cy="-16.2549" r="1" fx="1.37255" fy="-16.2549" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -51 51 0 838 121)">
+            <stop offset="0" stop-color="#9d72ff"/>
+            <stop offset="0.778822" stop-color="#9d72ff" stop-opacity="0"/>
+        </radialGradient>
+<radialGradient id="Gradient-64" cx="1.37255" cy="-15.951" r="1" fx="1.37255" fy="-15.951" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -51 51 0 822.5 121)">
+            <stop offset="0" stop-color="#9d72ff"/>
+            <stop offset="0.778822" stop-color="#9d72ff" stop-opacity="0"/>
+        </radialGradient>
+<radialGradient id="Gradient-65" cx="-765.147" cy="-164" r="1" fx="-765.147" fy="-164" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.49383 0 0 1.5 1144.51 247.5)">
+            <stop offset="0" stop-color="#72fff9"/>
+            <stop offset="1" stop-color="#0284fc"/>
+        </radialGradient>
+<radialGradient id="Gradient-66" cx="-568.338" cy="-186.667" r="1" fx="-568.338" fy="-186.667" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.49383 0 0 1.5 850.506 281.5)">
+            <stop offset="0" stop-color="#72ffaa"/>
+            <stop offset="1" stop-color="#00dab3"/>
+        </radialGradient>
+<radialGradient id="Gradient-67" cx="-568.338" cy="-100.667" r="1" fx="-568.338" fy="-100.667" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.49383 0 0 1.5 850.506 152.5)">
+            <stop offset="0.041667" stop-color="#d4c5ff"/>
+            <stop offset="1" stop-color="#6015ff"/>
+        </radialGradient>
+<filter id="filter18_dd_1398_56" x="828.5" y="130.5" width="44" height="44" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB" fill="none">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset/>
+            <feGaussianBlur stdDeviation="10"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.466667 0 0 0 0 0.278431 0 0 0 0 1 0 0 0 1 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1398_56"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset/>
+            <feGaussianBlur stdDeviation="3"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.466667 0 0 0 0 0.278431 0 0 0 0 1 0 0 0 1 0"/>
+            <feBlend mode="normal" in2="effect1_dropShadow_1398_56" result="effect2_dropShadow_1398_56"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_1398_56" result="shape"/>
+        </filter>
+<filter id="filter29_dd_1398_56" x="1123" y="226" width="43" height="43" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB" fill="none">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset/>
+            <feGaussianBlur stdDeviation="10"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.00784314 0 0 0 0 0.988235 0 0 0 0 0.945098 0 0 0 1 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1398_56"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset/>
+            <feGaussianBlur stdDeviation="3"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.00784314 0 0 0 0 0.988235 0 0 0 0 0.945098 0 0 0 0.75 0"/>
+            <feBlend mode="normal" in2="effect1_dropShadow_1398_56" result="effect2_dropShadow_1398_56"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_1398_56" result="shape"/>
+        </filter>
+<filter id="filter31_dd_1398_56" x="829" y="260" width="43" height="43" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB" fill="none">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset/>
+            <feGaussianBlur stdDeviation="10"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.00784314 0 0 0 0 0.988235 0 0 0 0 0.945098 0 0 0 1 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1398_56"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset/>
+            <feGaussianBlur stdDeviation="3"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.00784314 0 0 0 0 0.988235 0 0 0 0 0.945098 0 0 0 0.75 0"/>
+            <feBlend mode="normal" in2="effect1_dropShadow_1398_56" result="effect2_dropShadow_1398_56"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_1398_56" result="shape"/>
+        </filter>
+<mask id="mask1_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M838,189L838,270L837.5,270L837.5,189L838,189Z" fill="white" transform="translate(837.75,229.5) translate(-837.75,-229.5)"/>
+        </mask>
+<mask id="mask2_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M822.5,189L822.5,270L822,270L822,189L822.5,189Z" fill="white" transform="translate(822.25,229.5) translate(-822.25,-229.5)"/>
+        </mask>
+<mask id="mask3_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1111,382L1111,498L1110.5,498L1110.5,382L1111,382Z" fill="white" transform="translate(1110.75,440) translate(-1110.75,-440)"/>
+        </mask>
+<mask id="mask4_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1101.5,382L1101.5,498L1101,498L1101,382L1101.5,382Z" fill="white" transform="translate(1101.25,440) translate(-1101.25,-440)"/>
+        </mask>
+<mask id="mask5_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1091.5,382L1091.5,498L1091,498L1091,382L1091.5,382Z" fill="white" transform="translate(1091.25,440) translate(-1091.25,-440)"/>
+        </mask>
+<mask id="mask6_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1081.5,382L1081.5,498L1081,498L1081,382L1081.5,382Z" fill="white" transform="translate(1081.25,440) translate(-1081.25,-440)"/>
+        </mask>
+<mask id="mask7_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1071.5,382L1071.5,498L1071,498L1071,382L1071.5,382Z" fill="white" transform="translate(1071.25,440) translate(-1071.25,-440)"/>
+        </mask>
+<mask id="mask8_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1061.5,382L1061.5,498L1061,498L1061,382L1061.5,382Z" fill="white" transform="translate(1061.25,440) translate(-1061.25,-440)"/>
+        </mask>
+<mask id="mask9_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1014,296.5L858,296.5L858,296L1014,296L1014,296.5Z" fill="white" transform="translate(936,296.25) translate(-936,-296.25)"/>
+        </mask>
+<mask id="mask10_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1014,305.5L858,305.5L858,305L1014,305L1014,305.5Z" fill="white" transform="translate(936,305.25) translate(-936,-305.25)"/>
+        </mask>
+<mask id="mask11_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1014,314.5L858,314.5L858,314L1014,314L1014,314.5Z" fill="white" transform="translate(936,314.25) translate(-936,-314.25)"/>
+        </mask>
+<mask id="mask12_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M838,70L838,141L837.5,141L837.5,70L838,70Z" fill="white" transform="translate(837.75,105.5) translate(-837.75,-105.5)"/>
+        </mask>
+<mask id="mask13_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M822.5,70L822.5,141L822,141L822,70L822.5,70Z" fill="white" transform="translate(822.25,105.5) translate(-822.25,-105.5)"/>
+        </mask>
+<mask id="mask14_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,333.5L1159,333.5L1159,333L1378,333L1378,333.5Z" fill="white" transform="translate(1268.5,333.25) translate(-1268.5,-333.25)"/>
+        </mask>
+<mask id="mask15_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,324.5L1159,324.5L1159,324L1378,324L1378,324.5Z" fill="white" transform="translate(1268.5,324.25) translate(-1268.5,-324.25)"/>
+        </mask>
+<mask id="mask16_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,316.5L1159,316.5L1159,316L1378,316L1378,316.5Z" fill="white" transform="translate(1268.5,316.25) translate(-1268.5,-316.25)"/>
+        </mask>
+<mask id="mask17_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,306.5L1159,306.5L1159,306L1378,306L1378,306.5Z" fill="white" transform="translate(1268.5,306.25) translate(-1268.5,-306.25)"/>
+        </mask>
+<mask id="mask18_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,297.5L1159,297.5L1159,297L1378,297L1378,297.5Z" fill="white" transform="translate(1268.5,297.25) translate(-1268.5,-297.25)"/>
+        </mask>
+<mask id="mask19_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,288.5L1159,288.5L1159,288L1378,288L1378,288.5Z" fill="white" transform="translate(1268.5,288.25) translate(-1268.5,-288.25)"/>
+        </mask>
+<mask id="mask20_1398_56" style="mask-type: alpha;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1378,279.5L1159,279.5L1159,279L1378,279L1378,279.5Z" fill="white" transform="translate(1268.5,279.25) translate(-1268.5,-279.25)"/>
+        </mask>
+
