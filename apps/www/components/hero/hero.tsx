@@ -46,14 +46,23 @@ export const Hero: React.FC = () => {
         />
       </motion.div>
 
-      <div>
-        <Image
-          src={mainboard}
-          alt="Animated SVG showing computer circuits lighting up"
-          className="absolute hidden xl:right-32 xl:flex -z-10 xl:-top-56"
-          style={{ transform: "scale(2)" }}
-          priority
-        />
+      <div
+        className="absolute hidden xl:flex -z-10 xl:-top-56 xl:right-32"
+        aria-hidden="true"
+      >
+        <div className="relative" style={{ transform: "scale(2)" }}>
+          <Image
+            src={mainboard}
+            alt="Animated SVG showing computer circuits lighting up"
+            className="pointer-events-none select-none"
+            priority
+          />
+          <div className="hero-mainboard-lights">
+            <span className="hero-mainboard-light hero-mainboard-light--one" />
+            <span className="hero-mainboard-light hero-mainboard-light--two" />
+            <span className="hero-mainboard-light hero-mainboard-light--three" />
+          </div>
+        </div>
       </div>
       <SubHeroMainboard className="absolute hidden md:flex left-1/2 -translate-x-[calc(50%+85px)] -bottom-[224px] -z-10" />
     </motion.div>
