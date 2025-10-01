@@ -240,7 +240,7 @@ function Logo({ className }: { className?: string }) {
     <TransformAILogo
       variant="transparent"
       className={cn(
-        "h-auto w-[152px] sm:w-[184px] md:w-[212px] lg:w-[232px]",
+        "h-auto w-[152px] sm:w-[184px] md:w-[212px] lg:w-[232px] shrink-0",
         className,
       )}
       priority
