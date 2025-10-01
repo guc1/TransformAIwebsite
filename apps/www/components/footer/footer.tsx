@@ -17,6 +17,7 @@ const navigation = [
       { titleKey: "links.about", href: "/about" },
       { titleKey: "links.roadmap", href: "/roadmap" },
       { titleKey: "links.careers", href: "/careers" },
+      { titleKey: "links.contact", href: "/contact" },
       {
         titleKey: "links.sourceCode",
         href: "https://go.unkey.com/github",
