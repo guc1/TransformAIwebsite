@@ -33,13 +33,20 @@ export function MobileNavLink({
   label,
   external,
   onClick,
-}: { href: string; label: string; external?: boolean; onClick: () => void }) {
+  isHome = false,
+}: {
+  href: string;
+  label: string;
+  external?: boolean;
+  onClick: () => void;
+  isHome?: boolean;
+}) {
   const segment = useSelectedLayoutSegment();
   const router = useRouter();
 
   const isActive = segment
     ? href.startsWith(`/${segment}`)
-    : href === "/";
+    : isHome;
 
   return (
     <button
