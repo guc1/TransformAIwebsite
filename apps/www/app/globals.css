@@ -268,6 +268,57 @@ li > p {
   animation: slideGradient 1.5s linear forwards;
 }
 
+.hero-mainboard-lights {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.hero-mainboard-light {
+  position: absolute;
+  top: var(--hero-mainboard-light-top, 40%);
+  height: var(--hero-mainboard-light-height, 24%);
+  width: 220%;
+  left: -70%;
+  opacity: 0.55;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsla(var(--feature-9), 0.1) 28%,
+    hsla(var(--feature-11), 0.55) 48%,
+    hsla(var(--feature-10), 0.45) 56%,
+    hsla(var(--feature-11), 0.35) 64%,
+    transparent 100%
+  );
+  filter: blur(14px);
+  animation: hero-mainboard-scan var(--hero-mainboard-light-duration, 10s) linear infinite;
+  animation-delay: var(--hero-mainboard-light-delay, 0s);
+}
+
+.hero-mainboard-light--one {
+  --hero-mainboard-light-top: 28%;
+  --hero-mainboard-light-height: 22%;
+  --hero-mainboard-light-duration: 9s;
+  --hero-mainboard-light-delay: 0s;
+}
+
+.hero-mainboard-light--two {
+  --hero-mainboard-light-top: 46%;
+  --hero-mainboard-light-height: 18%;
+  --hero-mainboard-light-duration: 12s;
+  --hero-mainboard-light-delay: -4s;
+}
+
+.hero-mainboard-light--three {
+  --hero-mainboard-light-top: 64%;
+  --hero-mainboard-light-height: 24%;
+  --hero-mainboard-light-duration: 10.5s;
+  --hero-mainboard-light-delay: -7s;
+}
+
 @keyframes slideGradient {
   from {
     left: -50%;
@@ -275,6 +326,37 @@ li > p {
 
   to {
     left: 0;
+  }
+}
+
+@keyframes hero-mainboard-scan {
+  0% {
+    transform: translate3d(-45%, 0, 0);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  85% {
+    opacity: 0.45;
+  }
+
+  100% {
+    transform: translate3d(45%, 0, 0);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mainboard-light {
+    animation: none;
+    opacity: 0.3;
   }
 }
 
