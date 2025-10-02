@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import {
+  boolean,
   index,
   integer,
   pgEnum,
@@ -12,6 +13,12 @@ import {
 import type { AdapterAccount } from "next-auth/adapters";
 
 export const userRoleEnum = pgEnum("user_role", ["client", "staff"]);
+
+export const meetingSlotStatusEnum = pgEnum("meeting_slot_status", [
+  "available",
+  "booked",
+  "unavailable",
+]);
 
 export const users = pgTable(
   "users",
@@ -85,9 +92,64 @@ export const verificationTokens = pgTable(
   }),
 );
 
+export const meetingSlots = pgTable(
+  "meeting_slots",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    startAt: timestamp("start_at", {
+      mode: "date",
+      withTimezone: true,
+    }).notNull(),
+    endAt: timestamp("end_at", {
+      mode: "date",
+      withTimezone: true,
+    }).notNull(),
+    status: meetingSlotStatusEnum("status").notNull().default("available"),
+    publicDescription: text("public_description"),
+    assignedStaffId: text("assigned_staff_id").references(() => users.id, {
+      onDelete: "set null",
+    }),
+    assignedStaffName: text("assigned_staff_name"),
+    isPublished: boolean("is_published").notNull().default(true),
+    createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+  },
+  (table) => ({
+    startIdx: index("meeting_slots_start_at_idx").on(table.startAt),
+    statusIdx: index("meeting_slots_status_idx").on(table.status),
+  }),
+);
+
+export const meetingBookings = pgTable(
+  "meeting_bookings",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    slotId: text("slot_id")
+      .notNull()
+      .references(() => meetingSlots.id, { onDelete: "cascade" }),
+    reason: text("reason").notNull(),
+    company: text("company"),
+    personName: text("person_name").notNull(),
+    email: text("email").notNull(),
+    description: text("description"),
+    locale: text("locale"),
+    createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+  },
+  (table) => ({
+    slotIdx: uniqueIndex("meeting_bookings_slot_unique").on(table.slotId),
+    emailIdx: index("meeting_bookings_email_idx").on(table.email),
+  }),
+);
+
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
   sessions: many(sessions),
+  meetingSlots: many(meetingSlots, { relationName: "assignedStaff" }),
 }));
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -104,4 +166,25 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
   }),
 }));
 
+export const meetingSlotsRelations = relations(meetingSlots, ({ one }) => ({
+  assignedStaff: one(users, {
+    relationName: "assignedStaff",
+    fields: [meetingSlots.assignedStaffId],
+    references: [users.id],
+  }),
+  booking: one(meetingBookings, {
+    fields: [meetingSlots.id],
+    references: [meetingBookings.slotId],
+  }),
+}));
+
+export const meetingBookingsRelations = relations(meetingBookings, ({ one }) => ({
+  slot: one(meetingSlots, {
+    fields: [meetingBookings.slotId],
+    references: [meetingSlots.id],
+  }),
+}));
+
 export type UserRole = (typeof userRoleEnum.enumValues)[number];
+export type MeetingSlotStatus =
+  (typeof meetingSlotStatusEnum.enumValues)[number];
