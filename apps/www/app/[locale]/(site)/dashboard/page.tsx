@@ -2,6 +2,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db/client";
 import { users } from "@/lib/db/schema";
+import { formatDateWithZone } from "@/lib/date";
+import { MEETING_TIME_ZONE } from "@/lib/meetings/constants";
+import { getUpcomingMeetings } from "@/lib/meetings/queries";
 import { cn } from "@/lib/utils";
 import { sql } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
@@ -35,6 +38,8 @@ export default async function DashboardPage({ params }: PageProps) {
   for (const row of roleCounts) {
     totals[row.role] = Number(row.total);
   }
+
+  const upcomingMeetings = await getUpcomingMeetings(8);
 
   const metrics = [
     {
@@ -99,7 +104,84 @@ export default async function DashboardPage({ params }: PageProps) {
           ))}
         </div>
 
-        <div className="mt-16 rounded-2xl border border-white/10 bg-black/40 p-8 text-sm leading-relaxed text-white/70">
+        <div className="mt-16 space-y-6">
+          <div>
+            <h2 className="text-xl font-semibold text-white">
+              {t("meetings.title")}
+            </h2>
+            {upcomingMeetings.length === 0 ? (
+              <p className="mt-4 rounded-2xl border border-white/10 bg-white/[0.05] p-4 text-sm text-white/70">
+                {t("meetings.empty")}
+              </p>
+            ) : (
+              <div className="mt-4 grid gap-4">
+                {upcomingMeetings.map((meeting) => {
+                  const startLabel = formatDateWithZone(
+                    meeting.startAt,
+                    {
+                      weekday: "short",
+                      day: "numeric",
+                      month: "long",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    },
+                    locale,
+                    MEETING_TIME_ZONE,
+                  );
+                  const endLabel = formatDateWithZone(
+                    meeting.endAt,
+                    { hour: "2-digit", minute: "2-digit" },
+                    locale,
+                    MEETING_TIME_ZONE,
+                  );
+                  const contactLines = [
+                    meeting.personName,
+                    meeting.company,
+                    meeting.email,
+                  ].filter(Boolean);
+
+                  return (
+                    <div
+                      key={meeting.slotId}
+                      className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-sm text-white/80"
+                    >
+                      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        <DashboardMeetingField
+                          label={t("meetings.fields.when")}
+                          value={`${startLabel} – ${endLabel}`}
+                        />
+                        <DashboardMeetingField
+                          label={t("meetings.fields.reason")}
+                          value={meeting.reason}
+                        />
+                        <DashboardMeetingField
+                          label={t("meetings.fields.contact")}
+                          value={contactLines.join(" • ")}
+                        />
+                        <DashboardMeetingField
+                          label={t("meetings.fields.staff")}
+                          value={meeting.assignedStaffName ?? "–"}
+                        />
+                      </div>
+                      {meeting.publicDescription ? (
+                        <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-xs text-white/70">
+                          <p className="font-semibold uppercase tracking-[0.3em] text-white/50">
+                            {t("meetings.fields.notes")}
+                          </p>
+                          <p className="mt-1 leading-relaxed text-white/70">
+                            {meeting.publicDescription}
+                          </p>
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-8 text-sm leading-relaxed text-white/70">
           <h2 className="text-xl font-semibold text-white">{t("nextSteps.title")}</h2>
           <ul className="mt-4 space-y-3 text-sm text-white/70">
             <li>{t("nextSteps.items.audit")}</li>
@@ -108,6 +190,22 @@ export default async function DashboardPage({ params }: PageProps) {
           </ul>
         </div>
       </div>
+    </div>
+  );
+}
+
+type DashboardMeetingFieldProps = {
+  label: string;
+  value: string;
+};
+
+function DashboardMeetingField({ label, value }: DashboardMeetingFieldProps) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/50">
+        {label}
+      </p>
+      <p className="text-sm text-white/80">{value}</p>
     </div>
   );
 }

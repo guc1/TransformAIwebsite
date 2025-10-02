@@ -35,3 +35,17 @@ export function formatIsoDateUtc(value: DateInput): string {
 
   return date.toISOString().split("T")[0] ?? "";
 }
+
+export function formatDateWithZone(
+  value: DateInput,
+  options: Intl.DateTimeFormatOptions,
+  locale: string,
+  timeZone: string,
+): string {
+  const date = toDate(value);
+  if (!date) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat(locale, { timeZone, ...options }).format(date);
+}
