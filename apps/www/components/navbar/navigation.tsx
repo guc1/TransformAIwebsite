@@ -85,7 +85,7 @@ export function Navigation() {
         </div>
         <div className="hidden sm:flex items-center gap-3">
           <LanguageSwitcher className="hidden md:flex" />
-          <Link href="https://app.unkey.com/auth/sign-up">
+          <Link href="/create-account">
             <SecondaryButton
               label={t("createAccount")}
               IconRight={ChevronRight}
@@ -97,7 +97,7 @@ export function Navigation() {
               }}
             />
           </Link>
-          <Link href="https://app.unkey.com">
+          <Link href="/sign-in">
             <PrimaryButton
               shiny
               label={t("signIn")}
@@ -185,7 +185,7 @@ function MobileLinks({ className }: { className?: string }) {
           </div>
           <DrawerFooter>
             <LanguageSwitcher className="w-full justify-between" />
-            <Link href="https://app.unkey.com">
+            <Link href="/sign-in">
               <PrimaryButton
                 shiny
                 label={t("signIn")}
