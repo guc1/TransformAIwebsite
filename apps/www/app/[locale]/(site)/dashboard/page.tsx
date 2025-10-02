@@ -1,12 +1,29 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db/client";
 import { users } from "@/lib/db/schema";
 import { formatDateWithZone } from "@/lib/date";
 import { MEETING_TIME_ZONE } from "@/lib/meetings/constants";
 import { getUpcomingMeetings } from "@/lib/meetings/queries";
-import { cn } from "@/lib/utils";
-import { sql } from "drizzle-orm";
+import { getVisitorOverview, type VisitorOverview } from "@/lib/visitors";
+import { VisitorsChartSection, type VisitorsChartBucket } from "./components/visitors-chart";
+import { desc, eq, sql } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
@@ -26,41 +43,102 @@ export default async function DashboardPage({ params }: PageProps) {
 
   const t = await getTranslations({ locale, namespace: "Dashboard" });
 
-  const roleCounts = await db
-    .select({
-      role: users.role,
-      total: sql<number>`count(*)`,
-    })
-    .from(users)
-    .groupBy(users.role);
+  const [roleCounts, upcomingMeetings, clientAccounts, staffAccounts, visitorOverview] =
+    await Promise.all([
+      db
+        .select({
+          role: users.role,
+          total: sql<number>`count(*)`,
+        })
+        .from(users)
+        .groupBy(users.role),
+      getUpcomingMeetings(8),
+      db
+        .select({
+          id: users.id,
+          name: users.name,
+          email: users.email,
+          createdAt: users.createdAt,
+        })
+        .from(users)
+        .where(eq(users.role, "client"))
+        .orderBy(desc(users.createdAt)),
+      db
+        .select({
+          id: users.id,
+          name: users.name,
+          email: users.email,
+          createdAt: users.createdAt,
+        })
+        .from(users)
+        .where(eq(users.role, "staff"))
+        .orderBy(desc(users.createdAt)),
+      getVisitorOverview(),
+    ]);
+
+  type UpcomingMeeting = (typeof upcomingMeetings)[number];
 
   const totals: Record<string, number> = { client: 0, staff: 0 };
   for (const row of roleCounts) {
     totals[row.role] = Number(row.total);
   }
 
-  const upcomingMeetings = await getUpcomingMeetings(8);
+  const visitorTabs = {
+    hourly: t("visitors.tabs.hourly"),
+    daily: t("visitors.tabs.daily"),
+  } as const;
 
-  const metrics = [
-    {
-      key: "client",
-      title: t("metrics.clients.title"),
-      value: totals.client,
-      caption: t("metrics.clients.caption", { count: totals.client }),
-    },
-    {
-      key: "staff",
-      title: t("metrics.staff.title"),
-      value: totals.staff,
-      caption: t("metrics.staff.caption", { count: totals.staff }),
-    },
-    {
-      key: "ratio",
-      title: t("metrics.ratio.title"),
-      value: totals.staff === 0 ? "–" : `${(totals.client / totals.staff).toFixed(1)} : 1`,
-      caption: t("metrics.ratio.caption"),
-    },
-  ];
+  const visitorEmptyMessages = {
+    hourly: t("visitors.empty.hourly"),
+    daily: t("visitors.empty.daily"),
+  } as const;
+
+  const hourLabelFormatter = new Intl.DateTimeFormat(locale, {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  const dayLabelFormatter = new Intl.DateTimeFormat(locale, {
+    weekday: "short",
+    day: "numeric",
+  });
+  const dayTooltipFormatter = new Intl.DateTimeFormat(locale, {
+    dateStyle: "full",
+  });
+
+  const hourlyChartData = visitorOverview.hourly.map(
+    (bucket: VisitorOverview["hourly"][number]): VisitorsChartBucket => ({
+      id: bucket.start.toISOString(),
+      label: hourLabelFormatter.format(bucket.start),
+      count: bucket.count,
+      tooltip: t("visitors.tooltip.hour", {
+        count: bucket.count,
+        start: hourLabelFormatter.format(bucket.start),
+        end: hourLabelFormatter.format(bucket.end),
+      }),
+    }),
+  );
+
+  const dailyChartData = visitorOverview.daily.map(
+    (bucket: VisitorOverview["daily"][number]): VisitorsChartBucket => ({
+      id: bucket.day.toISOString(),
+      label: dayLabelFormatter.format(bucket.day),
+      count: bucket.count,
+      tooltip: t("visitors.tooltip.day", {
+        count: bucket.count,
+        day: dayTooltipFormatter.format(bucket.day),
+      }),
+    }),
+  );
+
+  const accountColumnLabels = {
+    name: t("accounts.columns.name"),
+    email: t("accounts.columns.email"),
+    createdAt: t("accounts.columns.createdAt"),
+  } as const;
+
+  const ratioValue =
+    totals.staff === 0 ? "–" : `${(totals.client / Math.max(totals.staff, 1)).toFixed(1)} : 1`;
 
   return (
     <div className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.22),_transparent_55%)] py-28">
@@ -80,28 +158,127 @@ export default async function DashboardPage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {metrics.map((metric, index) => (
-            <Card
-              key={metric.key}
-              className={cn(
-                "relative overflow-hidden border-white/10 bg-white/5 text-white backdrop-blur-xl transition",
-                index === 0 ? "md:col-span-1" : "",
-              )}
-            >
-              <CardHeader className="pb-4">
-                <CardTitle className="text-lg font-semibold text-white/70">
-                  {metric.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pb-6">
-                <p className="text-4xl font-semibold tracking-tight text-white">
-                  {typeof metric.value === "number" ? metric.value.toLocaleString(locale) : metric.value}
-                </p>
-                <p className="mt-2 text-sm text-white/60">{metric.caption}</p>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <Dialog>
+            <DialogTrigger asChild>
+              <button
+                type="button"
+                className="text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              >
+                <Card className="relative overflow-hidden border-white/10 bg-white/5 text-white backdrop-blur-xl transition hover:border-white/20">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg font-semibold text-white/70">
+                      {t("metrics.clients.title")}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pb-6">
+                    <p className="text-4xl font-semibold tracking-tight text-white">
+                      {totals.client.toLocaleString(locale)}
+                    </p>
+                    <p className="mt-2 text-sm text-white/60">
+                      {t("metrics.clients.caption", { count: totals.client })}
+                    </p>
+                  </CardContent>
+                </Card>
+              </button>
+            </DialogTrigger>
+            <AccountListDialog
+              title={t("accounts.clients.title")}
+              description={t("accounts.clients.description")}
+              emptyLabel={t("accounts.clients.empty")}
+              accounts={clientAccounts}
+              locale={locale}
+              columns={accountColumnLabels}
+            />
+          </Dialog>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <button
+                type="button"
+                className="text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              >
+                <Card className="relative overflow-hidden border-white/10 bg-white/5 text-white backdrop-blur-xl transition hover:border-white/20">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg font-semibold text-white/70">
+                      {t("metrics.staff.title")}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pb-6">
+                    <p className="text-4xl font-semibold tracking-tight text-white">
+                      {totals.staff.toLocaleString(locale)}
+                    </p>
+                    <p className="mt-2 text-sm text-white/60">
+                      {t("metrics.staff.caption", { count: totals.staff })}
+                    </p>
+                  </CardContent>
+                </Card>
+              </button>
+            </DialogTrigger>
+            <AccountListDialog
+              title={t("accounts.staff.title")}
+              description={t("accounts.staff.description")}
+              emptyLabel={t("accounts.staff.empty")}
+              accounts={staffAccounts}
+              locale={locale}
+              columns={accountColumnLabels}
+            />
+          </Dialog>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <button
+                type="button"
+                className="text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              >
+                <Card className="relative overflow-hidden border-white/10 bg-white/5 text-white backdrop-blur-xl transition hover:border-white/20">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg font-semibold text-white/70">
+                      {t("metrics.visitors.title")}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pb-6">
+                    <p className="text-4xl font-semibold tracking-tight text-white">
+                      {visitorOverview.total.toLocaleString(locale)}
+                    </p>
+                    <p className="mt-2 text-sm text-white/60">
+                      {t("metrics.visitors.caption", { count: visitorOverview.total })}
+                    </p>
+                  </CardContent>
+                </Card>
+              </button>
+            </DialogTrigger>
+            <DialogContent className="max-w-3xl bg-neutral-950 text-white">
+              <DialogHeader>
+                <DialogTitle className="text-white">
+                  {t("visitors.title")}
+                </DialogTitle>
+                <DialogDescription className="text-white/60">
+                  {t("visitors.description")}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="mt-6">
+                <VisitorsChartSection
+                  hourly={hourlyChartData}
+                  daily={dailyChartData}
+                  tabLabels={visitorTabs}
+                  emptyMessages={visitorEmptyMessages}
+                />
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          <Card className="relative overflow-hidden border-white/10 bg-white/5 text-white backdrop-blur-xl">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg font-semibold text-white/70">
+                {t("metrics.ratio.title")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pb-6">
+              <p className="text-4xl font-semibold tracking-tight text-white">{ratioValue}</p>
+              <p className="mt-2 text-sm text-white/60">{t("metrics.ratio.caption")}</p>
+            </CardContent>
+          </Card>
         </div>
 
         <div className="mt-16 space-y-6">
@@ -115,7 +292,7 @@ export default async function DashboardPage({ params }: PageProps) {
               </p>
             ) : (
               <div className="mt-4 grid gap-4">
-                {upcomingMeetings.map((meeting) => {
+                {upcomingMeetings.map((meeting: UpcomingMeeting) => {
                   const startLabel = formatDateWithZone(
                     meeting.startAt,
                     {
@@ -198,6 +375,90 @@ type DashboardMeetingFieldProps = {
   label: string;
   value: string;
 };
+
+type AccountSummary = {
+  id: string;
+  name: string | null;
+  email: string;
+  createdAt: Date | null;
+};
+
+type AccountListDialogProps = {
+  title: string;
+  description: string;
+  accounts: AccountSummary[];
+  locale: string;
+  emptyLabel: string;
+  columns: {
+    name: string;
+    email: string;
+    createdAt: string;
+  };
+};
+
+function AccountListDialog({
+  title,
+  description,
+  accounts,
+  locale,
+  emptyLabel,
+  columns,
+}: AccountListDialogProps) {
+  const dateFormatter = new Intl.DateTimeFormat(locale, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  return (
+    <DialogContent className="max-w-2xl bg-neutral-950 text-white sm:max-w-3xl">
+      <DialogHeader>
+        <DialogTitle className="text-white">{title}</DialogTitle>
+        <DialogDescription className="text-white/60">{description}</DialogDescription>
+      </DialogHeader>
+
+      {accounts.length === 0 ? (
+        <p className="mt-6 rounded-xl border border-white/10 bg-white/5 px-4 py-6 text-sm text-white/60">{emptyLabel}</p>
+      ) : (
+        <div className="mt-6 rounded-xl border border-white/10 bg-black/30">
+          <div className="max-h-[320px] overflow-y-auto">
+            <Table className="min-w-full text-sm text-white/80">
+              <TableHeader>
+                <TableRow className="border-white/10 text-white/50">
+                  <TableHead className="text-xs font-semibold uppercase tracking-[0.28em] text-white/50">
+                    {columns.name}
+                  </TableHead>
+                  <TableHead className="text-xs font-semibold uppercase tracking-[0.28em] text-white/50">
+                    {columns.email}
+                  </TableHead>
+                  <TableHead className="text-xs font-semibold uppercase tracking-[0.28em] text-white/50">
+                    {columns.createdAt}
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {accounts.map((account) => {
+                  const createdAt = account.createdAt ? new Date(account.createdAt) : null;
+
+                  return (
+                    <TableRow key={account.id} className="border-white/10 text-white/80">
+                      <TableCell className="align-top font-medium text-white">
+                        {account.name?.trim() || "–"}
+                      </TableCell>
+                      <TableCell className="align-top text-white/70">{account.email}</TableCell>
+                      <TableCell className="align-top text-white/60">
+                        {createdAt ? dateFormatter.format(createdAt) : "–"}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+      )}
+    </DialogContent>
+  );
+}
 
 function DashboardMeetingField({ label, value }: DashboardMeetingFieldProps) {
   return (
