@@ -602,7 +602,12 @@ function MobileLinks({ className }: { className?: string }) {
           <div className="relative w-full mx-auto antialiased z-[110]">
             <ul className="flex flex-col px-8 divide-y divide-white/25">
               <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/" label={t("links.home")} />
+                <MobileNavLink
+                  onClick={() => setIsOpen(false)}
+                  href="/"
+                  label={t("links.home")}
+                  isHome
+                />
               </li>
               <li>
                 <MobileNavLink
