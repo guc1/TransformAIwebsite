@@ -165,21 +165,6 @@ function MobileLinks({ className }: { className?: string }) {
                   label={t("links.templates")}
                 />
               </li>
-              <li>
-                <MobileNavLink
-                  onClick={() => setIsOpen(false)}
-                  href="/docs"
-                  label={t("links.docs")}
-                />
-              </li>
-              <li>
-                <MobileNavLink
-                  onClick={() => setIsOpen(false)}
-                  href="https://go.unkey.com/discord"
-                  label={t("links.discord")}
-                  external
-                />
-              </li>
             </ul>
           </div>
           <DrawerFooter>
@@ -234,12 +219,6 @@ function DesktopLinks({ className }: { className: string }) {
       </li>
       <li>
         <DesktopNavLink href="/templates" label={t("links.templates")} />
-      </li>
-      <li>
-        <DesktopNavLink href="/docs" label={t("links.docs")} />
-      </li>
-      <li>
-        <DesktopNavLink href="https://go.unkey.com/discord" label={t("links.discord")} external />
       </li>
     </ul>
   );
