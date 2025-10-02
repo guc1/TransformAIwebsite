@@ -146,6 +146,19 @@ export const meetingBookings = pgTable(
   }),
 );
 
+export const visitorSessions = pgTable(
+  "visitor_sessions",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  },
+  (table) => ({
+    createdAtIdx: index("visitor_sessions_created_at_idx").on(table.createdAt),
+  }),
+);
+
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
   sessions: many(sessions),
