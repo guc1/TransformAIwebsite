@@ -904,5 +904,122 @@
     "heading": "Niet gevonden.",
     "cta": "Ga naar de homepage",
     "tagline": "Bouw betere API's sneller."
+  },
+  "Auth": {
+    "SignUp": {
+      "metaTitle": "Account aanmaken",
+      "metaDescription": "Word lid van TransformAI voor exclusieve nieuwsupdates en staff-toegang.",
+      "eyebrow": "Leden",
+      "title": "Maak je TransformAI-account",
+      "subtitle": "Ontvang exclusieve AI-updates en toegang tot het teamdashboard.",
+      "staffButton": "Staff",
+      "staffModeOn": "Staff-modus",
+      "staffDialog": {
+        "title": "Staff-toegangscode",
+        "description": "Alleen interne teamleden gebruiken staff-modus. Vul de gedeelde code in om door te gaan.",
+        "codeLabel": "Toegangscode",
+        "codePlaceholder": "Voer de staffcode in",
+        "submit": "Staff-modus ontgrendelen",
+        "reset": "Gebruik klanttoegang"
+      },
+      "googleCta": "Ga verder met Google",
+      "or": "of ga verder met e-mail",
+      "nameLabel": "Volledige naam",
+      "namePlaceholder": "Je naam",
+      "emailLabel": "E-mailadres",
+      "emailPlaceholder": "jij@voorbeeld.nl",
+      "passwordLabel": "Maak een wachtwoord",
+      "passwordPlaceholder": "Minimaal 8 tekens",
+      "submit": "Maak account",
+      "submitStaff": "Maak staff-account",
+      "afterSubmit": {
+        "title": "Wat er hierna gebeurt",
+        "staff": "Je gaat direct naar het staff-dashboard om klantactiviteit te volgen.",
+        "client": "Je wordt direct doorgestuurd naar News Updates met geselecteerde inzichten voor leden."
+      },
+      "haveAccount": "Heb je al een account?",
+      "signInLink": "Log in",
+      "errors": {
+        "intentFailed": "We konden de toegangscode niet valideren. Probeer het opnieuw.",
+        "emailInUse": "Er bestaat al een account voor dit e-mailadres.",
+        "invalidStaffCode": "De staffcode is onjuist.",
+        "validation": "Controleer de velden en probeer opnieuw.",
+        "generic": "Er ging iets mis bij het aanmaken van je account.",
+        "signInAfterRegister": "Je account is aangemaakt, maar automatisch inloggen is mislukt. Log handmatig in."
+      }
+    },
+    "SignIn": {
+      "metaTitle": "Inloggen",
+      "metaDescription": "Log in bij TransformAI voor ledennieuws en het staff-dashboard.",
+      "eyebrow": "Leden",
+      "title": "Welkom terug",
+      "subtitle": "Ga verder met je persoonlijke AI-updates.",
+      "googleCta": "Log in met Google",
+      "or": "of ga verder met e-mail",
+      "emailLabel": "E-mailadres",
+      "emailPlaceholder": "jij@voorbeeld.nl",
+      "passwordLabel": "Wachtwoord",
+      "passwordPlaceholder": "Vul je wachtwoord in",
+      "submit": "Log in",
+      "cta": "Nog geen account?",
+      "ctaLink": "Maak er een",
+      "errors": {
+        "invalid": "We konden deze inloggegevens niet vinden. Probeer het opnieuw."
+      }
+    }
+  },
+  "NewsUpdates": {
+    "eyebrow": "News updates",
+    "title": "Intelligence voor TransformAI-leden",
+    "subtitle": "Kersverse briefings over AI-transformaties die we in Nederlandse sectoren begeleiden.",
+    "items": {
+      "aiMaturity": {
+        "badge": "Strategie",
+        "title": "AI-maturiteitsplaybook gelanceerd",
+        "date": "27 nov 2025",
+        "summary": "Een nieuwe gids om AI-gereedheid te meten in finance, logistiek en retail. Inclusief KPI's, maturiteitsladders en quick wins voor directies."
+      },
+      "events": {
+        "badge": "Events",
+        "title": "Executive roundtable in Amsterdam bevestigd",
+        "date": "10 dec 2025",
+        "summary": "We ontvangen 12 CIO's om de eerste 100 dagen van AI-transformatie te schetsen. Leden krijgen het volledige deck en de opname."
+      },
+      "playbooks": {
+        "badge": "Insights",
+        "title": "Automatiseringspilots opgeschaald",
+        "date": "Begin januari 2026",
+        "summary": "Drie klantpilots bestrijken nu customer support, compliance checks en financiële reconciliatie met meetbare ROI-snapshots."
+      }
+    },
+    "ctaNote": "Deel vertrouwelijke updates zorgvuldig. Stuur dit door naar bestuurders die inzicht nodig hebben."
+  },
+  "Dashboard": {
+    "eyebrow": "Staff-dashboard",
+    "title": "Gezondheid van TransformAI-accounts",
+    "subtitle": "Volg hoeveel klant- en staff-accounts actief zijn op het platform.",
+    "currentUser": "Ingelogd als {email}",
+    "metrics": {
+      "clients": {
+        "title": "Klantaccounts",
+        "caption": "{count, plural, one {# klant actief} other {# klanten actief}}"
+      },
+      "staff": {
+        "title": "Staff-accounts",
+        "caption": "{count, plural, one {# collega online} other {# collega's online}}"
+      },
+      "ratio": {
+        "title": "Verhouding klant/staff",
+        "caption": "Een gezonde dekking ligt tussen 4:1 en 8:1 zodat elk project een partnerlead heeft."
+      }
+    },
+    "nextSteps": {
+      "title": "Volgende stappen",
+      "items": {
+        "audit": "Controleer onboarding-reizen voor klanten zonder recente logins en plan succesgesprekken.",
+        "outreach": "Stem met delivery leads af om het nieuwe AI-maturiteitsplaybook bij hun accounts te delen.",
+        "briefings": "Bereid leiderschapsbriefings voor januari voor met ROI-cijfers uit de automatiseringspilots."
+      }
+    }
   }
 }

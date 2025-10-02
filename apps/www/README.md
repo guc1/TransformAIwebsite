@@ -13,6 +13,25 @@ or from the www directory:
 pnpm run dev
 ```
 
+## Database & authentication setup
+
+The members area uses PostgreSQL + Drizzle + NextAuth. Before running the auth routes locally or in production:
+
+1. Provision a PostgreSQL database (Neon, Supabase, Render, etc.) and grab the connection string.
+2. Copy `.env.example` to `.env.local` and populate:
+   - `DATABASE_URL`
+   - `NEXTAUTH_SECRET` (generate a random string, e.g. `openssl rand -base64 32`)
+   - `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (OAuth credentials for the Google sign-in button)
+   - `STAFF_ACCESS_CODE` if you want to override the default `Cake2025` value.
+3. Apply the initial schema:
+
+```bash
+pnpm --filter www run db:push
+```
+
+   This seeds the `drizzle/` migrations into the target database. For subsequent changes use `db:generate` + `db:migrate`.
+4. Start the dev server (`pnpm --filter www dev`). You can now create accounts with email/password or Google; new users are assigned the `client` role unless they unlock the staff code.
+
 ## Contact form configuration
 
 The `/contact` page forwards submissions through [Resend](https://resend.com/) so incoming messages to `info@transformai.nl` land in `yergushbloetjes@gmail.com`.
