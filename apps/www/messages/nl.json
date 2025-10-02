@@ -20,6 +20,15 @@
     "createAccount": "Account aanmaken",
     "signIn": "Inloggen",
     "language": "Taal",
+    "loggedIn": {
+      "aria": "Navigatie ledenomgeving",
+      "comingSoon": "Binnenkort beschikbaar",
+      "exit": "Afsluiten",
+      "messages": "Berichten",
+      "overview": "Overzicht",
+      "planning": "Planning",
+      "resources": "Bronnen"
+    },
     "membersMenu": {
       "createAccountDescription": "Meld je aan om toegang te krijgen tot onze ledenomgeving.",
       "signInDescription": "Log in voor je dashboard en lopende trajecten.",
