@@ -16,9 +16,14 @@
     "ariaHome": "Home",
     "menu": "Menu",
     "close": "Sluiten",
+    "members": "Leden",
     "createAccount": "Account aanmaken",
     "signIn": "Inloggen",
     "language": "Taal",
+    "membersMenu": {
+      "createAccountDescription": "Meld je aan om toegang te krijgen tot onze ledenomgeving.",
+      "signInDescription": "Log in voor je dashboard en lopende trajecten."
+    },
     "links": {
       "home": "Home",
       "about": "Over ons",

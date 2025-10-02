@@ -11,17 +11,23 @@ import {
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { useConsentManager } from "@c15t/nextjs";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { track } from "@vercel/analytics";
 import { motion } from "framer-motion";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  LogIn,
+  UserPlus,
+  UsersRound,
+  type LucideIcon,
+} from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { PrimaryButton, SecondaryButton } from "../button";
+import { forwardRef, useEffect, useState, type ComponentPropsWithoutRef } from "react";
 import { DesktopNavLink, MobileNavLink } from "./link";
 
 export function Navigation() {
   const [scrollY, setScrollY] = useState(0);
-  const { hasConsentFor } = useConsentManager();
   const t = useTranslations("Navigation");
   const pathname = usePathname();
   const locale = useLocale();
@@ -85,34 +91,199 @@ export function Navigation() {
         </div>
         <div className="hidden sm:flex items-center gap-3">
           <LanguageSwitcher className="hidden md:flex" />
-          <Link href="/create-account">
-            <SecondaryButton
-              label={t("createAccount")}
-              IconRight={ChevronRight}
-              className="h-8 text-sm"
-              onClick={async () => {
-                if (hasConsentFor("measurement")) {
-                  track("signup", { location: "navigation" });
-                }
-              }}
-            />
-          </Link>
-          <Link href="/sign-in">
-            <PrimaryButton
-              shiny
-              label={t("signIn")}
-              IconRight={ChevronRight}
-              className="h-8"
-              onClick={async () => {
-                track("signin", { location: "navigation" });
-              }}
-            />
-          </Link>
+          <MembersMenu />
         </div>
       </div>
     </motion.nav>
   );
 }
+
+function MembersMenu({ className }: { className?: string }) {
+  const t = useTranslations("Navigation");
+  const { hasConsentFor } = useConsentManager();
+  const [open, setOpen] = useState(false);
+  const contentId = "members-menu";
+
+  return (
+    <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
+      <PopoverPrimitive.Trigger asChild>
+        <MembersButton
+          label={t("members")}
+          pressed={open}
+          className={className}
+          aria-controls={contentId}
+          aria-expanded={open}
+          aria-haspopup="menu"
+        />
+      </PopoverPrimitive.Trigger>
+      <PopoverPrimitive.Content
+        align="end"
+        sideOffset={16}
+        id={contentId}
+        className={cn(
+          "z-[120] w-64 rounded-2xl border border-white/15 bg-black/80 p-3 shadow-lg shadow-sky-500/15 backdrop-blur-xl",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        )}
+      >
+        <nav className="flex flex-col gap-2" aria-label={t("members")}>
+          <MembersMenuLink
+            href="/create-account"
+            label={t("createAccount")}
+            description={t("membersMenu.createAccountDescription")}
+            icon={UserPlus}
+            onClick={() => {
+              setOpen(false);
+              if (hasConsentFor("measurement")) {
+                track("signup", { location: "navigation" });
+              }
+            }}
+          />
+          <MembersMenuLink
+            href="/sign-in"
+            label={t("signIn")}
+            description={t("membersMenu.signInDescription")}
+            icon={LogIn}
+            onClick={() => {
+              setOpen(false);
+              track("signin", { location: "navigation" });
+            }}
+          />
+        </nav>
+      </PopoverPrimitive.Content>
+    </PopoverPrimitive.Root>
+  );
+}
+
+function MembersDrawerMenu({ onNavigate }: { onNavigate: () => void }) {
+  const t = useTranslations("Navigation");
+  const { hasConsentFor } = useConsentManager();
+  const [open, setOpen] = useState(false);
+  const menuId = "drawer-members-menu";
+
+  return (
+    <div className="w-full">
+      <MembersButton
+        label={t("members")}
+        pressed={open}
+        onClick={() => setOpen((previous) => !previous)}
+        className="w-full"
+        innerClassName="w-full justify-between px-5 py-2"
+        aria-controls={menuId}
+        aria-expanded={open}
+        aria-haspopup="menu"
+      />
+      {open ? (
+        <div id={menuId} className="mt-3 flex flex-col gap-2" role="menu" aria-label={t("members")}>
+          <MembersMenuLink
+            href="/create-account"
+            label={t("createAccount")}
+            description={t("membersMenu.createAccountDescription")}
+            icon={UserPlus}
+            className="border-white/10 bg-white/5"
+            onClick={() => {
+              setOpen(false);
+              onNavigate();
+              if (hasConsentFor("measurement")) {
+                track("signup", { location: "navigation-mobile" });
+              }
+            }}
+          />
+          <MembersMenuLink
+            href="/sign-in"
+            label={t("signIn")}
+            description={t("membersMenu.signInDescription")}
+            icon={LogIn}
+            className="border-white/10 bg-white/5"
+            onClick={() => {
+              setOpen(false);
+              onNavigate();
+              track("signin", { location: "navigation-mobile" });
+            }}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+type MembersMenuLinkProps = {
+  href: string;
+  label: string;
+  description: string;
+  icon: LucideIcon;
+  className?: string;
+  onClick?: () => void;
+};
+
+function MembersMenuLink({ href, label, description, icon: Icon, className, onClick }: MembersMenuLinkProps) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      role="menuitem"
+      className={cn(
+        "group flex w-full items-center justify-between gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-left text-sm text-white/85 transition hover:border-white/20 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+        className,
+      )}
+    >
+      <span className="flex flex-col gap-1 text-left">
+        <span className="flex items-center gap-2 font-semibold text-white">
+          <Icon className="h-4 w-4 text-sky-200 transition group-hover:text-sky-100" />
+          {label}
+        </span>
+        <span className="text-xs text-white/60">{description}</span>
+      </span>
+      <ChevronRight className="h-4 w-4 shrink-0 translate-x-0 text-white/50 transition group-hover:translate-x-1 group-hover:text-white/80" />
+    </Link>
+  );
+}
+
+type MembersButtonProps = {
+  label: string;
+  pressed: boolean;
+  icon?: LucideIcon;
+  innerClassName?: string;
+} & ComponentPropsWithoutRef<"button">;
+
+const MembersButton = forwardRef<HTMLButtonElement, MembersButtonProps>(
+  ({ label, pressed, icon: Icon = UsersRound, className, innerClassName, ...props }, ref) => {
+    return (
+      <button
+        ref={ref}
+        type="button"
+        data-state={pressed ? "open" : "closed"}
+        className={cn(
+          "group relative inline-flex items-center justify-center rounded-full p-[1px] text-sm font-semibold text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+          "hero-hiring-gradient shadow-lg shadow-sky-500/20 hover:shadow-sky-400/25",
+          "group-data-[state=open]:shadow-sky-400/30 active:scale-[0.98]",
+          className,
+        )}
+        {...props}
+      >
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-teal-400/20 via-sky-500/25 to-purple-500/20 opacity-70 transition duration-300 group-hover:opacity-100 group-data-[state=open]:opacity-90"
+        />
+        <span
+          className={cn(
+            "relative inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-white transition duration-300",
+            "bg-white/10 backdrop-blur-xl group-hover:bg-white/15",
+            "group-data-[state=open]:bg-gradient-to-r group-data-[state=open]:from-teal-400 group-data-[state=open]:via-sky-500 group-data-[state=open]:to-purple-500 group-data-[state=open]:text-slate-950 group-data-[state=open]:shadow-lg group-data-[state=open]:shadow-sky-500/25",
+            innerClassName,
+          )}
+        >
+          <Icon className="h-4 w-4 text-sky-200 transition duration-300 group-hover:rotate-3 group-data-[state=open]:rotate-3 group-data-[state=open]:text-slate-900" />
+          <span>{label}</span>
+          <ChevronDown className="h-4 w-4 transition duration-300 group-data-[state=open]:rotate-180" />
+        </span>
+      </button>
+    );
+  },
+);
+
+MembersButton.displayName = "MembersButton";
 
 function MobileLinks({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -185,17 +356,7 @@ function MobileLinks({ className }: { className?: string }) {
           </div>
           <DrawerFooter>
             <LanguageSwitcher className="w-full justify-between" />
-            <Link href="/sign-in">
-              <PrimaryButton
-                shiny
-                label={t("signIn")}
-                IconRight={ChevronRight}
-                className="flex justify-center w-full text-center"
-                onClick={async () => {
-                  track("signin", { location: "navigation-mobile" });
-                }}
-              />
-            </Link>
+            <MembersDrawerMenu onNavigate={() => setIsOpen(false)} />
             <button
               type="button"
               onClick={() => setIsOpen(false)}
