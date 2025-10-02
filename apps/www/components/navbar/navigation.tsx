@@ -58,9 +58,20 @@ export function Navigation() {
   const backgroundOpacity = Math.min(scrollY / 200, 1);
   const borderOpacity = Math.min(backgroundOpacity / 5, 0.15);
   const shrinkProgress = Math.min(scrollY / 60, 1);
-  const normalizedHomePath = `/${locale}`;
+  const normalizedLocalePath = `/${locale}`;
+  const trimmedPathname =
+    pathname && pathname.length > 1 && pathname.endsWith("/")
+      ? pathname.slice(0, -1)
+      : pathname;
   const isHome =
-    pathname === normalizedHomePath || pathname === `${normalizedHomePath}/` || pathname === "/";
+    trimmedPathname === normalizedLocalePath ||
+    trimmedPathname === `${normalizedLocalePath}/` ||
+    trimmedPathname === "/";
+  const newsUpdatesPath = `${normalizedLocalePath}/newsupdates`;
+  const dashboardPath = `${normalizedLocalePath}/dashboard`;
+  const isClientView = trimmedPathname?.startsWith(newsUpdatesPath) ?? false;
+  const isStaffView = trimmedPathname?.startsWith(dashboardPath) ?? false;
+  const isLoggedInView = isClientView || isStaffView;
   const settledLogoScale = 0.68;
   const initialLogoScale = isHome ? 1 : 0.74;
   const logoScale =
@@ -68,6 +79,46 @@ export function Navigation() {
   const basePadding = 12;
   const compactPadding = 8;
   const padding = basePadding - (basePadding - compactPadding) * shrinkProgress;
+
+  const loggedInItems = isLoggedInView
+    ? isStaffView
+      ? ([
+          {
+            key: "exit",
+            href: "/",
+            label: t("loggedIn.exit"),
+          },
+          {
+            key: "overview",
+            href: "/dashboard",
+            label: t("loggedIn.overview"),
+            current: true,
+          },
+          {
+            key: "planning",
+            label: t("loggedIn.planning"),
+            comingSoon: true,
+          },
+        ] satisfies LoggedInNavItem[])
+      : ([
+          {
+            key: "exit",
+            href: "/",
+            label: t("loggedIn.exit"),
+          },
+          {
+            key: "resources",
+            href: "/newsupdates",
+            label: t("loggedIn.resources"),
+            current: true,
+          },
+          {
+            key: "messages",
+            label: t("loggedIn.messages"),
+            comingSoon: true,
+          },
+        ] satisfies LoggedInNavItem[])
+    : [];
 
   return (
     <motion.nav
@@ -82,20 +133,110 @@ export function Navigation() {
       initial="hidden"
       animate="visible"
     >
-      <div className="container flex items-center justify-between">
-        <div className="flex items-center justify-between w-full sm:w-auto sm:gap-12 lg:gap-20">
-          <Link href="/" aria-label={t("ariaHome")} className="block shrink-0">
-            <Logo scale={logoScale} />
-          </Link>
-          <MobileLinks className="lg:hidden" />
-          <DesktopLinks className="hidden lg:flex" />
+      {isLoggedInView ? (
+        <LoggedInNavigationSection
+          comingSoonLabel={t("loggedIn.comingSoon")}
+          items={loggedInItems}
+          logoScale={logoScale}
+          navAriaLabel={t("loggedIn.aria")}
+          homeAriaLabel={t("ariaHome")}
+        />
+      ) : (
+        <div className="container flex items-center justify-between">
+          <div className="flex items-center justify-between w-full sm:w-auto sm:gap-12 lg:gap-20">
+            <Link href="/" aria-label={t("ariaHome")} className="block shrink-0">
+              <Logo scale={logoScale} />
+            </Link>
+            <MobileLinks className="lg:hidden" />
+            <DesktopLinks className="hidden lg:flex" />
+          </div>
+          <div className="hidden sm:flex items-center gap-3">
+            <LanguageSwitcher className="hidden md:flex" />
+            <MembersMenu />
+          </div>
         </div>
-        <div className="hidden sm:flex items-center gap-3">
-          <LanguageSwitcher className="hidden md:flex" />
-          <MembersMenu />
-        </div>
-      </div>
+      )}
     </motion.nav>
+  );
+}
+
+type LoggedInNavItem = {
+  key: string;
+  label: string;
+  href?: string;
+  current?: boolean;
+  comingSoon?: boolean;
+};
+
+type LoggedInNavigationSectionProps = {
+  comingSoonLabel: string;
+  homeAriaLabel: string;
+  items: LoggedInNavItem[];
+  logoScale: number;
+  navAriaLabel: string;
+};
+
+function LoggedInNavigationSection({
+  comingSoonLabel,
+  homeAriaLabel,
+  items,
+  logoScale,
+  navAriaLabel,
+}: LoggedInNavigationSectionProps) {
+  return (
+    <div className="container flex flex-wrap items-center gap-4 sm:gap-6">
+      <Link href="/" aria-label={homeAriaLabel} className="block shrink-0">
+        <Logo scale={logoScale} />
+      </Link>
+      <nav
+        aria-label={navAriaLabel}
+        className="flex flex-wrap items-center gap-3 text-sm font-semibold text-white/70 sm:gap-5"
+      >
+        {items.map((item) => (
+          <LoggedInNavLink key={item.key} item={item} comingSoonLabel={comingSoonLabel} />
+        ))}
+      </nav>
+    </div>
+  );
+}
+
+function LoggedInNavLink({
+  item,
+  comingSoonLabel,
+}: {
+  item: LoggedInNavItem;
+  comingSoonLabel: string;
+}) {
+  if (item.href) {
+    return (
+      <Link
+        href={item.href}
+        aria-current={item.current ? "page" : undefined}
+        className={cn(
+          "inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold transition",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+          item.current
+            ? "border border-white/25 bg-white/10 text-white shadow-lg shadow-emerald-500/10"
+            : "border border-transparent text-white/70 hover:text-white",
+        )}
+      >
+        {item.label}
+      </Link>
+    );
+  }
+
+  return (
+    <span
+      aria-disabled="true"
+      className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 text-sm font-semibold text-white/50"
+    >
+      {item.label}
+      {item.comingSoon ? (
+        <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-white/55">
+          {comingSoonLabel}
+        </span>
+      ) : null}
+    </span>
   );
 }
 
