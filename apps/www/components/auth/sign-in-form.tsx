@@ -3,16 +3,17 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Loader2, LogIn } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { useRouter } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
+import { locales } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export function SignInForm() {
   const t = useTranslations("Auth.SignIn");
-  const locale = useLocale();
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ export function SignInForm() {
     setIsGoogleSubmitting(true);
 
     await signIn("google", {
-      callbackUrl: `/${locale}/auth/post-signin`,
+      callbackUrl: "/auth/post-signin",
     });
   };
 
@@ -39,7 +40,7 @@ export function SignInForm() {
       email: email.trim(),
       password,
       redirect: false,
-      callbackUrl: `/${locale}/auth/post-signin`,
+      callbackUrl: "/auth/post-signin",
     });
 
     if (!result || result.error) {
@@ -48,7 +49,13 @@ export function SignInForm() {
       return;
     }
 
-    router.push(result.url ?? `/${locale}/auth/post-signin`);
+    const destination = resolveDestination(result?.url ?? null);
+
+    if (destination.locale) {
+      router.push(destination.href, { locale: destination.locale });
+    } else {
+      router.push(destination.href);
+    }
   };
 
   const disableButtons = isSubmitting || isGoogleSubmitting;
@@ -156,7 +163,7 @@ export function SignInForm() {
         <button
           type="button"
           className="font-semibold text-white transition hover:text-white/80"
-          onClick={() => router.push(`/${locale}/create-account`)}
+          onClick={() => router.push("/create-account")}
           disabled={disableButtons}
         >
           {t("ctaLink")}
@@ -164,4 +171,43 @@ export function SignInForm() {
       </p>
     </div>
   );
+}
+
+function resolveDestination(url: string | null): { href: string; locale?: Locale } {
+  if (!url) {
+    return { href: "/auth/post-signin" };
+  }
+
+  try {
+    const parsed = new URL(url, "https://transform.ai");
+    const normalized = stripLocaleFromPath(parsed.pathname);
+
+    return {
+      href: `${normalized.path}${parsed.search}${parsed.hash}` || "/",
+      locale: normalized.locale,
+    };
+  } catch {
+    const normalized = stripLocaleFromPath(url);
+
+    return { href: normalized.path, locale: normalized.locale };
+  }
+}
+
+function stripLocaleFromPath(path: string): { path: string; locale?: Locale } {
+  const ensuredPath = path.startsWith("/") ? path : `/${path}`;
+
+  for (const locale of locales) {
+    const prefix = `/${locale}`;
+
+    if (ensuredPath === prefix) {
+      return { path: "/", locale };
+    }
+
+    if (ensuredPath.startsWith(`${prefix}/`)) {
+      const remainder = ensuredPath.slice(prefix.length) || "/";
+      return { path: remainder, locale };
+    }
+  }
+
+  return { path: ensuredPath };
 }

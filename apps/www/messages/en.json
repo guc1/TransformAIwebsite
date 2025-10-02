@@ -22,7 +22,12 @@
     "language": "Language",
     "membersMenu": {
       "createAccountDescription": "Join TransformAI to unlock member resources.",
-      "signInDescription": "Access your dashboard and ongoing projects."
+      "signInDescription": "Access your dashboard and ongoing projects.",
+      "continueHeading": "Continue where you left off",
+      "continueRole": {
+        "client": "Members hub",
+        "staff": "Staff workspace"
+      }
     },
     "links": {
       "home": "Home",
@@ -1014,6 +1019,9 @@
       "errors": {
         "invalid": "We couldn’t match those credentials. Try again."
       }
+    },
+    "PostSignIn": {
+      "redirecting": "Redirecting you, {name}…"
     }
   },
   "NewsUpdates": {

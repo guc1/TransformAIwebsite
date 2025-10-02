@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Loader2, Lock, Check } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,6 @@ const REGISTER_ENDPOINT = "/api/auth/register";
 
 export function SignUpForm() {
   const t = useTranslations("Auth.SignUp");
-  const locale = useLocale();
   const router = useRouter();
 
   const [name, setName] = useState("");
@@ -94,7 +93,7 @@ export function SignUpForm() {
       }
 
       await signIn("google", {
-        callbackUrl: `/${locale}/auth/post-signin`,
+        callbackUrl: "/auth/post-signin",
       });
     } catch (intentError) {
       setError(intentError instanceof Error ? intentError.message : t("errors.intentFailed"));
@@ -166,7 +165,7 @@ export function SignUpForm() {
         return;
       }
 
-      router.push(`/${locale}/auth/post-signin`);
+      router.push("/auth/post-signin");
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : t("errors.generic"));
       setIsSubmitting(false);
@@ -372,7 +371,7 @@ export function SignUpForm() {
         <button
           type="button"
           className="font-semibold text-white transition hover:text-white/80"
-          onClick={() => router.push(`/${locale}/sign-in`)}
+          onClick={() => router.push("/sign-in")}
           disabled={disableSubmit}
         >
           {t("signInLink")}
