@@ -20,6 +20,15 @@
     "createAccount": "Create Account",
     "signIn": "Sign In",
     "language": "Language",
+    "loggedIn": {
+      "aria": "Member navigation",
+      "comingSoon": "Coming soon",
+      "exit": "Exit",
+      "messages": "Messages",
+      "overview": "Overview",
+      "planning": "Planning",
+      "resources": "Resources"
+    },
     "membersMenu": {
       "createAccountDescription": "Join TransformAI to unlock member resources.",
       "signInDescription": "Access your dashboard and ongoing projects.",
