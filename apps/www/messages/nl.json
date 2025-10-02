@@ -22,7 +22,12 @@
     "language": "Taal",
     "membersMenu": {
       "createAccountDescription": "Meld je aan om toegang te krijgen tot onze ledenomgeving.",
-      "signInDescription": "Log in voor je dashboard en lopende trajecten."
+      "signInDescription": "Log in voor je dashboard en lopende trajecten.",
+      "continueHeading": "Ga verder waar je gebleven was",
+      "continueRole": {
+        "client": "Ledenomgeving",
+        "staff": "Teamdashboard"
+      }
     },
     "links": {
       "home": "Home",
@@ -971,6 +976,9 @@
       "errors": {
         "invalid": "We konden deze inloggegevens niet vinden. Probeer het opnieuw."
       }
+    },
+    "PostSignIn": {
+      "redirecting": "Bezig met doorsturen, {name}…"
     }
   },
   "NewsUpdates": {
