@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import {
+  bigint,
   boolean,
   index,
   integer,
@@ -156,6 +157,36 @@ export const visitorSessions = pgTable(
   },
   (table) => ({
     createdAtIdx: index("visitor_sessions_created_at_idx").on(table.createdAt),
+  }),
+);
+
+export const hoursSavedConfig = pgTable("hours_saved_config", {
+  id: text("id")
+    .primaryKey()
+    .notNull()
+    .default("singleton"),
+  baseAmount: bigint("base_amount", { mode: "number" }).notNull(),
+  baseTimestamp: timestamp("base_timestamp", { mode: "date", withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  dayIncrement: integer("day_increment").notNull(),
+  nightIncrement: integer("night_increment").notNull(),
+  updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+});
+
+export const hoursSavedAdjustments = pgTable(
+  "hours_saved_adjustments",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    applyAt: timestamp("apply_at", { mode: "date", withTimezone: true }).notNull(),
+    amount: integer("amount").notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  },
+  (table) => ({
+    applyAtUnique: uniqueIndex("hours_saved_adjustments_apply_at_unique").on(table.applyAt),
+    applyAtIdx: index("hours_saved_adjustments_apply_at_idx").on(table.applyAt),
   }),
 );
 

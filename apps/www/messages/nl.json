@@ -1175,6 +1175,49 @@
     "title": "Gezondheid van TransformAI-accounts",
     "subtitle": "Volg hoeveel klant- en staff-accounts actief zijn op het platform.",
     "currentUser": "Ingelogd als {email}",
+    "hoursSaved": {
+      "title": "Homepage teller bespaarde uren",
+      "description": "Beheer de AI-bespaarteller die in de marketing-hero wordt getoond.",
+      "summary": {
+        "current": "Huidig totaal",
+        "lastApplied": "Laatste toevoeging",
+        "nextUpdate": "Volgende geplande update",
+        "noUpcoming": "Geen updates ingepland"
+      },
+      "fields": {
+        "baseAmount": {
+          "label": "Startwaarde",
+          "help": "Stel de basiswaarde in waarop de teller moet uitkomen. Het aanpassen reset het berekeningsmoment."
+        },
+        "dayIncrement": {
+          "label": "Dagelijkse uurlijkse toename",
+          "help": "Wordt gebruikt voor willekeurige toevoegingen tussen 07:00–21:00 CET."
+        },
+        "nightIncrement": {
+          "label": "Nachtelijke uurlijkse toename",
+          "help": "Wordt gebruikt voor willekeurige toevoegingen tussen 21:00–07:00 CET."
+        },
+        "overrideLabel": "Bedrag overschrijven"
+      },
+      "actions": {
+        "saveSettings": "Instellingen opslaan",
+        "regenerate": "Volgende 24 uur vernieuwen",
+        "updateHour": "Uur bijwerken"
+      },
+      "regenerate": {
+        "title": "Plan voor de komende uren vernieuwen",
+        "description": "Genereer een nieuw willekeurig plan voor de komende 24 uur op basis van de opgeslagen waarden."
+      },
+      "schedule": {
+        "title": "Aankomende uurlijkse toevoegingen",
+        "description": "Pas een uur aan om het automatische plan te overschrijven.",
+        "empty": "Er zijn geen toekomstige toevoegingen gepland. Genereer hierboven een nieuw plan.",
+        "period": {
+          "day": "Dagtoename",
+          "night": "Nachttoename"
+        }
+      }
+    },
     "metrics": {
       "clients": {
         "title": "Klantaccounts",

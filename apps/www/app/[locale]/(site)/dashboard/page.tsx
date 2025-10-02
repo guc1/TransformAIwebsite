@@ -22,6 +22,7 @@ import { formatDateWithZone } from "@/lib/date";
 import { MEETING_TIME_ZONE } from "@/lib/meetings/constants";
 import { getUpcomingMeetings } from "@/lib/meetings/queries";
 import { getVisitorOverview, type VisitorOverview } from "@/lib/visitors";
+import { HoursSavedPanel } from "./components/hours-saved-panel";
 import { VisitorsChartSection, type VisitorsChartBucket } from "./components/visitors-chart";
 import { desc, eq, sql } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
@@ -156,6 +157,10 @@ export default async function DashboardPage({ params }: PageProps) {
           <div className="rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-xs text-white/70">
             {t("currentUser", { email: session.user.email ?? "" })}
           </div>
+        </div>
+
+        <div className="mt-12">
+          <HoursSavedPanel locale={locale} />
         </div>
 
         <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
