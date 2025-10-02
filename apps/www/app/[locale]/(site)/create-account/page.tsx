@@ -1,6 +1,12 @@
 import { SignUpForm } from "@/components/auth/sign-up-form";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+
+import { getAuthSession } from "@/lib/auth";
+import { resolveSessionRedirect } from "@/lib/auth-redirect";
+
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: {
@@ -17,7 +23,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function CreateAccountPage() {
+export default async function CreateAccountPage({ params }: PageProps) {
+  const session = await getAuthSession();
+  const destination = await resolveSessionRedirect(session, params.locale);
+
+  if (destination) {
+    redirect(destination);
+  }
+
   return (
     <div className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.22),_transparent_55%)] py-28">
       <div
