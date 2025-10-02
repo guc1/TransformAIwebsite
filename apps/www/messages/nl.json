@@ -625,6 +625,57 @@
   },
   "Analytics": {
     "requestAccess": "Vraag Toegang",
+    "requestForm": {
+      "badge": "Platform bèta",
+      "title": "Toegang aanvragen tot het TransformAI-platform",
+      "subtitle": "Vertel kort waar je naar zoekt en we nemen contact op.",
+      "dismiss": "Aanvraagformulier sluiten",
+      "channel": {
+        "label": "Liever mailen?",
+        "caption": "Mail {email} en we reageren binnen één werkdag."
+      },
+      "feedback": {
+        "successTitle": "Aanvraag ontvangen",
+        "errorTitle": "Verzenden is niet gelukt"
+      },
+      "requestType": {
+        "label": "Waarmee kunnen we helpen?",
+        "helper": "Kies de optie die het beste past.",
+        "options": {
+          "platformAccess": {
+            "title": "Toegang tot het platform",
+            "description": "Doe mee aan de bèta en geef je team toegang tot de TransformAI-omgeving."
+          },
+          "other": {
+            "title": "Iets anders",
+            "description": "Stel een andere vraag over de platform-bèta."
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "label": "Naam",
+          "placeholder": "Alex Janssen"
+        },
+        "company": {
+          "label": "Bedrijf",
+          "placeholder": "Bedrijfsnaam"
+        },
+        "email": {
+          "label": "E-mail",
+          "placeholder": "naam@bedrijf.nl"
+        },
+        "description": {
+          "label": "Hoe kunnen we helpen?",
+          "placeholder": "Vertel over je team, use-case of andere details."
+        }
+      },
+      "submit": {
+        "label": "Aanvraag versturen",
+        "pending": "Versturen..."
+      },
+      "footnote": "Liever mailen? Bereik ons op {email}."
+    },
     "caption": {
       "title": "Realtime-analyse",
       "subtitle": "Direct inzicht in AI-gebruik binnen jouw organisatie."
