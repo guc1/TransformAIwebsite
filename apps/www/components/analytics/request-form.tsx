@@ -82,7 +82,7 @@ export function AnalyticsRequestForm({ onDismiss }: AnalyticsRequestFormProps) {
   ];
 
   return (
-    <div className="relative isolate flex w-full max-w-4xl flex-col overflow-hidden rounded-[32px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_28px_120px_rgba(15,23,42,0.45)] sm:p-8">
+    <div className="relative isolate flex w-full max-w-[880px] flex-col overflow-hidden rounded-[32px] border border-white/12 bg-white/[0.04] p-5 shadow-[0_28px_120px_rgba(15,23,42,0.45)] sm:p-6">
       <div
         aria-hidden
         className="pointer-events-none absolute -left-24 top-1/2 h-[420px] w-[420px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.3),_rgba(59,130,246,0))] blur-3xl"
@@ -90,7 +90,7 @@ export function AnalyticsRequestForm({ onDismiss }: AnalyticsRequestFormProps) {
       <form
         ref={formRef}
         action={formAction}
-        className="relative z-10 grid gap-6 md:grid-cols-[1.05fr_minmax(0,1fr)] md:gap-8"
+        className="relative z-10 grid gap-5 md:grid-cols-[1.05fr_minmax(0,1fr)] md:gap-6"
       >
         {state.status === "success" && state.message ? (
           <Alert variant="success" className="border-none md:col-span-2">
@@ -118,7 +118,7 @@ export function AnalyticsRequestForm({ onDismiss }: AnalyticsRequestFormProps) {
           </Alert>
         ) : null}
 
-        <div className="flex flex-col gap-6 md:pr-6">
+        <div className="flex flex-col gap-5 md:pr-4">
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-3">
               <span className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-white/70">
@@ -144,7 +144,7 @@ export function AnalyticsRequestForm({ onDismiss }: AnalyticsRequestFormProps) {
               </button>
             ) : null}
           </div>
-          <div className="flex items-start gap-3 rounded-2xl border border-white/20 bg-white/[0.06] px-4 py-3 text-left shadow-[0_18px_80px_rgba(15,23,42,0.35)]">
+          <div className="flex items-start gap-3 rounded-2xl border border-white/20 bg-white/[0.06] px-3.5 py-2.5 text-left shadow-[0_18px_80px_rgba(15,23,42,0.35)]">
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white">
               <Mail className="h-5 w-5" aria-hidden />
             </span>
@@ -167,7 +167,7 @@ export function AnalyticsRequestForm({ onDismiss }: AnalyticsRequestFormProps) {
           />
         </div>
 
-        <div className="space-y-5 md:pl-4">
+        <div className="space-y-4 md:pl-3">
           <div className="grid gap-4 sm:grid-cols-2">
             {fields.map(({ name, label, placeholder, type = "text", autoComplete, required }) => (
               <div key={name} className="space-y-2">
@@ -280,7 +280,7 @@ function RequestTypeSelector({
           <span className="text-xs text-white/50 sm:text-right">{helperText}</span>
         ) : null}
       </div>
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-2.5 sm:grid-cols-2">
         {options.map((option) => {
           const isActive = option.value === selected;
           return (
