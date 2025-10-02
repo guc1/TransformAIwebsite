@@ -50,6 +50,155 @@
       "discord": "Discord"
     }
   },
+  "Meeting": {
+    "meta": {
+      "title": "Plan een afspraak",
+      "description": "Reserveer een TransformAI-strategiesessie in de komende twee weken."
+    },
+    "Hero": {
+      "badge": "Plan gratis een afspraak",
+      "title": "Boek een TransformAI-introsessie",
+      "subtitle": "Kies een moment dat in jouw agenda past. Wij bevestigen de details en koppelen je aan de juiste specialist."
+    },
+    "Calendar": {
+      "heading": "Beschikbaarheid",
+      "caption": "Klik op een datum om de overgebleven blokken te bekijken. Kleuren worden live bijgewerkt zodra teams boeken.",
+      "status": {
+        "available": "Open",
+        "limited": "Bijna vol",
+        "full": "Volgeboekt"
+      },
+      "slotsCount": "Vrij: {available}/{total}",
+      "noSlots": "Geen vrije blokken"
+    },
+    "Slots": {
+      "badge": "Kies je moment",
+      "heading": "Tijden op {day}",
+      "empty": "Deze dag is volgeboekt. Probeer een andere datum om vrije blokken te vinden.",
+      "selectError": "Selecteer een tijdsblok om verder te gaan."
+    },
+    "Form": {
+      "heading": "Vertel ons iets meer",
+      "caption": "Met deze gegevens bereiden we de agenda voor en sturen we de meetinglink.",
+      "submit": "Afspraak inplannen",
+      "submitPending": "Bezig met plannen…",
+      "privacy": "We gebruiken je e-mail alleen voor de meetinglink en opvolging.",
+      "success": {
+        "title": "Meeting bevestigd",
+        "message": "De meeting vindt plaats via Google Zoom op {date}. Tien minuten voor de meeting ontvang je een link."
+      },
+      "errors": {
+        "unavailable": "Dit blok is zojuist geboekt. Kies een ander tijdstip.",
+        "generic": "Het plannen is mislukt. Probeer het opnieuw."
+      },
+      "fields": {
+        "reason": {
+          "label": "Reden voor de meeting",
+          "placeholder": "Waar wil je het over hebben?"
+        },
+        "company": {
+          "label": "Bedrijf (optioneel)",
+          "placeholder": "Naam van de organisatie"
+        },
+        "personName": {
+          "label": "Jouw naam",
+          "placeholder": "Wie mogen we verwelkomen?"
+        },
+        "email": {
+          "label": "E-mailadres",
+          "placeholder": "jij@bedrijf.nl"
+        },
+        "description": {
+          "label": "Aanvullende context",
+          "placeholder": "Beschrijf prioriteiten, doelen of vragen voor dit gesprek"
+        }
+      }
+    }
+  },
+  "Planning": {
+    "eyebrow": "Teamplanning",
+    "title": "Beschikbaarheid afstemmen",
+    "subtitle": "Sleep om nieuwe blokken te openen, wijs teamleden toe en beheer boekingen in realtime.",
+    "calendar": {
+      "heading": "Teamkalender",
+      "caption": "Selecteer een dag om blokken te bekijken en te bewerken. Beschikbaarheid wordt direct doorgezet naar de publieke pagina.",
+      "status": {
+        "available": "Beschikbaar",
+        "limited": "Beperkt",
+        "full": "Vol"
+      },
+      "count": {
+        "available": "{count, plural, one {# open blok} other {# open blokken}}",
+        "booked": "{count, plural, one {# geboekt} other {# geboekt}}",
+        "blocked": "{count, plural, one {# geblokkeerd} other {# geblokkeerd}}",
+        "hidden": "{count, plural, one {# verborgen} other {# verborgen}}"
+      },
+      "metrics": {
+        "available": "Vrij: {count}",
+        "booked": "Bezet: {count}",
+        "blocked": "Geblokkeerd: {count}",
+        "hidden": "Verborgen: {count}",
+        "total": "Totaal: {count}"
+      }
+    },
+    "legend": {
+      "title": "Legenda",
+      "available": "Beschikbaar",
+      "booked": "Geboekt",
+      "blocked": "Niet beschikbaar",
+      "hidden": "Verborgen"
+    },
+    "timeline": {
+      "heading": "Dagindeling",
+      "createHint": "Sleep over het raster om een nieuw beschikbaarheidsblok aan te maken.",
+      "updateHint": "Pak de boven- of onderkant om een slot te verlengen of te verkorten.",
+      "availableLabel": "Beschikbaar blok"
+    },
+    "form": {
+      "heading": "Slotdetails",
+      "empty": "Selecteer een blok om de instellingen te beheren.",
+      "error": "Opslaan is niet gelukt. Probeer het opnieuw.",
+      "instructions": "Selecteer een blok in de tijdlijn om details te bewerken, teamleden toe te wijzen of het te verwijderen.",
+      "booking": {
+        "heading": "Meetingdetails",
+        "person": "Contactpersoon",
+        "company": "Bedrijf",
+        "reason": "Reden",
+        "email": "E-mail"
+      },
+      "labels": {
+        "staff": "Wijs teamlid toe",
+        "customStaff": "Weergavenaam",
+        "status": "Status",
+        "published": "Zichtbaar voor klanten",
+        "description": "Omschrijving voor bezoekers"
+      },
+      "placeholders": {
+        "customStaff": "Optionele naam die klanten zien",
+        "description": "Voeg context toe die zichtbaar is bij dit blok"
+      },
+      "staff": {
+        "unassigned": "Geen toewijzing"
+      },
+      "status": {
+        "available": "Beschikbaar",
+        "unavailable": "Niet beschikbaar"
+      },
+      "alerts": {
+        "bookedLocked": "Geboekte meetings kunnen niet van status veranderen.",
+        "deleteDisabled": "Geboekte meetings kunnen niet worden verwijderd."
+      },
+      "errors": {
+        "deleteBooked": "Dit blok heeft nu een bevestigde meeting en kan niet worden verwijderd."
+      },
+      "actions": {
+        "save": "Wijzigingen opslaan",
+        "saving": "Opslaan…",
+        "delete": "Blok verwijderen",
+        "deleting": "Verwijderen…"
+      }
+    }
+  },
   "Contact": {
     "Hero": {
       "eyebrow": "Laten we praten",
@@ -1033,6 +1182,17 @@
       "ratio": {
         "title": "Verhouding klant/staff",
         "caption": "Een gezonde dekking ligt tussen 4:1 en 8:1 zodat elk project een partnerlead heeft."
+      }
+    },
+    "meetings": {
+      "title": "Aankomende meetings",
+      "empty": "Er staan nog geen meetings gepland. Nieuwe boekingen verschijnen hier direct.",
+      "fields": {
+        "when": "Wanneer",
+        "reason": "Reden",
+        "contact": "Contact",
+        "staff": "Eigenaar",
+        "notes": "Slotnotities"
       }
     },
     "nextSteps": {

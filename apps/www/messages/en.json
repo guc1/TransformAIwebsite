@@ -50,6 +50,155 @@
       "discord": "Discord"
     }
   },
+  "Meeting": {
+    "meta": {
+      "title": "Schedule a meeting",
+      "description": "Reserve a TransformAI strategy session within the next two weeks."
+    },
+    "Hero": {
+      "badge": "Schedule a meeting for free",
+      "title": "Book a TransformAI intro session",
+      "subtitle": "Pick a time that fits your agenda. We'll confirm the details and pair you with the right specialist."
+    },
+    "Calendar": {
+      "heading": "Availability",
+      "caption": "Tap a date to review remaining blocks. Colours update in real time as teams book in.",
+      "status": {
+        "available": "Open",
+        "limited": "Nearly full",
+        "full": "Fully booked"
+      },
+      "slotsCount": "{available}/{total} slots open",
+      "noSlots": "No open blocks"
+    },
+    "Slots": {
+      "badge": "Choose your moment",
+      "heading": "Times on {day}",
+      "empty": "This day is fully booked. Try another date to find open time blocks.",
+      "selectError": "Select a time block to continue."
+    },
+    "Form": {
+      "heading": "Tell us a little more",
+      "caption": "We’ll use these details to prepare the agenda and send the meeting link.",
+      "submit": "Schedule meeting",
+      "submitPending": "Scheduling…",
+      "privacy": "We only use your email to share the meeting link and follow-up notes.",
+      "success": {
+        "title": "Meeting confirmed",
+        "message": "The meeting will take place through Google Zoom on {date}. Ten minutes before the meeting you will receive a link to the meeting."
+      },
+      "errors": {
+        "unavailable": "This block was just booked. Please choose another time.",
+        "generic": "We couldn’t schedule this meeting. Please try again."
+      },
+      "fields": {
+        "reason": {
+          "label": "Reason for the meeting",
+          "placeholder": "Share what you’d like to cover"
+        },
+        "company": {
+          "label": "Company (optional)",
+          "placeholder": "Organisation name"
+        },
+        "personName": {
+          "label": "Your name",
+          "placeholder": "Who should we greet?"
+        },
+        "email": {
+          "label": "Email address",
+          "placeholder": "you@company.com"
+        },
+        "description": {
+          "label": "Additional context",
+          "placeholder": "Describe priorities, goals, or questions for this call"
+        }
+      }
+    }
+  },
+  "Planning": {
+    "eyebrow": "Staff planning",
+    "title": "Coordinate availability",
+    "subtitle": "Drag to open new slots, assign teammates, and manage bookings in real time.",
+    "calendar": {
+      "heading": "Team calendar",
+      "caption": "Select a day to view and edit blocks. Availability updates instantly for the public page.",
+      "status": {
+        "available": "Open",
+        "limited": "Limited",
+        "full": "Full"
+      },
+      "count": {
+        "available": "{count, plural, one {# open block} other {# open blocks}}",
+        "booked": "{count, plural, one {# booked} other {# booked}}",
+        "blocked": "{count, plural, one {# blocked} other {# blocked}}",
+        "hidden": "{count, plural, one {# hidden} other {# hidden}}"
+      },
+      "metrics": {
+        "available": "Open: {count}",
+        "booked": "Booked: {count}",
+        "blocked": "Blocked: {count}",
+        "hidden": "Hidden: {count}",
+        "total": "Total: {count}"
+      }
+    },
+    "legend": {
+      "title": "Legend",
+      "available": "Available",
+      "booked": "Booked",
+      "blocked": "Blocked",
+      "hidden": "Hidden"
+    },
+    "timeline": {
+      "heading": "Daily timeline",
+      "createHint": "Drag on the grid to add a new availability block.",
+      "updateHint": "Grab the top or bottom edge to extend or shorten an existing slot.",
+      "availableLabel": "Available block"
+    },
+    "form": {
+      "heading": "Slot details",
+      "empty": "Select a block to manage its settings.",
+      "error": "We couldn’t save these changes. Please try again.",
+      "instructions": "Select a block in the timeline to edit details, assign staff, or remove it.",
+      "booking": {
+        "heading": "Meeting details",
+        "person": "Contact",
+        "company": "Company",
+        "reason": "Reason",
+        "email": "Email"
+      },
+      "labels": {
+        "staff": "Assign staff member",
+        "customStaff": "Display name",
+        "status": "Status",
+        "published": "Visible to clients",
+        "description": "Description shown publicly"
+      },
+      "placeholders": {
+        "customStaff": "Optional name visible to clients",
+        "description": "Add context clients will see when picking this block"
+      },
+      "staff": {
+        "unassigned": "No assignment"
+      },
+      "status": {
+        "available": "Available",
+        "unavailable": "Unavailable"
+      },
+      "alerts": {
+        "bookedLocked": "Booked meetings can’t switch status while confirmed.",
+        "deleteDisabled": "Booked meetings can’t be removed."
+      },
+      "errors": {
+        "deleteBooked": "This block already has a confirmed meeting and can’t be removed."
+      },
+      "actions": {
+        "save": "Save changes",
+        "saving": "Saving…",
+        "delete": "Remove block",
+        "deleting": "Removing…"
+      }
+    }
+  },
   "Contact": {
     "Hero": {
       "eyebrow": "Let’s talk",
@@ -1076,6 +1225,17 @@
       "ratio": {
         "title": "Client-to-staff ratio",
         "caption": "Healthy coverage is between 4:1 and 8:1 so every project has a partner lead."
+      }
+    },
+    "meetings": {
+      "title": "Upcoming meetings",
+      "empty": "No meetings scheduled yet. New bookings will appear here instantly.",
+      "fields": {
+        "when": "When",
+        "reason": "Reason",
+        "contact": "Contact",
+        "staff": "Owner",
+        "notes": "Slot notes"
       }
     },
     "nextSteps": {
