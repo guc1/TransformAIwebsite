@@ -2,6 +2,7 @@ import { Footer } from "@/components/footer/footer";
 import { Navigation } from "@/components/navbar/navigation";
 import { env } from "@/lib/env";
 import { loadMessages } from "@/i18n/messages";
+import { ensureVisitorSession } from "@/lib/visitors";
 import { isLocale, locales, type Locale } from "@/i18n/routing";
 import { ConsentManagerProvider } from "@c15t/nextjs";
 import { NextIntlClientProvider } from "next-intl";
@@ -87,6 +88,8 @@ export default async function LocaleLayout({
   }
 
   setRequestLocale(locale);
+
+  await ensureVisitorSession();
 
   const messages = await loadMessages(locale);
 

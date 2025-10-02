@@ -1227,9 +1227,46 @@
         "title": "Staff accounts",
         "caption": "{count, plural, one {# internal teammate online} other {# internal teammates online}}"
       },
+      "visitors": {
+        "title": "Unique visitors",
+        "caption": "{count, plural, one {# visitor session recorded} other {# visitor sessions recorded}}"
+      },
       "ratio": {
         "title": "Client-to-staff ratio",
         "caption": "Healthy coverage is between 4:1 and 8:1 so every project has a partner lead."
+      }
+    },
+    "accounts": {
+      "clients": {
+        "title": "Client account roster",
+        "description": "Review every client profile that has been provisioned.",
+        "empty": "No client accounts have been created yet."
+      },
+      "staff": {
+        "title": "Staff workspace roster",
+        "description": "See the teammates who can access internal tooling.",
+        "empty": "No staff accounts have been created yet."
+      },
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "createdAt": "Created"
+      }
+    },
+    "visitors": {
+      "title": "Visitor traffic",
+      "description": "We count a visitor the moment a new analytics cookie is issued.",
+      "tabs": {
+        "hourly": "Last 24 hours",
+        "daily": "Last 7 days"
+      },
+      "empty": {
+        "hourly": "No new visitor sessions were recorded in the last 24 hours.",
+        "daily": "No new visitor sessions were recorded in the last 7 days."
+      },
+      "tooltip": {
+        "hour": "{count, plural, one {{count} visitor between {start}–{end}} other {{count} visitors between {start}–{end}}}",
+        "day": "{count, plural, one {{count} visitor on {day}} other {{count} visitors on {day}}}"
       }
     },
     "meetings": {
