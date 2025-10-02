@@ -1,65 +1,18 @@
 "use client";
-import type { LangIconProps } from "@/components/svg/lang-icons";
-import { CurlIcon, GoIcon, PythonIcon, RustIcon, TSIcon } from "@/components/svg/lang-icons";
-import { CopyCodeSnippetButton } from "@/components/ui/copy-code-button";
+
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Wand2 } from "lucide-react";
-import type { PrismTheme } from "prism-react-renderer";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+
 import { PrimaryButton } from "../button";
 import { AnalyticsStars } from "../svg/analytics-stars";
 import { WebAppLight } from "../svg/web-app-light";
-import { CodeEditor } from "../ui/code-editor";
-
-const theme = {
-  plain: {
-    color: "#F8F8F2",
-    backgroundColor: "#282A36",
-  },
-  styles: [
-    {
-      types: ["keyword"],
-      style: {
-        color: "#9D72FF",
-      },
-    },
-    {
-      types: ["function"],
-      style: {
-        color: "#FB3186",
-      },
-    },
-    {
-      types: ["string"],
-      style: {
-        color: "#3CEEAE",
-      },
-    },
-    {
-      types: ["string-property"],
-      style: {
-        color: "#9D72FF",
-      },
-    },
-    {
-      types: ["number"],
-      style: {
-        color: "#FB3186",
-      },
-    },
-    {
-      types: ["comment"],
-      style: {
-        color: "#4D4D4D",
-      },
-    },
-  ],
-} satisfies PrismTheme;
+import { AnalyticsRequestForm } from "./request-form";
 
 export function AnalyticsBento() {
-  const [showApi, toggleShowApi] = useState(false);
+  const [showRequestForm, setShowRequestForm] = useState(false);
   const t = useTranslations("Analytics");
 
   return (
@@ -68,7 +21,8 @@ export function AnalyticsBento() {
         <button
           type="button"
           aria-label={t("requestAccess")}
-          onClick={() => toggleShowApi(!showApi)}
+          aria-pressed={showRequestForm}
+          onClick={() => setShowRequestForm((prev) => !prev)}
         >
           <PrimaryButton shiny label={t("requestAccess")} IconLeft={Wand2} />
         </button>
@@ -82,212 +36,19 @@ export function AnalyticsBento() {
         {/* TODO: horizontal scroll */}
         <LightSvg className="absolute hidden md:flex top-[-180px] left-0 lg:left-[300px] z-50 pointer-events-none" />
         <AnalyticsStars className="w-[90px] shrink-0 hidden md:flex" />
-        {showApi ? <AnalyticsApiView /> : <AnalyticsWebAppView />}
+        {showRequestForm ? (
+          <AnalyticsRequestForm onDismiss={() => setShowRequestForm(false)} />
+        ) : (
+          <AnalyticsWebAppView />
+        )}
         <div className="absolute inset-0 w-full h-full duration-500 pointer-events-none bg-gradient-to-t from-black from-10% via-black/50 to-transparent group-hover:opacity-0 group-hover:backdrop-blur-0" />
         <BentoText
           className={
-            showApi ? "group-hover:opacity-0 group-hover:pointer-events-none duration-500" : ""
+            showRequestForm
+              ? "group-hover:opacity-0 group-hover:pointer-events-none duration-500"
+              : ""
           }
         />
-      </div>
-    </div>
-  );
-}
-
-type Language = {
-  name: string;
-  Icon: React.FC<LangIconProps>;
-  codeBlock: string;
-};
-
-type LanguageName = "TypeScript" | "Python" | "Rust" | "Go" | "cURL";
-
-const curlCodeBlock = `curl --request GET \\
-    --url https://api.unkey.dev/v1/keys.getKey?keyId=key_123 \\
-    --header 'Authorization: Bearer <UNKEY_ROOT_KEY>'
-`;
-
-const tsCodeBlock = `import { Unkey } from "@unkey/api";
-
-const unkey = new Unkey({ rootKey: "<UNKEY_ROOT_KEY>" });
-
-const { result, error } = await unkey.keys.get({ keyId: "key_123" });
-
-if ( error ) {
-  // handle network error
-}
-
-// handle request
-`;
-
-const pythonCodeBlock = `import asyncio
-import os
-import unkey
-
-async def main() -> None:
-    client = unkey.Client("<UNKEY_ROOT_KEY>")
-    await client.start()
-
-    result = await client.keys.get_key("key_123")
-
-    if result.is_ok:
-        data = result.unwrap()
-        print(data.id)
-    else:
-        print(result.unwrap_err())
-
-    await client.close()
-`;
-
-const goCodeBlock = `package main
-
-import (
-	"context"
-	"log"
-
-	unkeygo "github.com/unkeyed/unkey-go"
-	"github.com/unkeyed/unkey-go/models/operations"
-)
-
-func main() {
-	s := unkeygo.New(
-		unkeygo.WithSecurity("<UNKEY_ROOT_KEY>"),
-	)
-
-	ctx := context.Background()
-	res, err := s.Keys.GetKey(ctx, operations.GetKeyRequest{
-		KeyID: "key_123",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	if res.Key != nil {
-		// handle response
-	}
-}
-`;
-
-const rustCodeBlock = `use unkey::models::GetKeyRequest;
-use unkey::Client;
-
-async fn get_key() {
-    let c = Client::new("<UNKEY_ROOT_KEY>");
-    let req = GetKeyRequest::new("key_123");
-
-    match c.get_key(req).await {
-        Ok(res) => println!("{res:?}"),
-        Err(err) => eprintln!("{err:?}"),
-    }
-}
-`;
-
-const languagesList = {
-  cURL: {
-    Icon: CurlIcon,
-    name: "cURL",
-    codeBlock: curlCodeBlock,
-    editorLanguage: "tsx",
-  },
-  TypeScript: {
-    Icon: TSIcon,
-    name: "TypeScript",
-    codeBlock: tsCodeBlock,
-    editorLanguage: "tsx",
-  },
-  Python: {
-    Icon: PythonIcon,
-    name: "Python",
-    codeBlock: pythonCodeBlock,
-    editorLanguage: "python",
-  },
-  Go: {
-    Icon: GoIcon,
-    name: "Go",
-    codeBlock: goCodeBlock,
-    editorLanguage: "go",
-  },
-  Rust: {
-    Icon: RustIcon,
-    name: "Rust",
-    codeBlock: rustCodeBlock,
-    editorLanguage: "rust",
-  },
-};
-
-function AnalyticsApiView() {
-  const [language, setLanguage] = useState<LanguageName>("cURL");
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2, ease: "easeInOut" }}
-      whileInView="visible"
-      className="w-full overflow-x-hidden relative"
-    >
-      <CopyCodeSnippetButton
-        textToCopy={languagesList[language].codeBlock}
-        className="sticky right-12 top-16 float-right hidden cursor-pointer lg:flex"
-      />
-      <div
-        className={cn(
-          "w-full bg-black bg-opacity-02 lg:rounded-3xl xxl:mr-10",
-          "border-white/10 border border-b-0 border-l-0 border-r-0",
-          "flex flex-col md:flex-row rounded-tl-3xl h-[600px] xl:h-[576px]",
-        )}
-      >
-        <LanguageSwitcher
-          languages={Object.values(languagesList)}
-          currentLanguage={language}
-          setLanguage={setLanguage}
-        />
-        <div className="flex pt-4 pb-8 pl-8 overflow-x-hidden scrollbar-hidden font-mono text-xs text-white sm:text-sm">
-          <CodeEditor
-            theme={theme}
-            codeBlock={languagesList[language].codeBlock}
-            language={languagesList[language].editorLanguage}
-          />
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function LanguageSwitcher({
-  languages,
-  currentLanguage,
-  setLanguage,
-}: {
-  languages: Language[];
-  currentLanguage: LanguageName;
-  setLanguage: React.Dispatch<React.SetStateAction<LanguageName>>;
-}) {
-  return (
-    <div
-      className={cn(
-        "flex flex-col w-[216px] text-white text-sm pt-6 px-4 font-mon",
-        "md:border-r md:border-white/5 overflow-x-hidden scrollbar-hidden",
-      )}
-    >
-      <div className="flex items-center space-x-2 sm:flex-col sm:space-x-0 sm:space-y-2">
-        {languages.map(({ Icon, name }) => (
-          <button
-            key={name}
-            type="button"
-            onClick={() => setLanguage(name as LanguageName)}
-            className={cn(
-              "flex items-center cursor-pointer bg-white/5 py-1 px-2 rounded-lg w-[184px]",
-              {
-                "bg-white/10 text-white": currentLanguage === name,
-                "text-white/40": currentLanguage !== name,
-              },
-            )}
-          >
-            <Icon active={currentLanguage === name} />
-            <div className="ml-3">{name}</div>
-          </button>
-        ))}
       </div>
     </div>
   );
