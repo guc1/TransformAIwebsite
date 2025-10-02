@@ -62,7 +62,7 @@ export function Navigation() {
       <div className="container flex items-center justify-between">
         <div className="flex items-center justify-between w-full sm:w-auto sm:gap-12 lg:gap-20">
           <Link href="/" aria-label={t("ariaHome")} className="block shrink-0">
-            <Logo />
+            <Logo shrinkProgress={Math.min(scrollPercent * 2.6, 1)} />
           </Link>
           <MobileLinks className="lg:hidden" />
           <DesktopLinks className="hidden lg:flex" />
@@ -224,16 +224,32 @@ function DesktopLinks({ className }: { className: string }) {
   );
 }
 
-function Logo({ className }: { className?: string }) {
+function Logo({
+  className,
+  shrinkProgress = 0,
+}: {
+  className?: string;
+  shrinkProgress?: number;
+}) {
+  const clampedProgress = Math.min(Math.max(shrinkProgress, 0), 1);
+  const scale = 1 - clampedProgress * 0.24;
+
   return (
-    <TransformAILogo
-      variant="transparent"
-      className={cn(
-        "h-auto w-[128px] sm:w-[164px] md:w-[188px] lg:w-[204px] shrink-0",
-        className,
-      )}
-      priority
-      sizes="(max-width: 640px) 164px, (max-width: 1024px) 188px, 204px"
-    />
+    <motion.div
+      animate={{ scale }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      style={{ transformOrigin: "left center" }}
+      className="shrink-0"
+    >
+      <TransformAILogo
+        variant="transparent"
+        className={cn(
+          "h-auto w-[128px] sm:w-[164px] md:w-[188px] lg:w-[204px] shrink-0",
+          className,
+        )}
+        priority
+        sizes="(max-width: 640px) 164px, (max-width: 1024px) 188px, 204px"
+      />
+    </motion.div>
   );
 }
