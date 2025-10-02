@@ -668,6 +668,57 @@
   },
   "Analytics": {
     "requestAccess": "Request Access",
+    "requestForm": {
+      "badge": "Platform beta",
+      "title": "Request access to the TransformAI platform",
+      "subtitle": "Share a bit about your team and we'll reach out with next steps.",
+      "dismiss": "Close request form",
+      "channel": {
+        "label": "Prefer email?",
+        "caption": "Email {email} and we'll respond within one business day."
+      },
+      "feedback": {
+        "successTitle": "Request received",
+        "errorTitle": "We couldn't send that"
+      },
+      "requestType": {
+        "label": "What brings you here?",
+        "helper": "Pick the option that best describes your request.",
+        "options": {
+          "platformAccess": {
+            "title": "Request access to the platform",
+            "description": "Join the beta and connect your team to TransformAI's workspace."
+          },
+          "other": {
+            "title": "Something else",
+            "description": "Ask a different question about the platform beta."
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "label": "Your name",
+          "placeholder": "Alex Janssen"
+        },
+        "company": {
+          "label": "Company",
+          "placeholder": "Company name"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "name@company.com"
+        },
+        "description": {
+          "label": "How can we help?",
+          "placeholder": "Tell us about your team, use case, or anything else we should know."
+        }
+      },
+      "submit": {
+        "label": "Send request",
+        "pending": "Sending..."
+      },
+      "footnote": "Prefer email? Reach us at {email}."
+    },
     "caption": {
       "title": "Realtime Analytics",
       "subtitle": "Live insight into AI usage across your company."
