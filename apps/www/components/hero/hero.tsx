@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { HeroMainSection } from "./hero-main-section";
 
 import mainboard from "@/images/mainboard.svg";
@@ -9,6 +9,8 @@ import { SubHeroMainboard } from "./hero-sub-mainboard";
 export const Hero: React.FC = () => {
   const hero = useTranslations("Hero");
   const cta = useTranslations("CTA");
+  const locale = useLocale();
+  const meetingHref = `/${locale}/meeting`;
 
   const containerVariants = {
     hidden: {},
@@ -40,6 +42,7 @@ export const Hero: React.FC = () => {
           title={hero("title")}
           body={hero("body")}
           primaryCtaLabel={cta("getStarted")}
+          primaryCtaHref={meetingHref}
           secondaryCtaLabel={cta("exploreProjects")}
           hoursSavedLabel={cta("hoursSavedLabel")}
           hoursSavedAmount={cta("hoursSavedAmount")}

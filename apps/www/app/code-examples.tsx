@@ -517,6 +517,8 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
   const t = useTranslations("CodeExamples");
   const cta = useTranslations("CTA");
   const projectCopy = useTranslations("CodeExamples.projects");
+  const locale = useLocale();
+  const meetingHref = `/${locale}/meeting`;
   const [language, setLanguage] = useState<Language>("AI integration pt1");
   const [framework, setFramework] = useState<FrameworkName>("AI transformation");
   const [languageHover, setLanguageHover] = useState("AI integration pt1");
@@ -630,7 +632,7 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
         </div>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-4 mt-12">
-        <Link key="get-started" href="https://app.unkey.com">
+        <Link key="get-started" href={meetingHref}>
           <PrimaryButton
             shiny
             label={cta("getStarted")}

@@ -7,6 +7,7 @@ type HeroMainSectionProps = {
   title: string;
   body: string;
   primaryCtaLabel: string;
+  primaryCtaHref: string;
   secondaryCtaLabel: string;
   hoursSavedLabel: string;
   hoursSavedAmount: string;
@@ -16,6 +17,7 @@ export function HeroMainSection({
   title,
   body,
   primaryCtaLabel,
+  primaryCtaHref,
   secondaryCtaLabel,
   hoursSavedLabel,
   hoursSavedAmount,
@@ -31,7 +33,7 @@ export function HeroMainSection({
       </p>
 
       <div className="mt-16 flex w-full flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-center sm:gap-8">
-        <Link href="https://app.unkey.com" className="group block w-full sm:inline-flex sm:w-auto sm:flex-shrink-0">
+        <Link href={primaryCtaHref} className="group block w-full sm:inline-flex sm:w-auto sm:flex-shrink-0">
           <PrimaryButton
             shiny
             IconLeft={LogIn}

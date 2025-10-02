@@ -97,6 +97,8 @@ export default async function Landing({
     notFound();
   }
 
+  const meetingHref = `/${locale}/meeting` as const;
+
   const [cta, platform, hero, featureSection] = await Promise.all([
     getTranslations({ locale, namespace: "CTA" }),
     getTranslations({ locale, namespace: "Platform" }),
@@ -177,7 +179,7 @@ export default async function Landing({
               align="center"
             >
               <div className="flex mt-10 mb-10 space-x-6">
-                <Link href="https://app.unkey.com" className="group">
+                <Link href={meetingHref} className="group">
                   <PrimaryButton
                     shiny
                     IconLeft={LogIn}
@@ -228,7 +230,7 @@ export default async function Landing({
                 text={featureSection("text")}
               >
                 <div className="flex mt-10 mb-10 space-x-6">
-                  <Link href="https://app.unkey.com" className="group">
+                  <Link href={meetingHref} className="group">
                     <PrimaryButton
                       shiny
                       IconLeft={LogIn}
