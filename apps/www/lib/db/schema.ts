@@ -60,7 +60,7 @@ export const accounts = pgTable(
 );
 
 export const sessions = pgTable(
-  "sessions",
+  "session",
   {
     sessionToken: text("session_token").primaryKey(),
     userId: text("user_id")
@@ -69,7 +69,7 @@ export const sessions = pgTable(
     expires: timestamp("expires", { mode: "date" }).notNull(),
   },
   (table) => ({
-    userIdx: index("sessions_user_id_idx").on(table.userId),
+    userIdx: index("session_user_id_idx").on(table.userId),
   }),
 );
 
