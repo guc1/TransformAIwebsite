@@ -8,7 +8,10 @@ import { useRouter } from "next/navigation";
 
 import { formatDateWithZone } from "@/lib/date";
 import type { MeetingSlotStatus } from "@/lib/db/schema";
-import { MEETING_TIME_ZONE } from "@/lib/meetings/constants";
+import {
+  MEETING_TIME_ZONE,
+  MEETING_TIME_ZONE_OPTIONS,
+} from "@/lib/meetings/constants";
 import { cn } from "@/lib/utils";
 
 import { scheduleMeetingAction } from "../actions";
@@ -56,6 +59,72 @@ const statusKeyMap: Record<SchedulerDay["status"], string> = {
   limited: "Calendar.status.limited",
   full: "Calendar.status.full",
 };
+
+function formatTimeWithPeriod({
+  date,
+  locale,
+  timeZone,
+}: {
+  date: Date;
+  locale: string;
+  timeZone: string;
+}) {
+  const formatted = formatDateWithZone(
+    date,
+    {
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+      hour12: false,
+    },
+    locale,
+    timeZone,
+  );
+  const hourPart = Number.parseInt(formatted.split(":")[0] ?? "", 10);
+  const suffix = Number.isFinite(hourPart) && hourPart >= 12 ? "pm" : "am";
+
+  return `${formatted} ${suffix}`.trim();
+}
+
+function formatTimeRange({
+  start,
+  end,
+  locale,
+  timeZone,
+}: {
+  start: Date;
+  end: Date;
+  locale: string;
+  timeZone: string;
+}) {
+  const startLabel = formatTimeWithPeriod({ date: start, locale, timeZone });
+  const endLabel = formatTimeWithPeriod({ date: end, locale, timeZone });
+
+  return `${startLabel} – ${endLabel}`;
+}
+
+function getTimeZoneLabel(timeZone: string, locale: string) {
+  const friendlyName = timeZone.replace(/_/g, " ");
+
+  try {
+    const formatter = new Intl.DateTimeFormat(locale, {
+      timeZone,
+      timeZoneName: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const parts = formatter.formatToParts(new Date());
+    const zoneName = parts.find((part) => part.type === "timeZoneName")?.value;
+
+    if (zoneName) {
+      return `${friendlyName} (${zoneName})`;
+    }
+  } catch {
+    // Unsupported time zone formatting; fall back to the friendly name only.
+  }
+
+  return friendlyName;
+}
 
 function DayButton({
   day,
@@ -123,12 +192,14 @@ function DayButton({
 function SlotButton({
   slot,
   locale,
+  timeZone,
   selected,
   disabled,
   onSelect,
 }: {
   slot: SchedulerSlot;
   locale: string;
+  timeZone: string;
   selected: boolean;
   disabled: boolean;
   onSelect: () => void;
@@ -137,8 +208,13 @@ function SlotButton({
   const end = useMemo(() => new Date(slot.endAt), [slot.endAt]);
   const timeRange = useMemo(
     () =>
-      `${formatDateWithZone(start, { hour: "2-digit", minute: "2-digit" }, locale, MEETING_TIME_ZONE)} – ${formatDateWithZone(end, { hour: "2-digit", minute: "2-digit" }, locale, MEETING_TIME_ZONE)}`,
-    [end, locale, start],
+      formatTimeRange({
+        start,
+        end,
+        locale,
+        timeZone,
+      }),
+    [end, locale, start, timeZone],
   );
 
   return (
@@ -186,6 +262,50 @@ function SubmitButton({ disabled }: { disabled: boolean }) {
   );
 }
 
+function TakenSlot({
+  slot,
+  locale,
+  timeZone,
+}: {
+  slot: SchedulerSlot;
+  locale: string;
+  timeZone: string;
+}) {
+  const t = useTranslations("Meeting");
+  const start = useMemo(() => new Date(slot.startAt), [slot.startAt]);
+  const end = useMemo(() => new Date(slot.endAt), [slot.endAt]);
+  const timeRange = useMemo(
+    () =>
+      formatTimeRange({
+        start,
+        end,
+        locale,
+        timeZone,
+      }),
+    [end, locale, start, timeZone],
+  );
+
+  return (
+    <div className="rounded-2xl border border-rose-500/45 bg-rose-500/10 p-4 text-sm text-rose-100">
+      <div className="flex items-center justify-between gap-2">
+        <span className="font-medium">{timeRange}</span>
+        <span className="text-xs font-semibold uppercase tracking-[0.3em] text-rose-200">
+          {t("Slots.takenBadge")}
+        </span>
+      </div>
+      <div className="mt-2 space-y-1 text-xs text-rose-100/85">
+        {slot.staffName ? (
+          <p className="inline-flex items-center gap-2">
+            <Users className="h-3.5 w-3.5" aria-hidden />
+            {slot.staffName}
+          </p>
+        ) : null}
+        {slot.publicDescription ? <p>{slot.publicDescription}</p> : null}
+      </div>
+    </div>
+  );
+}
+
 export function MeetingScheduler({ days, locale }: SchedulerProps) {
   const t = useTranslations("Meeting");
   const router = useRouter();
@@ -194,6 +314,7 @@ export function MeetingScheduler({ days, locale }: SchedulerProps) {
     return (firstWithAvailability ?? days[0])?.dateKey ?? "";
   });
   const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
+  const [selectedTimeZone, setSelectedTimeZone] = useState(MEETING_TIME_ZONE);
   const [state, formAction] = useFormState<ScheduleMeetingState, FormData>(
     scheduleMeetingAction,
     initialScheduleState,
@@ -227,26 +348,50 @@ export function MeetingScheduler({ days, locale }: SchedulerProps) {
     );
   }, [selectedDay]);
 
+  const takenSlots = useMemo(() => {
+    if (!selectedDay) {
+      return [];
+    }
+
+    return selectedDay.slots.filter(
+      (slot) =>
+        slot.isPublished && (slot.status !== "available" || slot.hasBooking),
+    );
+  }, [selectedDay]);
+
+  const timezoneOptions = useMemo(
+    () =>
+      Array.from(new Set(MEETING_TIME_ZONE_OPTIONS)).map((timeZone) => ({
+        value: timeZone,
+        label: getTimeZoneLabel(timeZone, locale),
+      })),
+    [locale],
+  );
+
   const successMessage = useMemo(() => {
     if (state.status !== "success" || !state.slot) {
       return null;
     }
     const start = new Date(state.slot.startAt);
-    return t("Form.success.message", {
-      date: formatDateWithZone(
-        start,
-        {
-          weekday: "long",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        },
-        locale,
-        MEETING_TIME_ZONE,
-      ),
+    const dateLabel = formatDateWithZone(
+      start,
+      {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+      },
+      locale,
+      selectedTimeZone,
+    );
+    const timeLabel = formatTimeWithPeriod({
+      date: start,
+      locale,
+      timeZone: selectedTimeZone,
     });
-  }, [locale, state, t]);
+    return t("Form.success.message", {
+      date: `${dateLabel} ${timeLabel}`,
+    });
+  }, [locale, selectedTimeZone, state, t]);
 
   return (
     <div className="space-y-10">
@@ -278,7 +423,7 @@ export function MeetingScheduler({ days, locale }: SchedulerProps) {
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] xl:grid-cols-[minmax(0,1.15fr)_minmax(0,420px)]">
         <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_32px_120px_rgba(15,23,42,0.45)]">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/60">
                 {t("Slots.badge")}
@@ -290,11 +435,32 @@ export function MeetingScheduler({ days, locale }: SchedulerProps) {
                         new Date(selectedDay.date),
                         { weekday: "long", month: "long", day: "numeric" },
                         locale,
-                        MEETING_TIME_ZONE,
+                        selectedTimeZone,
                       )
                     : "",
                 })}
               </h2>
+            </div>
+            <div className="flex w-full flex-col gap-2 sm:w-60">
+              <label className="text-xs font-semibold uppercase tracking-[0.3em] text-white/60">
+                {t("Slots.timeZoneLabel")}
+              </label>
+              <select
+                className="w-full rounded-xl border border-white/15 bg-white/[0.06] px-3 py-2 text-sm text-white shadow-[0_10px_40px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                value={selectedTimeZone}
+                onChange={(event) => {
+                  setSelectedTimeZone(event.target.value);
+                }}
+              >
+                {timezoneOptions.map((option) => (
+                  <option className="bg-slate-900" key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <p className="text-[11px] leading-relaxed text-white/55">
+                {t("Slots.timeZoneHelper")}
+              </p>
             </div>
           </div>
 
@@ -309,6 +475,7 @@ export function MeetingScheduler({ days, locale }: SchedulerProps) {
                   key={slot.id}
                   slot={slot}
                   locale={locale}
+                  timeZone={selectedTimeZone}
                   selected={slot.id === selectedSlotId}
                   disabled={false}
                   onSelect={() => setSelectedSlotId(slot.id)}
@@ -316,6 +483,23 @@ export function MeetingScheduler({ days, locale }: SchedulerProps) {
               ))
             )}
           </div>
+          {takenSlots.length > 0 ? (
+            <div className="mt-6 space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-rose-200">
+                {t("Slots.takenHeading")}
+              </p>
+              <div className="grid gap-3">
+                {takenSlots.map((slot) => (
+                  <TakenSlot
+                    key={`taken-${slot.id}`}
+                    slot={slot}
+                    locale={locale}
+                    timeZone={selectedTimeZone}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
           {state.errors?.slotId ? (
             <p className="text-xs font-medium text-rose-200">{t("Slots.selectError")}</p>
           ) : null}

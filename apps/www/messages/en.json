@@ -74,8 +74,12 @@
     "Slots": {
       "badge": "Choose your moment",
       "heading": "Times on {day}",
+      "timeZoneLabel": "Your timezone",
+      "timeZoneHelper": "Times adjust to your selected timezone.",
       "empty": "This day is fully booked. Try another date to find open time blocks.",
-      "selectError": "Select a time block to continue."
+      "selectError": "Select a time block to continue.",
+      "takenHeading": "Taken slots",
+      "takenBadge": "Taken"
     },
     "Form": {
       "heading": "Tell us a little more",
