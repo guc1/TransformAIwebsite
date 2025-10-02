@@ -18,6 +18,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { navigateAfterAuth } from "@/components/auth/auth-navigation";
 
 const STAFF_INTENT_ENDPOINT = "/api/auth/intent";
 const REGISTER_ENDPOINT = "/api/auth/register";
@@ -158,6 +159,7 @@ export function SignUpForm() {
         email: normalizedEmail,
         password,
         redirect: false,
+        callbackUrl: `/${locale}/auth/post-signin`,
       });
 
       if (signInResponse?.error) {
@@ -166,7 +168,12 @@ export function SignUpForm() {
         return;
       }
 
-      router.push(`/${locale}/auth/post-signin`);
+      navigateAfterAuth({
+        router,
+        locale,
+        targetUrl: signInResponse?.url,
+        fallbackPath: "/auth/post-signin",
+      });
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : t("errors.generic"));
       setIsSubmitting(false);
@@ -372,7 +379,7 @@ export function SignUpForm() {
         <button
           type="button"
           className="font-semibold text-white transition hover:text-white/80"
-          onClick={() => router.push(`/${locale}/sign-in`)}
+          onClick={() => void router.push("/sign-in", { locale })}
           disabled={disableSubmit}
         >
           {t("signInLink")}
