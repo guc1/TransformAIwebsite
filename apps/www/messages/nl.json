@@ -74,8 +74,12 @@
     "Slots": {
       "badge": "Kies je moment",
       "heading": "Tijden op {day}",
+      "timeZoneLabel": "Jouw tijdzone",
+      "timeZoneHelper": "De tijden passen zich aan jouw tijdzone aan.",
       "empty": "Deze dag is volgeboekt. Probeer een andere datum om vrije blokken te vinden.",
-      "selectError": "Selecteer een tijdsblok om verder te gaan."
+      "selectError": "Selecteer een tijdsblok om verder te gaan.",
+      "takenHeading": "Bezette blokken",
+      "takenBadge": "Bezet"
     },
     "Form": {
       "heading": "Vertel ons iets meer",
