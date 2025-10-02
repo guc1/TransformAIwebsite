@@ -37,16 +37,16 @@ CREATE INDEX IF NOT EXISTS "accounts_user_id_idx" ON "accounts" ("user_id");
 ALTER TABLE "accounts"
   ADD CONSTRAINT "accounts_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE cascade ON UPDATE no action;
 
-CREATE TABLE IF NOT EXISTS "sessions" (
+CREATE TABLE IF NOT EXISTS "session" (
   "session_token" text PRIMARY KEY NOT NULL,
   "user_id" text NOT NULL,
   "expires" timestamp NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS "sessions_user_id_idx" ON "sessions" ("user_id");
+CREATE INDEX IF NOT EXISTS "session_user_id_idx" ON "session" ("user_id");
 
-ALTER TABLE "sessions"
-  ADD CONSTRAINT "sessions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE "session"
+  ADD CONSTRAINT "session_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE cascade ON UPDATE no action;
 
 CREATE TABLE IF NOT EXISTS "verification_tokens" (
   "identifier" text NOT NULL,
