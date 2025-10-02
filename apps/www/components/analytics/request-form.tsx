@@ -335,17 +335,23 @@ function SubmitButton({ label, pendingLabel }: SubmitButtonProps) {
   return (
     <button
       type="submit"
-      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white text-sm font-semibold text-black transition hover:border-white/40 hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 disabled:cursor-not-allowed disabled:opacity-70"
+      className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-white/20 bg-gradient-to-r from-white/95 via-white to-white/90 px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_22px_80px_rgba(15,23,42,0.45)] transition hover:border-white/40 hover:shadow-[0_26px_100px_rgba(15,23,42,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900/60 disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/70 disabled:text-slate-800 disabled:shadow-none"
       disabled={pending}
     >
-      {pending ? (
-        <>
-          <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
-          {pendingLabel}
-        </>
-      ) : (
-        label
-      )}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(110deg,_rgba(255,255,255,0.4),_rgba(255,255,255,0.7)_40%,_rgba(255,255,255,0.4))] opacity-0 transition duration-300 group-hover:opacity-100"
+      />
+      <span className="relative z-10 inline-flex items-center gap-2">
+        {pending ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+            {pendingLabel}
+          </>
+        ) : (
+          label
+        )}
+      </span>
     </button>
   );
 }
