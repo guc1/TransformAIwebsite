@@ -79,8 +79,10 @@ export function Navigation() {
   const isHome = normalizedPathname === "/";
   const isClientView =
     normalizedPathname === "/newsupdates" || normalizedPathname.startsWith("/newsupdates/");
+  const isStaffOverviewView = normalizedPathname === "/dashboard";
+  const isStaffPlanningView = normalizedPathname.startsWith("/dashboard/planning");
   const isStaffView =
-    normalizedPathname === "/dashboard" || normalizedPathname.startsWith("/dashboard/");
+    isStaffOverviewView || isStaffPlanningView || normalizedPathname.startsWith("/dashboard/");
   const isLoggedInView = isClientView || isStaffView;
   const settledLogoScale = 0.68;
   const initialLogoScale = isHome ? 1 : 0.74;
@@ -102,12 +104,13 @@ export function Navigation() {
             key: "overview",
             href: "/dashboard",
             label: t("loggedIn.overview"),
-            current: isStaffView,
+            current: isStaffOverviewView,
           },
           {
             key: "planning",
+            href: "/dashboard/planning",
             label: t("loggedIn.planning"),
-            comingSoon: true,
+            current: isStaffPlanningView,
           },
         ] satisfies LoggedInNavItem[])
       : ([
