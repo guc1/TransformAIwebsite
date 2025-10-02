@@ -16,6 +16,7 @@ import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero
 import { OssLight } from "@/components/svg/oss-light";
 import { UsageBento } from "@/components/usage-bento";
 import { isLocale } from "@/i18n/routing";
+import { getHoursSavedOverview } from "@/lib/hours-saved";
 import {
   BarChart3,
   ChevronRight,
@@ -106,6 +107,8 @@ export default async function Landing({
     getTranslations({ locale, namespace: "FeatureSection" }),
   ]);
 
+  const hoursSavedOverview = await getHoursSavedOverview();
+
   const featureBoxes = [
     { key: "futureProofWorkforce", icon: GraduationCap },
     { key: "revenueStreamAnalysis", icon: BarChart3 },
@@ -139,7 +142,14 @@ export default async function Landing({
         </div>
         <div className="container relative flex flex-col mx-auto space-y-16 md:space-y-32">
           <Section>
-            <Hero />
+            <Hero
+              initialHoursSavedAmount={hoursSavedOverview.currentAmount}
+              initialHoursSavedNextUpdateAt={
+                hoursSavedOverview.nextUpdateAt
+                  ? hoursSavedOverview.nextUpdateAt.toISOString()
+                  : null
+              }
+            />
           </Section>
           <Section className="mt-16 md:mt-32">
             <DesktopLogoCloud />

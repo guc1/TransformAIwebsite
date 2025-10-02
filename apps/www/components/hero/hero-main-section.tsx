@@ -3,6 +3,8 @@ import Link from "next/link";
 import { PrimaryButton, SecondaryButton } from "@/components/button";
 import { BookOpen, ChevronRight, LogIn } from "lucide-react";
 
+import { HoursSavedTicker } from "./hours-saved-ticker";
+
 type HeroMainSectionProps = {
   title: string;
   body: string;
@@ -10,7 +12,9 @@ type HeroMainSectionProps = {
   primaryCtaHref: string;
   secondaryCtaLabel: string;
   hoursSavedLabel: string;
-  hoursSavedAmount: string;
+  hoursSavedInitialAmount: number;
+  hoursSavedNextUpdateAt: string | null;
+  locale: string;
 };
 
 export function HeroMainSection({
@@ -20,7 +24,9 @@ export function HeroMainSection({
   primaryCtaHref,
   secondaryCtaLabel,
   hoursSavedLabel,
-  hoursSavedAmount,
+  hoursSavedInitialAmount,
+  hoursSavedNextUpdateAt,
+  locale,
 }: HeroMainSectionProps) {
   return (
     <div className="relative flex flex-col items-center text-center">
@@ -44,7 +50,12 @@ export function HeroMainSection({
         <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2 font-semibold uppercase text-white/70 backdrop-blur-sm sm:gap-3 sm:px-8 sm:py-2.5 whitespace-nowrap">
           <span className="text-[0.75rem] tracking-[0.35em] text-white/60 sm:text-xs">{hoursSavedLabel}</span>
           <span className="text-white/40">:</span>
-          <span className="text-sm tracking-[0.2em] text-white sm:text-base">{hoursSavedAmount}</span>
+          <HoursSavedTicker
+            initialAmount={hoursSavedInitialAmount}
+            initialNextUpdateAt={hoursSavedNextUpdateAt}
+            locale={locale}
+            className="text-sm tracking-[0.2em] text-white sm:text-base"
+          />
         </div>
         <Link href="/docs" className="hidden w-full sm:inline-flex sm:w-auto sm:flex-shrink-0">
           <SecondaryButton
