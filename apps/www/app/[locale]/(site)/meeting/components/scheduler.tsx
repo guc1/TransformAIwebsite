@@ -393,6 +393,8 @@ export function MeetingScheduler({ days, locale }: SchedulerProps) {
     });
   }, [locale, selectedTimeZone, state, t]);
 
+  const isSlotSelected = Boolean(selectedSlotId);
+
   return (
     <div className="space-y-10">
       <div className="rounded-3xl border border-white/12 bg-white/[0.04] p-6 shadow-[0_32px_120px_rgba(15,23,42,0.45)]">
@@ -507,7 +509,11 @@ export function MeetingScheduler({ days, locale }: SchedulerProps) {
 
         <form
           action={formAction}
-          className="rounded-3xl border border-white/15 bg-white/[0.04] p-6 shadow-[0_32px_120px_rgba(15,23,42,0.45)]"
+          className={cn(
+            "rounded-3xl border border-white/15 bg-white/[0.04] p-6 shadow-[0_32px_120px_rgba(15,23,42,0.45)] transition-all duration-300",
+            isSlotSelected &&
+              "border-emerald-400/60 bg-emerald-500/10 shadow-[0_32px_140px_rgba(16,185,129,0.35)] ring-1 ring-emerald-300/40 ring-offset-0",
+          )}
         >
           <input type="hidden" name="slotId" value={selectedSlotId ?? ""} />
           <input type="hidden" name="locale" value={locale} />
