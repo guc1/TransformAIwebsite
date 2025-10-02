@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Loader2, LogIn } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,6 @@ import { Label } from "@/components/ui/label";
 
 export function SignInForm() {
   const t = useTranslations("Auth.SignIn");
-  const locale = useLocale();
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -26,7 +25,7 @@ export function SignInForm() {
     setIsGoogleSubmitting(true);
 
     await signIn("google", {
-      callbackUrl: `/${locale}/auth/post-signin`,
+      callbackUrl: "/auth/post-signin",
     });
   };
 
@@ -39,7 +38,7 @@ export function SignInForm() {
       email: email.trim(),
       password,
       redirect: false,
-      callbackUrl: `/${locale}/auth/post-signin`,
+      callbackUrl: "/auth/post-signin",
     });
 
     if (!result || result.error) {
@@ -48,7 +47,17 @@ export function SignInForm() {
       return;
     }
 
-    router.push(result.url ?? `/${locale}/auth/post-signin`);
+    let destination = "/auth/post-signin";
+    if (result.url) {
+      try {
+        const parsed = new URL(result.url);
+        destination = parsed.pathname + parsed.search + parsed.hash;
+      } catch {
+        destination = result.url;
+      }
+    }
+
+    router.push(destination);
   };
 
   const disableButtons = isSubmitting || isGoogleSubmitting;
@@ -156,7 +165,7 @@ export function SignInForm() {
         <button
           type="button"
           className="font-semibold text-white transition hover:text-white/80"
-          onClick={() => router.push(`/${locale}/create-account`)}
+          onClick={() => router.push("/create-account")}
           disabled={disableButtons}
         >
           {t("ctaLink")}

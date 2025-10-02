@@ -9,6 +9,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Link, usePathname } from "@/i18n/navigation";
+import { useAccountHistory } from "@/hooks/use-account-history";
 import { cn } from "@/lib/utils";
 import { useConsentManager } from "@c15t/nextjs";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
@@ -103,6 +104,7 @@ function MembersMenu({ className }: { className?: string }) {
   const { hasConsentFor } = useConsentManager();
   const [open, setOpen] = useState(false);
   const contentId = "members-menu";
+  const accounts = useAccountHistory();
 
   return (
     <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
@@ -127,30 +129,59 @@ function MembersMenu({ className }: { className?: string }) {
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
         )}
       >
-        <nav className="flex flex-col gap-2" aria-label={t("members")}>
-          <MembersMenuLink
-            href="/create-account"
-            label={t("createAccount")}
-            description={t("membersMenu.createAccountDescription")}
-            icon={UserPlus}
-            onClick={() => {
-              setOpen(false);
-              if (hasConsentFor("measurement")) {
-                track("signup", { location: "navigation" });
-              }
-            }}
-          />
-          <MembersMenuLink
-            href="/sign-in"
-            label={t("signIn")}
-            description={t("membersMenu.signInDescription")}
-            icon={LogIn}
-            onClick={() => {
-              setOpen(false);
-              track("signin", { location: "navigation" });
-            }}
-          />
-        </nav>
+        <div className="flex flex-col gap-3">
+          {accounts.length > 0 ? (
+            <div role="group" aria-label={t("membersMenu.continueHeading")} className="flex flex-col gap-2">
+              <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/50">
+                {t("membersMenu.continueHeading")}
+              </p>
+              <div className="flex flex-col gap-2">
+                {accounts.map((account) => (
+                  <MembersAccountLink
+                    key={account.id}
+                    href={account.role === "staff" ? "/dashboard" : "/newsupdates"}
+                    name={account.name?.trim() || account.email}
+                    subtitle={
+                      account.role === "staff"
+                        ? t("membersMenu.continueRole.staff")
+                        : t("membersMenu.continueRole.client")
+                    }
+                    onClick={() => {
+                      setOpen(false);
+                      if (hasConsentFor("measurement")) {
+                        track("members-continue", { role: account.role, surface: "navigation" });
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          <nav className="flex flex-col gap-2" aria-label={t("members")}>
+            <MembersMenuLink
+              href="/create-account"
+              label={t("createAccount")}
+              description={t("membersMenu.createAccountDescription")}
+              icon={UserPlus}
+              onClick={() => {
+                setOpen(false);
+                if (hasConsentFor("measurement")) {
+                  track("signup", { location: "navigation" });
+                }
+              }}
+            />
+            <MembersMenuLink
+              href="/sign-in"
+              label={t("signIn")}
+              description={t("membersMenu.signInDescription")}
+              icon={LogIn}
+              onClick={() => {
+                setOpen(false);
+                track("signin", { location: "navigation" });
+              }}
+            />
+          </nav>
+        </div>
       </PopoverPrimitive.Content>
     </PopoverPrimitive.Root>
   );
@@ -165,6 +196,7 @@ const MembersDrawerMenu = ({ onNavigate }: MembersDrawerMenuProps) => {
   const { hasConsentFor } = useConsentManager();
   const [open, setOpen] = useState(false);
   const menuId = "drawer-members-menu";
+  const accounts = useAccountHistory();
 
   return (
     <div className="w-full">
@@ -179,7 +211,36 @@ const MembersDrawerMenu = ({ onNavigate }: MembersDrawerMenuProps) => {
         aria-haspopup="menu"
       />
       {open ? (
-        <div id={menuId} className="mt-3 flex flex-col gap-2" role="menu" aria-label={t("members")}>
+        <div id={menuId} className="mt-3 flex flex-col gap-3" role="menu" aria-label={t("members")}>
+          {accounts.length > 0 ? (
+            <div role="group" aria-label={t("membersMenu.continueHeading")} className="flex flex-col gap-2">
+              <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/50">
+                {t("membersMenu.continueHeading")}
+              </p>
+              <div className="flex flex-col gap-2">
+                {accounts.map((account) => (
+                  <MembersAccountLink
+                    key={account.id}
+                    href={account.role === "staff" ? "/dashboard" : "/newsupdates"}
+                    name={account.name?.trim() || account.email}
+                    subtitle={
+                      account.role === "staff"
+                        ? t("membersMenu.continueRole.staff")
+                        : t("membersMenu.continueRole.client")
+                    }
+                    className="border-white/10 bg-white/5"
+                    onClick={() => {
+                      setOpen(false);
+                      onNavigate();
+                      if (hasConsentFor("measurement")) {
+                        track("members-continue", { role: account.role, surface: "navigation-mobile" });
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
           <MembersMenuLink
             href="/create-account"
             label={t("createAccount")}
@@ -238,6 +299,34 @@ function MembersMenuLink({ href, label, description, icon: Icon, className, onCl
           {label}
         </span>
         <span className="text-xs text-white/60">{description}</span>
+      </span>
+      <ChevronRight className="h-4 w-4 shrink-0 translate-x-0 text-white/50 transition group-hover:translate-x-1 group-hover:text-white/80" />
+    </Link>
+  );
+}
+
+type MembersAccountLinkProps = {
+  href: string;
+  name: string;
+  subtitle: string;
+  className?: string;
+  onClick?: () => void;
+};
+
+function MembersAccountLink({ href, name, subtitle, className, onClick }: MembersAccountLinkProps) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      role="menuitem"
+      className={cn(
+        "group flex w-full items-center justify-between gap-3 rounded-xl border border-white/15 bg-white/8 px-4 py-3 text-left text-sm text-white transition hover:border-white/25 hover:bg-white/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+        className,
+      )}
+    >
+      <span className="flex flex-col text-left">
+        <span className="font-semibold text-white">{name}</span>
+        <span className="text-xs text-white/60">{subtitle}</span>
       </span>
       <ChevronRight className="h-4 w-4 shrink-0 translate-x-0 text-white/50 transition group-hover:translate-x-1 group-hover:text-white/80" />
     </Link>
