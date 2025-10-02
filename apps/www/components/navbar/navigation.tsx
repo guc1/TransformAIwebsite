@@ -120,7 +120,12 @@ function MembersMenu({ className }: { className?: string }) {
         align="end"
         sideOffset={16}
         id={contentId}
-        className="z-[120] w-64 rounded-2xl border border-white/15 bg-black/80 p-3 shadow-lg shadow-sky-500/15 backdrop-blur-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+        className={cn(
+          "z-[120] w-64 rounded-2xl border border-white/15 bg-black/80 p-3 shadow-lg shadow-sky-500/15 backdrop-blur-xl",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        )}
       >
         <nav className="flex flex-col gap-2" aria-label={t("members")}>
           <MembersMenuLink
@@ -170,7 +175,7 @@ function MembersDrawerMenu({ onNavigate }: { onNavigate: () => void }) {
         aria-haspopup="menu"
       />
       {open ? (
-        <div id={menuId} className="mt-3 flex flex-col gap-2" role="menu" aria-label={t("members")}">
+        <div id={menuId} className="mt-3 flex flex-col gap-2" role="menu" aria-label={t("members")}>
           <MembersMenuLink
             href="/create-account"
             label={t("createAccount")}
