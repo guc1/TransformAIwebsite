@@ -17,6 +17,7 @@ import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { track } from "@vercel/analytics";
 import { motion } from "framer-motion";
 import {
+  CalendarClock,
   ChevronDown,
   ChevronRight,
   LogIn,
@@ -163,9 +164,10 @@ export function Navigation() {
             <MobileLinks className="lg:hidden" />
             <DesktopLinks className="hidden lg:flex" />
           </div>
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-3 md:gap-4">
             <LanguageSwitcher className="hidden md:flex" />
-            <MembersMenu />
+            <MembersMenu className="flex-shrink-0" />
+            <ScheduleCallButton className="flex-shrink-0" />
           </div>
         </div>
       )}
@@ -532,6 +534,51 @@ const MembersButton = forwardRef<HTMLButtonElement, MembersButtonProps>(
 
 MembersButton.displayName = "MembersButton";
 
+function ScheduleCallButton({
+  className,
+  innerClassName,
+  onClick,
+}: {
+  className?: string;
+  innerClassName?: string;
+  onClick?: () => void;
+}) {
+  const t = useTranslations("Navigation");
+
+  return (
+    <Link
+      href="/meeting"
+      onClick={onClick}
+      className={cn(
+        "group relative inline-flex items-center justify-center rounded-full p-[1px] text-sm font-semibold text-white transition",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+        "hero-hiring-gradient shadow-lg shadow-sky-500/20 hover:shadow-sky-400/25",
+        "active:scale-[0.98]",
+        className,
+      )}
+    >
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-teal-400/20 via-sky-500/25 to-purple-500/20 opacity-70 transition duration-300 group-hover:opacity-100"
+      />
+      <span
+        className={cn(
+          "relative inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-slate-950 transition duration-300",
+          "bg-gradient-to-r from-teal-400 via-sky-500 to-purple-500 shadow-lg shadow-sky-500/25",
+          "group-hover:shadow-sky-400/25",
+          innerClassName,
+        )}
+      >
+        <CalendarClock
+          aria-hidden
+          className="h-4 w-4 text-slate-900/80 transition duration-300 group-hover:rotate-3"
+        />
+        {t("scheduleCall")}
+      </span>
+    </Link>
+  );
+}
+
 function MobileLinks({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("Navigation");
@@ -585,24 +632,15 @@ function MobileLinks({ className }: { className?: string }) {
                   label={t("links.contact")}
                 />
               </li>
-              <li>
-                <MobileNavLink
-                  onClick={() => setIsOpen(false)}
-                  href="/changelog"
-                  label={t("links.changelog")}
-                />
-              </li>
-              <li>
-                <MobileNavLink
-                  onClick={() => setIsOpen(false)}
-                  href="/templates"
-                  label={t("links.templates")}
-                />
-              </li>
             </ul>
           </div>
           <DrawerFooter>
             <LanguageSwitcher className="w-full justify-between" />
+            <ScheduleCallButton
+              className="w-full"
+              innerClassName="w-full justify-center"
+              onClick={() => setIsOpen(false)}
+            />
             <MembersDrawerMenu onNavigate={() => setIsOpen(false)} />
             <button
               type="button"
@@ -637,12 +675,6 @@ function DesktopLinks({ className }: { className: string }) {
       </li>
       <li>
         <DesktopNavLink href="/contact" label={t("links.contact")} />
-      </li>
-      <li>
-        <DesktopNavLink href="/changelog" label={t("links.changelog")} />
-      </li>
-      <li>
-        <DesktopNavLink href="/templates" label={t("links.templates")} />
       </li>
     </ul>
   );
