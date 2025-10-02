@@ -20,7 +20,7 @@ import { PrimaryButton, SecondaryButton } from "../button";
 import { DesktopNavLink, MobileNavLink } from "./link";
 
 export function Navigation() {
-  const [scrollPercent, setScrollPercent] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
   const { hasConsentFor } = useConsentManager();
   const t = useTranslations("Navigation");
   const containerVariants = {
@@ -37,24 +37,33 @@ export function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollThreshold = 100;
-      const scrollPercent = Math.min(window.scrollY / 2 / scrollThreshold, 1);
-      setScrollPercent(scrollPercent);
+      setScrollY(window.scrollY);
     };
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const backgroundOpacity = Math.min(scrollY / 200, 1);
+  const borderOpacity = Math.min(backgroundOpacity / 5, 0.15);
+  const shrinkProgress = Math.min(scrollY / 80, 1);
+  const minLogoScale = 0.74;
+  const logoScale = 1 - (1 - minLogoScale) * shrinkProgress;
+  const basePadding = 12;
+  const compactPadding = 8;
+  const padding = basePadding - (basePadding - compactPadding) * shrinkProgress;
 
   return (
     <motion.nav
       style={{
-        backgroundColor: `rgba(0, 0, 0, ${scrollPercent})`,
-        borderColor: `rgba(255, 255, 255, ${Math.min(scrollPercent / 5, 0.15)})`,
+        backgroundColor: `rgba(0, 0, 0, ${backgroundOpacity})`,
+        borderColor: `rgba(255, 255, 255, ${borderOpacity})`,
+        paddingTop: `${padding}px`,
+        paddingBottom: `${padding}px`,
       }}
-      className="fixed z-[100] top-0 border-b-[.75px] border-white/10 w-full py-3"
+      className="fixed z-[100] top-0 border-b-[.75px] border-white/10 w-full py-3 transition-all duration-200 ease-out"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -62,7 +71,7 @@ export function Navigation() {
       <div className="container flex items-center justify-between">
         <div className="flex items-center justify-between w-full sm:w-auto sm:gap-12 lg:gap-20">
           <Link href="/" aria-label={t("ariaHome")} className="block shrink-0">
-            <Logo />
+            <Logo scale={logoScale} />
           </Link>
           <MobileLinks className="lg:hidden" />
           <DesktopLinks className="hidden lg:flex" />
@@ -224,16 +233,21 @@ function DesktopLinks({ className }: { className: string }) {
   );
 }
 
-function Logo({ className }: { className?: string }) {
+function Logo({ className, scale = 1 }: { className?: string; scale?: number }) {
   return (
-    <TransformAILogo
-      variant="transparent"
-      className={cn(
-        "h-auto w-[128px] sm:w-[164px] md:w-[188px] lg:w-[204px] shrink-0",
-        className,
-      )}
-      priority
-      sizes="(max-width: 640px) 164px, (max-width: 1024px) 188px, 204px"
-    />
+    <div
+      className="inline-flex origin-left transition-transform duration-200 ease-out"
+      style={{ transform: `scale(${scale})` }}
+    >
+      <TransformAILogo
+        variant="transparent"
+        className={cn(
+          "h-auto w-[128px] sm:w-[164px] md:w-[188px] lg:w-[204px] shrink-0",
+          className,
+        )}
+        priority
+        sizes="(max-width: 640px) 164px, (max-width: 1024px) 188px, 204px"
+      />
+    </div>
   );
 }
