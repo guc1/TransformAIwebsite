@@ -1,6 +1,10 @@
 import { SignInForm } from "@/components/auth/sign-in-form";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+
+import { getAuthSession } from "@/lib/auth";
+import { resolveSessionRedirect } from "@/lib/auth-redirect";
 
 interface PageProps {
   params: {
@@ -17,7 +21,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function SignInPage() {
+export default async function SignInPage({ params }: PageProps) {
+  const session = await getAuthSession();
+  const destination = resolveSessionRedirect(session, params.locale);
+
+  if (destination) {
+    redirect(destination);
+  }
+
   return (
     <div className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(139,92,246,0.22),_transparent_55%)] py-28">
       <div
