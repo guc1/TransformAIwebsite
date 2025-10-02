@@ -1218,6 +1218,49 @@
     "title": "TransformAI account health",
     "subtitle": "Monitor how many client and staff seats are active across the platform.",
     "currentUser": "Signed in as {email}",
+    "hoursSaved": {
+      "title": "Homepage hours saved counter",
+      "description": "Control the rolling AI savings counter that appears on the marketing hero.",
+      "summary": {
+        "current": "Current total",
+        "lastApplied": "Last increment",
+        "nextUpdate": "Next scheduled update",
+        "noUpcoming": "No updates queued"
+      },
+      "fields": {
+        "baseAmount": {
+          "label": "Starting amount",
+          "help": "Set the baseline value the counter should anchor to. Updating the value resets the calculation timestamp."
+        },
+        "dayIncrement": {
+          "label": "Daytime hourly increment",
+          "help": "Used to generate random additions between 07:00–21:00 CET."
+        },
+        "nightIncrement": {
+          "label": "Overnight hourly increment",
+          "help": "Used to generate random additions between 21:00–07:00 CET."
+        },
+        "overrideLabel": "Override increment"
+      },
+      "actions": {
+        "saveSettings": "Save settings",
+        "regenerate": "Regenerate next 24 hours",
+        "updateHour": "Update hour"
+      },
+      "regenerate": {
+        "title": "Refresh the upcoming schedule",
+        "description": "Generate a new random plan for the next 24 hours using the saved increments."
+      },
+      "schedule": {
+        "title": "Upcoming hourly additions",
+        "description": "Adjust any hour to override the automated plan.",
+        "empty": "No upcoming increments are scheduled. Generate a new plan above.",
+        "period": {
+          "day": "Daytime increment",
+          "night": "Overnight increment"
+        }
+      }
+    },
     "metrics": {
       "clients": {
         "title": "Client accounts",
