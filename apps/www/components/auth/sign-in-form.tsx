@@ -9,6 +9,7 @@ import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { navigateAfterAuth } from "@/components/auth/auth-navigation";
 
 export function SignInForm() {
   const t = useTranslations("Auth.SignIn");
@@ -48,7 +49,12 @@ export function SignInForm() {
       return;
     }
 
-    router.push(result.url ?? `/${locale}/auth/post-signin`);
+    navigateAfterAuth({
+      router,
+      locale,
+      targetUrl: result.url,
+      fallbackPath: "/auth/post-signin",
+    });
   };
 
   const disableButtons = isSubmitting || isGoogleSubmitting;
@@ -156,7 +162,7 @@ export function SignInForm() {
         <button
           type="button"
           className="font-semibold text-white transition hover:text-white/80"
-          onClick={() => router.push(`/${locale}/create-account`)}
+          onClick={() => void router.push("/create-account", { locale })}
           disabled={disableButtons}
         >
           {t("ctaLink")}

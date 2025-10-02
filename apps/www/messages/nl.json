@@ -968,6 +968,34 @@
       }
     }
   },
+  "Members": {
+    "eyebrow": "Member access",
+    "title": "Welcome back, {name}",
+    "subtitle": "Your private TransformAI workspace with live initiatives, briefings, and curated updates.",
+    "currentUser": "Signed in as {email}",
+    "resources": {
+      "eyebrow": "Active workstreams",
+      "title": "Keep momentum across every initiative",
+      "subtitle": "Review the engagements we are running together and align your leadership team on what comes next.",
+      "items": {
+        "roadmap": {
+          "title": "Transformation roadmap",
+          "description": "Track the phases, milestones, and owners for your AI activation program.",
+          "cta": "Open roadmap workspace"
+        },
+        "briefing": {
+          "title": "Executive briefing kit",
+          "description": "Download the latest leadership-ready narrative summarizing progress and quantified ROI.",
+          "cta": "Review briefing deck"
+        },
+        "workshop": {
+          "title": "Upcoming enablement workshop",
+          "description": "Confirm attendees and goals for the next hands-on session with your delivery teams.",
+          "cta": "Finalize workshop agenda"
+        }
+      }
+    }
+  },
   "NewsUpdates": {
     "eyebrow": "News updates",
     "title": "Intelligence voor TransformAI-leden",
