@@ -16,10 +16,10 @@ const env = serverEnv();
 const adapter = DrizzleAdapter(
   db as any,
   {
-    users,
-    accounts,
-    sessions,
-    verificationTokens,
+    usersTable: users,
+    accountsTable: accounts,
+    sessionsTable: sessions,
+    verificationTokensTable: verificationTokens,
   } as any,
 ) as Adapter;
 
