@@ -14,6 +14,8 @@ type HeroMainSectionProps = {
   secondaryCtaHref: string;
   hoursSavedLabel: string;
   hoursSavedInitialAmount: number;
+  hoursSavedInitialFormatted: string;
+  hoursSavedInitialFormatterLocale: string;
   hoursSavedNextUpdateAt: string | null;
   locale: string;
 };
@@ -27,6 +29,8 @@ export function HeroMainSection({
   secondaryCtaHref,
   hoursSavedLabel,
   hoursSavedInitialAmount,
+  hoursSavedInitialFormatted,
+  hoursSavedInitialFormatterLocale,
   hoursSavedNextUpdateAt,
   locale,
 }: HeroMainSectionProps) {
@@ -54,6 +58,8 @@ export function HeroMainSection({
           <span className="text-white/40">:</span>
           <HoursSavedTicker
             initialAmount={hoursSavedInitialAmount}
+            initialFormattedAmount={hoursSavedInitialFormatted}
+            initialFormattedLocale={hoursSavedInitialFormatterLocale}
             initialNextUpdateAt={hoursSavedNextUpdateAt}
             locale={locale}
             className="text-sm tracking-[0.2em] text-white sm:text-base"
