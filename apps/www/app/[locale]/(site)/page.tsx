@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { AnalyticsBento } from "@/components/analytics/analytics-bento";
 import { AuditLogsBento } from "@/components/audit-logs-bento";
 import { PrimaryButton, SecondaryButton } from "@/components/button";
