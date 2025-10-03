@@ -1,6 +1,6 @@
 import { MEETING_TIME_ZONE } from "@/lib/meetings/constants";
 
-export const HOURS_SAVED_WINDOW_HOURS = 24;
+export const HOURS_SAVED_WINDOW_HOURS = 24 * 7;
 export const HOURS_SAVED_DEFAULT_DAY_INCREMENT = 104;
 export const HOURS_SAVED_DEFAULT_NIGHT_INCREMENT = 65;
 export const HOURS_SAVED_DAY_START_HOUR = 8;

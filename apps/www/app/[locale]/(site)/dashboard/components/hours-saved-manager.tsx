@@ -1,20 +1,19 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { useMemo, useState, useTransition } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 
 import { Button } from "@/components/ui/button";
-import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  HOURS_SAVED_WINDOW_HOURS,
-  addHours,
-  getDefaultIncrementFor,
-  nextHour,
-} from "@/lib/hours-saved/constants";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 import { updateHoursSavedScheduleAction } from "../hours-saved-actions";
 
@@ -23,28 +22,24 @@ type ScheduleRowState = {
   input: string;
 };
 
-type HoursSavedManagerStrings = {
-  baseLabel: string;
-  baseHelper: string;
-  scheduleHeading: string;
-  scheduleDescription: string;
-  timeColumnLabel: string;
-  resetLabel: string;
-  submitLabel: string;
-  savingLabel: string;
-  cancelLabel: string;
-  successMessage: string;
-  errorMessage: string;
-  validationError: string;
-  amountSuffix: string;
-};
-
 type HoursSavedManagerProps = {
   locale: string;
   timeZone: string;
   baseAmount: number;
   schedule: { scheduledFor: string; amount: number }[];
-  strings: HoursSavedManagerStrings;
+};
+
+type DayEntry = {
+  id: string;
+  label: string;
+  row: ScheduleRowState;
+};
+
+type DayBucket = {
+  key: string;
+  label: string;
+  isToday: boolean;
+  entries: DayEntry[];
 };
 
 function sortSchedule(entries: { scheduledFor: string; amount: number }[]): ScheduleRowState[] {
@@ -56,17 +51,27 @@ function sortSchedule(entries: { scheduledFor: string; amount: number }[]): Sche
     }));
 }
 
-export function HoursSavedManager({ locale, timeZone, baseAmount, schedule, strings }: HoursSavedManagerProps) {
+function getPart(parts: Intl.DateTimeFormatPart[], type: Intl.DateTimeFormatPart["type"]) {
+  return parts.find((part) => part.type === type)?.value ?? "";
+}
+
+export function HoursSavedManager({ locale, timeZone, baseAmount, schedule }: HoursSavedManagerProps) {
+  const t = useTranslations("Dashboard.hoursSaved");
+
   const [baseValue, setBaseValue] = useState(baseAmount.toString());
   const [rows, setRows] = useState<ScheduleRowState[]>(() => sortSchedule(schedule));
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [selectedDay, setSelectedDay] = useState<string>("");
+  const [activeHour, setActiveHour] = useState<string>("");
+  const [copyMode, setCopyMode] = useState(false);
+  const [copySource, setCopySource] = useState<string | null>(null);
+  const [copyTargets, setCopyTargets] = useState<string[]>([]);
 
   const timeFormatter = useMemo(
     () =>
       new Intl.DateTimeFormat(locale, {
-        weekday: "short",
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,
@@ -75,35 +80,129 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule, stri
     [locale, timeZone],
   );
 
+  const dayLabelFormatter = useMemo(
+    () =>
+      new Intl.DateTimeFormat(locale, {
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+        timeZone,
+      }),
+    [locale, timeZone],
+  );
+
+  const dayKeyFormatter = useMemo(
+    () =>
+      new Intl.DateTimeFormat("en-CA", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        timeZone,
+      }),
+    [timeZone],
+  );
+
+  const getDayKey = useCallback(
+    (date: Date) => {
+      const parts = dayKeyFormatter.formatToParts(date);
+      const year = getPart(parts, "year");
+      const month = getPart(parts, "month");
+      const day = getPart(parts, "day");
+      return `${year}-${month}-${day}`;
+    },
+    [dayKeyFormatter],
+  );
+
+  const todayKey = useMemo(() => getDayKey(new Date()), [getDayKey]);
+
+  const dayBuckets: DayBucket[] = useMemo(() => {
+    const byDay = new Map<string, DayBucket>();
+
+    for (const row of rows) {
+      const key = getDayKey(row.scheduledFor);
+      const label = dayLabelFormatter.format(row.scheduledFor);
+      const bucket = byDay.get(key);
+
+      if (bucket) {
+        bucket.entries.push({
+          id: row.scheduledFor.toISOString(),
+          label: timeFormatter.format(row.scheduledFor),
+          row,
+        });
+        continue;
+      }
+
+      byDay.set(key, {
+        key,
+        label,
+        isToday: key === todayKey,
+        entries: [
+          {
+            id: row.scheduledFor.toISOString(),
+            label: timeFormatter.format(row.scheduledFor),
+            row,
+          },
+        ],
+      });
+    }
+
+    return Array.from(byDay.values()).map((bucket) => ({
+      ...bucket,
+      entries: bucket.entries.sort(
+        (a, b) => a.row.scheduledFor.getTime() - b.row.scheduledFor.getTime(),
+      ),
+    }));
+  }, [rows, getDayKey, dayLabelFormatter, timeFormatter, todayKey]);
+
+  useEffect(() => {
+    if (selectedDay && dayBuckets.some((bucket) => bucket.key === selectedDay)) {
+      return;
+    }
+
+    const fallback = dayBuckets[0]?.key ?? "";
+    if (fallback) {
+      setSelectedDay(fallback);
+      setActiveHour(dayBuckets[0]?.entries[0]?.id ?? "");
+    }
+  }, [dayBuckets, selectedDay]);
+
+  const selectedDayBucket = useMemo(
+    () => dayBuckets.find((bucket) => bucket.key === selectedDay),
+    [dayBuckets, selectedDay],
+  );
+
+  useEffect(() => {
+    if (!selectedDayBucket) {
+      return;
+    }
+
+    if (!selectedDayBucket.entries.some((entry) => entry.id === activeHour)) {
+      const fallback = selectedDayBucket.entries[0]?.id ?? "";
+      setActiveHour(fallback);
+    }
+  }, [selectedDayBucket, activeHour]);
+
+  const activeEntry = useMemo(
+    () => selectedDayBucket?.entries.find((entry) => entry.id === activeHour) ?? null,
+    [selectedDayBucket, activeHour],
+  );
+
   const handleBaseChange = (value: string) => {
     setBaseValue(value);
     setStatus("idle");
     setStatusMessage(null);
   };
 
-  const handleRowChange = (index: number, value: string) => {
-    setRows((current) => {
-      const next = [...current];
-      next[index] = { ...next[index], input: value };
-      return next;
-    });
-    setStatus("idle");
-    setStatusMessage(null);
-  };
+  const handleActiveValueChange = (value: string) => {
+    if (!activeEntry) {
+      return;
+    }
 
-  const resetToDefaults = () => {
-    const reference = new Date();
-    const windowStart = nextHour(reference);
-
-    const defaults: ScheduleRowState[] = Array.from({ length: HOURS_SAVED_WINDOW_HOURS }, (_, index) => {
-      const scheduledFor = addHours(windowStart, index);
-      return {
-        scheduledFor,
-        input: getDefaultIncrementFor(scheduledFor).toString(),
-      };
-    });
-
-    setRows(defaults);
+    setRows((current) =>
+      current.map((row) =>
+        row.scheduledFor.toISOString() === activeEntry.id ? { ...row, input: value } : row,
+      ),
+    );
     setStatus("idle");
     setStatusMessage(null);
   };
@@ -117,7 +216,7 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule, stri
 
     if (Number.isNaN(parsedBase) || parsedBase < 0) {
       setStatus("error");
-      setStatusMessage(strings.validationError);
+      setStatusMessage(t("status.validation"));
       return;
     }
 
@@ -137,7 +236,9 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule, stri
 
       if (!result.success) {
         setStatus("error");
-        setStatusMessage(result.error === "validation" ? strings.validationError : strings.errorMessage);
+        setStatusMessage(
+          result.error === "validation" ? t("status.validation") : t("status.error"),
+        );
         return;
       }
 
@@ -153,14 +254,100 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule, stri
       }
 
       setStatus("success");
-      setStatusMessage(strings.successMessage);
+      setStatusMessage(t("status.success"));
+      setCopyMode(false);
+      setCopySource(null);
+      setCopyTargets([]);
     });
   };
 
+  const toggleCopyMode = () => {
+    setCopyMode((current) => {
+      const next = !current;
+      if (next) {
+        setCopySource(selectedDayBucket?.key ?? null);
+        setCopyTargets([]);
+      } else {
+        setCopySource(null);
+        setCopyTargets([]);
+      }
+      return next;
+    });
+    setStatus("idle");
+    setStatusMessage(null);
+  };
+
+  const toggleCopyTarget = (dayKey: string) => {
+    setCopyTargets((current) =>
+      current.includes(dayKey)
+        ? current.filter((key) => key !== dayKey)
+        : [...current, dayKey],
+    );
+  };
+
+  const applyCopy = () => {
+    if (!copySource || copyTargets.length === 0) {
+      setStatus("error");
+      setStatusMessage(t("status.copyValidation"));
+      return;
+    }
+
+    const sourceBucket = dayBuckets.find((bucket) => bucket.key === copySource);
+
+    if (!sourceBucket) {
+      setStatus("error");
+      setStatusMessage(t("status.copyValidation"));
+      return;
+    }
+
+    const sourceValues = new Map<string, string>(
+      sourceBucket.entries.map((entry) => [entry.label, entry.row.input]),
+    );
+
+    setRows((current) =>
+      current.map((row) => {
+        const dayKey = getDayKey(row.scheduledFor);
+        if (!copyTargets.includes(dayKey)) {
+          return row;
+        }
+
+        const label = timeFormatter.format(row.scheduledFor);
+        const replacement = sourceValues.get(label);
+        if (replacement === undefined) {
+          return row;
+        }
+
+        return { ...row, input: replacement };
+      }),
+    );
+
+    setStatus("success");
+    setStatusMessage(t("status.copySuccess"));
+    setCopyMode(false);
+    setCopySource(null);
+    setCopyTargets([]);
+  };
+
+  const daySummary = (() => {
+    if (!selectedDayBucket) {
+      return "";
+    }
+
+    if (selectedDayBucket.isToday) {
+      const nextLabel = selectedDayBucket.entries[0]?.label ?? "";
+      return t("days.todaySummary", {
+        next: nextLabel,
+        remaining: selectedDayBucket.entries.length,
+      });
+    }
+
+    return t("days.daySummary", { count: selectedDayBucket.entries.length });
+  })();
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-8">
       <div className="space-y-2">
-        <Label className="text-sm font-medium text-white/80">{strings.baseLabel}</Label>
+        <Label className="text-sm font-medium text-white/80">{t("base.label")}</Label>
         <Input
           type="number"
           inputMode="numeric"
@@ -168,63 +355,183 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule, stri
           value={baseValue}
           min={0}
           onChange={(event) => handleBaseChange(event.target.value)}
-          className="border-white/15 bg-white/5 text-white placeholder:text-white/40 focus-visible:ring-white/40"
+          className="h-11 rounded-xl border-white/15 bg-white/5 text-base text-white placeholder:text-white/40 focus-visible:ring-white/40"
         />
-        <p className="text-xs text-white/50">{strings.baseHelper}</p>
+        <p className="text-xs text-white/50">{t("base.helper")}</p>
       </div>
 
-      <div className="space-y-3">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold text-white">{strings.scheduleHeading}</p>
-            <p className="text-xs text-white/50">{strings.scheduleDescription}</p>
-          </div>
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={resetToDefaults}
-            className="h-9 rounded-full border border-white/10 bg-white/5 px-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/70 hover:bg-white/10"
-          >
-            {strings.resetLabel}
-          </Button>
+      <div className="space-y-4">
+        <div className="space-y-1">
+          <p className="text-sm font-semibold text-white">{t("days.heading")}</p>
+          <p className="text-xs text-white/50">{t("days.helper")}</p>
         </div>
+        <div className="flex flex-wrap gap-2">
+          {dayBuckets.map((bucket) => (
+            <button
+              key={bucket.key}
+              type="button"
+              onClick={() => {
+                setSelectedDay(bucket.key);
+                setStatus("idle");
+                setStatusMessage(null);
+              }}
+              className={cn(
+                "flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+                selectedDay === bucket.key
+                  ? "border-white/90 bg-white text-black shadow"
+                  : "border-white/15 bg-white/5 text-white/70 hover:border-white/40",
+              )}
+            >
+              <span>{bucket.label}</span>
+              {bucket.isToday ? (
+                <span className="rounded-full bg-black/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60">
+                  {t("days.todayBadge")}
+                </span>
+              ) : null}
+            </button>
+          ))}
+        </div>
+        {daySummary ? <p className="text-xs text-white/60">{daySummary}</p> : null}
+      </div>
 
-        <div className="rounded-2xl border border-white/10 bg-white/5">
-          <div className="grid grid-cols-[1fr_auto] gap-4 border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
-            <span>{strings.timeColumnLabel}</span>
-            <span className="text-right">{strings.amountSuffix}</span>
+      {selectedDayBucket ? (
+        <div className="space-y-5">
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
+            {selectedDayBucket.entries.map((entry) => (
+              <button
+                key={entry.id}
+                type="button"
+                onClick={() => {
+                  setActiveHour(entry.id);
+                  setStatus("idle");
+                  setStatusMessage(null);
+                }}
+                aria-label={t("days.hourButtonAria", {
+                  time: entry.label,
+                  amount: entry.row.input || "0",
+                })}
+                className={cn(
+                  "flex h-14 items-center justify-center rounded-xl border text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+                  activeHour === entry.id
+                    ? "border-white/80 bg-white text-black shadow"
+                    : "border-white/15 bg-white/5 text-white/70 hover:border-white/40",
+                )}
+              >
+                {entry.label}
+              </button>
+            ))}
           </div>
-          <ScrollArea className="max-h-72">
-            <div className="divide-y divide-white/5">
-              {rows.map((row, index) => {
-                const label = timeFormatter.format(row.scheduledFor);
-                return (
-                  <div
-                    key={row.scheduledFor.toISOString()}
-                    className="grid grid-cols-[1fr_auto] items-center gap-4 px-4 py-3 text-sm text-white/80"
-                  >
-                    <span className="font-mono text-xs uppercase tracking-[0.25em] text-white/60 sm:text-sm">
-                      {label}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <Input
-                        type="number"
-                        inputMode="numeric"
-                        pattern="[0-9]*"
-                        min={0}
-                        value={row.input}
-                        onChange={(event) => handleRowChange(index, event.target.value)}
-                        className="h-9 w-24 border-white/15 bg-black/60 text-right text-sm text-white focus-visible:ring-white/40"
-                      />
-                      <span className="text-xs uppercase tracking-[0.3em] text-white/40">{strings.amountSuffix}</span>
-                    </div>
-                  </div>
-                );
-              })}
+
+          {activeEntry ? (
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="space-y-1">
+                <p className="text-sm font-semibold text-white">
+                  {t("editor.title", { time: activeEntry.label })}
+                </p>
+                <p className="text-xs text-white/50">{t("editor.helper")}</p>
+              </div>
+              <div className="mt-4 flex items-center gap-3">
+                <Label htmlFor="hour-amount" className="text-xs font-semibold uppercase tracking-[0.28em] text-white/60">
+                  {t("editor.amountLabel")}
+                </Label>
+                <Input
+                  id="hour-amount"
+                  type="number"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  min={0}
+                  value={activeEntry.row.input}
+                  onChange={(event) => handleActiveValueChange(event.target.value)}
+                  className="h-10 w-28 rounded-xl border-white/15 bg-black/60 text-right text-sm text-white focus-visible:ring-white/40"
+                />
+                <span className="text-xs font-semibold uppercase tracking-[0.28em] text-white/40">
+                  {t("editor.amountSuffix")}
+                </span>
+              </div>
             </div>
-          </ScrollArea>
+          ) : null}
         </div>
-      </div>
+      ) : null}
+
+      {copyMode ? (
+        <div className="space-y-4 rounded-2xl border border-white/10 bg-black/40 p-5">
+          <div className="space-y-1">
+            <p className="text-sm font-semibold text-white">{t("copy.title")}</p>
+            <p className="text-xs text-white/50">{t("copy.description")}</p>
+          </div>
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/50">
+              {t("copy.sourceLabel")}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {dayBuckets.map((bucket) => (
+                <button
+                  key={`source-${bucket.key}`}
+                  type="button"
+                  onClick={() => setCopySource(bucket.key)}
+                  className={cn(
+                    "rounded-full border px-3 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+                    copySource === bucket.key
+                      ? "border-white/90 bg-white text-black"
+                      : "border-white/15 bg-white/5 text-white/70 hover:border-white/40",
+                  )}
+                >
+                  {bucket.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/50">
+              {t("copy.targetLabel")}
+            </p>
+            <p className="text-[11px] text-white/50">{t("copy.helper")}</p>
+            <div className="flex flex-wrap gap-2">
+              {dayBuckets
+                .filter((bucket) => bucket.key !== copySource)
+                .map((bucket) => {
+                  const isSelected = copyTargets.includes(bucket.key);
+                  return (
+                    <button
+                      key={`target-${bucket.key}`}
+                      type="button"
+                      onClick={() => toggleCopyTarget(bucket.key)}
+                      aria-pressed={isSelected}
+                      className={cn(
+                        "rounded-full border px-3 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+                        isSelected
+                          ? "border-white/90 bg-white text-black"
+                          : "border-white/15 bg-white/5 text-white/70 hover:border-white/40",
+                      )}
+                    >
+                      {bucket.label}
+                    </button>
+                  );
+                })}
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <Button
+              type="button"
+              onClick={() => {
+                setCopyMode(false);
+                setCopySource(null);
+                setCopyTargets([]);
+              }}
+              className="h-9 rounded-full border border-white/20 bg-white/10 px-4 text-xs font-semibold uppercase tracking-[0.24em] text-white/70 hover:bg-white/15"
+            >
+              {t("copy.cancel")}
+            </Button>
+            <Button
+              type="button"
+              onClick={applyCopy}
+              className="h-9 rounded-full bg-white px-4 text-xs font-semibold uppercase tracking-[0.3em] text-black hover:bg-white/90"
+            >
+              {t("copy.apply")}
+            </Button>
+          </div>
+        </div>
+      ) : null}
 
       {statusMessage ? (
         <p
@@ -237,25 +544,22 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule, stri
         </p>
       ) : null}
 
-      <DialogFooter className="gap-2 sm:gap-3">
-        <DialogClose asChild>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-10 rounded-full border border-white/10 bg-white/5 px-6 text-xs font-semibold uppercase tracking-[0.2em] text-white/70 hover:bg-white/10"
-            disabled={isPending}
-          >
-            {strings.cancelLabel}
-          </Button>
-        </DialogClose>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <Button
+          type="button"
+          onClick={toggleCopyMode}
+          className="h-10 rounded-full border border-white/20 bg-white/10 px-5 text-xs font-semibold uppercase tracking-[0.24em] text-white/70 hover:bg-white/15"
+        >
+          {copyMode ? t("actions.copyClose") : t("actions.copy")}
+        </Button>
         <Button
           type="submit"
-          className="h-10 rounded-full bg-white px-6 text-xs font-semibold uppercase tracking-[0.3em] text-black hover:bg-white/90"
           disabled={isPending}
+          className="h-10 rounded-full bg-white px-6 text-xs font-semibold uppercase tracking-[0.3em] text-black hover:bg-white/90 disabled:opacity-60"
         >
-          {isPending ? strings.savingLabel : strings.submitLabel}
+          {isPending ? t("actions.saving") : t("actions.submit")}
         </Button>
-      </DialogFooter>
+      </div>
     </form>
   );
 }
