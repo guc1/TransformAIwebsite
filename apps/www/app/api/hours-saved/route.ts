@@ -12,6 +12,7 @@ export async function GET() {
         baseSetAt: overview.baseSetAt.toISOString(),
         currentAmount: overview.currentAmount,
         nextUpdateAt: overview.nextUpdateAt ? overview.nextUpdateAt.toISOString() : null,
+        dailyTarget: overview.dailyTarget,
         schedule: overview.schedule.map((entry) => ({
           scheduledFor: entry.scheduledFor.toISOString(),
           amount: entry.amount,

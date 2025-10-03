@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { AnalyticsBento } from "@/components/analytics/analytics-bento";
 import { AuditLogsBento } from "@/components/audit-logs-bento";
 import { PrimaryButton, SecondaryButton } from "@/components/button";
@@ -32,6 +34,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { unstable_noStore as noStore } from "next/cache";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -97,6 +100,8 @@ export default async function Landing({
   if (!isLocale(locale)) {
     notFound();
   }
+
+  noStore();
 
   const meetingHref = `/${locale}/meeting` as const;
 

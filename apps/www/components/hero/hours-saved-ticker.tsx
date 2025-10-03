@@ -31,6 +31,8 @@ export function HoursSavedTicker({ initialAmount, initialNextUpdateAt, locale, c
   const targetAmountRef = useRef(initialAmount);
   const displayAmountRef = useRef(initialAmount);
   const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fetchLatestRef = useRef<(() => Promise<void>) | null>(null);
+  const didRunInitialFetchRef = useRef(false);
 
   const updateDisplayValue = useCallback((value: number) => {
     displayAmountRef.current = value;
@@ -160,6 +162,19 @@ export function HoursSavedTicker({ initialAmount, initialNextUpdateAt, locale, c
       }
     };
 
+    fetchLatestRef.current = async () => {
+      if (cancelled) {
+        return;
+      }
+
+      await fetchLatest();
+    };
+
+    if (!didRunInitialFetchRef.current) {
+      didRunInitialFetchRef.current = true;
+      void fetchLatest();
+    }
+
     const scheduleNextFetch = () => {
       if (!state.nextUpdateAt) {
         return;
@@ -196,8 +211,17 @@ export function HoursSavedTicker({ initialAmount, initialNextUpdateAt, locale, c
       }
       window.removeEventListener("focus", handleFocus);
       document.removeEventListener("visibilitychange", handleVisibility);
+      fetchLatestRef.current = null;
     };
   }, [state.nextUpdateAt]);
+
+  useEffect(() => {
+    if (!isInView) {
+      return;
+    }
+
+    void fetchLatestRef.current?.();
+  }, [isInView]);
 
   const formatter = useMemo(() => new Intl.NumberFormat(locale), [locale]);
   const formatted = formatter.format(displayValue);

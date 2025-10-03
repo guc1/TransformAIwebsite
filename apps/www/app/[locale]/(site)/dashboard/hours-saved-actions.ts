@@ -5,22 +5,27 @@ import { z } from "zod";
 
 import { getAuthSession } from "@/lib/auth";
 import { updateHoursSavedSettings } from "@/lib/hours-saved";
-import {
-  HOURS_SAVED_WINDOW_HOURS,
-  addHours,
-  nextHour,
-  randomizeWithinHour,
-} from "@/lib/hours-saved/constants";
+import { HOURS_SAVED_WINDOW_HOURS } from "@/lib/hours-saved/constants";
 
 const scheduleItemSchema = z.object({
   scheduledFor: z.string().datetime(),
   amount: z.number().int().min(0).max(1_000_000),
 });
 
-const payloadSchema = z.object({
+const manualPayloadSchema = z.object({
+  mode: z.literal("manual"),
   baseAmount: z.number().int().min(0).max(1_000_000_000),
   schedule: z.array(scheduleItemSchema).length(HOURS_SAVED_WINDOW_HOURS),
+  dailyTarget: z.number().int().min(0).max(1_000_000_000).optional(),
 });
+
+const autoPayloadSchema = z.object({
+  mode: z.literal("auto"),
+  baseAmount: z.number().int().min(0).max(1_000_000_000),
+  dailyTarget: z.number().int().min(0).max(1_000_000_000),
+});
+
+const payloadSchema = z.discriminatedUnion("mode", [manualPayloadSchema, autoPayloadSchema]);
 
 export async function updateHoursSavedScheduleAction(locale: string, payload: unknown) {
   const session = await getAuthSession();
@@ -40,31 +45,31 @@ export async function updateHoursSavedScheduleAction(locale: string, payload: un
   }
 
   const reference = new Date();
-  const windowStart = nextHour(reference);
-
-  const sortedEntries = parsed.data.schedule
-    .map((entry) => ({
-      scheduledFor: new Date(entry.scheduledFor),
-      amount: entry.amount,
-    }))
-    .sort((a, b) => a.scheduledFor.getTime() - b.scheduledFor.getTime());
-
-  const usedTimestamps = new Set<number>();
-  const normalizedSchedule = sortedEntries.map((entry, index) => {
-    const hourStart = addHours(windowStart, index);
-    const scheduledFor = randomizeWithinHour(hourStart, usedTimestamps);
-    return {
-      scheduledFor,
-      amount: entry.amount,
-    };
-  });
 
   try {
-    await updateHoursSavedSettings({
-      baseAmount: parsed.data.baseAmount,
-      schedule: normalizedSchedule,
-      now: reference,
-    });
+    if (parsed.data.mode === "manual") {
+      const scheduleEntries = parsed.data.schedule
+        .map((entry) => ({
+          scheduledFor: new Date(entry.scheduledFor),
+          amount: entry.amount,
+        }))
+        .sort((a, b) => a.scheduledFor.getTime() - b.scheduledFor.getTime());
+
+      await updateHoursSavedSettings({
+        mode: "manual",
+        baseAmount: parsed.data.baseAmount,
+        schedule: scheduleEntries,
+        dailyTarget: parsed.data.dailyTarget,
+        now: reference,
+      });
+    } else {
+      await updateHoursSavedSettings({
+        mode: "auto",
+        baseAmount: parsed.data.baseAmount,
+        dailyTarget: parsed.data.dailyTarget,
+        now: reference,
+      });
+    }
   } catch (error) {
     console.error("Failed to update hours saved schedule", error);
     return { success: false as const, error: "unknown" as const };

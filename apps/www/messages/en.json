@@ -1258,6 +1258,10 @@
         "label": "Starting amount",
         "helper": "Resets the ticker to this total immediately."
       },
+      "dailyTarget": {
+        "label": "Daily auto-add total",
+        "helper": "Randomly distribute this many hours across each day in the window."
+      },
       "days": {
         "heading": "Plan the next 7 days",
         "helper": "Select a day to edit the hourly increments.",
@@ -1276,7 +1280,9 @@
         "submit": "Push changes",
         "saving": "Saving…",
         "copy": "Copy day",
-        "copyClose": "Close copy"
+        "copyClose": "Close copy",
+        "regenerate": "Regenerate schedule",
+        "regenerating": "Regenerating…"
       },
       "copy": {
         "title": "Copy schedule to other days",
@@ -1290,7 +1296,7 @@
       "status": {
         "success": "Hours saved schedule updated.",
         "error": "We couldn't update the schedule. Try again.",
-        "validation": "Enter a non-negative value for the starting amount and each hour.",
+        "validation": "Enter a non-negative value for the starting amount, daily target, and each hour.",
         "copyValidation": "Select a source day and at least one day to copy to.",
         "copySuccess": "Day copied successfully."
       }

@@ -93,6 +93,7 @@ export default async function HoursSavedDashboardPage({ params }: PageProps) {
             locale={locale}
             timeZone={HOURS_SAVED_TIME_ZONE}
             baseAmount={hoursSavedOverview.baseAmount}
+            dailyTarget={hoursSavedOverview.dailyTarget}
             schedule={hoursSavedSchedule}
             referenceDayKey={referenceDayKey}
           />
