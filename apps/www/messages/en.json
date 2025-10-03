@@ -1052,8 +1052,8 @@
     }
   },
   "Footer": {
-    "tagline": "Build better APIs faster.",
-    "copyright": "Unkeyed, Inc. {year}",
+    "tagline": "We Build The Future",
+    "copyright": "TransformAI, inc. 2025",
     "sections": {
       "company": "Company",
       "resources": "Resources",
@@ -1065,8 +1065,6 @@
       "roadmap": "Roadmap",
       "careers": "Careers",
       "contact": "Contact",
-      "sourceCode": "Source Code",
-      "status": "Status Page",
       "blog": "Blog",
       "changelog": "Changelog",
       "templates": "Templates",
@@ -1074,8 +1072,9 @@
       "glossary": "Glossary",
       "twitter": "X (Twitter)",
       "discord": "Discord",
-      "ossFriends": "OSS Friends",
       "bookCall": "Book a Call",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
       "terms": "Terms of Service",
       "privacy": "Privacy Policy"
     }
