@@ -31,6 +31,7 @@ type HoursSavedManagerProps = {
   timeZone: string;
   baseAmount: number;
   schedule: { scheduledFor: string; amount: number }[];
+  referenceTimestamp: string;
 };
 
 type DayEntry = {
@@ -81,7 +82,13 @@ function getPart(parts: Intl.DateTimeFormatPart[], type: Intl.DateTimeFormatPart
   return parts.find((part) => part.type === type)?.value ?? "";
 }
 
-export function HoursSavedManager({ locale, timeZone, baseAmount, schedule }: HoursSavedManagerProps) {
+export function HoursSavedManager({
+  locale,
+  timeZone,
+  baseAmount,
+  schedule,
+  referenceTimestamp,
+}: HoursSavedManagerProps) {
   const t = useTranslations("Dashboard.hoursSaved");
 
   const [baseValue, setBaseValue] = useState(baseAmount.toString());
@@ -159,7 +166,8 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule }: Ho
     [dayKeyFormatter],
   );
 
-  const todayKey = useMemo(() => getDayKey(new Date()), [getDayKey]);
+  const referenceDate = useMemo(() => new Date(referenceTimestamp), [referenceTimestamp]);
+  const todayKey = useMemo(() => getDayKey(referenceDate), [getDayKey, referenceDate]);
 
   const dayBuckets: DayBucket[] = useMemo(() => {
     const byDay = new Map<string, DayBucket>();

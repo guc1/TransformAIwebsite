@@ -22,7 +22,8 @@ export default async function HoursSavedDashboardPage({ params }: PageProps) {
   }
 
   const t = await getTranslations({ locale, namespace: "Dashboard" });
-  const hoursSavedOverview = await getHoursSavedOverview();
+  const referenceDate = new Date();
+  const hoursSavedOverview = await getHoursSavedOverview(referenceDate);
 
   const hoursSavedSchedule = hoursSavedOverview.schedule.map((entry) => ({
     scheduledFor: entry.scheduledFor.toISOString(),
@@ -86,6 +87,7 @@ export default async function HoursSavedDashboardPage({ params }: PageProps) {
             timeZone={HOURS_SAVED_TIME_ZONE}
             baseAmount={hoursSavedOverview.baseAmount}
             schedule={hoursSavedSchedule}
+            referenceTimestamp={referenceDate.toISOString()}
           />
         </section>
       </div>
