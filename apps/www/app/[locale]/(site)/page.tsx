@@ -99,6 +99,7 @@ export default async function Landing({
   }
 
   const meetingHref = `/${locale}/meeting` as const;
+  const solutionsHref = `/${locale}/pricing` as const;
 
   const [cta, platform, hero, featureSection] = await Promise.all([
     getTranslations({ locale, namespace: "CTA" }),
@@ -197,7 +198,7 @@ export default async function Landing({
                     className="h-10"
                   />
                 </Link>
-                <Link href="/docs">
+                <Link href={solutionsHref}>
                   <SecondaryButton
                     label={cta("exploreProjects")}
                     IconRight={ChevronRight}

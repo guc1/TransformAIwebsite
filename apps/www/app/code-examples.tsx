@@ -519,6 +519,7 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
   const projectCopy = useTranslations("CodeExamples.projects");
   const locale = useLocale();
   const meetingHref = `/${locale}/meeting`;
+  const solutionsHref = `/${locale}/pricing`;
   const [language, setLanguage] = useState<Language>("AI integration pt1");
   const [framework, setFramework] = useState<FrameworkName>("AI transformation");
   const [languageHover, setLanguageHover] = useState("AI integration pt1");
@@ -639,7 +640,7 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
             IconRight={ChevronRight}
           />
         </Link>
-        <Link key="explore-projects" href="/docs">
+        <Link key="explore-projects" href={solutionsHref}>
           <SecondaryButton
             label={cta("exploreProjects")}
             IconRight={ChevronRight}
