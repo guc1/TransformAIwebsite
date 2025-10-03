@@ -22,7 +22,10 @@ import { formatDateWithZone } from "@/lib/date";
 import { MEETING_TIME_ZONE } from "@/lib/meetings/constants";
 import { getUpcomingMeetings } from "@/lib/meetings/queries";
 import { getVisitorOverview, type VisitorOverview } from "@/lib/visitors";
+import { getHoursSavedOverview, type HoursSavedScheduleEntry } from "@/lib/hours-saved";
+import { HOURS_SAVED_TIME_ZONE } from "@/lib/hours-saved/constants";
 import { VisitorsChartSection, type VisitorsChartBucket } from "./components/visitors-chart";
+import { HoursSavedManager } from "./components/hours-saved-manager";
 import { desc, eq, sql } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
@@ -43,7 +46,14 @@ export default async function DashboardPage({ params }: PageProps) {
 
   const t = await getTranslations({ locale, namespace: "Dashboard" });
 
-  const [roleCounts, upcomingMeetings, clientAccounts, staffAccounts, visitorOverview] =
+  const [
+    roleCounts,
+    upcomingMeetings,
+    clientAccounts,
+    staffAccounts,
+    visitorOverview,
+    hoursSavedOverview,
+  ] =
     await Promise.all([
       db
         .select({
@@ -74,6 +84,7 @@ export default async function DashboardPage({ params }: PageProps) {
         .where(eq(users.role, "staff"))
         .orderBy(desc(users.createdAt)),
       getVisitorOverview(),
+      getHoursSavedOverview(),
     ]);
 
   type UpcomingMeeting = (typeof upcomingMeetings)[number];
@@ -135,6 +146,34 @@ export default async function DashboardPage({ params }: PageProps) {
     name: t("accounts.columns.name"),
     email: t("accounts.columns.email"),
     createdAt: t("accounts.columns.createdAt"),
+  } as const;
+
+  const hoursSavedSchedule = hoursSavedOverview.schedule.map((entry: HoursSavedScheduleEntry) => ({
+    scheduledFor: entry.scheduledFor.toISOString(),
+    amount: entry.amount,
+  }));
+
+  const hoursSavedDialogStrings = {
+    baseLabel: t("hoursSaved.dialog.baseLabel"),
+    baseHelper: t("hoursSaved.dialog.baseHelper"),
+    quickHeading: t("hoursSaved.dialog.quickHeading"),
+    quickDescription: t("hoursSaved.dialog.quickDescription"),
+    dayLabel: t("hoursSaved.dialog.dayLabel"),
+    nightLabel: t("hoursSaved.dialog.nightLabel"),
+    varianceLabel: t("hoursSaved.dialog.varianceLabel"),
+    varianceHelper: t("hoursSaved.dialog.varianceHelper"),
+    applyDefaultsLabel: t("hoursSaved.dialog.applyDefaults"),
+    randomizeLabel: t("hoursSaved.dialog.randomize"),
+    manualHeading: t("hoursSaved.dialog.manualHeading"),
+    manualDescription: t("hoursSaved.dialog.manualDescription", { timeZone: HOURS_SAVED_TIME_ZONE }),
+    resetLabel: t("hoursSaved.dialog.reset"),
+    submitLabel: t("hoursSaved.dialog.submit"),
+    savingLabel: t("hoursSaved.dialog.saving"),
+    cancelLabel: t("hoursSaved.dialog.cancel"),
+    successMessage: t("hoursSaved.dialog.success"),
+    errorMessage: t("hoursSaved.dialog.error"),
+    validationError: t("hoursSaved.dialog.validation"),
+    amountSuffix: t("hoursSaved.dialog.amountSuffix"),
   } as const;
 
   const ratioValue =
@@ -263,6 +302,48 @@ export default async function DashboardPage({ params }: PageProps) {
                   daily={dailyChartData}
                   tabLabels={visitorTabs}
                   emptyMessages={visitorEmptyMessages}
+                />
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <button
+                type="button"
+                className="text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              >
+                <Card className="relative overflow-hidden border-white/10 bg-white/5 text-white backdrop-blur-xl transition hover:border-white/20">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg font-semibold text-white/70">
+                      {t("metrics.hoursSaved.title")}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pb-6">
+                    <p className="text-4xl font-semibold tracking-tight text-white">
+                      {hoursSavedOverview.currentAmount.toLocaleString(locale)}
+                    </p>
+                    <p className="mt-2 text-sm text-white/60">
+                      {t("metrics.hoursSaved.caption", { count: hoursSavedOverview.currentAmount })}
+                    </p>
+                  </CardContent>
+                </Card>
+              </button>
+            </DialogTrigger>
+            <DialogContent className="max-w-3xl bg-neutral-950 text-white">
+              <DialogHeader>
+                <DialogTitle className="text-white">{t("hoursSaved.dialog.title")}</DialogTitle>
+                <DialogDescription className="text-white/60">
+                  {t("hoursSaved.dialog.description", { timeZone: HOURS_SAVED_TIME_ZONE })}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="mt-6">
+                <HoursSavedManager
+                  locale={locale}
+                  timeZone={HOURS_SAVED_TIME_ZONE}
+                  baseAmount={hoursSavedOverview.baseAmount}
+                  schedule={hoursSavedSchedule}
+                  strings={hoursSavedDialogStrings}
                 />
               </div>
             </DialogContent>
