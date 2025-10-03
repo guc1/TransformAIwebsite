@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { Loader2, LogIn } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -22,9 +22,19 @@ export function SignInForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
 
+  const clearActiveSession = async () => {
+    try {
+      await signOut({ redirect: false });
+    } catch {
+      // Ignore sign out failures so users can still attempt a new login.
+    }
+  };
+
   const handleGoogleSignIn = async () => {
     setError(null);
     setIsGoogleSubmitting(true);
+
+    await clearActiveSession();
 
     await signIn("google", {
       callbackUrl: "/auth/post-signin",
@@ -35,6 +45,8 @@ export function SignInForm() {
     event.preventDefault();
     setError(null);
     setIsSubmitting(true);
+
+    await clearActiveSession();
 
     const result = await signIn("credentials", {
       email: email.trim(),
