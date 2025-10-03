@@ -41,6 +41,10 @@
         "staff": "Staff workspace"
       }
     },
+    "settingsMenu": {
+      "aria": "Quick settings",
+      "triggerLabel": "Open quick settings"
+    },
     "links": {
       "home": "Home",
       "about": "About",

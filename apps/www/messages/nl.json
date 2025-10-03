@@ -41,6 +41,10 @@
         "staff": "Teamdashboard"
       }
     },
+    "settingsMenu": {
+      "aria": "Snelle instellingen",
+      "triggerLabel": "Snelle instellingen openen"
+    },
     "links": {
       "home": "Home",
       "about": "Over ons",
