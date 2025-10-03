@@ -25,7 +25,7 @@ export function RedirectGate({ targetPath, account, locale }: RedirectGateProps)
     }
 
     hasRedirected.current = true;
-    rememberAccount(account);
+    rememberAccount({ ...account, destination: targetPath });
     router.replace(targetPath, { locale });
   }, [account, locale, router, targetPath]);
 
