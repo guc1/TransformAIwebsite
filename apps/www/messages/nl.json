@@ -1171,82 +1171,56 @@
     "ctaNote": "Deel vertrouwelijke updates zorgvuldig. Stuur dit door naar bestuurders die inzicht nodig hebben."
   },
   "Dashboard": {
-    "eyebrow": "Staff-dashboard",
-    "title": "Gezondheid van TransformAI-accounts",
-    "subtitle": "Volg hoeveel klant- en staff-accounts actief zijn op het platform.",
+    "title": "Planner voor bespaarde uren",
+    "subtitle": "Stel de startwaarde in en beheer de uurlijkse toevoegingen voor de komende zeven dagen.",
     "currentUser": "Ingelogd als {email}",
-  "metrics": {
-    "clients": {
-      "title": "Klantaccounts",
-      "caption": "{count, plural, one {# klant actief} other {# klanten actief}}"
-    },
-    "staff": {
-      "title": "Staff-accounts",
-      "caption": "{count, plural, one {# collega online} other {# collega's online}}"
-    },
-    "visitors": {
-      "title": "Unieke bezoekers",
-      "caption": "{count, plural, one {# bezoekersessie geregistreerd} other {# bezoekersessies geregistreerd}}"
+    "summary": {
+      "currentLabel": "Huidige teller",
+      "currentValue": "{amount} uur totaal",
+      "nextLabel": "Volgende update",
+      "nextValue": "{time}",
+      "noUpcoming": "Geen ingeplande updates in de komende 7 dagen."
     },
     "hoursSaved": {
-      "title": "Bespaarde uren met AI",
-      "caption": "{count, plural, one {# uur geautomatiseerd} other {# uren geautomatiseerd}}"
-    },
-    "ratio": {
-      "title": "Verhouding klant/staff",
-      "caption": "Een gezonde dekking ligt tussen 4:1 en 8:1 zodat elk project een partnerlead heeft."
-    }
-  },
-    "accounts": {
-      "clients": {
-        "title": "Overzicht klantaccounts",
-        "description": "Bekijk alle klantprofielen die zijn aangemaakt.",
-        "empty": "Er zijn nog geen klantaccounts aangemaakt."
+      "base": {
+        "label": "Startwaarde",
+        "helper": "Zet de teller direct op dit totaal."
       },
-      "staff": {
-        "title": "Overzicht teamaccounts",
-        "description": "Zie welke teamleden toegang hebben tot de interne tooling.",
-        "empty": "Er zijn nog geen teamaccounts aangemaakt."
+      "days": {
+        "heading": "Plan de komende 7 dagen",
+        "helper": "Kies een dag om de uurlijkse toevoegingen aan te passen.",
+        "todayBadge": "Vandaag",
+        "todaySummary": "Volgende update om {next}. {remaining, plural, one {# uur resterend vandaag.} other {# uren resterend vandaag.}}",
+        "daySummary": "{count, plural, one {# uur gepland.} other {# uren gepland.}}",
+        "hourButtonAria": "Bewerk {time}. Momenteel {amount} uur."
       },
-      "columns": {
-        "name": "Naam",
-        "email": "E-mail",
-        "createdAt": "Aangemaakt"
-      }
-    },
-    "visitors": {
-      "title": "Bezoekersverkeer",
-      "description": "We tellen een bezoeker zodra er een nieuwe analytische cookie wordt uitgegeven.",
-      "tabs": {
-        "hourly": "Laatste 24 uur",
-        "daily": "Laatste 7 dagen"
+      "editor": {
+        "title": "Werk {time} bij",
+        "helper": "Bepaal hoeveel uur er op dit tijdstip automatisch wordt toegevoegd.",
+        "amountLabel": "Uren",
+        "amountSuffix": "uur"
       },
-      "empty": {
-        "hourly": "Er zijn de afgelopen 24 uur geen nieuwe bezoekersessies geregistreerd.",
-        "daily": "Er zijn de afgelopen 7 dagen geen nieuwe bezoekersessies geregistreerd."
+      "actions": {
+        "submit": "Wijzigingen doorvoeren",
+        "saving": "Bezig…",
+        "copy": "Dag kopiëren",
+        "copyClose": "Kopiëren sluiten"
       },
-      "tooltip": {
-        "hour": "{count, plural, one {{count} bezoeker tussen {start}–{end}} other {{count} bezoekers tussen {start}–{end}}}",
-        "day": "{count, plural, one {{count} bezoeker op {day}} other {{count} bezoekers op {day}}}"
-      }
-    },
-    "meetings": {
-      "title": "Aankomende meetings",
-      "empty": "Er staan nog geen meetings gepland. Nieuwe boekingen verschijnen hier direct.",
-      "fields": {
-        "when": "Wanneer",
-        "reason": "Reden",
-        "contact": "Contact",
-        "staff": "Eigenaar",
-        "notes": "Slotnotities"
-      }
-    },
-    "nextSteps": {
-      "title": "Volgende stappen",
-      "items": {
-        "audit": "Controleer onboarding-reizen voor klanten zonder recente logins en plan succesgesprekken.",
-        "outreach": "Stem met delivery leads af om het nieuwe AI-maturiteitsplaybook bij hun accounts te delen.",
-        "briefings": "Bereid leiderschapsbriefings voor januari voor met ROI-cijfers uit de automatiseringspilots."
+      "copy": {
+        "title": "Kopieer schema naar andere dagen",
+        "description": "Herbruik het uurschema van één dag en pas het elders toe.",
+        "sourceLabel": "Kopieer van",
+        "targetLabel": "Toepassen op",
+        "helper": "Geselecteerde dagen worden overschreven met deze waarden.",
+        "apply": "Kopie toepassen",
+        "cancel": "Annuleren"
+      },
+      "status": {
+        "success": "Schema voor bespaarde uren bijgewerkt.",
+        "error": "Bijwerken is mislukt. Probeer het opnieuw.",
+        "validation": "Voer voor de startwaarde en elk uur een niet-negatieve waarde in.",
+        "copyValidation": "Selecteer een bron-dag en minstens één dag om naar te kopiëren.",
+        "copySuccess": "Dag succesvol gekopieerd."
       }
     }
   },
