@@ -57,8 +57,7 @@ const navigation = [
       },
       {
         titleKey: "links.bookCall",
-        href: "http://localhost:3002/en/meeting",
-        external: true,
+        href: "/meeting",
       },
       {
         titleKey: "links.facebook",
