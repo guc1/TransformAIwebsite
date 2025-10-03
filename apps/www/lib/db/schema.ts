@@ -159,6 +159,49 @@ export const visitorSessions = pgTable(
   }),
 );
 
+export const hoursSavedStates = pgTable("hours_saved_states", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  baseAmount: integer("base_amount").notNull().default(0),
+  baseSetAt: timestamp("base_set_at", { mode: "date", withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const hoursSavedIncrements = pgTable(
+  "hours_saved_increments",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    stateId: text("state_id")
+      .notNull()
+      .references(() => hoursSavedStates.id, { onDelete: "cascade" }),
+    scheduledFor: timestamp("scheduled_for", { mode: "date", withTimezone: true }).notNull(),
+    amount: integer("amount").notNull(),
+    createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => ({
+    scheduleTimeIdx: uniqueIndex("hours_saved_increments_state_time_idx").on(
+      table.stateId,
+      table.scheduledFor,
+    ),
+    scheduledForIdx: index("hours_saved_increments_scheduled_for_idx").on(table.scheduledFor),
+  }),
+);
+
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
   sessions: many(sessions),
@@ -195,6 +238,17 @@ export const meetingBookingsRelations = relations(meetingBookings, ({ one }) => 
   slot: one(meetingSlots, {
     fields: [meetingBookings.slotId],
     references: [meetingSlots.id],
+  }),
+}));
+
+export const hoursSavedStatesRelations = relations(hoursSavedStates, ({ many }) => ({
+  increments: many(hoursSavedIncrements),
+}));
+
+export const hoursSavedIncrementsRelations = relations(hoursSavedIncrements, ({ one }) => ({
+  state: one(hoursSavedStates, {
+    fields: [hoursSavedIncrements.stateId],
+    references: [hoursSavedStates.id],
   }),
 }));
 
