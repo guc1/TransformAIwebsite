@@ -1,6 +1,6 @@
 import { MEETING_TIME_ZONE } from "@/lib/meetings/constants";
 
-export const HOURS_SAVED_WINDOW_HOURS = 24;
+export const HOURS_SAVED_WINDOW_HOURS = 24 * 7;
 export const HOURS_SAVED_DEFAULT_DAY_INCREMENT = 104;
 export const HOURS_SAVED_DEFAULT_NIGHT_INCREMENT = 65;
 export const HOURS_SAVED_DAY_START_HOUR = 8;
@@ -27,6 +27,26 @@ export function addHours(date: Date, hours: number): Date {
 
 export function nextHour(date: Date): Date {
   return addHours(startOfHour(date), 1);
+}
+
+export function randomizeWithinHour(base: Date, used: Set<number>): Date {
+  const hourStart = startOfHour(base);
+
+  for (let attempt = 0; attempt < 120; attempt += 1) {
+    const candidate = new Date(hourStart);
+    candidate.setMinutes(Math.floor(Math.random() * 60));
+    candidate.setSeconds(Math.floor(Math.random() * 60), 0);
+    const time = candidate.getTime();
+    if (!used.has(time)) {
+      used.add(time);
+      return candidate;
+    }
+  }
+
+  const fallback = new Date(hourStart);
+  fallback.setSeconds(0, 0);
+  used.add(fallback.getTime());
+  return fallback;
 }
 
 export function getZoneHour(date: Date): number {

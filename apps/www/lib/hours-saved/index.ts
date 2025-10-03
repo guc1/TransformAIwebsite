@@ -8,6 +8,8 @@ import {
   addHours,
   getDefaultIncrementFor,
   nextHour,
+  randomizeWithinHour,
+  startOfHour,
 } from "./constants";
 
 export type HoursSavedScheduleEntry = {
@@ -68,15 +70,20 @@ async function ensureUpcomingSchedule(
       ),
     );
 
-  const existingSet = new Set(existing.map((entry) => entry.scheduledFor.toISOString()));
+  const existingHourKeys = new Set(
+    existing.map((entry) => startOfHour(entry.scheduledFor).toISOString()),
+  );
+  const usedTimestamps = new Set(existing.map((entry) => entry.scheduledFor.getTime()));
   const inserts: { stateId: string; scheduledFor: Date; amount: number }[] = [];
 
   for (let offset = 0; offset < HOURS_SAVED_WINDOW_HOURS; offset += 1) {
-    const scheduledFor = addHours(windowStart, offset);
-
-    if (existingSet.has(scheduledFor.toISOString())) {
+    const hourStart = addHours(windowStart, offset);
+    if (existingHourKeys.has(hourStart.toISOString())) {
       continue;
     }
+
+    const scheduledFor = randomizeWithinHour(hourStart, usedTimestamps);
+    existingHourKeys.add(hourStart.toISOString());
 
     inserts.push({
       stateId,
