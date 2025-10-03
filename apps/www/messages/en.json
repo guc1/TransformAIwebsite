@@ -28,6 +28,7 @@
       "messages": "Messages",
       "overview": "Overview",
       "planning": "Planning",
+      "hoursSaved": "Hours saved",
       "resources": "Resources"
     },
     "membersMenu": {
@@ -1214,32 +1215,100 @@
     "ctaNote": "Share confidential updates responsibly. Forward this space to leadership teams that need visibility."
   },
   "Dashboard": {
-    "eyebrow": "Staff dashboard",
-    "title": "TransformAI account health",
-    "subtitle": "Monitor how many client and staff seats are active across the platform.",
+    "title": "Hours saved planner",
+    "subtitle": "Set the starting total and adjust hourly increments for the next seven days.",
     "currentUser": "Signed in as {email}",
-  "metrics": {
-    "clients": {
-      "title": "Client accounts",
-      "caption": "{count, plural, one {# client live} other {# clients live}}"
+    "summary": {
+      "currentLabel": "Current ticker",
+      "currentValue": "{amount} hrs total",
+      "nextLabel": "Next update",
+      "nextValue": "{time}",
+      "noUpcoming": "No scheduled updates in the next 7 days."
     },
-    "staff": {
-      "title": "Staff accounts",
-      "caption": "{count, plural, one {# internal teammate online} other {# internal teammates online}}"
-    },
-    "visitors": {
-      "title": "Unique visitors",
-      "caption": "{count, plural, one {# visitor session recorded} other {# visitor sessions recorded}}"
-  },
-  "hoursSaved": {
-      "title": "Hours saved with AI",
-      "caption": "{count, plural, one {# hour automated} other {# hours automated}}"
-    },
-    "ratio": {
-      "title": "Client-to-staff ratio",
-      "caption": "Healthy coverage is between 4:1 and 8:1 so every project has a partner lead."
+    "hoursSaved": {
+      "base": {
+        "label": "Starting amount",
+        "helper": "Resets the ticker to this total immediately."
+      },
+      "days": {
+        "heading": "Plan the next 7 days",
+        "helper": "Select a day to edit the hourly increments.",
+        "todayBadge": "Today",
+        "todaySummary": "Current window {window}. {remaining, plural, one {# hour left today.} other {# hours left today.}}",
+        "daySummary": "{count, plural, one {# hour scheduled.} other {# hours scheduled.}}",
+        "hourButtonAria": "Edit {time}. Currently {amount} hours."
+      },
+      "editor": {
+        "title": "Update {time}",
+        "helper": "Set how many hours will be added automatically at this time.",
+        "amountLabel": "Hours",
+        "amountSuffix": "hrs"
+      },
+      "actions": {
+        "submit": "Push changes",
+        "saving": "Saving…",
+        "copy": "Copy day",
+        "copyClose": "Close copy"
+      },
+      "copy": {
+        "title": "Copy schedule to other days",
+        "description": "Reuse the hourly plan from one day and apply it elsewhere.",
+        "sourceLabel": "Copy from",
+        "targetLabel": "Apply to",
+        "helper": "Selecting a day overwrites its hourly values.",
+        "apply": "Apply copy",
+        "cancel": "Cancel"
+      },
+      "status": {
+        "success": "Hours saved schedule updated.",
+        "error": "We couldn't update the schedule. Try again.",
+        "validation": "Enter a non-negative value for the starting amount and each hour.",
+        "copyValidation": "Select a source day and at least one day to copy to.",
+        "copySuccess": "Day copied successfully."
+      }
     }
   },
+  "DashboardOverview": {
+    "eyebrow": "Staff workspace",
+    "title": "Choose the area you want to manage",
+    "subtitle": "Jump straight into the tools you need today. Each module keeps its data within the TransformAI staff workspace.",
+    "currentUser": "Signed in as {email}",
+    "cta": "Open",
+    "sections": {
+      "hoursSaved": {
+        "eyebrow": "Hours saved",
+        "title": "Tune the AI hours ticker",
+        "description": "Reset the starting total and plan the automatic increments for the next seven days."
+      },
+      "planning": {
+        "eyebrow": "Planning",
+        "title": "Coordinate the meeting agenda",
+        "description": "Review availability, assign colleagues, and publish upcoming TransformAI strategy sessions."
+      }
+    },
+    "metrics": {
+      "clients": {
+        "title": "Client accounts",
+        "caption": "{count, plural, one {# client live} other {# clients live}}"
+      },
+      "staff": {
+        "title": "Staff accounts",
+        "caption": "{count, plural, one {# internal teammate online} other {# internal teammates online}}"
+      },
+      "visitors": {
+        "title": "Unique visitors",
+        "caption": "{count, plural, one {# visitor session recorded} other {# visitor sessions recorded}}"
+      },
+      "hoursSaved": {
+        "title": "Hours saved with AI",
+        "caption": "{count, plural, one {# hour automated} other {# hours automated}}",
+        "manage": "Open planner"
+      },
+      "ratio": {
+        "title": "Client-to-staff ratio",
+        "caption": "Healthy coverage is between 4:1 and 8:1 so every project has a partner lead."
+      }
+    },
     "accounts": {
       "clients": {
         "title": "Client account roster",

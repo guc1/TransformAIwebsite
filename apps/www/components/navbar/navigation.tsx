@@ -82,8 +82,9 @@ export function Navigation() {
     normalizedPathname === "/newsupdates" || normalizedPathname.startsWith("/newsupdates/");
   const isStaffOverviewView = normalizedPathname === "/dashboard";
   const isStaffPlanningView = normalizedPathname.startsWith("/dashboard/planning");
+  const isStaffHoursSavedView = normalizedPathname.startsWith("/dashboard/hours-saved");
   const isStaffView =
-    isStaffOverviewView || isStaffPlanningView || normalizedPathname.startsWith("/dashboard/");
+    isStaffOverviewView || isStaffPlanningView || isStaffHoursSavedView || normalizedPathname.startsWith("/dashboard/");
   const isLoggedInView = isClientView || isStaffView;
   const settledLogoScale = 0.68;
   const initialLogoScale = isHome ? 1 : 0.74;
@@ -106,6 +107,12 @@ export function Navigation() {
             href: "/dashboard",
             label: t("loggedIn.overview"),
             current: isStaffOverviewView,
+          },
+          {
+            key: "hoursSaved",
+            href: "/dashboard/hours-saved",
+            label: t("loggedIn.hoursSaved"),
+            current: isStaffHoursSavedView,
           },
           {
             key: "planning",
