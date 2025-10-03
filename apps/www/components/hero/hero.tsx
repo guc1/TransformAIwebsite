@@ -6,7 +6,15 @@ import { HeroMainSection } from "./hero-main-section";
 
 import mainboard from "@/images/mainboard.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
-export const Hero: React.FC = () => {
+type HeroProps = {
+  initialHoursSavedAmount: number;
+  initialHoursSavedNextUpdateAt: string | null;
+};
+
+export const Hero: React.FC<HeroProps> = ({
+  initialHoursSavedAmount,
+  initialHoursSavedNextUpdateAt,
+}) => {
   const hero = useTranslations("Hero");
   const cta = useTranslations("CTA");
   const locale = useLocale();
@@ -45,7 +53,9 @@ export const Hero: React.FC = () => {
           primaryCtaHref={meetingHref}
           secondaryCtaLabel={cta("exploreProjects")}
           hoursSavedLabel={cta("hoursSavedLabel")}
-          hoursSavedAmount={cta("hoursSavedAmount")}
+          hoursSavedInitialAmount={initialHoursSavedAmount}
+          hoursSavedNextUpdateAt={initialHoursSavedNextUpdateAt}
+          locale={locale}
         />
       </motion.div>
 
