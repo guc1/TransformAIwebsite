@@ -6,6 +6,11 @@ import { getAuthSession } from "@/lib/auth";
 import { formatDateWithZone } from "@/lib/date";
 import { getHoursSavedOverview } from "@/lib/hours-saved";
 import { HOURS_SAVED_TIME_ZONE } from "@/lib/hours-saved/constants";
+import {
+  buildScheduleDisplay,
+  createHoursSavedFormatters,
+  toScheduleInput,
+} from "@/lib/hours-saved/format";
 
 interface PageProps {
   params: {
@@ -22,12 +27,15 @@ export default async function HoursSavedDashboardPage({ params }: PageProps) {
   }
 
   const t = await getTranslations({ locale, namespace: "Dashboard" });
-  const hoursSavedOverview = await getHoursSavedOverview();
+  const referenceDate = new Date();
+  const hoursSavedOverview = await getHoursSavedOverview(referenceDate);
 
-  const hoursSavedSchedule = hoursSavedOverview.schedule.map((entry) => ({
-    scheduledFor: entry.scheduledFor.toISOString(),
-    amount: entry.amount,
-  }));
+  const formatters = createHoursSavedFormatters(locale, HOURS_SAVED_TIME_ZONE);
+  const hoursSavedSchedule = buildScheduleDisplay(
+    toScheduleInput(hoursSavedOverview.schedule),
+    formatters,
+  );
+  const referenceDayKey = formatters.getDayKey(referenceDate);
 
   const nextUpdateLabel = hoursSavedOverview.nextUpdateAt
     ? formatDateWithZone(
@@ -86,6 +94,7 @@ export default async function HoursSavedDashboardPage({ params }: PageProps) {
             timeZone={HOURS_SAVED_TIME_ZONE}
             baseAmount={hoursSavedOverview.baseAmount}
             schedule={hoursSavedSchedule}
+            referenceDayKey={referenceDayKey}
           />
         </section>
       </div>
