@@ -1009,8 +1009,8 @@
     }
   },
   "Footer": {
-    "tagline": "Bouw betere API's sneller.",
-    "copyright": "Unkeyed, Inc. {year}",
+    "tagline": "Wij bouwen de toekomst.",
+    "copyright": "TransformAI, inc. 2025",
     "sections": {
       "company": "Bedrijf",
       "resources": "Resources",
@@ -1022,8 +1022,6 @@
       "roadmap": "Roadmap",
       "careers": "Carrières",
       "contact": "Contact",
-      "sourceCode": "Broncode",
-      "status": "Statuspagina",
       "blog": "Blog",
       "changelog": "Wijzigingen",
       "templates": "Templates",
@@ -1031,8 +1029,9 @@
       "glossary": "Woordenlijst",
       "twitter": "X (Twitter)",
       "discord": "Discord",
-      "ossFriends": "OSS-vrienden",
       "bookCall": "Plan een gesprek",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
       "terms": "Servicevoorwaarden",
       "privacy": "Privacybeleid"
     }
