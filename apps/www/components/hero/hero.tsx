@@ -8,11 +8,13 @@ import mainboard from "@/images/mainboard.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
 type HeroProps = {
   initialHoursSavedAmount: number;
+  initialHoursSavedFormatted: string;
   initialHoursSavedNextUpdateAt: string | null;
 };
 
 export const Hero: React.FC<HeroProps> = ({
   initialHoursSavedAmount,
+  initialHoursSavedFormatted,
   initialHoursSavedNextUpdateAt,
 }) => {
   const hero = useTranslations("Hero");
@@ -47,18 +49,19 @@ export const Hero: React.FC<HeroProps> = ({
       animate="visible"
     >
       <motion.div variants={childVariants}>
-        <HeroMainSection
-          title={hero("title")}
-          body={hero("body")}
-          primaryCtaLabel={cta("getStarted")}
-          primaryCtaHref={meetingHref}
-          secondaryCtaLabel={cta("exploreProjects")}
-          secondaryCtaHref={solutionsHref}
-          hoursSavedLabel={cta("hoursSavedLabel")}
-          hoursSavedInitialAmount={initialHoursSavedAmount}
-          hoursSavedNextUpdateAt={initialHoursSavedNextUpdateAt}
-          locale={locale}
-        />
+          <HeroMainSection
+            title={hero("title")}
+            body={hero("body")}
+            primaryCtaLabel={cta("getStarted")}
+            primaryCtaHref={meetingHref}
+            secondaryCtaLabel={cta("exploreProjects")}
+            secondaryCtaHref={solutionsHref}
+            hoursSavedLabel={cta("hoursSavedLabel")}
+            hoursSavedInitialAmount={initialHoursSavedAmount}
+            hoursSavedInitialFormatted={initialHoursSavedFormatted}
+            hoursSavedNextUpdateAt={initialHoursSavedNextUpdateAt}
+            locale={locale}
+          />
       </motion.div>
 
       <div
