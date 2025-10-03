@@ -19,6 +19,7 @@ export const Hero: React.FC<HeroProps> = ({
   const cta = useTranslations("CTA");
   const locale = useLocale();
   const meetingHref = `/${locale}/meeting`;
+  const solutionsHref = `/${locale}/pricing`;
 
   const containerVariants = {
     hidden: {},
@@ -52,6 +53,7 @@ export const Hero: React.FC<HeroProps> = ({
           primaryCtaLabel={cta("getStarted")}
           primaryCtaHref={meetingHref}
           secondaryCtaLabel={cta("exploreProjects")}
+          secondaryCtaHref={solutionsHref}
           hoursSavedLabel={cta("hoursSavedLabel")}
           hoursSavedInitialAmount={initialHoursSavedAmount}
           hoursSavedNextUpdateAt={initialHoursSavedNextUpdateAt}

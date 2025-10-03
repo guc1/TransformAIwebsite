@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { PrimaryButton, SecondaryButton } from "@/components/button";
-import { BookOpen, ChevronRight, LogIn } from "lucide-react";
+import { ChevronRight, Lightbulb, LogIn } from "lucide-react";
 
 import { HoursSavedTicker } from "./hours-saved-ticker";
 
@@ -11,6 +11,7 @@ type HeroMainSectionProps = {
   primaryCtaLabel: string;
   primaryCtaHref: string;
   secondaryCtaLabel: string;
+  secondaryCtaHref: string;
   hoursSavedLabel: string;
   hoursSavedInitialAmount: number;
   hoursSavedNextUpdateAt: string | null;
@@ -23,6 +24,7 @@ export function HeroMainSection({
   primaryCtaLabel,
   primaryCtaHref,
   secondaryCtaLabel,
+  secondaryCtaHref,
   hoursSavedLabel,
   hoursSavedInitialAmount,
   hoursSavedNextUpdateAt,
@@ -57,9 +59,12 @@ export function HeroMainSection({
             className="text-sm tracking-[0.2em] text-white sm:text-base"
           />
         </div>
-        <Link href="/docs" className="hidden w-full sm:inline-flex sm:w-auto sm:flex-shrink-0">
+        <Link
+          href={secondaryCtaHref}
+          className="hidden w-full sm:inline-flex sm:w-auto sm:flex-shrink-0"
+        >
           <SecondaryButton
-            IconLeft={BookOpen}
+            IconLeft={Lightbulb}
             label={secondaryCtaLabel}
             IconRight={ChevronRight}
             className="sm:min-w-[200px] justify-center"
