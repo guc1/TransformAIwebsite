@@ -1272,6 +1272,7 @@
     "eyebrow": "Staff workspace",
     "title": "Choose the area you want to manage",
     "subtitle": "Jump straight into the tools you need today. Each module keeps its data within the TransformAI staff workspace.",
+    "currentUser": "Signed in as {email}",
     "cta": "Open",
     "sections": {
       "hoursSaved": {
@@ -1283,6 +1284,81 @@
         "eyebrow": "Planning",
         "title": "Coordinate the meeting agenda",
         "description": "Review availability, assign colleagues, and publish upcoming TransformAI strategy sessions."
+      }
+    },
+    "metrics": {
+      "clients": {
+        "title": "Client accounts",
+        "caption": "{count, plural, one {# client live} other {# clients live}}"
+      },
+      "staff": {
+        "title": "Staff accounts",
+        "caption": "{count, plural, one {# internal teammate online} other {# internal teammates online}}"
+      },
+      "visitors": {
+        "title": "Unique visitors",
+        "caption": "{count, plural, one {# visitor session recorded} other {# visitor sessions recorded}}"
+      },
+      "hoursSaved": {
+        "title": "Hours saved with AI",
+        "caption": "{count, plural, one {# hour automated} other {# hours automated}}",
+        "manage": "Open planner"
+      },
+      "ratio": {
+        "title": "Client-to-staff ratio",
+        "caption": "Healthy coverage is between 4:1 and 8:1 so every project has a partner lead."
+      }
+    },
+    "accounts": {
+      "clients": {
+        "title": "Client account roster",
+        "description": "Review every client profile that has been provisioned.",
+        "empty": "No client accounts have been created yet."
+      },
+      "staff": {
+        "title": "Staff workspace roster",
+        "description": "See the teammates who can access internal tooling.",
+        "empty": "No staff accounts have been created yet."
+      },
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "createdAt": "Created"
+      }
+    },
+    "visitors": {
+      "title": "Visitor traffic",
+      "description": "We count a visitor the moment a new analytics cookie is issued.",
+      "tabs": {
+        "hourly": "Last 24 hours",
+        "daily": "Last 7 days"
+      },
+      "empty": {
+        "hourly": "No new visitor sessions were recorded in the last 24 hours.",
+        "daily": "No new visitor sessions were recorded in the last 7 days."
+      },
+      "tooltip": {
+        "hour": "{count, plural, one {{count} visitor between {start}–{end}} other {{count} visitors between {start}–{end}}}",
+        "day": "{count, plural, one {{count} visitor on {day}} other {{count} visitors on {day}}}"
+      }
+    },
+    "meetings": {
+      "title": "Upcoming meetings",
+      "empty": "No meetings scheduled yet. New bookings will appear here instantly.",
+      "fields": {
+        "when": "When",
+        "reason": "Reason",
+        "contact": "Contact",
+        "staff": "Owner",
+        "notes": "Slot notes"
+      }
+    },
+    "nextSteps": {
+      "title": "Next steps",
+      "items": {
+        "audit": "Audit onboarding journeys for clients without recent logins and schedule success calls.",
+        "outreach": "Coordinate with delivery leads to share the new AI maturity playbook with their accounts.",
+        "briefings": "Prepare January leadership briefings showcasing ROI metrics from automation pilots."
       }
     }
   },
