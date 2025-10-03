@@ -28,6 +28,7 @@
       "messages": "Berichten",
       "overview": "Overzicht",
       "planning": "Planning",
+      "hoursSaved": "Uren bespaard",
       "resources": "Bronnen"
     },
     "membersMenu": {
@@ -1171,32 +1172,100 @@
     "ctaNote": "Deel vertrouwelijke updates zorgvuldig. Stuur dit door naar bestuurders die inzicht nodig hebben."
   },
   "Dashboard": {
-    "eyebrow": "Staff-dashboard",
-    "title": "Gezondheid van TransformAI-accounts",
-    "subtitle": "Volg hoeveel klant- en staff-accounts actief zijn op het platform.",
+    "title": "Planner voor bespaarde uren",
+    "subtitle": "Stel de startwaarde in en beheer de uurlijkse toevoegingen voor de komende zeven dagen.",
     "currentUser": "Ingelogd als {email}",
-  "metrics": {
-    "clients": {
-      "title": "Klantaccounts",
-      "caption": "{count, plural, one {# klant actief} other {# klanten actief}}"
-    },
-    "staff": {
-      "title": "Staff-accounts",
-      "caption": "{count, plural, one {# collega online} other {# collega's online}}"
-    },
-    "visitors": {
-      "title": "Unieke bezoekers",
-      "caption": "{count, plural, one {# bezoekersessie geregistreerd} other {# bezoekersessies geregistreerd}}"
+    "summary": {
+      "currentLabel": "Huidige teller",
+      "currentValue": "{amount} uur totaal",
+      "nextLabel": "Volgende update",
+      "nextValue": "{time}",
+      "noUpcoming": "Geen ingeplande updates in de komende 7 dagen."
     },
     "hoursSaved": {
-      "title": "Bespaarde uren met AI",
-      "caption": "{count, plural, one {# uur geautomatiseerd} other {# uren geautomatiseerd}}"
-    },
-    "ratio": {
-      "title": "Verhouding klant/staff",
-      "caption": "Een gezonde dekking ligt tussen 4:1 en 8:1 zodat elk project een partnerlead heeft."
+      "base": {
+        "label": "Startwaarde",
+        "helper": "Zet de teller direct op dit totaal."
+      },
+      "days": {
+        "heading": "Plan de komende 7 dagen",
+        "helper": "Kies een dag om de uurlijkse toevoegingen aan te passen.",
+        "todayBadge": "Vandaag",
+        "todaySummary": "Huidig venster {window}. {remaining, plural, one {# uur resterend vandaag.} other {# uren resterend vandaag.}}",
+        "daySummary": "{count, plural, one {# uur gepland.} other {# uren gepland.}}",
+        "hourButtonAria": "Bewerk {time}. Momenteel {amount} uur."
+      },
+      "editor": {
+        "title": "Werk {time} bij",
+        "helper": "Bepaal hoeveel uur er op dit tijdstip automatisch wordt toegevoegd.",
+        "amountLabel": "Uren",
+        "amountSuffix": "uur"
+      },
+      "actions": {
+        "submit": "Wijzigingen doorvoeren",
+        "saving": "Bezig…",
+        "copy": "Dag kopiëren",
+        "copyClose": "Kopiëren sluiten"
+      },
+      "copy": {
+        "title": "Kopieer schema naar andere dagen",
+        "description": "Herbruik het uurschema van één dag en pas het elders toe.",
+        "sourceLabel": "Kopieer van",
+        "targetLabel": "Toepassen op",
+        "helper": "Geselecteerde dagen worden overschreven met deze waarden.",
+        "apply": "Kopie toepassen",
+        "cancel": "Annuleren"
+      },
+      "status": {
+        "success": "Schema voor bespaarde uren bijgewerkt.",
+        "error": "Bijwerken is mislukt. Probeer het opnieuw.",
+        "validation": "Voer voor de startwaarde en elk uur een niet-negatieve waarde in.",
+        "copyValidation": "Selecteer een bron-dag en minstens één dag om naar te kopiëren.",
+        "copySuccess": "Dag succesvol gekopieerd."
+      }
     }
   },
+  "DashboardOverview": {
+    "eyebrow": "Teamomgeving",
+    "title": "Kies welke module je wilt openen",
+    "subtitle": "Start direct in de tools die je vandaag nodig hebt. Elke module blijft binnen de beveiligde TransformAI-teamomgeving.",
+    "currentUser": "Ingelogd als {email}",
+    "cta": "Openen",
+    "sections": {
+      "hoursSaved": {
+        "eyebrow": "Uren bespaard",
+        "title": "Stel de AI-urenteller af",
+        "description": "Reset de startwaarde en plan de automatische toevoegingen voor de komende zeven dagen."
+      },
+      "planning": {
+        "eyebrow": "Planning",
+        "title": "Stem de agenda af",
+        "description": "Bekijk de beschikbaarheid, wijs collega’s toe en publiceer aankomende TransformAI-strategiesessies."
+      }
+    },
+    "metrics": {
+      "clients": {
+        "title": "Klantaccounts",
+        "caption": "{count, plural, one {# klant actief} other {# klanten actief}}"
+      },
+      "staff": {
+        "title": "Staff-accounts",
+        "caption": "{count, plural, one {# collega online} other {# collega's online}}"
+      },
+      "visitors": {
+        "title": "Unieke bezoekers",
+        "caption": "{count, plural, one {# bezoekersessie geregistreerd} other {# bezoekersessies geregistreerd}}"
+      },
+      "hoursSaved": {
+        "title": "Bespaarde uren met AI",
+        "caption": "{count, plural, one {# uur geautomatiseerd} other {# uren geautomatiseerd}}",
+        "manage": "Planner openen"
+      },
+      "ratio": {
+        "title": "Verhouding klant/staff",
+        "caption": "Een gezonde dekking ligt tussen 4:1 en 8:1 zodat elk project een partnerlead heeft."
+      }
+    },
     "accounts": {
       "clients": {
         "title": "Overzicht klantaccounts",

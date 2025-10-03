@@ -9,6 +9,7 @@ import {
   HOURS_SAVED_WINDOW_HOURS,
   addHours,
   nextHour,
+  randomizeWithinHour,
 } from "@/lib/hours-saved/constants";
 
 const scheduleItemSchema = z.object({
@@ -48,10 +49,15 @@ export async function updateHoursSavedScheduleAction(locale: string, payload: un
     }))
     .sort((a, b) => a.scheduledFor.getTime() - b.scheduledFor.getTime());
 
-  const normalizedSchedule = sortedEntries.map((entry, index) => ({
-    scheduledFor: addHours(windowStart, index),
-    amount: entry.amount,
-  }));
+  const usedTimestamps = new Set<number>();
+  const normalizedSchedule = sortedEntries.map((entry, index) => {
+    const hourStart = addHours(windowStart, index);
+    const scheduledFor = randomizeWithinHour(hourStart, usedTimestamps);
+    return {
+      scheduledFor,
+      amount: entry.amount,
+    };
+  });
 
   try {
     await updateHoursSavedSettings({
@@ -66,6 +72,7 @@ export async function updateHoursSavedScheduleAction(locale: string, payload: un
 
   await revalidatePath(`/${locale}`);
   await revalidatePath(`/${locale}/dashboard`);
+  await revalidatePath(`/${locale}/dashboard/hours-saved`);
 
   return { success: true as const };
 }
