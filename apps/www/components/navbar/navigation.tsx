@@ -11,6 +11,7 @@ import {
 import { Link, usePathname } from "@/i18n/navigation";
 import { locales } from "@/i18n/routing";
 import { useAccountHistory } from "@/hooks/use-account-history";
+import { rememberAccount, resolveAccountDestination } from "@/lib/account-history";
 import { cn } from "@/lib/utils";
 import { useConsentManager } from "@c15t/nextjs";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
@@ -304,24 +305,35 @@ function MembersMenu({ className }: { className?: string }) {
                 {t("membersMenu.continueHeading")}
               </p>
               <div className="flex flex-col gap-2">
-                {accounts.map((account) => (
-                  <MembersAccountLink
-                    key={account.id}
-                    href={account.role === "staff" ? "/dashboard" : "/newsupdates"}
-                    name={account.name?.trim() || account.email}
-                    subtitle={
-                      account.role === "staff"
-                        ? t("membersMenu.continueRole.staff")
-                        : t("membersMenu.continueRole.client")
-                    }
-                    onClick={() => {
-                      setOpen(false);
-                      if (hasConsentFor("measurement")) {
-                        track("members-continue", { role: account.role, surface: "navigation" });
+                {accounts.map((account) => {
+                  const destination = resolveAccountDestination(account);
+
+                  return (
+                    <MembersAccountLink
+                      key={account.id}
+                      href={destination}
+                      name={account.name?.trim() || account.email}
+                      subtitle={
+                        account.role === "staff"
+                          ? t("membersMenu.continueRole.staff")
+                          : t("membersMenu.continueRole.client")
                       }
-                    }}
-                  />
-                ))}
+                      onClick={() => {
+                        setOpen(false);
+                        rememberAccount({
+                          id: account.id,
+                          email: account.email,
+                          name: account.name ?? null,
+                          role: account.role,
+                          destination,
+                        });
+                        if (hasConsentFor("measurement")) {
+                          track("members-continue", { role: account.role, surface: "navigation" });
+                        }
+                      }}
+                    />
+                  );
+                })}
               </div>
             </div>
           ) : null}
@@ -386,26 +398,37 @@ const MembersDrawerMenu = ({ onNavigate }: MembersDrawerMenuProps) => {
                 {t("membersMenu.continueHeading")}
               </p>
               <div className="flex flex-col gap-2">
-                {accounts.map((account) => (
-                  <MembersAccountLink
-                    key={account.id}
-                    href={account.role === "staff" ? "/dashboard" : "/newsupdates"}
-                    name={account.name?.trim() || account.email}
-                    subtitle={
-                      account.role === "staff"
-                        ? t("membersMenu.continueRole.staff")
-                        : t("membersMenu.continueRole.client")
-                    }
-                    className="border-white/10 bg-white/5"
-                    onClick={() => {
-                      setOpen(false);
-                      onNavigate();
-                      if (hasConsentFor("measurement")) {
-                        track("members-continue", { role: account.role, surface: "navigation-mobile" });
+                {accounts.map((account) => {
+                  const destination = resolveAccountDestination(account);
+
+                  return (
+                    <MembersAccountLink
+                      key={account.id}
+                      href={destination}
+                      name={account.name?.trim() || account.email}
+                      subtitle={
+                        account.role === "staff"
+                          ? t("membersMenu.continueRole.staff")
+                          : t("membersMenu.continueRole.client")
                       }
-                    }}
-                  />
-                ))}
+                      className="border-white/10 bg-white/5"
+                      onClick={() => {
+                        setOpen(false);
+                        rememberAccount({
+                          id: account.id,
+                          email: account.email,
+                          name: account.name ?? null,
+                          role: account.role,
+                          destination,
+                        });
+                        onNavigate();
+                        if (hasConsentFor("measurement")) {
+                          track("members-continue", { role: account.role, surface: "navigation-mobile" });
+                        }
+                      }}
+                    />
+                  );
+                })}
               </div>
             </div>
           ) : null}
@@ -485,6 +508,7 @@ function MembersAccountLink({ href, name, subtitle, className, onClick }: Member
   return (
     <Link
       href={href}
+      prefetch={false}
       onClick={onClick}
       role="menuitem"
       className={cn(
