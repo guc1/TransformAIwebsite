@@ -28,6 +28,7 @@
       "messages": "Messages",
       "overview": "Overview",
       "planning": "Planning",
+      "hoursSaved": "Hours saved",
       "resources": "Resources"
     },
     "membersMenu": {
@@ -1214,82 +1215,74 @@
     "ctaNote": "Share confidential updates responsibly. Forward this space to leadership teams that need visibility."
   },
   "Dashboard": {
-    "eyebrow": "Staff dashboard",
-    "title": "TransformAI account health",
-    "subtitle": "Monitor how many client and staff seats are active across the platform.",
+    "title": "Hours saved planner",
+    "subtitle": "Set the starting total and adjust hourly increments for the next seven days.",
     "currentUser": "Signed in as {email}",
-  "metrics": {
-    "clients": {
-      "title": "Client accounts",
-      "caption": "{count, plural, one {# client live} other {# clients live}}"
+    "summary": {
+      "currentLabel": "Current ticker",
+      "currentValue": "{amount} hrs total",
+      "nextLabel": "Next update",
+      "nextValue": "{time}",
+      "noUpcoming": "No scheduled updates in the next 7 days."
     },
-    "staff": {
-      "title": "Staff accounts",
-      "caption": "{count, plural, one {# internal teammate online} other {# internal teammates online}}"
-    },
-    "visitors": {
-      "title": "Unique visitors",
-      "caption": "{count, plural, one {# visitor session recorded} other {# visitor sessions recorded}}"
-  },
-  "hoursSaved": {
-      "title": "Hours saved with AI",
-      "caption": "{count, plural, one {# hour automated} other {# hours automated}}"
-    },
-    "ratio": {
-      "title": "Client-to-staff ratio",
-      "caption": "Healthy coverage is between 4:1 and 8:1 so every project has a partner lead."
+    "hoursSaved": {
+      "base": {
+        "label": "Starting amount",
+        "helper": "Resets the ticker to this total immediately."
+      },
+      "days": {
+        "heading": "Plan the next 7 days",
+        "helper": "Select a day to edit the hourly increments.",
+        "todayBadge": "Today",
+        "todaySummary": "Current window {window}. {remaining, plural, one {# hour left today.} other {# hours left today.}}",
+        "daySummary": "{count, plural, one {# hour scheduled.} other {# hours scheduled.}}",
+        "hourButtonAria": "Edit {time}. Currently {amount} hours."
+      },
+      "editor": {
+        "title": "Update {time}",
+        "helper": "Set how many hours will be added automatically at this time.",
+        "amountLabel": "Hours",
+        "amountSuffix": "hrs"
+      },
+      "actions": {
+        "submit": "Push changes",
+        "saving": "Saving…",
+        "copy": "Copy day",
+        "copyClose": "Close copy"
+      },
+      "copy": {
+        "title": "Copy schedule to other days",
+        "description": "Reuse the hourly plan from one day and apply it elsewhere.",
+        "sourceLabel": "Copy from",
+        "targetLabel": "Apply to",
+        "helper": "Selecting a day overwrites its hourly values.",
+        "apply": "Apply copy",
+        "cancel": "Cancel"
+      },
+      "status": {
+        "success": "Hours saved schedule updated.",
+        "error": "We couldn't update the schedule. Try again.",
+        "validation": "Enter a non-negative value for the starting amount and each hour.",
+        "copyValidation": "Select a source day and at least one day to copy to.",
+        "copySuccess": "Day copied successfully."
+      }
     }
   },
-    "accounts": {
-      "clients": {
-        "title": "Client account roster",
-        "description": "Review every client profile that has been provisioned.",
-        "empty": "No client accounts have been created yet."
+  "DashboardOverview": {
+    "eyebrow": "Staff workspace",
+    "title": "Choose the area you want to manage",
+    "subtitle": "Jump straight into the tools you need today. Each module keeps its data within the TransformAI staff workspace.",
+    "cta": "Open",
+    "sections": {
+      "hoursSaved": {
+        "eyebrow": "Hours saved",
+        "title": "Tune the AI hours ticker",
+        "description": "Reset the starting total and plan the automatic increments for the next seven days."
       },
-      "staff": {
-        "title": "Staff workspace roster",
-        "description": "See the teammates who can access internal tooling.",
-        "empty": "No staff accounts have been created yet."
-      },
-      "columns": {
-        "name": "Name",
-        "email": "Email",
-        "createdAt": "Created"
-      }
-    },
-    "visitors": {
-      "title": "Visitor traffic",
-      "description": "We count a visitor the moment a new analytics cookie is issued.",
-      "tabs": {
-        "hourly": "Last 24 hours",
-        "daily": "Last 7 days"
-      },
-      "empty": {
-        "hourly": "No new visitor sessions were recorded in the last 24 hours.",
-        "daily": "No new visitor sessions were recorded in the last 7 days."
-      },
-      "tooltip": {
-        "hour": "{count, plural, one {{count} visitor between {start}–{end}} other {{count} visitors between {start}–{end}}}",
-        "day": "{count, plural, one {{count} visitor on {day}} other {{count} visitors on {day}}}"
-      }
-    },
-    "meetings": {
-      "title": "Upcoming meetings",
-      "empty": "No meetings scheduled yet. New bookings will appear here instantly.",
-      "fields": {
-        "when": "When",
-        "reason": "Reason",
-        "contact": "Contact",
-        "staff": "Owner",
-        "notes": "Slot notes"
-      }
-    },
-    "nextSteps": {
-      "title": "Next steps",
-      "items": {
-        "audit": "Audit onboarding journeys for clients without recent logins and schedule success calls.",
-        "outreach": "Coordinate with delivery leads to share the new AI maturity playbook with their accounts.",
-        "briefings": "Prepare January leadership briefings showcasing ROI metrics from automation pilots."
+      "planning": {
+        "eyebrow": "Planning",
+        "title": "Coordinate the meeting agenda",
+        "description": "Review availability, assign colleagues, and publish upcoming TransformAI strategy sessions."
       }
     }
   },

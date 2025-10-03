@@ -8,6 +8,8 @@ import {
   addHours,
   getDefaultIncrementFor,
   nextHour,
+  randomizeWithinHour,
+  startOfHour,
 } from "./constants";
 
 export type HoursSavedScheduleEntry = {
@@ -68,15 +70,20 @@ async function ensureUpcomingSchedule(
       ),
     );
 
-  const existingSet = new Set(existing.map((entry) => entry.scheduledFor.toISOString()));
+  const existingHourKeys = new Set(
+    existing.map((entry) => startOfHour(entry.scheduledFor).toISOString()),
+  );
+  const usedTimestamps = new Set(existing.map((entry) => entry.scheduledFor.getTime()));
   const inserts: { stateId: string; scheduledFor: Date; amount: number }[] = [];
 
   for (let offset = 0; offset < HOURS_SAVED_WINDOW_HOURS; offset += 1) {
-    const scheduledFor = addHours(windowStart, offset);
-
-    if (existingSet.has(scheduledFor.toISOString())) {
+    const hourStart = addHours(windowStart, offset);
+    if (existingHourKeys.has(hourStart.toISOString())) {
       continue;
     }
+
+    const scheduledFor = randomizeWithinHour(hourStart, usedTimestamps);
+    existingHourKeys.add(hourStart.toISOString());
 
     inserts.push({
       stateId,
@@ -135,15 +142,33 @@ export async function getHoursSavedOverview(now: Date = new Date()): Promise<Hou
     )
     .orderBy(asc(hoursSavedIncrements.scheduledFor));
 
+  const seenHours = new Set<string>();
+  const scheduleEntries: HoursSavedScheduleEntry[] = [];
+
+  for (const row of scheduleRows) {
+    const hourKey = startOfHour(row.scheduledFor).toISOString();
+
+    if (seenHours.has(hourKey)) {
+      continue;
+    }
+
+    seenHours.add(hourKey);
+    scheduleEntries.push({
+      scheduledFor: row.scheduledFor,
+      amount: row.amount,
+    });
+
+    if (scheduleEntries.length === HOURS_SAVED_WINDOW_HOURS) {
+      break;
+    }
+  }
+
   return {
     baseAmount: state.baseAmount,
     baseSetAt: state.baseSetAt,
     currentAmount: state.baseAmount + applied,
-    nextUpdateAt: scheduleRows[0]?.scheduledFor ?? null,
-    schedule: scheduleRows.map((row) => ({
-      scheduledFor: row.scheduledFor,
-      amount: row.amount,
-    })),
+    nextUpdateAt: scheduleEntries[0]?.scheduledFor ?? null,
+    schedule: scheduleEntries,
   };
 }
 
