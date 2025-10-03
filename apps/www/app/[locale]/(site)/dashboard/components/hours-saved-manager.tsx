@@ -1,13 +1,7 @@
 "use client";
 
 import type { FormEvent } from "react";
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useTransition,
-} from "react";
+import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,21 +10,29 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
 import { updateHoursSavedScheduleAction } from "../hours-saved-actions";
+import { HOURS_SAVED_WINDOW_HOURS } from "@/lib/hours-saved/constants";
 import {
-  HOURS_SAVED_WINDOW_HOURS,
-  startOfHour,
-} from "@/lib/hours-saved/constants";
+  buildScheduleDisplay,
+  createHoursSavedFormatters,
+  type ScheduleDisplayEntry,
+} from "@/lib/hours-saved/format";
 
 type ScheduleRowState = {
   scheduledFor: Date;
+  scheduledForIso: string;
   input: string;
+  dayKey: string;
+  dayLabel: string;
+  hourCode: string;
+  rangeLabel: string;
 };
 
 type HoursSavedManagerProps = {
   locale: string;
   timeZone: string;
   baseAmount: number;
-  schedule: { scheduledFor: string; amount: number }[];
+  schedule: ScheduleDisplayEntry[];
+  referenceDayKey: string;
 };
 
 type DayEntry = {
@@ -47,147 +49,82 @@ type DayBucket = {
   entries: DayEntry[];
 };
 
-function sortSchedule(entries: { scheduledFor: string; amount: number }[]): ScheduleRowState[] {
-  const sorted = [...entries].sort(
-    (a, b) => new Date(a.scheduledFor).getTime() - new Date(b.scheduledFor).getTime(),
-  );
-
-  const seenHours = new Set<string>();
-  const sanitized: ScheduleRowState[] = [];
-
-  for (const entry of sorted) {
-    const scheduledFor = new Date(entry.scheduledFor);
-    const hourKey = startOfHour(scheduledFor).toISOString();
-
-    if (seenHours.has(hourKey)) {
-      continue;
-    }
-
-    seenHours.add(hourKey);
-    sanitized.push({
-      scheduledFor,
-      input: entry.amount.toString(),
-    });
-
-    if (sanitized.length === HOURS_SAVED_WINDOW_HOURS) {
-      break;
-    }
-  }
-
-  return sanitized;
-}
-
-function getPart(parts: Intl.DateTimeFormatPart[], type: Intl.DateTimeFormatPart["type"]) {
-  return parts.find((part) => part.type === type)?.value ?? "";
-}
-
-export function HoursSavedManager({ locale, timeZone, baseAmount, schedule }: HoursSavedManagerProps) {
+export function HoursSavedManager({
+  locale,
+  timeZone,
+  baseAmount,
+  schedule,
+  referenceDayKey,
+}: HoursSavedManagerProps) {
   const t = useTranslations("Dashboard.hoursSaved");
 
   const [baseValue, setBaseValue] = useState(baseAmount.toString());
-  const [rows, setRows] = useState<ScheduleRowState[]>(() => sortSchedule(schedule));
+  const [rows, setRows] = useState<ScheduleRowState[]>(() =>
+    schedule.slice(0, HOURS_SAVED_WINDOW_HOURS).map((entry) => ({
+      scheduledFor: new Date(entry.scheduledFor),
+      scheduledForIso: entry.scheduledFor,
+      input: entry.amount.toString(),
+      dayKey: entry.dayKey,
+      dayLabel: entry.dayLabel,
+      hourCode: entry.hourCode,
+      rangeLabel: entry.rangeLabel,
+    })),
+  );
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const [selectedDay, setSelectedDay] = useState<string>("");
-  const [activeHour, setActiveHour] = useState<string>("");
+  const [selectedDay, setSelectedDay] = useState<string>(referenceDayKey);
+  const [activeHour, setActiveHour] = useState<string>(schedule[0]?.scheduledFor ?? "");
   const [copyMode, setCopyMode] = useState(false);
   const [copySource, setCopySource] = useState<string | null>(null);
   const [copyTargets, setCopyTargets] = useState<string[]>([]);
 
-  const timeFormatter = useMemo(
-    () =>
-      new Intl.DateTimeFormat(locale, {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-        timeZone,
-      }),
+  const formatters = useMemo(
+    () => createHoursSavedFormatters(locale, timeZone),
     [locale, timeZone],
   );
 
-  const dayLabelFormatter = useMemo(
-    () =>
-      new Intl.DateTimeFormat(locale, {
-        weekday: "short",
-        day: "numeric",
-        month: "short",
-        timeZone,
-      }),
-    [locale, timeZone],
-  );
+  const todayKey = referenceDayKey;
 
-  const dayKeyFormatter = useMemo(
-    () =>
-      new Intl.DateTimeFormat("en-CA", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        timeZone,
-      }),
-    [timeZone],
+  const buildRowsFromSchedule = useCallback(
+    (entries: { scheduledFor: string; amount: number }[]) =>
+      buildScheduleDisplay(entries, formatters).map((entry) => ({
+        scheduledFor: new Date(entry.scheduledFor),
+        scheduledForIso: entry.scheduledFor,
+        input: entry.amount.toString(),
+        dayKey: entry.dayKey,
+        dayLabel: entry.dayLabel,
+        hourCode: entry.hourCode,
+        rangeLabel: entry.rangeLabel,
+      })),
+    [formatters],
   );
-
-  const getHourCode = useCallback(
-    (date: Date) => {
-      const parts = timeFormatter.formatToParts(date);
-      const hour = parts.find((part) => part.type === "hour")?.value ?? "00";
-      return hour.padStart(2, "0");
-    },
-    [timeFormatter],
-  );
-
-  const getRangeLabel = useCallback(
-    (date: Date) => {
-      const hourCode = getHourCode(date);
-      const startLabel = `${hourCode}:00`;
-      const endHour = (Number.parseInt(hourCode, 10) + 1) % 24;
-      const endLabel = `${endHour.toString().padStart(2, "0")}:00`;
-      return `${startLabel} – ${endLabel}`;
-    },
-    [getHourCode],
-  );
-
-  const getDayKey = useCallback(
-    (date: Date) => {
-      const parts = dayKeyFormatter.formatToParts(date);
-      const year = getPart(parts, "year");
-      const month = getPart(parts, "month");
-      const day = getPart(parts, "day");
-      return `${year}-${month}-${day}`;
-    },
-    [dayKeyFormatter],
-  );
-
-  const todayKey = useMemo(() => getDayKey(new Date()), [getDayKey]);
 
   const dayBuckets: DayBucket[] = useMemo(() => {
     const byDay = new Map<string, DayBucket>();
 
     for (const row of rows) {
-      const key = getDayKey(row.scheduledFor);
-      const label = dayLabelFormatter.format(row.scheduledFor);
-      const bucket = byDay.get(key);
+      const bucket = byDay.get(row.dayKey);
 
       if (bucket) {
         bucket.entries.push({
-          id: row.scheduledFor.toISOString(),
-          hourCode: getHourCode(row.scheduledFor),
-          rangeLabel: getRangeLabel(row.scheduledFor),
+          id: row.scheduledForIso,
+          hourCode: row.hourCode,
+          rangeLabel: row.rangeLabel,
           row,
         });
         continue;
       }
 
-      byDay.set(key, {
-        key,
-        label,
-        isToday: key === todayKey,
+      byDay.set(row.dayKey, {
+        key: row.dayKey,
+        label: row.dayLabel,
+        isToday: row.dayKey === todayKey,
         entries: [
           {
-            id: row.scheduledFor.toISOString(),
-            hourCode: getHourCode(row.scheduledFor),
-            rangeLabel: getRangeLabel(row.scheduledFor),
+            id: row.scheduledForIso,
+            hourCode: row.hourCode,
+            rangeLabel: row.rangeLabel,
             row,
           },
         ],
@@ -200,7 +137,7 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule }: Ho
         (a, b) => a.row.scheduledFor.getTime() - b.row.scheduledFor.getTime(),
       ),
     }));
-  }, [rows, getDayKey, dayLabelFormatter, getHourCode, getRangeLabel, todayKey]);
+  }, [rows, todayKey]);
 
   useEffect(() => {
     if (selectedDay && dayBuckets.some((bucket) => bucket.key === selectedDay)) {
@@ -248,7 +185,7 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule }: Ho
 
     setRows((current) =>
       current.map((row) =>
-        row.scheduledFor.toISOString() === activeEntry.id ? { ...row, input: value } : row,
+        row.scheduledForIso === activeEntry.id ? { ...row, input: value } : row,
       ),
     );
     setStatus("idle");
@@ -294,7 +231,7 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule }: Ho
       }
 
       schedulePayload.push({
-        scheduledFor: row.scheduledFor.toISOString(),
+        scheduledFor: row.scheduledForIso,
         amount: parsed,
       });
     }
@@ -317,7 +254,7 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule }: Ho
         const response = await fetch("/api/hours-saved", { cache: "no-store" });
         if (response.ok) {
           const data = await response.json();
-          setRows(sortSchedule(data.schedule));
+          setRows(buildRowsFromSchedule(data.schedule));
           setBaseValue(data.baseAmount.toString());
         }
       } catch (error) {
@@ -377,13 +314,11 @@ export function HoursSavedManager({ locale, timeZone, baseAmount, schedule }: Ho
 
     setRows((current) =>
       current.map((row) => {
-        const dayKey = getDayKey(row.scheduledFor);
-        if (!copyTargets.includes(dayKey)) {
+        if (!copyTargets.includes(row.dayKey)) {
           return row;
         }
 
-        const hourCode = getHourCode(row.scheduledFor);
-        const replacement = sourceValues.get(hourCode);
+        const replacement = sourceValues.get(row.hourCode);
         if (replacement === undefined) {
           return row;
         }
