@@ -1218,24 +1218,28 @@
     "title": "TransformAI account health",
     "subtitle": "Monitor how many client and staff seats are active across the platform.",
     "currentUser": "Signed in as {email}",
-    "metrics": {
-      "clients": {
-        "title": "Client accounts",
-        "caption": "{count, plural, one {# client live} other {# clients live}}"
-      },
-      "staff": {
-        "title": "Staff accounts",
-        "caption": "{count, plural, one {# internal teammate online} other {# internal teammates online}}"
-      },
-      "visitors": {
-        "title": "Unique visitors",
-        "caption": "{count, plural, one {# visitor session recorded} other {# visitor sessions recorded}}"
-      },
-      "ratio": {
-        "title": "Client-to-staff ratio",
-        "caption": "Healthy coverage is between 4:1 and 8:1 so every project has a partner lead."
-      }
+  "metrics": {
+    "clients": {
+      "title": "Client accounts",
+      "caption": "{count, plural, one {# client live} other {# clients live}}"
     },
+    "staff": {
+      "title": "Staff accounts",
+      "caption": "{count, plural, one {# internal teammate online} other {# internal teammates online}}"
+    },
+    "visitors": {
+      "title": "Unique visitors",
+      "caption": "{count, plural, one {# visitor session recorded} other {# visitor sessions recorded}}"
+  },
+  "hoursSaved": {
+      "title": "Hours saved with AI",
+      "caption": "{count, plural, one {# hour automated} other {# hours automated}}"
+    },
+    "ratio": {
+      "title": "Client-to-staff ratio",
+      "caption": "Healthy coverage is between 4:1 and 8:1 so every project has a partner lead."
+    }
+  },
     "accounts": {
       "clients": {
         "title": "Client account roster",
@@ -1287,6 +1291,39 @@
         "outreach": "Coordinate with delivery leads to share the new AI maturity playbook with their accounts.",
         "briefings": "Prepare January leadership briefings showcasing ROI metrics from automation pilots."
       }
+    }
+  },
+  "hoursSaved": {
+    "dialog": {
+      "title": "Automate the hours saved ticker",
+      "description": "Plan the upcoming automation. Times use {timeZone}.",
+      "baseLabel": "Starting amount",
+      "baseHelper": "Resets the ticker to this total immediately.",
+      "scheduleHeading": "Plan upcoming hours",
+      "scheduleDescription": "Preview the next seven days. Times use {timeZone}.",
+      "dayListLabel": "Next seven days",
+      "todayBadge": "Today",
+      "nextBadge": "Next",
+      "hoursPlanned": "Queued {count} hrs",
+      "hourDetailHeading": "Edit hour",
+      "hourDetailTimeLabel": "Scheduled time",
+      "hourDetailAmountLabel": "Hours added",
+      "hourDetailHelper": "Set how many hours should be added when this block triggers.",
+      "hourDetailEmpty": "Select an hour from the grid to edit its amount.",
+      "copyButton": "Copy day",
+      "copyPanelTitle": "Reuse a day",
+      "copyPanelDescription": "Choose a source day and the days that should inherit its hourly amounts.",
+      "copySourceLabel": "Source day",
+      "copyTargetLabel": "Apply to days",
+      "copyApply": "Apply copy",
+      "copyCancel": "Cancel copy",
+      "submit": "Push changes",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "success": "Hours saved schedule updated.",
+      "error": "We couldn’t update the schedule. Try again.",
+      "validation": "Enter a non-negative value for each field.",
+      "amountSuffix": "hrs"
     }
   }
 }
