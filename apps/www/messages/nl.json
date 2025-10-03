@@ -1175,24 +1175,28 @@
     "title": "Gezondheid van TransformAI-accounts",
     "subtitle": "Volg hoeveel klant- en staff-accounts actief zijn op het platform.",
     "currentUser": "Ingelogd als {email}",
-    "metrics": {
-      "clients": {
-        "title": "Klantaccounts",
-        "caption": "{count, plural, one {# klant actief} other {# klanten actief}}"
-      },
-      "staff": {
-        "title": "Staff-accounts",
-        "caption": "{count, plural, one {# collega online} other {# collega's online}}"
-      },
-      "visitors": {
-        "title": "Unieke bezoekers",
-        "caption": "{count, plural, one {# bezoekersessie geregistreerd} other {# bezoekersessies geregistreerd}}"
-      },
-      "ratio": {
-        "title": "Verhouding klant/staff",
-        "caption": "Een gezonde dekking ligt tussen 4:1 en 8:1 zodat elk project een partnerlead heeft."
-      }
+  "metrics": {
+    "clients": {
+      "title": "Klantaccounts",
+      "caption": "{count, plural, one {# klant actief} other {# klanten actief}}"
     },
+    "staff": {
+      "title": "Staff-accounts",
+      "caption": "{count, plural, one {# collega online} other {# collega's online}}"
+    },
+    "visitors": {
+      "title": "Unieke bezoekers",
+      "caption": "{count, plural, one {# bezoekersessie geregistreerd} other {# bezoekersessies geregistreerd}}"
+    },
+    "hoursSaved": {
+      "title": "Bespaarde uren met AI",
+      "caption": "{count, plural, one {# uur geautomatiseerd} other {# uren geautomatiseerd}}"
+    },
+    "ratio": {
+      "title": "Verhouding klant/staff",
+      "caption": "Een gezonde dekking ligt tussen 4:1 en 8:1 zodat elk project een partnerlead heeft."
+    }
+  },
     "accounts": {
       "clients": {
         "title": "Overzicht klantaccounts",
@@ -1244,6 +1248,39 @@
         "outreach": "Stem met delivery leads af om het nieuwe AI-maturiteitsplaybook bij hun accounts te delen.",
         "briefings": "Bereid leiderschapsbriefings voor januari voor met ROI-cijfers uit de automatiseringspilots."
       }
+    }
+  },
+  "hoursSaved": {
+    "dialog": {
+      "title": "Automatiseer de teller voor bespaarde uren",
+      "description": "Plan de komende automatisering. Tijden gebruiken {timeZone}.",
+      "baseLabel": "Startwaarde",
+      "baseHelper": "Zet de teller direct op dit totaal.",
+      "scheduleHeading": "Komende uren plannen",
+      "scheduleDescription": "Bekijk de komende zeven dagen. Tijden gebruiken {timeZone}.",
+      "dayListLabel": "Komende zeven dagen",
+      "todayBadge": "Vandaag",
+      "nextBadge": "Volgende",
+      "hoursPlanned": "Ingepland: {count} uur",
+      "hourDetailHeading": "Uur bewerken",
+      "hourDetailTimeLabel": "Geplande tijd",
+      "hourDetailAmountLabel": "Toe te voegen uren",
+      "hourDetailHelper": "Bepaal hoeveel uren dit blok moet bijschrijven.",
+      "hourDetailEmpty": "Kies een uur in het raster om het aantal aan te passen.",
+      "copyButton": "Dag kopiëren",
+      "copyPanelTitle": "Dag hergebruiken",
+      "copyPanelDescription": "Selecteer een brondag en de dagen die dezelfde uren moeten krijgen.",
+      "copySourceLabel": "Brondag",
+      "copyTargetLabel": "Toepassen op dagen",
+      "copyApply": "Kopie toepassen",
+      "copyCancel": "Kopie annuleren",
+      "submit": "Wijzigingen doorvoeren",
+      "saving": "Bezig…",
+      "cancel": "Annuleren",
+      "success": "Schema voor bespaarde uren bijgewerkt.",
+      "error": "Bijwerken is mislukt. Probeer het opnieuw.",
+      "validation": "Voer voor elk veld een niet-negatieve waarde in.",
+      "amountSuffix": "uur"
     }
   }
 }
