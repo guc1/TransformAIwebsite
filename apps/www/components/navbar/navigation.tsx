@@ -21,6 +21,7 @@ import {
   ChevronDown,
   ChevronRight,
   LogIn,
+  MoreVertical,
   UserPlus,
   UsersRound,
   type LucideIcon,
@@ -168,7 +169,7 @@ export function Navigation() {
           homeAriaLabel={t("ariaHome")}
         />
       ) : (
-        <div className="container flex items-center justify-between">
+        <div className="container flex items-center justify-between gap-6">
           <div className="flex items-center justify-between w-full sm:w-auto sm:gap-12 lg:gap-20">
             <Link href="/" aria-label={t("ariaHome")} className="block shrink-0">
               <Logo scale={logoScale} />
@@ -177,9 +178,9 @@ export function Navigation() {
             <DesktopLinks className="hidden lg:flex" />
           </div>
           <div className="hidden sm:flex items-center gap-3 md:gap-4">
-            <LanguageSwitcher className="hidden md:flex" />
             <MembersMenu className="flex-shrink-0" />
             <ScheduleCallButton className="flex-shrink-0" />
+            <SettingsMenu className="flex-shrink-0" />
           </div>
         </div>
       )}
@@ -264,6 +265,56 @@ function LoggedInNavLink({
         </span>
       ) : null}
     </span>
+  );
+}
+
+function SettingsMenu({ className }: { className?: string }) {
+  const t = useTranslations("Navigation");
+  const [open, setOpen] = useState(false);
+  const contentId = "navigation-settings";
+
+  return (
+    <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
+      <PopoverPrimitive.Trigger asChild>
+        <button
+          type="button"
+          aria-label={t("settingsMenu.triggerLabel")}
+          aria-controls={contentId}
+          aria-expanded={open}
+          aria-haspopup="menu"
+          className={cn(
+            "relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/12 bg-white/10 text-white/70",
+            "transition-colors duration-200 hover:bg-white/15 hover:text-white",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+            "data-[state=open]:border-white/20 data-[state=open]:bg-white/15 data-[state=open]:text-white",
+            className,
+          )}
+        >
+          <MoreVertical className="h-4 w-4" aria-hidden="true" />
+          <span className="sr-only">{t("settingsMenu.triggerLabel")}</span>
+        </button>
+      </PopoverPrimitive.Trigger>
+      <PopoverPrimitive.Content
+        align="end"
+        sideOffset={16}
+        id={contentId}
+        className={cn(
+          "z-[120] w-56 rounded-2xl border border-white/12 bg-black/85 p-4 shadow-lg shadow-sky-500/15 backdrop-blur-xl",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        )}
+      >
+        <div role="menu" aria-label={t("settingsMenu.aria")} className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
+            <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/40">
+              {t("language")}
+            </p>
+            <LanguageSwitcher className="w-full justify-between text-sm text-white/80" />
+          </div>
+        </div>
+      </PopoverPrimitive.Content>
+    </PopoverPrimitive.Root>
   );
 }
 
@@ -675,7 +726,10 @@ function DesktopLinks({ className }: { className: string }) {
   const t = useTranslations("Navigation");
 
   return (
-    <ul className={cn("items-center hidden gap-8 lg:flex xl:gap-12", className)}>
+    <ul className={cn("hidden items-center gap-6 text-[15px] font-medium lg:flex xl:gap-10", className)}>
+      <li>
+        <DesktopNavLink href="/" label={t("links.home")} />
+      </li>
       <li>
         <DesktopNavLink href="/about" label={t("links.about")} />
       </li>

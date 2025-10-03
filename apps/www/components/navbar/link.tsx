@@ -17,13 +17,21 @@ export const DesktopNavLink: React.FC<Props> = ({ href, label, external }) => {
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
       className={cn(
-        "text-white/50 hover:text-white/90 duration-200 text-sm tracking-[0.07px]",
-        {
-          "text-white": isActive,
-        },
+        "group relative inline-flex items-center rounded-full border border-white/10 px-5 py-2 text-[15px] font-medium text-white/75 transition-all duration-300 ease-out backdrop-blur-sm",
+        "hover:border-white/20 hover:text-white",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+        isActive ? "border-sky-400/40 bg-white/5 text-white" : undefined,
       )}
+      aria-current={isActive ? "page" : undefined}
     >
-      {label}
+      <span
+        aria-hidden="true"
+        className={cn(
+          "pointer-events-none absolute -inset-1 rounded-full bg-sky-400/30 opacity-0 blur-lg transition duration-300 ease-out",
+          isActive ? "opacity-100" : undefined,
+        )}
+      />
+      <span className="relative z-10 tracking-[0.04em]">{label}</span>
     </Link>
   );
 };
