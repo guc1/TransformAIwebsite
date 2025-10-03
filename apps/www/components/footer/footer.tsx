@@ -9,41 +9,34 @@ type NavLink = {
   titleKey: string;
   href: string;
   external?: boolean;
+  disabled?: boolean;
 };
 const navigation = [
   {
     titleKey: "sections.company",
     links: [
       { titleKey: "links.about", href: "/about" },
-      { titleKey: "links.roadmap", href: "/roadmap" },
+      { titleKey: "links.roadmap", href: "/roadmap", disabled: true },
       { titleKey: "links.careers", href: "/careers" },
       { titleKey: "links.contact", href: "/contact" },
-      {
-        titleKey: "links.sourceCode",
-        href: "https://go.unkey.com/github",
-        external: true,
-      },
-      {
-        titleKey: "links.status",
-        href: "https://status.unkey.com",
-        external: true,
-      },
     ],
   },
   {
     titleKey: "sections.resources",
     links: [
       { titleKey: "links.blog", href: "/blog" },
-      { titleKey: "links.changelog", href: "/changelog" },
-      { titleKey: "links.templates", href: "/templates" },
+      { titleKey: "links.changelog", href: "/changelog", disabled: true },
+      { titleKey: "links.templates", href: "/templates", disabled: true },
       {
         titleKey: "links.docs",
         href: "/docs",
         external: true,
+        disabled: true,
       },
       {
         titleKey: "links.glossary",
         href: "/glossary",
+        disabled: true,
       },
     ],
   },
@@ -54,16 +47,27 @@ const navigation = [
         titleKey: "links.twitter",
         href: "https://go.unkey.com/twitter",
         external: true,
+        disabled: true,
       },
       {
         titleKey: "links.discord",
         href: "https://go.unkey.com/discord",
         external: true,
+        disabled: true,
       },
-      { titleKey: "links.ossFriends", href: "/oss-friends" },
       {
         titleKey: "links.bookCall",
-        href: "https://cal.com/team/unkey/user-interview?utm_source=banner&utm_campaign=oss",
+        href: "http://localhost:3002/en/meeting",
+        external: true,
+      },
+      {
+        titleKey: "links.facebook",
+        href: "https://www.facebook.com/TransformAI",
+        external: true,
+      },
+      {
+        titleKey: "links.linkedin",
+        href: "https://www.linkedin.com/company/transformai",
         external: true,
       },
     ],
@@ -71,8 +75,8 @@ const navigation = [
   {
     titleKey: "sections.legal",
     links: [
-      { titleKey: "links.terms", href: "/policies/terms" },
-      { titleKey: "links.privacy", href: "/policies/privacy" },
+      { titleKey: "links.terms", href: "/policies/terms", disabled: true },
+      { titleKey: "links.privacy", href: "/policies/privacy", disabled: true },
     ],
   },
 ] satisfies Array<{ titleKey: string; links: Array<NavLink> }>;
@@ -90,15 +94,24 @@ const Column: React.FC<{
       </span>
       <ul className="flex flex-col gap-4 md:gap-6">
         {links.map((link) => (
-          <li key={link.href}>
-            <Link
-              href={link.href}
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noopener noreferrer" : undefined}
-              className="text-sm font-normal transition hover:text-white/40 text-white/70"
-            >
-              {t(link.titleKey)}
-            </Link>
+          <li key={link.titleKey}>
+            {link.disabled ? (
+              <span
+                className="text-sm font-normal text-white/40"
+                aria-disabled="true"
+              >
+                {t(link.titleKey)}
+              </span>
+            ) : (
+              <Link
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                className="text-sm font-normal transition hover:text-white/40 text-white/70"
+              >
+                {t(link.titleKey)}
+              </Link>
+            )}
           </li>
         ))}
       </ul>
