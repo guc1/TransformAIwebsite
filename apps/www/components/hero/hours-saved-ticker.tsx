@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { animate, useAnimate, useMotionValue, useReducedMotion } from "framer-motion";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useAnimate, useInView, useReducedMotion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -24,47 +24,116 @@ export function HoursSavedTicker({ initialAmount, initialNextUpdateAt, locale, c
     amount: initialAmount,
     nextUpdateAt: initialNextUpdateAt,
   });
-  const motionValue = useMotionValue(initialAmount);
   const [displayValue, setDisplayValue] = useState(initialAmount);
   const reducedMotion = useReducedMotion();
   const [scope, animateScope] = useAnimate<HTMLSpanElement>();
+  const isInView = useInView(scope, { margin: "-10% 0px", amount: 0.6 });
+  const targetAmountRef = useRef(initialAmount);
+  const displayAmountRef = useRef(initialAmount);
+  const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    setState({ amount: initialAmount, nextUpdateAt: initialNextUpdateAt });
-    setDisplayValue(initialAmount);
-    motionValue.set(initialAmount);
-  }, [initialAmount, initialNextUpdateAt, motionValue]);
+  const updateDisplayValue = useCallback((value: number) => {
+    displayAmountRef.current = value;
+    setDisplayValue(value);
+  }, []);
 
-  useEffect(() => {
-    const unsubscribe = motionValue.on("change", (latest) => {
-      setDisplayValue(Math.round(latest));
-    });
+  const cancelAnimation = useCallback(() => {
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+      animationTimeoutRef.current = null;
+    }
+  }, []);
 
-    return () => {
-      unsubscribe();
-    };
-  }, [motionValue]);
+  const startAnimation = useCallback(() => {
+    const target = targetAmountRef.current;
+    const current = displayAmountRef.current;
 
-  useEffect(() => {
-    if (reducedMotion) {
-      motionValue.set(state.amount);
-      setDisplayValue(state.amount);
+    if (current === target) {
       return;
     }
 
-    const controls = animate(motionValue, state.amount, {
-      duration: 0.8,
-      ease: "easeOut",
-    });
+    cancelAnimation();
 
-    if (scope.current) {
-      void animateScope(scope.current, { scale: [1, 1.05, 1] }, { duration: 0.6, ease: "easeOut" });
+    let didAnimateScale = false;
+
+    const runStep = () => {
+      const latestTarget = targetAmountRef.current;
+      const latestCurrent = displayAmountRef.current;
+
+      if (latestCurrent === latestTarget) {
+        animationTimeoutRef.current = null;
+        return;
+      }
+
+      const remaining = latestTarget - latestCurrent;
+      const direction = Math.sign(remaining);
+      const magnitude = Math.abs(remaining);
+      const ratio = Math.min(0.25, 0.08 + Math.random() * 0.12);
+      const step = Math.max(1, Math.round(magnitude * ratio));
+      const nextValue =
+        direction > 0
+          ? Math.min(latestTarget, latestCurrent + step)
+          : Math.max(latestTarget, latestCurrent - step);
+
+      updateDisplayValue(nextValue);
+
+      if (!didAnimateScale && scope.current) {
+        didAnimateScale = true;
+        void animateScope(scope.current, { scale: [1, 1.05, 1] }, { duration: 0.6, ease: "easeOut" });
+      }
+
+      if (nextValue === latestTarget) {
+        animationTimeoutRef.current = null;
+        return;
+      }
+
+      const delay = 140 + Math.random() * 220;
+      animationTimeoutRef.current = setTimeout(runStep, delay);
+    };
+
+    runStep();
+  }, [animateScope, cancelAnimation, scope, updateDisplayValue]);
+
+  useEffect(() => {
+    setState({ amount: initialAmount, nextUpdateAt: initialNextUpdateAt });
+    targetAmountRef.current = initialAmount;
+    if (reducedMotion) {
+      cancelAnimation();
+      updateDisplayValue(initialAmount);
+    }
+  }, [cancelAnimation, initialAmount, initialNextUpdateAt, reducedMotion, updateDisplayValue]);
+
+  useEffect(() => {
+    targetAmountRef.current = state.amount;
+
+    if (reducedMotion) {
+      cancelAnimation();
+      updateDisplayValue(state.amount);
+      return;
     }
 
-    return () => {
-      controls.stop();
-    };
-  }, [state.amount, animateScope, motionValue, reducedMotion, scope]);
+    if (isInView) {
+      startAnimation();
+    }
+  }, [cancelAnimation, isInView, reducedMotion, startAnimation, state.amount, updateDisplayValue]);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      cancelAnimation();
+      updateDisplayValue(targetAmountRef.current);
+      return;
+    }
+
+    if (isInView) {
+      if (displayAmountRef.current !== targetAmountRef.current) {
+        startAnimation();
+      }
+    } else {
+      cancelAnimation();
+    }
+  }, [cancelAnimation, isInView, reducedMotion, startAnimation, updateDisplayValue]);
+
+  useEffect(() => () => cancelAnimation(), [cancelAnimation]);
 
   useEffect(() => {
     let cancelled = false;
