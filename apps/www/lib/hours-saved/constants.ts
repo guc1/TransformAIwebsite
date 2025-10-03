@@ -1,10 +1,8 @@
 import { MEETING_TIME_ZONE } from "@/lib/meetings/constants";
 
 export const HOURS_SAVED_WINDOW_HOURS = 24 * 7;
-export const HOURS_SAVED_DEFAULT_DAY_INCREMENT = 104;
-export const HOURS_SAVED_DEFAULT_NIGHT_INCREMENT = 65;
-export const HOURS_SAVED_DAY_START_HOUR = 8;
-export const HOURS_SAVED_DAY_END_HOUR = 20;
+export const HOURS_SAVED_ENTRIES_PER_HOUR = 12;
+export const HOURS_SAVED_DEFAULT_DAILY_TARGET = 10_000;
 export const HOURS_SAVED_TIME_ZONE = MEETING_TIME_ZONE;
 
 const hourFormatter = new Intl.DateTimeFormat("en-US", {
@@ -53,13 +51,4 @@ export function getZoneHour(date: Date): number {
   const parts = hourFormatter.formatToParts(date);
   const hourPart = parts.find((part) => part.type === "hour");
   return hourPart ? Number.parseInt(hourPart.value, 10) : Number.parseInt(hourFormatter.format(date), 10);
-}
-
-export function isDaytimeInZone(date: Date): boolean {
-  const hour = getZoneHour(date);
-  return hour >= HOURS_SAVED_DAY_START_HOUR && hour < HOURS_SAVED_DAY_END_HOUR;
-}
-
-export function getDefaultIncrementFor(date: Date): number {
-  return isDaytimeInZone(date) ? HOURS_SAVED_DEFAULT_DAY_INCREMENT : HOURS_SAVED_DEFAULT_NIGHT_INCREMENT;
 }

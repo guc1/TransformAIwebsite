@@ -1215,6 +1215,10 @@
         "label": "Startwaarde",
         "helper": "Zet de teller direct op dit totaal."
       },
+      "dailyTarget": {
+        "label": "Dagelijkse automatische toevoeging",
+        "helper": "Verdeel dit aantal uren willekeurig over elke dag binnen het venster."
+      },
       "days": {
         "heading": "Plan de komende 7 dagen",
         "helper": "Kies een dag om de uurlijkse toevoegingen aan te passen.",
@@ -1233,7 +1237,9 @@
         "submit": "Wijzigingen doorvoeren",
         "saving": "Bezig…",
         "copy": "Dag kopiëren",
-        "copyClose": "Kopiëren sluiten"
+        "copyClose": "Kopiëren sluiten",
+        "regenerate": "Schema vernieuwen",
+        "regenerating": "Schema wordt vernieuwd…"
       },
       "copy": {
         "title": "Kopieer schema naar andere dagen",
@@ -1247,7 +1253,7 @@
       "status": {
         "success": "Schema voor bespaarde uren bijgewerkt.",
         "error": "Bijwerken is mislukt. Probeer het opnieuw.",
-        "validation": "Voer voor de startwaarde en elk uur een niet-negatieve waarde in.",
+        "validation": "Voer voor startwaarde, dagdoel en elk uur een niet-negatieve waarde in.",
         "copyValidation": "Selecteer een bron-dag en minstens één dag om naar te kopiëren.",
         "copySuccess": "Dag succesvol gekopieerd."
       }

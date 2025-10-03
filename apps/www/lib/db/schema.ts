@@ -167,6 +167,7 @@ export const hoursSavedStates = pgTable("hours_saved_states", {
   baseSetAt: timestamp("base_set_at", { mode: "date", withTimezone: true })
     .notNull()
     .defaultNow(),
+  autoDailyTarget: integer("auto_daily_target").notNull().default(10_000),
   createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
     .notNull()
     .defaultNow(),

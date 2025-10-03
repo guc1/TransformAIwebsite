@@ -31,6 +31,7 @@ type HoursSavedManagerProps = {
   locale: string;
   timeZone: string;
   baseAmount: number;
+  dailyTarget: number;
   schedule: ScheduleDisplayEntry[];
   referenceDayKey: string;
 };
@@ -53,12 +54,14 @@ export function HoursSavedManager({
   locale,
   timeZone,
   baseAmount,
+  dailyTarget,
   schedule,
   referenceDayKey,
 }: HoursSavedManagerProps) {
   const t = useTranslations("Dashboard.hoursSaved");
 
   const [baseValue, setBaseValue] = useState(baseAmount.toString());
+  const [dailyTargetValue, setDailyTargetValue] = useState(dailyTarget.toString());
   const [rows, setRows] = useState<ScheduleRowState[]>(() =>
     schedule.slice(0, HOURS_SAVED_WINDOW_HOURS).map((entry) => ({
       scheduledFor: new Date(entry.scheduledFor),
@@ -73,6 +76,7 @@ export function HoursSavedManager({
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [pendingAction, setPendingAction] = useState<"manual" | "auto" | null>(null);
   const [selectedDay, setSelectedDay] = useState<string>(referenceDayKey);
   const [activeHour, setActiveHour] = useState<string>(schedule[0]?.scheduledFor ?? "");
   const [copyMode, setCopyMode] = useState(false);
@@ -85,6 +89,10 @@ export function HoursSavedManager({
   );
 
   const todayKey = referenceDayKey;
+
+  useEffect(() => {
+    setDailyTargetValue(dailyTarget.toString());
+  }, [dailyTarget]);
 
   const buildRowsFromSchedule = useCallback(
     (entries: { scheduledFor: string; amount: number }[]) =>
@@ -178,6 +186,12 @@ export function HoursSavedManager({
     setStatusMessage(null);
   };
 
+  const handleDailyTargetChange = (value: string) => {
+    setDailyTargetValue(value);
+    setStatus("idle");
+    setStatusMessage(null);
+  };
+
   const handleActiveValueChange = (value: string) => {
     if (!activeEntry) {
       return;
@@ -198,15 +212,25 @@ export function HoursSavedManager({
     setStatusMessage(null);
 
     const baseTrimmed = baseValue.trim();
-    if (baseTrimmed === "") {
+    const targetTrimmed = dailyTargetValue.trim();
+
+    if (baseTrimmed === "" || targetTrimmed === "") {
       setStatus("error");
       setStatusMessage(t("status.validation"));
       return;
     }
 
     const parsedBase = Number(baseTrimmed);
+    const parsedTarget = Number(targetTrimmed);
 
-    if (!Number.isFinite(parsedBase) || parsedBase < 0 || !Number.isInteger(parsedBase)) {
+    if (
+      !Number.isFinite(parsedBase) ||
+      parsedBase < 0 ||
+      !Number.isInteger(parsedBase) ||
+      !Number.isFinite(parsedTarget) ||
+      parsedTarget < 0 ||
+      !Number.isInteger(parsedTarget)
+    ) {
       setStatus("error");
       setStatusMessage(t("status.validation"));
       return;
@@ -236,36 +260,117 @@ export function HoursSavedManager({
       });
     }
 
+    setPendingAction("manual");
     startTransition(async () => {
-      const result = await updateHoursSavedScheduleAction(locale, {
-        baseAmount: parsedBase,
-        schedule: schedulePayload,
-      });
-
-      if (!result.success) {
-        setStatus("error");
-        setStatusMessage(
-          result.error === "validation" ? t("status.validation") : t("status.error"),
-        );
-        return;
-      }
-
       try {
-        const response = await fetch("/api/hours-saved", { cache: "no-store" });
-        if (response.ok) {
-          const data = await response.json();
-          setRows(buildRowsFromSchedule(data.schedule));
-          setBaseValue(data.baseAmount.toString());
-        }
-      } catch (error) {
-        console.error("Failed to refresh hours saved overview", error);
-      }
+        const result = await updateHoursSavedScheduleAction(locale, {
+          mode: "manual",
+          baseAmount: parsedBase,
+          dailyTarget: parsedTarget,
+          schedule: schedulePayload,
+        });
 
-      setStatus("success");
-      setStatusMessage(t("status.success"));
-      setCopyMode(false);
-      setCopySource(null);
-      setCopyTargets([]);
+        if (!result.success) {
+          setStatus("error");
+          setStatusMessage(
+            result.error === "validation" ? t("status.validation") : t("status.error"),
+          );
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/hours-saved", { cache: "no-store" });
+          if (response.ok) {
+            const data = await response.json();
+            setRows(buildRowsFromSchedule(data.schedule));
+            setBaseValue(data.baseAmount.toString());
+            if (typeof data.dailyTarget === "number") {
+              setDailyTargetValue(data.dailyTarget.toString());
+            }
+          }
+        } catch (error) {
+          console.error("Failed to refresh hours saved overview", error);
+        }
+
+        setStatus("success");
+        setStatusMessage(t("status.success"));
+        setCopyMode(false);
+        setCopySource(null);
+        setCopyTargets([]);
+      } finally {
+        setPendingAction(null);
+      }
+    });
+  };
+
+  const handleRegenerate = () => {
+    setStatus("idle");
+    setStatusMessage(null);
+
+    const baseTrimmed = baseValue.trim();
+    const targetTrimmed = dailyTargetValue.trim();
+
+    if (baseTrimmed === "" || targetTrimmed === "") {
+      setStatus("error");
+      setStatusMessage(t("status.validation"));
+      return;
+    }
+
+    const parsedBase = Number(baseTrimmed);
+    const parsedTarget = Number(targetTrimmed);
+
+    if (
+      !Number.isFinite(parsedBase) ||
+      parsedBase < 0 ||
+      !Number.isInteger(parsedBase) ||
+      !Number.isFinite(parsedTarget) ||
+      parsedTarget < 0 ||
+      !Number.isInteger(parsedTarget)
+    ) {
+      setStatus("error");
+      setStatusMessage(t("status.validation"));
+      return;
+    }
+
+    setPendingAction("auto");
+    startTransition(async () => {
+      try {
+        const result = await updateHoursSavedScheduleAction(locale, {
+          mode: "auto",
+          baseAmount: parsedBase,
+          dailyTarget: parsedTarget,
+        });
+
+        if (!result.success) {
+          setStatus("error");
+          setStatusMessage(
+            result.error === "validation" ? t("status.validation") : t("status.error"),
+          );
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/hours-saved", { cache: "no-store" });
+          if (response.ok) {
+            const data = await response.json();
+            setRows(buildRowsFromSchedule(data.schedule));
+            setBaseValue(data.baseAmount.toString());
+            if (typeof data.dailyTarget === "number") {
+              setDailyTargetValue(data.dailyTarget.toString());
+            }
+          }
+        } catch (error) {
+          console.error("Failed to refresh hours saved overview", error);
+        }
+
+        setStatus("success");
+        setStatusMessage(t("status.success"));
+        setCopyMode(false);
+        setCopySource(null);
+        setCopyTargets([]);
+      } finally {
+        setPendingAction(null);
+      }
     });
   };
 
@@ -365,6 +470,21 @@ export function HoursSavedManager({
           className="h-11 rounded-xl border-white/15 bg-white/5 text-base text-white placeholder:text-white/40 focus-visible:ring-white/40"
         />
         <p className="text-xs text-white/50">{t("base.helper")}</p>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-sm font-medium text-white/80">{t("dailyTarget.label")}</Label>
+        <Input
+          type="number"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          step={1}
+          min={0}
+          value={dailyTargetValue}
+          onChange={(event) => handleDailyTargetChange(event.target.value)}
+          className="h-11 rounded-xl border-white/15 bg-white/5 text-base text-white placeholder:text-white/40 focus-visible:ring-white/40"
+        />
+        <p className="text-xs text-white/50">{t("dailyTarget.helper")}</p>
       </div>
 
       <div className="space-y-4">
@@ -552,20 +672,32 @@ export function HoursSavedManager({
         </p>
       ) : null}
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <Button
-          type="button"
-          onClick={toggleCopyMode}
-          className="h-10 rounded-full border border-white/20 bg-white/10 px-5 text-xs font-semibold uppercase tracking-[0.24em] text-white/70 hover:bg-white/15"
-        >
-          {copyMode ? t("actions.copyClose") : t("actions.copy")}
-        </Button>
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-2">
+          <Button
+            type="button"
+            onClick={toggleCopyMode}
+            className="h-10 rounded-full border border-white/20 bg-white/10 px-5 text-xs font-semibold uppercase tracking-[0.24em] text-white/70 hover:bg-white/15"
+          >
+            {copyMode ? t("actions.copyClose") : t("actions.copy")}
+          </Button>
+          <Button
+            type="button"
+            onClick={handleRegenerate}
+            disabled={isPending}
+            className="h-10 rounded-full border border-white/20 bg-white/15 px-5 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isPending && pendingAction === "auto"
+              ? t("actions.regenerating")
+              : t("actions.regenerate")}
+          </Button>
+        </div>
         <Button
           type="submit"
           disabled={isPending}
-          className="h-10 rounded-full bg-white px-6 text-xs font-semibold uppercase tracking-[0.3em] text-black hover:bg-white/90 disabled:opacity-60"
+          className="h-10 rounded-full bg-white px-6 text-xs font-semibold uppercase tracking-[0.3em] text-black hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isPending ? t("actions.saving") : t("actions.submit")}
+          {isPending && pendingAction === "manual" ? t("actions.saving") : t("actions.submit")}
         </Button>
       </div>
     </form>
