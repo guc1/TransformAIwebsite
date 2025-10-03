@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PrimaryButton, SecondaryButton } from "@/components/button";
 import { ChevronRight, Lightbulb, LogIn } from "lucide-react";
 
-import { HoursSavedTicker } from "./hours-saved-ticker";
+import { HoursSavedTicker, type HoursSavedNumberFormatOptions } from "./hours-saved-ticker";
 
 type HeroMainSectionProps = {
   title: string;
@@ -14,6 +14,9 @@ type HeroMainSectionProps = {
   secondaryCtaHref: string;
   hoursSavedLabel: string;
   hoursSavedInitialAmount: number;
+  hoursSavedInitialFormatted: string;
+  hoursSavedInitialFormatterLocale: string;
+  hoursSavedInitialFormatterOptions: HoursSavedNumberFormatOptions;
   hoursSavedNextUpdateAt: string | null;
   locale: string;
 };
@@ -27,6 +30,9 @@ export function HeroMainSection({
   secondaryCtaHref,
   hoursSavedLabel,
   hoursSavedInitialAmount,
+  hoursSavedInitialFormatted,
+  hoursSavedInitialFormatterLocale,
+  hoursSavedInitialFormatterOptions,
   hoursSavedNextUpdateAt,
   locale,
 }: HeroMainSectionProps) {
@@ -54,6 +60,9 @@ export function HeroMainSection({
           <span className="text-white/40">:</span>
           <HoursSavedTicker
             initialAmount={hoursSavedInitialAmount}
+            initialFormattedAmount={hoursSavedInitialFormatted}
+            initialFormattedLocale={hoursSavedInitialFormatterLocale}
+            initialFormattedOptions={hoursSavedInitialFormatterOptions}
             initialNextUpdateAt={hoursSavedNextUpdateAt}
             locale={locale}
             className="text-sm tracking-[0.2em] text-white sm:text-base"

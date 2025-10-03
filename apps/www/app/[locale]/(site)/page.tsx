@@ -7,6 +7,7 @@ import { CTA } from "@/components/cta";
 import { FeatureGrid } from "@/components/feature/feature-grid";
 import { HashedKeysBento } from "@/components/hashed-keys-bento";
 import { Hero } from "@/components/hero/hero";
+import type { HoursSavedNumberFormatOptions } from "@/components/hero/hours-saved-ticker";
 import { ImageWithBlur } from "@/components/image-with-blur";
 import { IpWhitelistingBento } from "@/components/ip-whitelisting-bento";
 import { LatencyBento } from "@/components/latency-bento";
@@ -115,6 +116,37 @@ export default async function Landing({
   ]);
 
   const hoursSavedOverview = await getHoursSavedOverview();
+  const hoursSavedFormatter = new Intl.NumberFormat(locale);
+  const hoursSavedInitialFormatted = hoursSavedFormatter.format(
+    hoursSavedOverview.currentAmount,
+  );
+  const hoursSavedFormatterResolved = hoursSavedFormatter.resolvedOptions();
+  const hoursSavedInitialFormatterLocale = hoursSavedFormatterResolved.locale;
+  const hoursSavedInitialFormatterOptions: HoursSavedNumberFormatOptions = {
+    locale: hoursSavedFormatterResolved.locale,
+    numberingSystem: hoursSavedFormatterResolved.numberingSystem,
+    style: hoursSavedFormatterResolved.style,
+    currency: hoursSavedFormatterResolved.currency,
+    currencyDisplay: hoursSavedFormatterResolved.currencyDisplay,
+    currencySign: hoursSavedFormatterResolved.currencySign,
+    unit: hoursSavedFormatterResolved.unit,
+    unitDisplay: hoursSavedFormatterResolved.unitDisplay,
+    notation: hoursSavedFormatterResolved.notation,
+    compactDisplay: hoursSavedFormatterResolved.compactDisplay,
+    signDisplay: hoursSavedFormatterResolved.signDisplay,
+    useGrouping: hoursSavedFormatterResolved.useGrouping,
+    minimumIntegerDigits: hoursSavedFormatterResolved.minimumIntegerDigits,
+    minimumFractionDigits: hoursSavedFormatterResolved.minimumFractionDigits,
+    maximumFractionDigits: hoursSavedFormatterResolved.maximumFractionDigits,
+    minimumSignificantDigits:
+      hoursSavedFormatterResolved.minimumSignificantDigits,
+    maximumSignificantDigits:
+      hoursSavedFormatterResolved.maximumSignificantDigits,
+    roundingIncrement: hoursSavedFormatterResolved.roundingIncrement,
+    roundingMode: hoursSavedFormatterResolved.roundingMode,
+    roundingPriority: hoursSavedFormatterResolved.roundingPriority,
+    trailingZeroDisplay: hoursSavedFormatterResolved.trailingZeroDisplay,
+  };
 
   const featureBoxes = [
     { key: "futureProofWorkforce", icon: GraduationCap },
@@ -151,6 +183,9 @@ export default async function Landing({
           <Section>
             <Hero
               initialHoursSavedAmount={hoursSavedOverview.currentAmount}
+              initialHoursSavedFormatted={hoursSavedInitialFormatted}
+              initialHoursSavedFormatterLocale={hoursSavedInitialFormatterLocale}
+              initialHoursSavedFormatterOptions={hoursSavedInitialFormatterOptions}
               initialHoursSavedNextUpdateAt={
                 hoursSavedOverview.nextUpdateAt
                   ? hoursSavedOverview.nextUpdateAt.toISOString()

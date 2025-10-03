@@ -3,16 +3,23 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { HeroMainSection } from "./hero-main-section";
+import type { HoursSavedNumberFormatOptions } from "./hours-saved-ticker";
 
 import mainboard from "@/images/mainboard.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
 type HeroProps = {
   initialHoursSavedAmount: number;
+  initialHoursSavedFormatted: string;
+  initialHoursSavedFormatterLocale: string;
+  initialHoursSavedFormatterOptions: HoursSavedNumberFormatOptions;
   initialHoursSavedNextUpdateAt: string | null;
 };
 
 export const Hero: React.FC<HeroProps> = ({
   initialHoursSavedAmount,
+  initialHoursSavedFormatted,
+  initialHoursSavedFormatterLocale,
+  initialHoursSavedFormatterOptions,
   initialHoursSavedNextUpdateAt,
 }) => {
   const hero = useTranslations("Hero");
@@ -47,18 +54,21 @@ export const Hero: React.FC<HeroProps> = ({
       animate="visible"
     >
       <motion.div variants={childVariants}>
-        <HeroMainSection
-          title={hero("title")}
-          body={hero("body")}
-          primaryCtaLabel={cta("getStarted")}
-          primaryCtaHref={meetingHref}
-          secondaryCtaLabel={cta("exploreProjects")}
-          secondaryCtaHref={solutionsHref}
-          hoursSavedLabel={cta("hoursSavedLabel")}
-          hoursSavedInitialAmount={initialHoursSavedAmount}
-          hoursSavedNextUpdateAt={initialHoursSavedNextUpdateAt}
-          locale={locale}
-        />
+          <HeroMainSection
+            title={hero("title")}
+            body={hero("body")}
+            primaryCtaLabel={cta("getStarted")}
+            primaryCtaHref={meetingHref}
+            secondaryCtaLabel={cta("exploreProjects")}
+            secondaryCtaHref={solutionsHref}
+            hoursSavedLabel={cta("hoursSavedLabel")}
+            hoursSavedInitialAmount={initialHoursSavedAmount}
+            hoursSavedInitialFormatted={initialHoursSavedFormatted}
+            hoursSavedInitialFormatterLocale={initialHoursSavedFormatterLocale}
+            hoursSavedInitialFormatterOptions={initialHoursSavedFormatterOptions}
+            hoursSavedNextUpdateAt={initialHoursSavedNextUpdateAt}
+            locale={locale}
+          />
       </motion.div>
 
       <div

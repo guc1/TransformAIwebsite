@@ -5,8 +5,36 @@ import { useAnimate, useInView, useReducedMotion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
+export type HoursSavedNumberFormatOptions = Pick<
+  Intl.NumberFormatResolvedOptions,
+  | "locale"
+  | "numberingSystem"
+  | "style"
+  | "currency"
+  | "currencyDisplay"
+  | "currencySign"
+  | "unit"
+  | "unitDisplay"
+  | "notation"
+  | "compactDisplay"
+  | "signDisplay"
+  | "useGrouping"
+  | "minimumIntegerDigits"
+  | "minimumFractionDigits"
+  | "maximumFractionDigits"
+  | "minimumSignificantDigits"
+  | "maximumSignificantDigits"
+  | "roundingIncrement"
+  | "roundingMode"
+  | "roundingPriority"
+  | "trailingZeroDisplay"
+>;
+
 type HoursSavedTickerProps = {
   initialAmount: number;
+  initialFormattedAmount: string;
+  initialFormattedLocale: string;
+  initialFormattedOptions: HoursSavedNumberFormatOptions;
   initialNextUpdateAt: string | null;
   locale: string;
   className?: string;
@@ -19,12 +47,21 @@ type HoursSavedState = {
 
 const FALLBACK_REFRESH_INTERVAL_MS = 60_000;
 
-export function HoursSavedTicker({ initialAmount, initialNextUpdateAt, locale, className }: HoursSavedTickerProps) {
+export function HoursSavedTicker({
+  initialAmount,
+  initialFormattedAmount,
+  initialFormattedLocale,
+  initialFormattedOptions,
+  initialNextUpdateAt,
+  locale,
+  className,
+}: HoursSavedTickerProps) {
   const [state, setState] = useState<HoursSavedState>({
     amount: initialAmount,
     nextUpdateAt: initialNextUpdateAt,
   });
-  const [displayValue, setDisplayValue] = useState(initialAmount);
+  const [displayAmount, setDisplayAmount] = useState(initialAmount);
+  const [isHydrated, setIsHydrated] = useState(false);
   const reducedMotion = useReducedMotion();
   const [scope, animateScope] = useAnimate<HTMLSpanElement>();
   const isInView = useInView(scope, { margin: "-10% 0px", amount: 0.6 });
@@ -33,11 +70,20 @@ export function HoursSavedTicker({ initialAmount, initialNextUpdateAt, locale, c
   const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const fetchLatestRef = useRef<(() => Promise<void>) | null>(null);
   const didRunInitialFetchRef = useRef(false);
+  const initialFormattedRef = useRef(initialFormattedAmount);
 
   const updateDisplayValue = useCallback((value: number) => {
     displayAmountRef.current = value;
-    setDisplayValue(value);
+    setDisplayAmount(value);
   }, []);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    initialFormattedRef.current = initialFormattedAmount;
+  }, [initialFormattedAmount]);
 
   const cancelAnimation = useCallback(() => {
     if (animationTimeoutRef.current) {
@@ -223,11 +269,36 @@ export function HoursSavedTicker({ initialAmount, initialNextUpdateAt, locale, c
     void fetchLatestRef.current?.();
   }, [isInView]);
 
-  const formatter = useMemo(() => new Intl.NumberFormat(locale), [locale]);
-  const formatted = formatter.format(displayValue);
+  const formatter = useMemo(() => {
+    if (typeof window === "undefined") {
+      return null;
+    }
+
+    const { locale: resolvedLocale, ...resolvedOptions } = initialFormattedOptions;
+    const cleanedOptions = Object.fromEntries(
+      Object.entries(resolvedOptions).filter(([, value]) => value !== undefined),
+    ) as Intl.NumberFormatOptions & { numberingSystem?: string };
+
+    return new Intl.NumberFormat(
+      resolvedLocale ?? initialFormattedLocale ?? locale,
+      cleanedOptions,
+    );
+  }, [initialFormattedLocale, initialFormattedOptions, locale]);
+
+  const formatted = useMemo(() => {
+    if (isHydrated) {
+      return formatter?.format(displayAmount) ?? displayAmount.toLocaleString();
+    }
+
+    return initialFormattedRef.current;
+  }, [displayAmount, formatter, isHydrated]);
 
   return (
-    <span ref={scope} className={cn("inline-flex items-center font-medium text-white", className)} aria-live="polite">
+    <span
+      ref={scope}
+      className={cn("inline-flex items-center font-medium text-white", className)}
+      aria-live="polite"
+    >
       {formatted}
     </span>
   );
