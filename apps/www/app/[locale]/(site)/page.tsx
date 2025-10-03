@@ -115,6 +115,7 @@ export default async function Landing({
   ]);
 
   const hoursSavedOverview = await getHoursSavedOverview();
+  const hoursSavedInitialFormatted = hoursSavedOverview.currentAmount.toLocaleString(locale);
 
   const featureBoxes = [
     { key: "futureProofWorkforce", icon: GraduationCap },
@@ -151,6 +152,7 @@ export default async function Landing({
           <Section>
             <Hero
               initialHoursSavedAmount={hoursSavedOverview.currentAmount}
+              initialHoursSavedFormatted={hoursSavedInitialFormatted}
               initialHoursSavedNextUpdateAt={
                 hoursSavedOverview.nextUpdateAt
                   ? hoursSavedOverview.nextUpdateAt.toISOString()
