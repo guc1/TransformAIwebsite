@@ -29,7 +29,8 @@
       "overview": "Overview",
       "planning": "Planning",
       "hoursSaved": "Hours saved",
-      "resources": "Resources"
+      "dashboard": "Dashboard",
+      "premium": "Premium"
     },
     "membersMenu": {
       "createAccountDescription": "Join TransformAI to unlock member resources.",
@@ -1188,30 +1189,58 @@
     }
   },
   "NewsUpdates": {
-    "eyebrow": "News updates",
-    "title": "Intelligence for TransformAI members",
-    "subtitle": "Fresh briefings on AI transformations we're guiding across Dutch industry.",
-    "items": {
-      "aiMaturity": {
-        "badge": "Strategy",
-        "title": "AI maturity playbook released",
-        "date": "27 Nov 2025",
-        "summary": "A new guide on measuring AI readiness across finance, logistics, and retail clients. Includes KPIs, capability ladders, and quick wins for leadership teams."
+    "eyebrow": "Client dashboard",
+    "title": "Dashboard",
+    "subtitle": "Track progress, plan the next phase, and unlock premium AI resources when you need them.",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "premium": "Premium"
+    },
+    "overview": {
+      "heading": "Dashboard overview",
+      "progress": {
+        "eyebrow": "Progress made",
+        "title": "Progress made",
+        "value": "0%",
+        "caption": "We'll publish your metrics here as soon as the first initiatives land."
       },
-      "events": {
-        "badge": "Events",
-        "title": "Amsterdam executive roundtable confirmed",
-        "date": "10 Dec 2025",
-        "summary": "We're hosting 12 CIOs to map the first 100 days of AI reinvention. Members will receive the full deck and recordings."
+      "phase": {
+        "eyebrow": "Development phase",
+        "title": "Phase of development",
+        "value": "Phase 0",
+        "caption": "You're at the starting line—kickoff unlocks phase 1 milestones and measurable outputs."
       },
-      "playbooks": {
-        "badge": "Insights",
-        "title": "Automation pilots expanding",
-        "date": "Early January 2026",
-        "summary": "Three client pilots now cover customer support, compliance checks, and finance reconciliation with measurable ROI snapshots inside."
+      "cta": {
+        "eyebrow": "Need momentum?",
+        "title": "Want to make progress with your company in AI?",
+        "subtitle": "Book a strategy call with our consultants to identify quick wins and architect the roadmap.",
+        "button": "Book a call"
       }
     },
-    "ctaNote": "Share confidential updates responsibly. Forward this space to leadership teams that need visibility."
+    "premium": {
+      "eyebrow": "Premium access",
+      "title": "Premium intelligence on standby",
+      "subtitle": "Upgrade for weekly debriefs, quantified outcomes, and executive-ready toolkits.",
+      "weekly": {
+        "eyebrow": "Weekly update",
+        "title": "Deep-dive report on active initiatives",
+        "caption": "Impact metrics, implementation notes, and stakeholder-ready talking points—refreshed every Friday.",
+        "locked": "Locked for premium members",
+        "ctaLabel": "Want to get access?",
+        "button": "Contact us"
+      },
+      "resources": {
+        "eyebrow": "Premium resources",
+        "title": "Resource vault",
+        "caption": "Blueprints, templates, and benchmark data curated for Dutch leadership teams.",
+        "items": {
+          "item1": "Executive-ready AI opportunity assessments tailored to your operations.",
+          "item2": "Process automation templates with ROI models and risk controls.",
+          "item3": "Change enablement playbooks to guide teams through adoption."
+        },
+        "button": "Get access"
+      }
+    }
   },
   "Dashboard": {
     "title": "Hours saved planner",

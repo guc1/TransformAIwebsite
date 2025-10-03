@@ -29,7 +29,8 @@
       "overview": "Overzicht",
       "planning": "Planning",
       "hoursSaved": "Uren bespaard",
-      "resources": "Bronnen"
+      "dashboard": "Dashboard",
+      "premium": "Premium"
     },
     "membersMenu": {
       "createAccountDescription": "Meld je aan om toegang te krijgen tot onze ledenomgeving.",
@@ -1145,30 +1146,58 @@
     }
   },
   "NewsUpdates": {
-    "eyebrow": "News updates",
-    "title": "Intelligence voor TransformAI-leden",
-    "subtitle": "Kersverse briefings over AI-transformaties die we in Nederlandse sectoren begeleiden.",
-    "items": {
-      "aiMaturity": {
-        "badge": "Strategie",
-        "title": "AI-maturiteitsplaybook gelanceerd",
-        "date": "27 nov 2025",
-        "summary": "Een nieuwe gids om AI-gereedheid te meten in finance, logistiek en retail. Inclusief KPI's, maturiteitsladders en quick wins voor directies."
+    "eyebrow": "Klantdashboard",
+    "title": "Dashboard",
+    "subtitle": "Volg de voortgang, plan de volgende fase en ontgrendel premium AI-resources wanneer het nodig is.",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "premium": "Premium"
+    },
+    "overview": {
+      "heading": "Dashboard-overzicht",
+      "progress": {
+        "eyebrow": "Voortgang",
+        "title": "Voortgang",
+        "value": "0%",
+        "caption": "We delen je statistieken hier zodra de eerste initiatieven live staan."
       },
-      "events": {
-        "badge": "Events",
-        "title": "Executive roundtable in Amsterdam bevestigd",
-        "date": "10 dec 2025",
-        "summary": "We ontvangen 12 CIO's om de eerste 100 dagen van AI-transformatie te schetsen. Leden krijgen het volledige deck en de opname."
+      "phase": {
+        "eyebrow": "Ontwikkelfase",
+        "title": "Fase van ontwikkeling",
+        "value": "Fase 0",
+        "caption": "Je staat aan de start—na de kick-off ontgrendelen we fase 1 mijlpalen en meetbare resultaten."
       },
-      "playbooks": {
-        "badge": "Insights",
-        "title": "Automatiseringspilots opgeschaald",
-        "date": "Begin januari 2026",
-        "summary": "Drie klantpilots bestrijken nu customer support, compliance checks en financiële reconciliatie met meetbare ROI-snapshots."
+      "cta": {
+        "eyebrow": "Meer momentum?",
+        "title": "Wil je vooruitgang boeken met je bedrijf in AI?",
+        "subtitle": "Plan een strategiesessie met onze consultants om quick wins te identificeren en de roadmap op te zetten.",
+        "button": "Plan een call"
       }
     },
-    "ctaNote": "Deel vertrouwelijke updates zorgvuldig. Stuur dit door naar bestuurders die inzicht nodig hebben."
+    "premium": {
+      "eyebrow": "Premium toegang",
+      "title": "Premium intelligence staat klaar",
+      "subtitle": "Upgrade voor wekelijkse debriefs, gekwantificeerde resultaten en executive-ready toolkits.",
+      "weekly": {
+        "eyebrow": "Wekelijkse update",
+        "title": "Diepgaand rapport over lopende initiatieven",
+        "caption": "Impactmetrics, implementatie-notes en boardroom-ready talking points—iedere vrijdag vernieuwd.",
+        "locked": "Vergrendeld voor premiumleden",
+        "ctaLabel": "Toegang krijgen?",
+        "button": "Neem contact op"
+      },
+      "resources": {
+        "eyebrow": "Premium resources",
+        "title": "Resourcekluis",
+        "caption": "Blueprints, templates en benchmarkdata samengesteld voor Nederlandse leiderschapsteams.",
+        "items": {
+          "item1": "Executive-ready AI-kansenanalyses op maat voor jouw operatie.",
+          "item2": "Procesautomatiserings-templates met ROI-modellen en risicobeheersing.",
+          "item3": "Change-management playbooks om teams door adoptie te begeleiden."
+        },
+        "button": "Krijg toegang"
+      }
+    }
   },
   "Dashboard": {
     "title": "Planner voor bespaarde uren",

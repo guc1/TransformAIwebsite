@@ -128,10 +128,15 @@ export function Navigation() {
             label: t("loggedIn.exit"),
           },
           {
-            key: "resources",
+            key: "dashboard",
             href: "/newsupdates",
-            label: t("loggedIn.resources"),
+            label: t("loggedIn.dashboard"),
             current: isClientView,
+          },
+          {
+            key: "premium",
+            href: "/newsupdates#premium",
+            label: t("loggedIn.premium"),
           },
           {
             key: "messages",
