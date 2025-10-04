@@ -15,7 +15,7 @@ import {
 } from "react";
 import type { ChatLocale, ChatMessage } from "./types";
 
-type ChatPanelProps = {
+export type ChatPanelProps = {
   messages: ChatMessage[];
   isOpen: boolean;
   isLoading: boolean;
@@ -30,7 +30,7 @@ type ChatPanelProps = {
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-export const ChatPanel: React.FC<ChatPanelProps> = ({
+const ChatPanel: React.FC<ChatPanelProps> = ({
   messages,
   isOpen,
   isLoading,
@@ -322,6 +322,9 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
 };
 
 ChatPanel.displayName = "ChatPanel";
+
+export { ChatPanel };
+export default ChatPanel;
 
 type MessageBubbleProps = {
   message: ChatMessage;
