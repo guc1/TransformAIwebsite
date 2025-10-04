@@ -42,8 +42,9 @@ function writeCookieValue(name: string, value: string, maxAgeSeconds: number) {
 function sanitizeEntries(entries: AccountHistoryEntry[]): AccountHistoryEntry[] {
   return entries
     .filter((entry) => Boolean(entry?.id) && Boolean(entry?.email))
-    .map((entry) => ({
-      ...entry,
+    .map<AccountHistoryEntry>((entry) => ({
+      id: entry.id,
+      email: entry.email,
       name: entry.name ?? null,
       role: entry.role === "staff" ? "staff" : "client",
       lastActiveAt: entry.lastActiveAt ?? new Date(0).toISOString(),

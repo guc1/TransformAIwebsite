@@ -6,7 +6,7 @@ import { useAnimate, useInView, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export type HoursSavedNumberFormatOptions = Pick<
-  Intl.NumberFormatResolvedOptions,
+  Intl.ResolvedNumberFormatOptions,
   | "locale"
   | "numberingSystem"
   | "style"

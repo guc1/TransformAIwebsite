@@ -203,6 +203,33 @@ export const hoursSavedIncrements = pgTable(
   }),
 );
 
+export const outreachPages = pgTable(
+  "outreach_pages",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    slug: text("slug").notNull(),
+    displayName: text("display_name").notNull(),
+    displayText: text("display_text").notNull(),
+    templateId: integer("template_id").notNull().default(1),
+    bookedMeeting: boolean("booked_meeting").notNull().default(false),
+    bookedMeetingAt: timestamp("booked_meeting_at", { mode: "date", withTimezone: true }),
+    visitCount: integer("visit_count").notNull().default(0),
+    firstVisitedAt: timestamp("first_visited_at", { mode: "date", withTimezone: true }),
+    lastVisitedAt: timestamp("last_visited_at", { mode: "date", withTimezone: true }),
+    createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => ({
+    slugIdx: uniqueIndex("outreach_pages_slug_unique").on(table.slug),
+  }),
+);
+
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
   sessions: many(sessions),

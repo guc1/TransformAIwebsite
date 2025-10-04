@@ -94,6 +94,10 @@
       "submit": "Afspraak inplannen",
       "submitPending": "Bezig met plannen…",
       "privacy": "We gebruiken je e-mail alleen voor de meetinglink en opvolging.",
+      "outreachTracking": {
+        "title": "Outreach-link wordt gevolgd",
+        "body": "We koppelen deze boeking aan /outreach/{slug} zodat het dashboard direct meeloopt."
+      },
       "success": {
         "title": "Meeting bevestigd",
         "message": "De meeting vindt plaats via Google Zoom op {date}. Tien minuten voor de meeting ontvang je een link."
@@ -1263,6 +1267,145 @@
       }
     }
   },
+  "DashboardOutreach": {
+    "eyebrow": "Outreach-werkruimte",
+    "title": "Zet gepersonaliseerde outreachpagina’s klaar",
+    "subtitle": "Importeer bedrijfsnamen met maatwerkboodschappen, controleer de batch en publiceer binnen enkele seconden.",
+    "currentUser": "Ingelogd als {email}",
+    "metrics": {
+      "total": {
+        "label": "Pagina’s gepubliceerd",
+        "caption": "{count, plural, one {# pagina live} other {# pagina’s live}}"
+      },
+      "visited": {
+        "label": "Pagina’s bezocht",
+        "caption": "{count, plural, one {# link geopend} other {# links geopend}}"
+      },
+      "untouched": {
+        "label": "Wacht op eerste bezoek",
+        "caption": "{count, plural, one {# pagina wacht nog} other {# pagina’s wachten nog}}"
+      },
+      "booked": {
+        "label": "Meetings geboekt",
+        "caption": "{count, plural, one {# meeting bevestigd} other {# meetings bevestigd}}"
+      }
+    },
+    "templates": {
+      "eyebrow": "Templatebibliotheek",
+      "title": "Kies de gepersonaliseerde lay-out",
+      "description": "Bekijk de huidige outreach-templates voordat je ze in de CSV toewijst.",
+      "badge": "Template {id}",
+      "items": {
+        "1": {
+          "title": "Consultatieve hero met countdown",
+          "body": "Benadrukt de bedrijfsnaam, herhaalt ons aanbod en stuurt op een directe boeking met een timer van 48 uur.",
+          "points": [
+            "Hero-headline met de bedrijfsnaam",
+            "Countdown die aanzet tot snelle reactie",
+            "Primaire CTA linkt direct naar de meetingplanner"
+          ]
+        }
+      }
+    },
+    "upload": {
+      "eyebrow": "CSV-upload",
+      "title": "Importeer outreach-tekst",
+      "description": "Upload een CSV met de kolommen Naam, Tekst voor op de pagina en Template. We controleren elke rij voordat hij live gaat.",
+      "cta": "Kies CSV",
+      "fileSelected": "Geselecteerd: {name}",
+      "noFile": "Nog geen bestand gekozen",
+      "push": "Publiceer {count, plural, one {# pagina} other {# pagina’s}}",
+      "pushing": "Publiceren…",
+      "validation": "Upload een CSV met Naam, Tekst voor op de pagina en Template voordat je publiceert.",
+      "previewLabel": "{count, plural, one {# item klaar} other {# items klaar}}",
+      "previewColumns": {
+        "name": "Bedrijfsnaam",
+        "slug": "Slug",
+        "template": "Template",
+        "templateLabel": "Template {id}",
+        "text": "Tekst op de pagina"
+      },
+      "errors": {
+        "title": "{count, plural, one {We vonden # fout} other {We vonden # fouten}}",
+        "empty": "Het bestand lijkt leeg—voeg minstens één rij toe.",
+        "missingColumns": "Voeg de kolommen \"Naam\", \"Tekst voor op de pagina\" en \"Template\" toe.",
+        "missingValues": "Rij {row} mist de naam of de tekst.",
+        "invalidSlug": "Rij {row} kan niet worden omgezet in een geldige URL-slug.",
+        "invalidTemplate": "Rij {row} heeft een templatenummer nodig (1, 2, 3…)."
+      }
+    },
+    "status": {
+      "success": "Geplaatst: {created, plural, one {# nieuwe pagina} other {# nieuwe pagina’s}} en bijgewerkt: {updated, plural, one {# bestaande pagina} other {# bestaande pagina’s}}.",
+      "validation": "Los de gemarkeerde CSV-problemen op en probeer het opnieuw.",
+      "unauthorized": "Je hebt geen rechten om outreachpagina’s te beheren.",
+      "error": "Het uploaden is mislukt. Probeer het opnieuw."
+    },
+    "filters": {
+      "sortBy": "Sorteren op",
+      "sortOrder": "Sorteervolgorde",
+      "order": {
+        "asc": "Oudste eerst",
+        "desc": "Nieuwste eerst"
+      },
+      "sortOptions": {
+        "createdAt": "Datum toegevoegd",
+        "lastVisitedAt": "Laatste bezoek",
+        "visitCount": "Totaal bezoeken"
+      },
+      "visitStatus": "Bezoekstatus",
+      "visitOptions": {
+        "any": "Alle pagina’s",
+        "visited": "Bezochte pagina’s",
+        "notVisited": "Nog niet bezocht"
+      },
+      "booked": "Meeting geboekt",
+      "bookedOptions": {
+        "any": "Alle",
+        "yes": "Geboekt",
+        "no": "Niet geboekt"
+      },
+      "addedOn": "Toegevoegd op",
+      "templates": "Templates",
+      "templateLabel": "Template {id}",
+      "templatesEmpty": "Templates verschijnen hier zodra er pagina’s live staan.",
+      "clear": "Filters wissen"
+    },
+    "table": {
+      "eyebrow": "Gepubliceerde pagina’s",
+      "title": "Live outreach-links",
+      "description": "Volg elke gepersonaliseerde link, zie wie hem opent en filter wanneer de lijst groeit.",
+      "empty": "Er zijn nog geen outreachpagina’s gepubliceerd.",
+      "noMatches": "Geen outreachpagina’s voldoen aan je filters.",
+      "openLink": "Pagina openen",
+      "delete": {
+        "label": "Verwijderen",
+        "pending": "Verwijderen…",
+        "success": "/outreach/{slug} is verwijderd.",
+        "error": "Het verwijderen is mislukt. Probeer het opnieuw.",
+        "notFound": "Deze outreachpagina was al verwijderd."
+      },
+      "columns": {
+        "company": "Bedrijf",
+        "link": "Link",
+        "template": "Template",
+        "text": "Getoonde tekst",
+        "visits": "Bezoeken",
+        "added": "Toegevoegd",
+        "booked": "Meeting geboekt",
+        "updated": "Laatst bijgewerkt",
+        "actions": "Acties"
+      },
+      "status": {
+        "visited": "{count, plural, one {Eén keer bezocht} other {# keer bezocht}}",
+        "pending": "Wacht op eerste bezoek",
+        "notVisited": "Nog niet bezocht"
+      },
+      "bookedStatus": {
+        "yes": "Geboekt",
+        "no": "Niet geboekt"
+      }
+    }
+  },
   "DashboardOverview": {
     "eyebrow": "Teamomgeving",
     "title": "Kies welke module je wilt openen",
@@ -1279,6 +1422,11 @@
         "eyebrow": "Planning",
         "title": "Stem de agenda af",
         "description": "Bekijk de beschikbaarheid, wijs collega’s toe en publiceer aankomende TransformAI-strategiesessies."
+      },
+      "outreach": {
+        "eyebrow": "Outreach",
+        "title": "Activeer gepersonaliseerde landingspagina’s",
+        "description": "Upload bedrijfsnamen met maatwerktekst en publiceer de pagina zodra een prospect klikt."
       }
     },
     "metrics": {
@@ -1298,6 +1446,10 @@
         "title": "Bespaarde uren met AI",
         "caption": "{count, plural, one {# uur geautomatiseerd} other {# uren geautomatiseerd}}",
         "manage": "Planner openen"
+      },
+      "outreach": {
+        "title": "Outreach-pagina’s live",
+        "caption": "{count, plural, one {# gepersonaliseerde link live} other {# gepersonaliseerde links live}}"
       },
       "ratio": {
         "title": "Verhouding klant/staff",
@@ -1356,6 +1508,28 @@
         "briefings": "Bereid leiderschapsbriefings voor januari voor met ROI-cijfers uit de automatiseringspilots."
       }
     }
+  },
+  "OutreachPage": {
+    "eyebrow": "Speciaal voor jullie team",
+    "headline": "Hoe TransformAI {company} versnelt",
+    "templateBadge": "Template {id}",
+    "primaryCta": "Plan een strategiegesprek",
+    "secondaryCta": "Bekijk recente resultaten",
+    "timer": {
+      "eyebrow": "Reservering",
+      "running": "Gereserveerd voor jullie · nog {time}",
+      "expired": "Dit aanbod is verlopen",
+      "helper": "We houden deze gepersonaliseerde pagina 48 uur voor jullie vrij vanaf het eerste bezoek."
+    },
+    "bodyTitle": "Wat deze samenwerking {company} oplevert",
+    "bodySubtitle": "We stelden dit mini-voorstel samen op basis van jullie publieke profiel en huidige AI-rijpheid.",
+    "bookedBanner": "Via deze pagina is al een meeting ingepland—wij bereiden concrete vervolgstappen voor.",
+    "commitment": {
+      "title": "Wat je van ons mag verwachten",
+      "body": "Deel de pagina intern of plan het gesprek hierboven; we werken graag een concrete AI-roadmap op maat uit."
+    },
+    "metaTitle": "{company} × TransformAI",
+    "metaDescription": "Een persoonlijk TransformAI-overzicht voor jullie team."
   },
   "hoursSaved": {
     "dialog": {

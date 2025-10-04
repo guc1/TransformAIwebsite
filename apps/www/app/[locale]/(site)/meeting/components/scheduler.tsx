@@ -40,6 +40,7 @@ type SchedulerDay = {
 type SchedulerProps = {
   days: SchedulerDay[];
   locale: string;
+  outreachSlug?: string | null;
 };
 
 const statusDotMap: Record<SchedulerDay["status"], string> = {
@@ -306,7 +307,7 @@ function TakenSlot({
   );
 }
 
-export function MeetingScheduler({ days, locale }: SchedulerProps) {
+export function MeetingScheduler({ days, locale, outreachSlug }: SchedulerProps) {
   const t = useTranslations("Meeting");
   const router = useRouter();
   const [selectedDayKey, setSelectedDayKey] = useState(() => {
@@ -517,12 +518,26 @@ export function MeetingScheduler({ days, locale }: SchedulerProps) {
         >
           <input type="hidden" name="slotId" value={selectedSlotId ?? ""} />
           <input type="hidden" name="locale" value={locale} />
+          <input type="hidden" name="outreachSlug" value={outreachSlug ?? ""} />
 
           <div className="space-y-4">
             <div>
               <h3 className="text-xl font-semibold text-white">{t("Form.heading")}</h3>
               <p className="mt-1 text-sm text-white/70">{t("Form.caption")}</p>
             </div>
+
+            {outreachSlug ? (
+              <div className="rounded-2xl border border-sky-400/40 bg-sky-500/10 p-4 text-xs text-sky-100 sm:text-sm">
+                <p className="font-medium tracking-wide uppercase text-sky-100/80">
+                  {t("Form.outreachTracking.title")}
+                </p>
+                <p className="mt-1 text-sky-100/80">
+                  {t("Form.outreachTracking.body", {
+                    slug: outreachSlug,
+                  })}
+                </p>
+              </div>
+            ) : null}
 
             {state.status === "success" && successMessage ? (
               <div className="rounded-2xl border border-emerald-400/40 bg-emerald-500/10 p-4 text-sm text-emerald-100">

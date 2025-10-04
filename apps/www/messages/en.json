@@ -94,6 +94,10 @@
       "submit": "Schedule meeting",
       "submitPending": "Scheduling…",
       "privacy": "We only use your email to share the meeting link and follow-up notes.",
+      "outreachTracking": {
+        "title": "Tracking outreach link",
+        "body": "We’ll record this booking against /outreach/{slug} so your personalised dashboard stays up to date."
+      },
       "success": {
         "title": "Meeting confirmed",
         "message": "The meeting will take place through Google Zoom on {date}. Ten minutes before the meeting you will receive a link to the meeting."
@@ -1306,6 +1310,145 @@
       }
     }
   },
+  "DashboardOutreach": {
+    "eyebrow": "Outreach workspace",
+    "title": "Spin up personalised outreach pages",
+    "subtitle": "Import company names and talking points, preview the batch, and push bespoke landing pages live in seconds.",
+    "currentUser": "Signed in as {email}",
+    "metrics": {
+      "total": {
+        "label": "Pages published",
+        "caption": "{count, plural, one {# live page} other {# live pages}}"
+      },
+      "visited": {
+        "label": "Pages visited",
+        "caption": "{count, plural, one {# link opened} other {# links opened}}"
+      },
+      "untouched": {
+        "label": "Awaiting first visit",
+        "caption": "{count, plural, one {# page still unused} other {# pages still unused}}"
+      },
+      "booked": {
+        "label": "Meetings booked",
+        "caption": "{count, plural, one {# meeting confirmed} other {# meetings confirmed}}"
+      }
+    },
+    "templates": {
+      "eyebrow": "Template library",
+      "title": "Choose the personalised layout",
+      "description": "Preview the current outreach templates before assigning them inside the CSV.",
+      "badge": "Template {id}",
+      "items": {
+        "1": {
+          "title": "Consultative hero with countdown",
+          "body": "Highlights the prospect name, reiterates our offer, and drives an instant booking CTA with a 48-hour timer.",
+          "points": [
+            "Hero headline personalised with the company name",
+            "Countdown timer nudging a fast response",
+            "Primary CTA deep-linking into the meeting scheduler"
+          ]
+        }
+      }
+    },
+    "upload": {
+      "eyebrow": "CSV uploader",
+      "title": "Import outreach copy",
+      "description": "Upload a CSV with Name, Text to display, and Template columns. We'll validate each row before anything goes live.",
+      "cta": "Choose CSV",
+      "fileSelected": "Selected: {name}",
+      "noFile": "No file selected yet",
+      "push": "Push {count, plural, one {# page} other {# pages}}",
+      "pushing": "Pushing…",
+      "validation": "Upload a CSV that includes Name, Text to display, and Template columns before pushing.",
+      "previewLabel": "{count, plural, one {# entry ready} other {# entries ready}}",
+      "previewColumns": {
+        "name": "Company name",
+        "slug": "Slug",
+        "template": "Template",
+        "templateLabel": "Template {id}",
+        "text": "Text to display"
+      },
+      "errors": {
+        "title": "{count, plural, one {We found # issue} other {We found # issues}}",
+        "empty": "The file looks empty—add at least one row before uploading.",
+        "missingColumns": "Add \"Name\", \"Text to display\", and \"Template\" columns to the CSV.",
+        "missingValues": "Row {row} is missing either the name or the text to display.",
+        "invalidSlug": "Row {row} cannot be converted into a valid URL slug.",
+        "invalidTemplate": "Row {row} needs a template number (1, 2, 3…)."
+      }
+    },
+    "status": {
+      "success": "Pushed {created, plural, one {# new page} other {# new pages}} and updated {updated, plural, one {# existing page} other {# existing pages}}.",
+      "validation": "Fix the highlighted CSV issues and try again.",
+      "unauthorized": "You are not authorized to manage outreach pages.",
+      "error": "We couldn't process the upload. Try again."
+    },
+    "filters": {
+      "sortBy": "Sort by",
+      "sortOrder": "Sort order",
+      "order": {
+        "asc": "Oldest first",
+        "desc": "Newest first"
+      },
+      "sortOptions": {
+        "createdAt": "Date added",
+        "lastVisitedAt": "Last visit",
+        "visitCount": "Total visits"
+      },
+      "visitStatus": "Visit status",
+      "visitOptions": {
+        "any": "All pages",
+        "visited": "Visited pages",
+        "notVisited": "Not yet visited"
+      },
+      "booked": "Booked meeting",
+      "bookedOptions": {
+        "any": "All",
+        "yes": "Booked",
+        "no": "Not booked"
+      },
+      "addedOn": "Added on",
+      "templates": "Templates",
+      "templateLabel": "Template {id}",
+      "templatesEmpty": "Templates will appear here once you've published pages.",
+      "clear": "Clear all filters"
+    },
+    "table": {
+      "eyebrow": "Published pages",
+      "title": "Live outreach links",
+      "description": "Track every personalised link, see which prospects have opened it, and refine the view with filters when the list grows.",
+      "empty": "No outreach pages have been pushed yet.",
+      "noMatches": "No outreach pages match your filters.",
+      "openLink": "Open page",
+      "delete": {
+        "label": "Delete",
+        "pending": "Deleting…",
+        "success": "Removed /outreach/{slug} successfully.",
+        "error": "We couldn't delete that outreach page. Try again.",
+        "notFound": "That outreach page has already been removed."
+      },
+      "columns": {
+        "company": "Company",
+        "link": "Link",
+        "template": "Template",
+        "text": "Displayed text",
+        "visits": "Visits",
+        "added": "Added",
+        "booked": "Booked meeting",
+        "updated": "Last updated",
+        "actions": "Actions"
+      },
+      "status": {
+        "visited": "{count, plural, one {Visited once} other {Visited # times}}",
+        "pending": "Awaiting first visit",
+        "notVisited": "Not visited yet"
+      },
+      "bookedStatus": {
+        "yes": "Booked",
+        "no": "Not booked"
+      }
+    }
+  },
   "DashboardOverview": {
     "eyebrow": "Staff workspace",
     "title": "Choose the area you want to manage",
@@ -1322,6 +1465,11 @@
         "eyebrow": "Planning",
         "title": "Coordinate the meeting agenda",
         "description": "Review availability, assign colleagues, and publish upcoming TransformAI strategy sessions."
+      },
+      "outreach": {
+        "eyebrow": "Outreach",
+        "title": "Launch personalised landing pages",
+        "description": "Upload company-specific copy and push bespoke outreach pages that come to life the moment a prospect clicks."
       }
     },
     "metrics": {
@@ -1341,6 +1489,10 @@
         "title": "Hours saved with AI",
         "caption": "{count, plural, one {# hour automated} other {# hours automated}}",
         "manage": "Open planner"
+      },
+      "outreach": {
+        "title": "Outreach pages live",
+        "caption": "{count, plural, one {# personalised link published} other {# personalised links published}}"
       },
       "ratio": {
         "title": "Client-to-staff ratio",
@@ -1399,6 +1551,28 @@
         "briefings": "Prepare January leadership briefings showcasing ROI metrics from automation pilots."
       }
     }
+  },
+  "OutreachPage": {
+    "eyebrow": "Tailored for your team",
+    "headline": "How TransformAI can accelerate {company}",
+    "templateBadge": "Template {id}",
+    "primaryCta": "Book a strategy session",
+    "secondaryCta": "Explore recent wins",
+    "timer": {
+      "eyebrow": "Hold timer",
+      "running": "Reserved for you · {time} left",
+      "expired": "This invitation window has closed",
+      "helper": "We hold this personalised plan for 48 hours from your first visit."
+    },
+    "bodyTitle": "What this collaboration unlocks for {company}",
+    "bodySubtitle": "We crafted this mini-brief after researching your public footprint and current AI readiness.",
+    "bookedBanner": "A meeting is already confirmed from this page—we’ll arrive prepared with next steps.",
+    "commitment": {
+      "title": "What to expect next",
+      "body": "Share the landing page internally or book a call above and we will tailor a concrete transformation roadmap aligned to your priorities."
+    },
+    "metaTitle": "{company} × TransformAI",
+    "metaDescription": "A bespoke TransformAI overview prepared for your team."
   },
   "hoursSaved": {
     "dialog": {
