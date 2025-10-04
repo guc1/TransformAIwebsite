@@ -1,6 +1,6 @@
 "use client";
 import { SectionTitle } from "@/components/section";
-import { track } from "@vercel/analytics/server";
+import { track } from "@vercel/analytics";
 import { CalendarDays, ChevronRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
