@@ -14,7 +14,7 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db/client";
-import { users } from "@/lib/db/schema";
+import { outreachPages, users } from "@/lib/db/schema";
 import { formatDateWithZone } from "@/lib/date";
 import { MEETING_TIME_ZONE } from "@/lib/meetings/constants";
 import { getUpcomingMeetings } from "@/lib/meetings/queries";
@@ -46,6 +46,7 @@ export default async function DashboardPage({ params }: PageProps) {
     staffAccounts,
     visitorOverview,
     hoursSavedOverview,
+    outreachCountRows,
   ] = await Promise.all([
     db
       .select({
@@ -77,12 +78,15 @@ export default async function DashboardPage({ params }: PageProps) {
       .orderBy(desc(users.createdAt)),
     getVisitorOverview(),
     getHoursSavedOverview(),
+    db.select({ total: sql<number>`count(*)` }).from(outreachPages),
   ]);
 
   const totals: Record<string, number> = { client: 0, staff: 0 };
   for (const row of roleCounts) {
     totals[row.role] = Number(row.total);
   }
+
+  const outreachTotal = outreachCountRows[0]?.total ?? 0;
 
   const links = [
     {
@@ -98,6 +102,13 @@ export default async function DashboardPage({ params }: PageProps) {
       eyebrow: t("sections.planning.eyebrow"),
       title: t("sections.planning.title"),
       description: t("sections.planning.description"),
+    },
+    {
+      key: "outreach" as const,
+      href: `/${locale}/dashboard/outreach`,
+      eyebrow: t("sections.outreach.eyebrow"),
+      title: t("sections.outreach.title"),
+      description: t("sections.outreach.description"),
     },
   ];
 
@@ -125,6 +136,12 @@ export default async function DashboardPage({ params }: PageProps) {
       label: t("metrics.hoursSaved.title"),
       value: hoursSavedOverview.currentAmount.toLocaleString(locale),
       caption: t("metrics.hoursSaved.caption", { count: hoursSavedOverview.currentAmount }),
+    },
+    {
+      key: "outreach" as const,
+      label: t("metrics.outreach.title"),
+      value: outreachTotal.toLocaleString(locale),
+      caption: t("metrics.outreach.caption", { count: outreachTotal }),
     },
   ];
 
