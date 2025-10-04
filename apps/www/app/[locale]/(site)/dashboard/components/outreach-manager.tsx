@@ -41,11 +41,22 @@ interface PreviewRow {
   text: string;
   slug: string;
   templateId: number;
+  campaign: string;
+  sub: string;
 }
+
+type ParseErrorCode =
+  | "empty"
+  | "missingColumns"
+  | "missingValues"
+  | "invalidSlug"
+  | "invalidTemplate"
+  | "invalidCampaign"
+  | "invalidSub";
 
 interface ParseError {
   row: number;
-  message: string;
+  code: ParseErrorCode;
 }
 
 type UploadStatus =
@@ -71,19 +82,34 @@ interface FilterState {
   visitStatus: VisitFilter;
   booked: BookedFilter;
   templates: number[];
+  campaigns: string[];
+  subFirst: string[];
+  subSecond: string[];
+  subNumbers: string[];
   exactDate: string;
 }
 
 const TEXT_HEADER_CANDIDATES = ["text to display", "text", "copy", "message"];
 const TEMPLATE_HEADER_CANDIDATES = ["template", "template id", "variant"];
+const CAMPAIGN_HEADER_CANDIDATES = ["campaign"];
+const SUB_HEADER_CANDIDATES = ["sub"];
+const CAMPAIGN_PATTERN = /^[A-Z]{3}$/;
+const SUB_PATTERN = /^[A-Z]{2}[0-9]$/;
 const DEFAULT_FILTERS: FilterState = {
   sortField: "createdAt",
   sortDirection: "desc",
   visitStatus: "any",
   booked: "any",
   templates: [],
+  campaigns: [],
+  subFirst: [],
+  subSecond: [],
+  subNumbers: [],
   exactDate: "",
 };
+
+const FILTER_ACTION_BUTTON_CLASSES =
+  "h-8 rounded-lg border border-white/20 bg-white/5 px-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70 transition hover:border-white/35 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40";
 
 function parseCsv(content: string): { rows: PreviewRow[]; errors: ParseError[] } {
   const rows: string[][] = [];
@@ -132,16 +158,18 @@ function parseCsv(content: string): { rows: PreviewRow[]; errors: ParseError[] }
   const filtered = rows.filter((cells) => cells.some((cell) => cell.trim().length > 0));
 
   if (filtered.length === 0) {
-    return { rows: [], errors: [{ row: 0, message: "empty" }] };
+    return { rows: [], errors: [{ row: 0, code: "empty" }] };
   }
 
   const header = filtered[0].map((cell) => cell.trim().toLowerCase());
   const nameIndex = header.findIndex((cell) => cell === "name");
   const textIndex = header.findIndex((cell) => TEXT_HEADER_CANDIDATES.includes(cell));
   const templateIndex = header.findIndex((cell) => TEMPLATE_HEADER_CANDIDATES.includes(cell));
+  const campaignIndex = header.findIndex((cell) => CAMPAIGN_HEADER_CANDIDATES.includes(cell));
+  const subIndex = header.findIndex((cell) => SUB_HEADER_CANDIDATES.includes(cell));
 
-  if (nameIndex === -1 || textIndex === -1 || templateIndex === -1) {
-    return { rows: [], errors: [{ row: 0, message: "missingColumns" }] };
+  if (nameIndex === -1 || textIndex === -1 || templateIndex === -1 || campaignIndex === -1 || subIndex === -1) {
+    return { rows: [], errors: [{ row: 0, code: "missingColumns" }] };
   }
 
   const previewRows: PreviewRow[] = [];
@@ -157,14 +185,14 @@ function parseCsv(content: string): { rows: PreviewRow[]; errors: ParseError[] }
     }
 
     if (!name || !text) {
-      errors.push({ row: i + 1, message: "missingValues" });
+      errors.push({ row: i + 1, code: "missingValues" });
       continue;
     }
 
     const slug = toOutreachSlug(name);
 
     if (!slug) {
-      errors.push({ row: i + 1, message: "invalidSlug" });
+      errors.push({ row: i + 1, code: "invalidSlug" });
       continue;
     }
 
@@ -172,11 +200,25 @@ function parseCsv(content: string): { rows: PreviewRow[]; errors: ParseError[] }
     const templateId = Number.parseInt(templateCell, 10);
 
     if (!Number.isFinite(templateId) || templateId < 1) {
-      errors.push({ row: i + 1, message: "invalidTemplate" });
+      errors.push({ row: i + 1, code: "invalidTemplate" });
       continue;
     }
 
-    previewRows.push({ name, text, slug, templateId });
+    const campaignCell = (raw[campaignIndex] ?? "").trim().toUpperCase();
+
+    if (!CAMPAIGN_PATTERN.test(campaignCell)) {
+      errors.push({ row: i + 1, code: "invalidCampaign" });
+      continue;
+    }
+
+    const subCell = (raw[subIndex] ?? "").trim().toUpperCase();
+
+    if (!SUB_PATTERN.test(subCell)) {
+      errors.push({ row: i + 1, code: "invalidSub" });
+      continue;
+    }
+
+    previewRows.push({ name, text, slug, templateId, campaign: campaignCell, sub: subCell });
   }
 
   return { rows: previewRows, errors };
@@ -259,6 +301,42 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
     return Array.from(unique).sort((a, b) => a - b);
   }, [pages]);
 
+  const campaignOptions = useMemo(() => {
+    const unique = new Set<string>();
+    for (const page of pages) {
+      unique.add(page.campaign.toUpperCase());
+    }
+    return Array.from(unique).sort((a, b) => a.localeCompare(b));
+  }, [pages]);
+
+  const subOptions = useMemo(() => {
+    const first = new Set<string>();
+    const second = new Set<string>();
+    const numbers = new Set<string>();
+
+    for (const page of pages) {
+      const value = page.sub.toUpperCase();
+      if (value.length >= 1) {
+        first.add(value[0]);
+      }
+      if (value.length >= 2) {
+        second.add(value[1]);
+      }
+      if (value.length >= 3) {
+        numbers.add(value.slice(2));
+      }
+    }
+
+    return {
+      first: Array.from(first).sort((a, b) => a.localeCompare(b)),
+      second: Array.from(second).sort((a, b) => a.localeCompare(b)),
+      numbers: Array.from(numbers).sort((a, b) => a.localeCompare(b, undefined, { numeric: true })),
+    };
+  }, [pages]);
+
+  const hasSubSegments =
+    subOptions.first.length > 0 || subOptions.second.length > 0 || subOptions.numbers.length > 0;
+
   const templatePreviews = useMemo(
     () => [
       {
@@ -277,16 +355,32 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
 
   useEffect(() => {
     setFilters((prev) => {
-      if (prev.templates.length === 0) {
+      const nextTemplates = prev.templates.filter((id) => templateOptions.includes(id));
+      const nextCampaigns = prev.campaigns.filter((code) => campaignOptions.includes(code));
+      const nextSubFirst = prev.subFirst.filter((value) => subOptions.first.includes(value));
+      const nextSubSecond = prev.subSecond.filter((value) => subOptions.second.includes(value));
+      const nextSubNumbers = prev.subNumbers.filter((value) => subOptions.numbers.includes(value));
+
+      if (
+        nextTemplates.length === prev.templates.length &&
+        nextCampaigns.length === prev.campaigns.length &&
+        nextSubFirst.length === prev.subFirst.length &&
+        nextSubSecond.length === prev.subSecond.length &&
+        nextSubNumbers.length === prev.subNumbers.length
+      ) {
         return prev;
       }
-      const valid = prev.templates.filter((id) => templateOptions.includes(id));
-      if (valid.length === prev.templates.length) {
-        return prev;
-      }
-      return { ...prev, templates: valid };
+
+      return {
+        ...prev,
+        templates: nextTemplates,
+        campaigns: nextCampaigns,
+        subFirst: nextSubFirst,
+        subSecond: nextSubSecond,
+        subNumbers: nextSubNumbers,
+      };
     });
-  }, [templateOptions]);
+  }, [templateOptions, campaignOptions, subOptions]);
 
   const filteredPages = useMemo(() => {
     const filtered = pages.filter((page) => {
@@ -307,6 +401,27 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
       }
 
       if (filters.templates.length > 0 && !filters.templates.includes(page.templateId)) {
+        return false;
+      }
+
+      if (filters.campaigns.length > 0 && !filters.campaigns.includes(page.campaign.toUpperCase())) {
+        return false;
+      }
+
+      const subValue = page.sub.toUpperCase();
+      const subFirst = subValue[0] ?? "";
+      const subSecond = subValue[1] ?? "";
+      const subNumber = subValue.slice(2);
+
+      if (filters.subFirst.length > 0 && !filters.subFirst.includes(subFirst)) {
+        return false;
+      }
+
+      if (filters.subSecond.length > 0 && !filters.subSecond.includes(subSecond)) {
+        return false;
+      }
+
+      if (filters.subNumbers.length > 0 && !filters.subNumbers.includes(subNumber)) {
         return false;
       }
 
@@ -342,6 +457,10 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
       filters.visitStatus !== DEFAULT_FILTERS.visitStatus ||
       filters.booked !== DEFAULT_FILTERS.booked ||
       filters.templates.length > 0 ||
+      filters.campaigns.length > 0 ||
+      filters.subFirst.length > 0 ||
+      filters.subSecond.length > 0 ||
+      filters.subNumbers.length > 0 ||
       filters.exactDate !== DEFAULT_FILTERS.exactDate
     );
   }, [filters]);
@@ -386,6 +505,8 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
         name: row.name,
         text: row.text,
         templateId: row.templateId,
+        campaign: row.campaign,
+        sub: row.sub,
       }));
 
       const result = await importOutreachEntriesAction(locale, payload);
@@ -444,6 +565,138 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
       }
       return { ...prev, templates: Array.from(templates).sort((a, b) => a - b) };
     });
+  };
+
+  const selectAllTemplates = () => {
+    setFilters((prev) => ({
+      ...prev,
+      templates: templateOptions.slice().sort((a, b) => a - b),
+    }));
+  };
+
+  const clearTemplateFilters = () => {
+    setFilters((prev) => ({
+      ...prev,
+      templates: [],
+    }));
+  };
+
+  const toggleCampaignFilter = (campaign: string, checked: boolean) => {
+    setFilters((prev) => {
+      const campaigns = new Set(prev.campaigns);
+      if (checked) {
+        campaigns.add(campaign);
+      } else {
+        campaigns.delete(campaign);
+      }
+      return {
+        ...prev,
+        campaigns: Array.from(campaigns).sort((a, b) => a.localeCompare(b)),
+      };
+    });
+  };
+
+  const selectAllCampaigns = () => {
+    setFilters((prev) => ({
+      ...prev,
+      campaigns: campaignOptions.slice().sort((a, b) => a.localeCompare(b)),
+    }));
+  };
+
+  const clearCampaignFilters = () => {
+    setFilters((prev) => ({
+      ...prev,
+      campaigns: [],
+    }));
+  };
+
+  const toggleSubFirstFilter = (value: string, checked: boolean) => {
+    setFilters((prev) => {
+      const subFirst = new Set(prev.subFirst);
+      if (checked) {
+        subFirst.add(value);
+      } else {
+        subFirst.delete(value);
+      }
+      return {
+        ...prev,
+        subFirst: Array.from(subFirst).sort((a, b) => a.localeCompare(b)),
+      };
+    });
+  };
+
+  const selectAllSubFirst = () => {
+    setFilters((prev) => ({
+      ...prev,
+      subFirst: subOptions.first.slice().sort((a, b) => a.localeCompare(b)),
+    }));
+  };
+
+  const clearSubFirst = () => {
+    setFilters((prev) => ({
+      ...prev,
+      subFirst: [],
+    }));
+  };
+
+  const toggleSubSecondFilter = (value: string, checked: boolean) => {
+    setFilters((prev) => {
+      const subSecond = new Set(prev.subSecond);
+      if (checked) {
+        subSecond.add(value);
+      } else {
+        subSecond.delete(value);
+      }
+      return {
+        ...prev,
+        subSecond: Array.from(subSecond).sort((a, b) => a.localeCompare(b)),
+      };
+    });
+  };
+
+  const selectAllSubSecond = () => {
+    setFilters((prev) => ({
+      ...prev,
+      subSecond: subOptions.second.slice().sort((a, b) => a.localeCompare(b)),
+    }));
+  };
+
+  const clearSubSecond = () => {
+    setFilters((prev) => ({
+      ...prev,
+      subSecond: [],
+    }));
+  };
+
+  const toggleSubNumberFilter = (value: string, checked: boolean) => {
+    setFilters((prev) => {
+      const subNumbers = new Set(prev.subNumbers);
+      if (checked) {
+        subNumbers.add(value);
+      } else {
+        subNumbers.delete(value);
+      }
+      return {
+        ...prev,
+        subNumbers: Array.from(subNumbers).sort((a, b) => a.localeCompare(b, undefined, { numeric: true })),
+      };
+    });
+  };
+
+  const selectAllSubNumbers = () => {
+    setFilters((prev) => ({
+      ...prev,
+      subNumbers: subOptions.numbers
+        .slice()
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true })),
+    }));
+  };
+
+  const clearSubNumbers = () => {
+    setFilters((prev) => ({
+      ...prev,
+      subNumbers: [],
+    }));
   };
 
   const clearFilters = () => {
@@ -581,7 +834,7 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
               <ul className="mt-2 space-y-1">
                 {parseErrors.map((error, index) => (
                   <li key={`${error.row}-${index}`} className="text-xs">
-                    {t(`upload.errors.${error.message}` as const, { row: error.row })}
+                    {t(`upload.errors.${error.code}` as const, { row: error.row })}
                   </li>
                 ))}
               </ul>
@@ -617,6 +870,12 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
                       {t("upload.previewColumns.template")}
                     </TableHead>
                     <TableHead className="text-xs uppercase tracking-wide text-white/60">
+                      {t("upload.previewColumns.campaign")}
+                    </TableHead>
+                    <TableHead className="text-xs uppercase tracking-wide text-white/60">
+                      {t("upload.previewColumns.sub")}
+                    </TableHead>
+                    <TableHead className="text-xs uppercase tracking-wide text-white/60">
                       {t("upload.previewColumns.text")}
                     </TableHead>
                   </TableRow>
@@ -629,6 +888,8 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
                       <TableCell className="align-top text-xs text-white/60">
                         {t("upload.previewColumns.templateLabel", { id: row.templateId })}
                       </TableCell>
+                      <TableCell className="align-top text-xs text-white/60">{row.campaign}</TableCell>
+                      <TableCell className="align-top text-xs text-white/60">{row.sub}</TableCell>
                       <TableCell className="align-top text-sm text-white/70 whitespace-pre-line">
                         {truncate(row.text, 200)}
                       </TableCell>
@@ -744,41 +1005,314 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
               />
             </div>
             <div className="space-y-2">
-              <Label className="text-xs font-semibold uppercase tracking-[0.3em] text-white/50">
-                {t("filters.templates")}
-              </Label>
-              <div className="flex flex-wrap gap-2">
-                {templateOptions.length === 0 ? (
-                  <p className="text-xs text-white/50">{t("filters.templatesEmpty")}</p>
-                ) : (
-                  templateOptions.map((templateId) => {
-                    const checked = filters.templates.includes(templateId);
-                    const inputId = `template-filter-${templateId}`;
-                    return (
-                      <label
-                        key={inputId}
-                        className={cn(
-                          "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition",
-                          checked
-                            ? "border-sky-400/70 bg-sky-500/20 text-white"
-                            : "border-white/15 bg-white/5 text-white/70 hover:border-white/30",
-                        )}
-                        htmlFor={inputId}
-                      >
-                        <Checkbox
-                          id={inputId}
-                          checked={checked}
-                          className="h-3.5 w-3.5 border-white/30"
-                          onCheckedChange={(value) =>
-                            toggleTemplateFilter(templateId, value === true)
-                          }
-                        />
-                        <span>{t("filters.templateLabel", { id: templateId })}</span>
-                      </label>
-                    );
-                  })
-                )}
+              <div className="flex items-center justify-between gap-2">
+                <Label className="text-xs font-semibold uppercase tracking-[0.3em] text-white/50">
+                  {t("filters.templates")}
+                </Label>
+                {templateOptions.length > 0 ? (
+                  <div className="flex items-center gap-2">
+                    <Button
+                      className={FILTER_ACTION_BUTTON_CLASSES}
+                      disabled={filters.templates.length === templateOptions.length}
+                      onClick={selectAllTemplates}
+                      variant="ghost"
+                    >
+                      {t("filters.actions.selectAll")}
+                    </Button>
+                    <Button
+                      className={FILTER_ACTION_BUTTON_CLASSES}
+                      disabled={filters.templates.length === 0}
+                      onClick={clearTemplateFilters}
+                      variant="ghost"
+                    >
+                      {t("filters.actions.clear")}
+                    </Button>
+                  </div>
+                ) : null}
               </div>
+              {templateOptions.length === 0 ? (
+                <p className="text-xs text-white/50">{t("filters.templatesEmpty")}</p>
+              ) : (
+                <ScrollArea className="max-h-40 rounded-xl border border-white/10 bg-black/30">
+                  <div className="flex flex-wrap gap-2 p-3">
+                    {templateOptions.map((templateId) => {
+                      const checked = filters.templates.includes(templateId);
+                      const inputId = `template-filter-${templateId}`;
+                      return (
+                        <label
+                          key={inputId}
+                          className={cn(
+                            "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition",
+                            checked
+                              ? "border-sky-400/70 bg-sky-500/20 text-white"
+                              : "border-white/15 bg-white/5 text-white/70 hover:border-white/30",
+                          )}
+                          htmlFor={inputId}
+                        >
+                          <Checkbox
+                            id={inputId}
+                            checked={checked}
+                            className="h-3.5 w-3.5 border-white/30"
+                            onCheckedChange={(value) =>
+                              toggleTemplateFilter(templateId, value === true)
+                            }
+                          />
+                          <span>{t("filters.templateLabel", { id: templateId })}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </ScrollArea>
+              )}
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <Label className="text-xs font-semibold uppercase tracking-[0.3em] text-white/50">
+                  {t("filters.campaigns")}
+                </Label>
+                {campaignOptions.length > 0 ? (
+                  <div className="flex items-center gap-2">
+                    <Button
+                      className={FILTER_ACTION_BUTTON_CLASSES}
+                      disabled={filters.campaigns.length === campaignOptions.length}
+                      onClick={selectAllCampaigns}
+                      variant="ghost"
+                    >
+                      {t("filters.actions.selectAll")}
+                    </Button>
+                    <Button
+                      className={FILTER_ACTION_BUTTON_CLASSES}
+                      disabled={filters.campaigns.length === 0}
+                      onClick={clearCampaignFilters}
+                      variant="ghost"
+                    >
+                      {t("filters.actions.clear")}
+                    </Button>
+                  </div>
+                ) : null}
+              </div>
+              {campaignOptions.length === 0 ? (
+                <p className="text-xs text-white/50">{t("filters.campaignsEmpty")}</p>
+              ) : (
+                <ScrollArea className="max-h-40 rounded-xl border border-white/10 bg-black/30">
+                  <div className="flex flex-wrap gap-2 p-3">
+                    {campaignOptions.map((campaign) => {
+                      const checked = filters.campaigns.includes(campaign);
+                      const inputId = `campaign-filter-${campaign}`;
+                      return (
+                        <label
+                          key={inputId}
+                          className={cn(
+                            "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition",
+                            checked
+                              ? "border-sky-400/70 bg-sky-500/20 text-white"
+                              : "border-white/15 bg-white/5 text-white/70 hover:border-white/30",
+                          )}
+                          htmlFor={inputId}
+                        >
+                          <Checkbox
+                            id={inputId}
+                            checked={checked}
+                            className="h-3.5 w-3.5 border-white/30"
+                            onCheckedChange={(value) =>
+                              toggleCampaignFilter(campaign, value === true)
+                            }
+                          />
+                          <span>{campaign}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </ScrollArea>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label className="text-xs font-semibold uppercase tracking-[0.3em] text-white/50">
+                {t("filters.sub.label")}
+              </Label>
+              {hasSubSegments ? (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/40">
+                        {t("filters.sub.first")}
+                      </p>
+                      {subOptions.first.length > 0 ? (
+                        <div className="flex items-center gap-2">
+                          <Button
+                            className={FILTER_ACTION_BUTTON_CLASSES}
+                            disabled={filters.subFirst.length === subOptions.first.length}
+                            onClick={selectAllSubFirst}
+                            variant="ghost"
+                          >
+                            {t("filters.actions.selectAll")}
+                          </Button>
+                          <Button
+                            className={FILTER_ACTION_BUTTON_CLASSES}
+                            disabled={filters.subFirst.length === 0}
+                            onClick={clearSubFirst}
+                            variant="ghost"
+                          >
+                            {t("filters.actions.clear")}
+                          </Button>
+                        </div>
+                      ) : null}
+                    </div>
+                    {subOptions.first.length > 0 ? (
+                      <ScrollArea className="max-h-40 rounded-xl border border-white/10 bg-black/30">
+                        <div className="flex flex-wrap gap-2 p-3">
+                          {subOptions.first.map((value) => {
+                            const checked = filters.subFirst.includes(value);
+                            const inputId = `sub-first-${value}`;
+                            return (
+                              <label
+                                key={inputId}
+                                className={cn(
+                                  "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition",
+                                  checked
+                                    ? "border-sky-400/70 bg-sky-500/20 text-white"
+                                    : "border-white/15 bg-white/5 text-white/70 hover:border-white/30",
+                                )}
+                                htmlFor={inputId}
+                              >
+                                <Checkbox
+                                  id={inputId}
+                                  checked={checked}
+                                  className="h-3.5 w-3.5 border-white/30"
+                                  onCheckedChange={(checked) =>
+                                    toggleSubFirstFilter(value, checked === true)
+                                  }
+                                />
+                                <span>{value}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </ScrollArea>
+                    ) : null}
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/40">
+                        {t("filters.sub.second")}
+                      </p>
+                      {subOptions.second.length > 0 ? (
+                        <div className="flex items-center gap-2">
+                          <Button
+                            className={FILTER_ACTION_BUTTON_CLASSES}
+                            disabled={filters.subSecond.length === subOptions.second.length}
+                            onClick={selectAllSubSecond}
+                            variant="ghost"
+                          >
+                            {t("filters.actions.selectAll")}
+                          </Button>
+                          <Button
+                            className={FILTER_ACTION_BUTTON_CLASSES}
+                            disabled={filters.subSecond.length === 0}
+                            onClick={clearSubSecond}
+                            variant="ghost"
+                          >
+                            {t("filters.actions.clear")}
+                          </Button>
+                        </div>
+                      ) : null}
+                    </div>
+                    {subOptions.second.length > 0 ? (
+                      <ScrollArea className="max-h-40 rounded-xl border border-white/10 bg-black/30">
+                        <div className="flex flex-wrap gap-2 p-3">
+                          {subOptions.second.map((value) => {
+                            const checked = filters.subSecond.includes(value);
+                            const inputId = `sub-second-${value}`;
+                            return (
+                              <label
+                                key={inputId}
+                                className={cn(
+                                  "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition",
+                                  checked
+                                    ? "border-sky-400/70 bg-sky-500/20 text-white"
+                                    : "border-white/15 bg-white/5 text-white/70 hover:border-white/30",
+                                )}
+                                htmlFor={inputId}
+                              >
+                                <Checkbox
+                                  id={inputId}
+                                  checked={checked}
+                                  className="h-3.5 w-3.5 border-white/30"
+                                  onCheckedChange={(checked) =>
+                                    toggleSubSecondFilter(value, checked === true)
+                                  }
+                                />
+                                <span>{value}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </ScrollArea>
+                    ) : null}
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/40">
+                        {t("filters.sub.number")}
+                      </p>
+                      {subOptions.numbers.length > 0 ? (
+                        <div className="flex items-center gap-2">
+                          <Button
+                            className={FILTER_ACTION_BUTTON_CLASSES}
+                            disabled={filters.subNumbers.length === subOptions.numbers.length}
+                            onClick={selectAllSubNumbers}
+                            variant="ghost"
+                          >
+                            {t("filters.actions.selectAll")}
+                          </Button>
+                          <Button
+                            className={FILTER_ACTION_BUTTON_CLASSES}
+                            disabled={filters.subNumbers.length === 0}
+                            onClick={clearSubNumbers}
+                            variant="ghost"
+                          >
+                            {t("filters.actions.clear")}
+                          </Button>
+                        </div>
+                      ) : null}
+                    </div>
+                    {subOptions.numbers.length > 0 ? (
+                      <ScrollArea className="max-h-40 rounded-xl border border-white/10 bg-black/30">
+                        <div className="flex flex-wrap gap-2 p-3">
+                          {subOptions.numbers.map((value) => {
+                            const checked = filters.subNumbers.includes(value);
+                            const inputId = `sub-number-${value}`;
+                            return (
+                              <label
+                                key={inputId}
+                                className={cn(
+                                  "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition",
+                                  checked
+                                    ? "border-sky-400/70 bg-sky-500/20 text-white"
+                                    : "border-white/15 bg-white/5 text-white/70 hover:border-white/30",
+                                )}
+                                htmlFor={inputId}
+                              >
+                                <Checkbox
+                                  id={inputId}
+                                  checked={checked}
+                                  className="h-3.5 w-3.5 border-white/30"
+                                  onCheckedChange={(checked) =>
+                                    toggleSubNumberFilter(value, checked === true)
+                                  }
+                                />
+                                <span>{value}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </ScrollArea>
+                    ) : null}
+                  </div>
+                </div>
+              ) : (
+                <p className="text-xs text-white/50">{t("filters.sub.empty")}</p>
+              )}
             </div>
           </div>
           {hasActiveFilters ? (
@@ -825,6 +1359,12 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
                     </TableHead>
                     <TableHead className="w-[120px] text-xs uppercase tracking-wide text-white/60">
                       {t("table.columns.template")}
+                    </TableHead>
+                    <TableHead className="w-[120px] text-xs uppercase tracking-wide text-white/60">
+                      {t("table.columns.campaign")}
+                    </TableHead>
+                    <TableHead className="w-[120px] text-xs uppercase tracking-wide text-white/60">
+                      {t("table.columns.sub")}
                     </TableHead>
                     <TableHead className="text-xs uppercase tracking-wide text-white/60">
                       {t("table.columns.text")}
@@ -904,6 +1444,8 @@ export function OutreachManager({ locale, initialPages }: OutreachManagerProps) 
                         <TableCell className="align-top text-xs text-white/60">
                           {t("filters.templateLabel", { id: page.templateId })}
                         </TableCell>
+                        <TableCell className="align-top text-xs text-white/60">{page.campaign}</TableCell>
+                        <TableCell className="align-top text-xs text-white/60">{page.sub}</TableCell>
                         <TableCell className="align-top text-sm text-white/70 whitespace-pre-line">
                           {truncate(page.displayText, 220)}
                         </TableCell>
