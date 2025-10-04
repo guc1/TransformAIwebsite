@@ -9,7 +9,9 @@ import { cn } from "@/lib/utils";
 import { AskCta } from "./AskCta";
 import type { ChatLocale, ChatMessage } from "./types";
 
-const ChatPanel = dynamic(() => import("./ChatPanel").then((mod) => mod.ChatPanel), {
+type ChatPanelComponent = typeof import("./ChatPanel").default;
+
+const ChatPanel = dynamic<ChatPanelComponent>(() => import("./ChatPanel"), {
   ssr: false,
 });
 
