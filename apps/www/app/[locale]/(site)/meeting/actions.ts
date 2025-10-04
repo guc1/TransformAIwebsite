@@ -19,6 +19,7 @@ export async function scheduleMeetingAction(
     email: String(formData.get("email") ?? ""),
     description: String(formData.get("description") ?? ""),
     locale: String(formData.get("locale") ?? "en"),
+    outreachSlug: String(formData.get("outreachSlug") ?? ""),
   };
 
   const parsed = meetingBookingSchema.safeParse(input);
@@ -57,6 +58,10 @@ export async function scheduleMeetingAction(
   const slot = result.slot;
   if (slot?.startAt && slot?.endAt) {
     await revalidatePath(`/${parsed.data.locale}/meeting`);
+    if (parsed.data.outreachSlug) {
+      await revalidatePath(`/${parsed.data.locale}/outreach/${parsed.data.outreachSlug}`);
+      await revalidatePath(`/outreach/${parsed.data.outreachSlug}`);
+    }
     return {
       status: "success" as const,
       slot: {

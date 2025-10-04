@@ -16,6 +16,23 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (pathname === "/outreach" || pathname.startsWith("/outreach/")) {
+    const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
+    const hasLocale = cookieLocale && locales.includes(cookieLocale as (typeof locales)[number]);
+
+    if (hasLocale) {
+      const localizedUrl = request.nextUrl.clone();
+      localizedUrl.pathname = `/${cookieLocale}${pathname}`;
+      return NextResponse.redirect(localizedUrl);
+    }
+
+    const selectLanguageUrl = request.nextUrl.clone();
+    selectLanguageUrl.pathname = "/select-language";
+    const nextPath = `${pathname}${request.nextUrl.search}`;
+    selectLanguageUrl.searchParams.set("next", nextPath);
+    return NextResponse.redirect(selectLanguageUrl);
+  }
+
   if (pathname === "/") {
     const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
 

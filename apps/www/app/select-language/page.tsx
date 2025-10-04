@@ -8,7 +8,13 @@ type LanguageOption = {
   label: string;
 };
 
-export default async function SelectLanguagePage() {
+interface SelectLanguagePageProps {
+  searchParams?: Record<string, string | string[] | undefined>;
+}
+
+export default async function SelectLanguagePage({
+  searchParams,
+}: SelectLanguagePageProps) {
   const cookieLocale = cookies().get("NEXT_LOCALE")?.value;
   const previewLocale = cookieLocale && isLocale(cookieLocale) ? cookieLocale : defaultLocale;
   const messages = (await import("@/messages/en.json")).default;
@@ -17,6 +23,9 @@ export default async function SelectLanguagePage() {
     namespace: "Language",
     messages,
   });
+
+  const nextParam = searchParams?.next;
+  const nextPath = Array.isArray(nextParam) ? nextParam[0] : nextParam ?? "";
 
   const options: Array<LanguageOption> = [
     { locale: "en", label: t("english") },
@@ -53,6 +62,7 @@ export default async function SelectLanguagePage() {
                 {t("selectTitle")}
               </h1>
               <form action="/api/select-language" method="post" className="mt-4 grid w-full gap-4 text-left">
+                <input type="hidden" name="next" value={nextPath} />
                 {options.map(({ locale, label }) => (
                   <button
                     key={locale}

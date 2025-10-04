@@ -9,6 +9,7 @@ interface PageProps {
   params: {
     locale: string;
   };
+  searchParams?: Record<string, string | string[] | undefined>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -23,10 +24,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function MeetingPage({ params }: PageProps) {
+export default async function MeetingPage({ params, searchParams }: PageProps) {
   const { locale } = params;
   const t = await getTranslations({ locale, namespace: "Meeting" });
   const calendar = await getMeetingCalendar();
+  const outreachSlugParam = searchParams?.outreach;
+  const outreachSlug = Array.isArray(outreachSlugParam)
+    ? outreachSlugParam[0]
+    : outreachSlugParam ?? null;
 
   const days = calendar.map((day) => ({
     dateKey: day.dateKey,
@@ -63,7 +68,7 @@ export default async function MeetingPage({ params }: PageProps) {
           <p className="text-lg text-white/70 sm:text-xl">{t("Hero.subtitle")}</p>
         </div>
 
-        <MeetingScheduler days={days} locale={locale} />
+        <MeetingScheduler days={days} locale={locale} outreachSlug={outreachSlug} />
       </div>
     </div>
   );

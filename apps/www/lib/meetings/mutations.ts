@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 
 import { db } from "@/lib/db/client";
-import { meetingBookings, meetingSlots } from "@/lib/db/schema";
+import { meetingBookings, meetingSlots, outreachPages } from "@/lib/db/schema";
 
 import { getSlotById } from "./queries";
 
@@ -58,6 +58,17 @@ export async function bookMeetingSlot(input: unknown) {
       .update(meetingSlots)
       .set({ status: "booked", updatedAt: new Date() })
       .where(eq(meetingSlots.id, data.slotId));
+
+    if (data.outreachSlug) {
+      await tx
+        .update(outreachPages)
+        .set({
+          bookedMeeting: true,
+          bookedMeetingAt: new Date(),
+          updatedAt: new Date(),
+        })
+        .where(eq(outreachPages.slug, data.outreachSlug));
+    }
 
     const updatedSlot = await tx.query.meetingSlots.findFirst({
       where: (slots, { eq }) => eq(slots.id, data.slotId),

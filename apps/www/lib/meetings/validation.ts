@@ -48,6 +48,13 @@ export const meetingBookingSchema = z.object({
   email: z.string().email().max(320),
   description: z.string().min(10).max(1000),
   locale: z.string().min(2).max(8),
+  outreachSlug: z
+    .string()
+    .min(1)
+    .max(120)
+    .optional()
+    .or(z.literal(""))
+    .transform((value) => value?.trim() || undefined),
 });
 
 export const slotTimingSchema = slotTimingObjectSchema.superRefine(

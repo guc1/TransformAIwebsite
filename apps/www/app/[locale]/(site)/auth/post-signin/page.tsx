@@ -8,10 +8,11 @@ import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db/client";
 import { users } from "@/lib/db/schema";
 import type { AccountHistoryInput } from "@/lib/account-history";
+import type { Locale } from "@/i18n/routing";
 
 interface PageProps {
   params: {
-    locale: string;
+    locale: Locale;
   };
 }
 
