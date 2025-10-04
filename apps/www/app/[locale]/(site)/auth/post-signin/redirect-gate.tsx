@@ -25,8 +25,15 @@ export function RedirectGate({ targetPath, account, locale }: RedirectGateProps)
     }
 
     hasRedirected.current = true;
-    rememberAccount(account);
+    rememberAccount({ ...account, destination: targetPath });
     router.replace(targetPath, { locale });
+    const refreshTimeout = window.setTimeout(() => {
+      router.refresh();
+    }, 100);
+
+    return () => {
+      window.clearTimeout(refreshTimeout);
+    };
   }, [account, locale, router, targetPath]);
 
   const displayName = account.name?.trim() || account.email;
