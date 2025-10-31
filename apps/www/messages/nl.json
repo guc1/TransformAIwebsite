@@ -469,6 +469,107 @@
       }
     }
   },
+  "SpecialOffer": {
+    "hero": {
+      "eyebrow": "Speciale aanbieding",
+      "title": "Premium AI-transformatie aanbiedingen voor Nederlandse bedrijven",
+      "subtitle": "Kies het Basis Pakket voor snelle backend-resultaten of ga direct voor Het koopje pakket voor een volledige versnelling.",
+      "highlight": "Het Premium Deal pakket valt als eerste op en levert maximale waarde."
+    },
+    "packages": {
+      "common": {
+        "included": "Inclusief",
+        "exVat": "excl. btw"
+      },
+      "premium": {
+        "badge": "Meest compleet",
+        "title": "Het koopje pakket",
+        "tagline": "Premium Deal pakket",
+        "description": "Intensief éénweekstraject met senior specialisten op locatie en remote.",
+        "price": "€9.100",
+        "cta": "Plan premium intake",
+        "bullets": {
+          "bootcamp": {
+            "title": "1-week traject: 2 dagen on-site, 4 dagen rapportage, 1 dag presentatie",
+            "description": "We werken naast jouw team, analyseren de organisatie en presenteren een helder verhaal voor elke stakeholder."
+          },
+          "assessment": {
+            "title": "Diepgaande nulmeting van de huidige positie",
+            "description": "Het rapport scoort jullie op AI-gebruik, data-gereedheid en operationele volwassenheid."
+          },
+          "comparison": {
+            "title": "Vergelijking met jouw sector en aanverwante branches",
+            "description": "Ontdek hoe jullie presteren ten opzichte van peers zodat beslissingen op marktcijfers rusten."
+          },
+          "solutions": {
+            "title": "Volledig overzicht van integratie-opties",
+            "description": "Elke oplossing krijgt een inschatting van complexiteit, kosten en resultaat voor heldere prioritering."
+          },
+          "policy": {
+            "title": "AI-beleid op maat",
+            "description": "We verankeren jullie waarden en juridische vereisten in concrete AI-richtlijnen."
+          },
+          "roadmap": {
+            "title": "Robuuste AI-roadmap",
+            "description": "Een gefaseerd plan dat laat zien wat wanneer geleverd wordt en door wie."
+          },
+          "systems": {
+            "title": "Behandelt zowel frontend als backend systemen",
+            "description": "De transformatieroute dekt klantgerichte en interne platforms voor een volledige uitrol."
+          }
+        },
+        "guarantee": {
+          "title": "Geld-terug-garantie",
+          "description": "Leveren we de beloofde inzichten en roadmap niet? Dan krijg je de investering terug."
+        },
+        "bonus": {
+          "title": "Bonussen voor premium",
+          "items": [
+            {
+              "title": "Founder-to-founder advies sessie",
+              "description": "Persoonlijk advies over lange termijn AI-positionering zodat de directie vooruit kan kijken."
+            },
+            {
+              "title": "2 gratis opleidingsmodules (t.w.v. €1.400)",
+              "description": "Latere sessies op locatie om je team zonder extra kosten op te leiden."
+            }
+          ]
+        }
+      },
+      "basic": {
+        "badge": "Ideaal om te starten",
+        "title": "Basis Pakket",
+        "tagline": "Get started pakket",
+        "description": "Driedaagse versneller om je AI-nulmeting te doen en directe backend-kansen te pakken.",
+        "price": "€3.400",
+        "cta": "Plan Basis intake",
+        "bullets": {
+          "bootcamp": {
+            "title": "3-daagse bootcamp: 1 dag on-site, 1 dag rapportage, 1 dag presentatie",
+            "description": "We doorlopen de ontdekking, schrijven het rapport en presenteren de conclusies met je team."
+          },
+          "assessment": {
+            "title": "Diepgaande nulmeting van de huidige positie",
+            "description": "Brengt het huidige AI-gebruik in je backend, processen en tooling scherp in kaart."
+          },
+          "quickWins": {
+            "title": "Quick wins draaiboek",
+            "description": "We benoemen snelle verbeteringen en leggen uit hoe je ze direct implementeert."
+          },
+          "roadmap": {
+            "title": "Backend roadmap",
+            "description": "Bouwt de eerste roadmap waarmee het backend-team de volgende stappen kan plannen."
+          },
+          "backendFocus": {
+            "title": "Focus op backend",
+            "description": "Analyse en aanbevelingen richten zich volledig op de backend-systemen voor maximale scherpte."
+          }
+        },
+        "footer": "Ook front-end meenemen? Het koopje pakket dekt de volledige stack."
+      }
+    }
+  },
+
   "Hero": {
     "title": "Jouw transformatiepartner voor het AI-tijdperk",
     "body": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt.",
