@@ -39,7 +39,8 @@
       "continueRole": {
         "client": "Ledenomgeving",
         "staff": "Teamdashboard"
-      }
+      },
+      "developmentNotice": "Nog in ontwikkeling."
     },
     "settingsMenu": {
       "aria": "Snelle instellingen",
@@ -305,9 +306,9 @@
       "title": "Kies het AI-traject dat past bij jullie tempo",
       "subtitle": "Elk pakket versnelt strategie naar uitvoering in weken, met begeleiding die teams meeneemt en resultaat meetbaar maakt.",
       "highlights": {
-        "speed": "AI-resultaten binnen 90 dagen.",
-        "support": "Nederlandstalige experts op locatie en remote.",
-        "roi": "ROI bewezen in 40+ klantcases."
+        "speed": "AI-integraties van de hoogste kwaliteit.",
+        "support": "Begeleid door Nederlandstalige experts.",
+        "roi": "Productiviteitsboost tot wel 10x."
       }
     },
     "Packages": {
@@ -431,6 +432,11 @@
         "chooseTier3": "Neem contact op voor enterprise"
       }
     },
+    "ComingSoon": {
+      "title": "Binnenkort beschikbaar.",
+      "subtitle": "Op de hoogte blijven?",
+      "cta": "Neem contact op"
+    },
     "Chat": {
       "cta": {
         "label": "Vraag het aan onze TransformAI"
@@ -462,6 +468,7 @@
         "typing": "TransformAI Prijsassistent is aan het typen…",
         "transcriptLabel": "Gesprek over prijzen met de assistent"
       },
+      "disabledResponse": "TransformAI werkt eraan om mij werkend te krijgen. Binnenkort ben ik beschikbaar om mee te chatten. Voor nu kijk gerust rond op de website.",
       "errors": {
         "title": "Assistent niet bereikbaar",
         "body": "Probeer het over een moment opnieuw.",
@@ -747,6 +754,7 @@
         "typing": "TransformAI-assistent is aan het typen…",
         "transcriptLabel": "Gesprek tussen jou en de assistent"
       },
+      "disabledResponse": "TransformAI werkt eraan om mij werkend te krijgen. Binnenkort ben ik beschikbaar om mee te chatten. Voor nu kijk gerust rond op de website.",
       "errors": {
         "title": "Assistent niet bereikbaar",
         "body": "Probeer het over een paar ogenblikken opnieuw.",
@@ -1234,6 +1242,7 @@
       },
       "haveAccount": "Heb je al een account?",
       "signInLink": "Log in",
+      "developmentNotice": "Nog in ontwikkeling.",
       "errors": {
         "intentFailed": "We konden de toegangscode niet valideren. Probeer het opnieuw.",
         "emailInUse": "Er bestaat al een account voor dit e-mailadres.",
@@ -1258,6 +1267,7 @@
       "submit": "Log in",
       "cta": "Nog geen account?",
       "ctaLink": "Maak er een",
+      "developmentNotice": "Nog in ontwikkeling.",
       "errors": {
         "invalid": "We konden deze inloggegevens niet vinden. Probeer het opnieuw."
       }

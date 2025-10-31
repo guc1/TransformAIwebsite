@@ -39,7 +39,8 @@
       "continueRole": {
         "client": "Members hub",
         "staff": "Staff workspace"
-      }
+      },
+      "developmentNotice": "Still under development."
     },
     "settingsMenu": {
       "aria": "Quick settings",
@@ -305,9 +306,9 @@
       "title": "Choose the AI launch plan that matches your momentum",
       "subtitle": "Each package compresses strategy and execution into weeks, keeping leaders, teams, and ROI aligned.",
       "highlights": {
-        "speed": "AI wins in 90 days.",
+        "speed": "Highest quality AI integrations.",
         "support": "Guided by Dutch-speaking experts.",
-        "roi": "ROI benchmarks from 40+ cases."
+        "roi": "Productivity boost up to 10x."
       }
     },
     "Packages": {
@@ -431,6 +432,11 @@
         "chooseTier3": "Talk to Enterprise Solutions"
       }
     },
+    "ComingSoon": {
+      "title": "Coming soon.",
+      "subtitle": "Stay up to date?",
+      "cta": "Contact us"
+    },
     "Chat": {
       "cta": {
         "label": "Ask our TransformAI"
@@ -462,6 +468,7 @@
         "typing": "TransformAI Pricing Assistant is typing…",
         "transcriptLabel": "Conversation about pricing with the assistant"
       },
+      "disabledResponse": "TransformAI works super hard to have me working as fast as possible. For now just have a look around.",
       "errors": {
         "title": "Unable to reach the assistant",
         "body": "Please try again in a few moments.",
@@ -790,6 +797,7 @@
         "typing": "TransformAI Assistant is typing…",
         "transcriptLabel": "Conversation between you and the assistant"
       },
+      "disabledResponse": "TransformAI works super hard to have me working as fast as possible. For now just have a look around.",
       "errors": {
         "title": "Unable to reach the assistant",
         "body": "Please try again in a few moments.",
@@ -1277,6 +1285,7 @@
       },
       "haveAccount": "Already have an account?",
       "signInLink": "Sign in",
+      "developmentNotice": "Still under development.",
       "errors": {
         "intentFailed": "We couldn't verify that access code. Try again.",
         "emailInUse": "An account already exists for that email.",
@@ -1301,6 +1310,7 @@
       "submit": "Sign in",
       "cta": "Need an account?",
       "ctaLink": "Create one",
+      "developmentNotice": "Still under development.",
       "errors": {
         "invalid": "We couldn’t match those credentials. Try again."
       }

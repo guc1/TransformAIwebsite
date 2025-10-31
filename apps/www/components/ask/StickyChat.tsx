@@ -59,6 +59,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
       errorTitle: t("errors.title"),
       errorBody: t("errors.body"),
       retryLabel: t("errors.retry"),
+      disabledResponse: t("disabledResponse"),
     }),
     [t],
   );
@@ -68,8 +69,6 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
   const [displayPanel, setDisplayPanel] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [hasReachedTrigger, setHasReachedTrigger] = useState(false);
   const [hasReachedBoundary, setHasReachedBoundary] = useState(false);
@@ -81,6 +80,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
   const anchorRef = useRef<HTMLDivElement>(null);
   const lastScrollYRef = useRef(0);
   const closeTimer = useRef<number>();
+  const responseTimer = useRef<number>();
   const hasOpenedRef = useRef(false);
   const anchorDismissedRef = useRef(false);
 
@@ -93,6 +93,17 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
     }
     setShouldRender(true);
   }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimer.current) {
+        window.clearTimeout(closeTimer.current);
+      }
+      if (responseTimer.current) {
+        window.clearTimeout(responseTimer.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
@@ -458,54 +469,25 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
     window.scrollTo({ top: target, behavior: "smooth" });
   }, [chatPanelId, isDesktop]);
 
-  const sendToAssistant = useCallback(
-    async (conversation: ChatMessage[], prompt: string | null) => {
-      setIsLoading(true);
-      setErrorMessage(null);
-      setPendingPrompt((prev) => prompt ?? prev);
+  const sendToAssistant = useCallback(() => {
+    setIsLoading(true);
 
-      try {
-        const response = await fetch("/api/assistant", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            messages: conversation.map(({ role, content }) => ({ role, content })),
-          }),
-        });
+    if (responseTimer.current) {
+      window.clearTimeout(responseTimer.current);
+    }
 
-        if (!response.ok) {
-          const error = await response.json().catch(() => null);
-          const message = typeof error?.error === "string" ? error.error : response.statusText;
-          throw new Error(message);
-        }
-
-        const data = (await response.json().catch(() => ({}))) as { message?: string };
-        const assistantText = typeof data.message === "string" ? data.message.trim() : "";
-
-        if (!assistantText) {
-          throw new Error("Empty assistant response");
-        }
-
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: crypto.randomUUID(),
-            role: "assistant",
-            content: assistantText,
-          },
-        ]);
-        setPendingPrompt(null);
-      } catch (error) {
-        console.error("Assistant request failed", error);
-        setErrorMessage(locale.errorBody);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [locale.errorBody],
-  );
+    responseTimer.current = window.setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          role: "assistant",
+          content: locale.disabledResponse,
+        },
+      ]);
+      setIsLoading(false);
+    }, 480);
+  }, [locale.disabledResponse]);
 
   const handleSend = useCallback(
     (value: string) => {
@@ -520,21 +502,15 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
         content: trimmed,
       };
 
-      setMessages((prev) => {
-        const next = [...prev, userMessage];
-        void sendToAssistant(next, trimmed);
-        return next;
-      });
+      setMessages((prev) => [...prev, userMessage]);
+      sendToAssistant();
     },
     [sendToAssistant],
   );
 
   const handleRetry = useCallback(() => {
-    if (!pendingPrompt) {
-      return;
-    }
-    void sendToAssistant([...messages], pendingPrompt);
-  }, [messages, pendingPrompt, sendToAssistant]);
+    // No retry behaviour while the assistant is disabled.
+  }, []);
 
   const closeChat = useCallback(() => {
     setIsOpen(false);
@@ -589,7 +565,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
               onClose={closeChat}
               onSend={handleSend}
               onUsePrompt={handlePrompt}
-              errorMessage={errorMessage}
+              errorMessage={null}
               onRetry={handleRetry}
             />
           ) : null}

@@ -174,6 +174,12 @@ export function SignUpForm() {
 
   const disableSubmit = isSubmitting || isGoogleSubmitting || isVerifyingStaff;
 
+  const showDevelopmentNotice = () => {
+    if (typeof window !== "undefined") {
+      window.alert(t("developmentNotice"));
+    }
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -371,7 +377,7 @@ export function SignUpForm() {
         <button
           type="button"
           className="font-semibold text-white transition hover:text-white/80"
-          onClick={() => router.push("/sign-in")}
+          onClick={showDevelopmentNotice}
           disabled={disableSubmit}
         >
           {t("signInLink")}
