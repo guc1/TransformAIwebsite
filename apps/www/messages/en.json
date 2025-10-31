@@ -469,6 +469,107 @@
       }
     }
   },
+  "SpecialOffer": {
+    "hero": {
+      "eyebrow": "Exclusive special offer",
+      "title": "Exclusive premium-first AI transformation packages for Dutch companies",
+      "subtitle": "Lock in an exclusive engagement tailored to your ambition—start with the Basis Pakket for focused backend wins or choose the Het koopje pakket for an all-in acceleration.",
+      "highlight": "Our exclusive Premium Deal package is designed to be your first and most powerful move.",
+      "notice": "This exclusive special offer is tailored for companies in our pilot programme, unlocking preferential pricing. Limited time only."
+    },
+    "packages": {
+      "common": {
+        "included": "What's included",
+        "exVat": "excl. VAT"
+      },
+      "premium": {
+        "badge": "Most exclusive & comprehensive",
+        "title": "Het koopje pakket",
+        "tagline": "Exclusive Premium Deal package",
+        "description": "Intensive one-week AI transformation project with senior specialists on-site and remote, reserved for our pilot partners.",
+        "price": "€9.100",
+        "cta": "Request access",
+        "bullets": {
+          "bootcamp": {
+            "title": "1-week project: 2 days on-site, 4 days of reporting, 1 day presentation",
+            "description": "We embed with your team, analyse the organisation, and present a crystal-clear narrative for every stakeholder."
+          },
+          "assessment": {
+            "title": "Detailed assessment of your current position",
+            "description": "The assessment report scores your company on AI adoption, data readiness, and operational maturity."
+          },
+          "comparison": {
+            "title": "Benchmark against your field and adjacent industries",
+            "description": "See how you perform versus peers so you can frame decisions with real market context."
+          },
+          "solutions": {
+            "title": "Full catalogue of integration possibilities",
+            "description": "Every solution is mapped with complexity, cost, and expected impact so you can prioritise with confidence."
+          },
+          "policy": {
+            "title": "Co-created AI governance and policy",
+            "description": "We align with your values and legal requirements to define responsible AI guardrails."
+          },
+          "roadmap": {
+            "title": "Robust AI roadmap",
+            "description": "A staged implementation plan showing what to deliver, by whom, and when."
+          },
+          "systems": {
+            "title": "Covers both frontend and backend systems",
+            "description": "The transformation plan spans customer-facing and internal platforms for a complete rollout."
+          }
+        },
+        "guarantee": {
+          "title": "Money-back guarantee",
+          "description": "If we do not deliver the promised insights and roadmap, you receive your investment back."
+        },
+        "bonus": {
+          "title": "Exclusive premium bonuses",
+          "items": [
+            {
+              "title": "Founder-to-founder advisory session",
+              "description": "Personal guidance on long-term AI positioning so leadership knows how to steer beyond the project."
+            },
+            {
+              "title": "2 free education modules (worth €1.400)",
+              "description": "In-person training delivered later to upskill your team without extra cost."
+            }
+          ]
+        }
+      },
+      "basic": {
+        "badge": "Exclusive starter option",
+        "title": "Basis Pakket",
+        "tagline": "Get started package",
+        "description": "Three-day accelerator to understand your AI baseline and unlock immediate backend wins with exclusive pilot pricing.",
+        "price": "€3.400",
+        "cta": "Request access",
+        "bullets": {
+          "bootcamp": {
+            "title": "3-day bootcamp: 1 day on-site, 1 day reporting, 1 day presentation",
+            "description": "We partner with your team for a rapid discovery, craft the report, and present the findings."
+          },
+          "assessment": {
+            "title": "Detailed assessment of your current position",
+            "description": "Measures how your backend uses AI today, covering data, processes, and tooling."
+          },
+          "quickWins": {
+            "title": "Quick wins playbook",
+            "description": "We highlight fast-to-implement improvements and outline exactly how to deploy them."
+          },
+          "roadmap": {
+            "title": "Backend roadmap",
+            "description": "Creates the first-stage roadmap to guide your backend team through the next steps."
+          },
+          "backendFocus": {
+            "title": "Backend-focused engagement",
+            "description": "The assessment and recommendations zero in on backend systems to keep scope sharp."
+          }
+        },
+        "footer": "Need support across frontend as well? The Het koopje pakket covers the full stack."
+      }
+    }
+  },
   "Hero": {
     "title": "Your Transformation Partner for the Age of AI",
     "body": "We help companies adapt successfully and sustainably to the challenges and opportunities that Artificial Intelligence brings.",
