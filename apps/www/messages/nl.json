@@ -469,6 +469,119 @@
       }
     }
   },
+  "SpecialOffer": {
+    "hero": {
+      "eyebrow": "Exclusieve special",
+      "title": "Exclusieve AI-transformatie pakketten voor Nederlandse bedrijven",
+      "subtitle": "Kies een exclusieve aanpak die past bij jullie ambitie: start met het Basis Pakket voor gerichte backend-impact of kies Het koopje pakket voor een totale versnelling.",
+      "highlight": "Ons exclusieve Premium Deal pakket is gemaakt als jullie krachtigste eerste stap.",
+      "notice": "Deze exclusieve aanbieding is bedoeld voor bedrijven in onze pilot en geeft toegang tot een voorkeurtarief. Alleen tijdelijk beschikbaar."
+    },
+    "packages": {
+      "common": {
+        "included": "Inclusief",
+        "exVat": "excl. btw"
+      },
+      "premium": {
+        "badge": "Meest exclusief en compleet",
+        "title": "Het koopje pakket",
+        "tagline": "Exclusief Premium Deal pakket",
+        "description": "Intensief éénweekstraject met senior specialisten op locatie en remote, gereserveerd voor onze pilotpartners.",
+        "price": "€9.100",
+        "cta": "Request access",
+        "bullets": {
+          "bootcamp": {
+            "title": "1-week traject: 2 dagen on-site, 4 dagen rapportage, 1 dag presentatie",
+            "description": "We werken naast jouw team, analyseren de organisatie en presenteren een helder verhaal voor elke stakeholder."
+          },
+          "assessment": {
+            "title": "Diepgaande nulmeting van de huidige positie",
+            "description": "Het rapport scoort jullie op AI-gebruik, data-gereedheid en operationele volwassenheid."
+          },
+          "comparison": {
+            "title": "Vergelijking met jouw sector en aanverwante branches",
+            "description": "Ontdek hoe jullie presteren ten opzichte van peers zodat beslissingen op marktcijfers rusten."
+          },
+          "solutions": {
+            "title": "Volledig overzicht van integratie-opties",
+            "description": "Elke oplossing krijgt een inschatting van complexiteit, kosten en resultaat voor heldere prioritering."
+          },
+          "policy": {
+            "title": "AI-beleid op maat",
+            "description": "We verankeren jullie waarden en juridische vereisten in concrete AI-richtlijnen."
+          },
+          "roadmap": {
+            "title": "Robuuste AI-roadmap",
+            "description": "Een gefaseerd plan dat laat zien wat wanneer geleverd wordt en door wie."
+          },
+          "systems": {
+            "title": "Behandelt zowel frontend als backend systemen",
+            "description": "De transformatieroute dekt klantgerichte en interne platforms voor een volledige uitrol."
+          }
+        },
+        "guarantee": {
+          "title": "Geld-terug-garantie",
+          "description": "Leveren we de beloofde inzichten en roadmap niet? Dan krijg je de investering terug."
+        },
+        "bonus": {
+          "title": "Exclusieve premium bonussen",
+          "items": [
+            {
+              "title": "Founder-to-founder advies sessie",
+              "description": "Persoonlijk advies over lange termijn AI-positionering zodat de directie vooruit kan kijken."
+            },
+            {
+              "title": "2 gratis opleidingsmodules (t.w.v. €1.400)",
+              "description": "Latere sessies op locatie om je team zonder extra kosten op te leiden."
+            }
+          ]
+        }
+      },
+      "basic": {
+        "badge": "Exclusieve starter",
+        "title": "Basis Pakket",
+        "tagline": "Get started pakket",
+        "description": "Driedaagse versneller om je AI-nulmeting te doen en directe backend-kansen te pakken met exclusieve pilotvoorwaarden.",
+        "price": "€3.400",
+        "cta": "Request access",
+        "bullets": {
+          "bootcamp": {
+            "title": "3-daagse bootcamp: 1 dag on-site, 1 dag rapportage, 1 dag presentatie",
+            "description": "We doorlopen de ontdekking, schrijven het rapport en presenteren de conclusies met je team."
+          },
+          "assessment": {
+            "title": "Diepgaande nulmeting van de huidige positie",
+            "description": "Brengt het huidige AI-gebruik in je backend, processen en tooling scherp in kaart."
+          },
+          "quickWins": {
+            "title": "Quick wins draaiboek",
+            "description": "We benoemen snelle verbeteringen en leggen uit hoe je ze direct implementeert."
+          },
+          "roadmap": {
+            "title": "Backend roadmap",
+            "description": "Bouwt de eerste roadmap waarmee het backend-team de volgende stappen kan plannen."
+          },
+          "backendFocus": {
+            "title": "Focus op backend",
+            "description": "Analyse en aanbevelingen richten zich volledig op de backend-systemen voor maximale scherpte."
+          }
+        },
+        "footer": "Ook front-end meenemen? Het koopje pakket dekt de volledige stack."
+      }
+    },
+    "metadata": {
+      "title": "Exclusieve special offer pakketten | TransformAI",
+      "description": "Profiteer van exclusieve pilotprijzen voor het Basis Pakket en Het koopje pakket van TransformAI—maatwerk AI-trajecten voor ambitieuze Nederlandse bedrijven.",
+      "openGraph": {
+        "title": "Exclusieve special offer pakketten | TransformAI",
+        "description": "Ontdek TransformAI's exclusieve pilotaanbod met premium en basis pakketten voor vooruitstrevende teams."
+      },
+      "twitter": {
+        "title": "Exclusieve special offer pakketten | TransformAI",
+        "description": "Zeker tijdelijk pilottarief op de premium en basis AI-transformatiepakketten van TransformAI."
+      }
+    }
+  },
   "Hero": {
     "title": "Jouw transformatiepartner voor het AI-tijdperk",
     "body": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt.",
