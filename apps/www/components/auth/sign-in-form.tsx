@@ -72,6 +72,12 @@ export function SignInForm() {
 
   const disableButtons = isSubmitting || isGoogleSubmitting;
 
+  const showDevelopmentNotice = () => {
+    if (typeof window !== "undefined") {
+      window.alert(t("developmentNotice"));
+    }
+  };
+
   return (
     <div className="space-y-8">
       <div className="space-y-1">
@@ -175,7 +181,7 @@ export function SignInForm() {
         <button
           type="button"
           className="font-semibold text-white transition hover:text-white/80"
-          onClick={() => router.push("/create-account")}
+          onClick={showDevelopmentNotice}
           disabled={disableButtons}
         >
           {t("ctaLink")}

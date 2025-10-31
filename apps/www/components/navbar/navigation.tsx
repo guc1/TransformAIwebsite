@@ -27,7 +27,13 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { forwardRef, useEffect, useState, type ComponentPropsWithoutRef } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useState,
+  type ComponentPropsWithoutRef,
+  type MouseEvent,
+} from "react";
 import { DesktopNavLink, MobileNavLink } from "./link";
 
 export function Navigation() {
@@ -383,6 +389,7 @@ function MembersMenu({ className }: { className?: string }) {
               label={t("createAccount")}
               description={t("membersMenu.createAccountDescription")}
               icon={UserPlus}
+              disabledMessage={t("membersMenu.developmentNotice")}
               onClick={() => {
                 setOpen(false);
                 if (hasConsentFor("measurement")) {
@@ -395,6 +402,7 @@ function MembersMenu({ className }: { className?: string }) {
               label={t("signIn")}
               description={t("membersMenu.signInDescription")}
               icon={LogIn}
+              disabledMessage={t("membersMenu.developmentNotice")}
               onClick={() => {
                 setOpen(false);
                 track("signin", { location: "navigation" });
@@ -467,6 +475,7 @@ const MembersDrawerMenu = ({ onNavigate }: MembersDrawerMenuProps) => {
             description={t("membersMenu.createAccountDescription")}
             icon={UserPlus}
             className="border-white/10 bg-white/5"
+            disabledMessage={t("membersMenu.developmentNotice")}
             onClick={() => {
               setOpen(false);
               onNavigate();
@@ -481,6 +490,7 @@ const MembersDrawerMenu = ({ onNavigate }: MembersDrawerMenuProps) => {
             description={t("membersMenu.signInDescription")}
             icon={LogIn}
             className="border-white/10 bg-white/5"
+            disabledMessage={t("membersMenu.developmentNotice")}
             onClick={() => {
               setOpen(false);
               onNavigate();
@@ -499,19 +509,43 @@ type MembersMenuLinkProps = {
   description: string;
   icon: LucideIcon;
   className?: string;
-  onClick?: () => void;
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  disabledMessage?: string;
 };
 
-function MembersMenuLink({ href, label, description, icon: Icon, className, onClick }: MembersMenuLinkProps) {
+function MembersMenuLink({
+  href,
+  label,
+  description,
+  icon: Icon,
+  className,
+  onClick,
+  disabledMessage,
+}: MembersMenuLinkProps) {
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (disabledMessage) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    onClick?.(event);
+
+    if (disabledMessage && typeof window !== "undefined") {
+      window.alert(disabledMessage);
+    }
+  };
+
   return (
     <Link
       href={href}
-      onClick={onClick}
+      onClick={handleClick}
       role="menuitem"
       className={cn(
         "group flex w-full items-center justify-between gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-left text-sm text-white/85 transition hover:border-white/20 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+        disabledMessage ? "cursor-not-allowed opacity-70" : undefined,
         className,
       )}
+      aria-disabled={Boolean(disabledMessage)}
     >
       <span className="flex flex-col gap-1 text-left">
         <span className="flex items-center gap-2 font-semibold text-white">

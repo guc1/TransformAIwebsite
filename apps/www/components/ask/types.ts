@@ -25,4 +25,5 @@ export type ChatLocale = {
   errorTitle: string;
   errorBody: string;
   retryLabel: string;
+  disabledResponse: string;
 };
