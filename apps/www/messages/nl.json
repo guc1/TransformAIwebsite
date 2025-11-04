@@ -27,6 +27,7 @@
       "exit": "Afsluiten",
       "messages": "Berichten",
       "overview": "Overzicht",
+      "inbox": "Inbox",
       "planning": "Planning",
       "hoursSaved": "Uren bespaard",
       "dashboard": "Dashboard",
@@ -219,7 +220,7 @@
       "eyebrow": "Laten we praten",
       "title": "Neem contact op met TransformAI",
       "body": "Deel je uitdaging en wij leveren binnen twee werkdagen een op maat gemaakt AI-plan.",
-      "emailNotice": "Liever mailen? Gebruik info@transformai.nl — dit is ons enige officiële adres."
+      "emailNotice": "Liever mailen? Mail direct naar info@transformai.nl."
     },
     "Highlights": {
       "label": "Waarom leiders ons benaderen",
@@ -253,21 +254,21 @@
         "helper": "Kies de optie die het beste bij je vraag past."
       },
       "requestTypes": {
-        "strategy": {
-          "title": "AI-strategiesprint",
-          "description": "Breng leiders op één lijn over resultaten, KPI's en de eerste 90-dagen-roadmap."
+        "general": {
+          "title": "Algemene vragen",
+          "description": "Vragen met betrekking tot het bedrijf."
         },
-        "automation": {
-          "title": "Automatiseringsscan",
-          "description": "Ontdek automatiseringskansen in teams en kwantificeer de efficiëntiewinst."
+        "solutions": {
+          "title": "Vragen over oplossingen",
+          "description": "Alle vragen met betrekking tot de oplossingen die wij aanbieden."
         },
-        "integration": {
-          "title": "Maatwerk AI-integratie",
-          "description": "Ontwerp copilots, agents of dataproducten die aansluiten op jullie stack."
+        "aiHelp": {
+          "title": "Hulp met AI",
+          "description": "Voor vragen met betrekking tot AI in uw bedrijf (kostenloos)."
         },
-        "training": {
-          "title": "Executive enablement & training",
-          "description": "Maak leiders en teams vaardig zodat AI-adoptie organisatiebreed blijft plakken."
+        "other": {
+          "title": "Overige",
+          "description": "Voor alle vragen die niet in de andere categorieën vallen."
         }
       },
       "fields": {
@@ -280,7 +281,7 @@
           "placeholder": "Bedrijfs- of teamnaam"
         },
         "email": {
-          "label": "Contact e-mail (optioneel)",
+          "label": "Contact e-mail (Hier zullen wij u terug op berichten)",
           "placeholder": "jij@bedrijf.nl"
         },
         "description": {
@@ -1672,6 +1673,11 @@
         "title": "Stem de agenda af",
         "description": "Bekijk de beschikbaarheid, wijs collega’s toe en publiceer aankomende TransformAI-strategiesessies."
       },
+      "inbox": {
+        "eyebrow": "Inbox",
+        "title": "Bekijk inkomende contactberichten",
+        "description": "Houd alle aanvragen van de contactpagina centraal bij."
+      },
       "outreach": {
         "eyebrow": "Outreach",
         "title": "Activeer gepersonaliseerde landingspagina’s",
@@ -1756,6 +1762,20 @@
         "outreach": "Stem met delivery leads af om het nieuwe AI-maturiteitsplaybook bij hun accounts te delen.",
         "briefings": "Bereid leiderschapsbriefings voor januari voor met ROI-cijfers uit de automatiseringspilots."
       }
+    }
+  },
+  "DashboardInbox": {
+    "title": "Contact-inbox",
+    "subtitle": "Bekijk elk bericht dat via het TransformAI-contactformulier is verzonden.",
+    "currentUser": "Ingelogd als {email}",
+    "empty": "Er zijn nog geen contactberichten. Nieuwe aanvragen verschijnen hier direct.",
+    "table": {
+      "received": "Ontvangen",
+      "requestType": "Aanvraagtype",
+      "email": "E-mail",
+      "company": "Bedrijf",
+      "locale": "Taal",
+      "message": "Bericht"
     }
   },
   "OutreachPage": {

@@ -97,6 +97,13 @@ export default async function DashboardPage({ params }: PageProps) {
       description: t("sections.hoursSaved.description"),
     },
     {
+      key: "inbox" as const,
+      href: `/${locale}/dashboard/inbox`,
+      eyebrow: t("sections.inbox.eyebrow"),
+      title: t("sections.inbox.title"),
+      description: t("sections.inbox.description"),
+    },
+    {
       key: "planning" as const,
       href: `/${locale}/dashboard/planning`,
       eyebrow: t("sections.planning.eyebrow"),
