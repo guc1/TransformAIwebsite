@@ -11,6 +11,10 @@ const serverSchema = clientSchema.extend({
   GOOGLE_CLIENT_ID: z.string().min(1),
   GOOGLE_CLIENT_SECRET: z.string().min(1),
   STAFF_ACCESS_CODE: z.string().min(1).default("Cake2025"),
+  CONTACT_DISCORD_WEBHOOK: z
+    .string()
+    .url()
+    .optional(),
 });
 
 let cachedClientEnv: z.infer<typeof clientSchema> | undefined;
