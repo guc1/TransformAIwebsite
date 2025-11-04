@@ -1,23 +1,23 @@
 export const CONTACT_REQUEST_TYPES = [
   {
-    value: "strategy",
-    translationKey: "strategy",
-    emailLabel: "AI strategy sprint",
+    value: "general",
+    translationKey: "general",
+    emailLabel: "General questions",
   },
   {
-    value: "automation",
-    translationKey: "automation",
-    emailLabel: "Automation & efficiency audit",
+    value: "solutions",
+    translationKey: "solutions",
+    emailLabel: "Solution inquiries",
   },
   {
-    value: "integration",
-    translationKey: "integration",
-    emailLabel: "Custom AI integration",
+    value: "aiHelp",
+    translationKey: "aiHelp",
+    emailLabel: "Help with AI",
   },
   {
-    value: "training",
-    translationKey: "training",
-    emailLabel: "Executive enablement & training",
+    value: "other",
+    translationKey: "other",
+    emailLabel: "Other",
   },
 ] as const;
 
