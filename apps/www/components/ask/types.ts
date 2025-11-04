@@ -1,9 +1,19 @@
 export type ChatRole = "user" | "assistant";
 
+export type ChatAction =
+  | {
+      type: "redirect";
+      url: string;
+      label: string;
+      confirm: string;
+    };
+
 export type ChatMessage = {
   id: string;
   role: ChatRole;
   content: string;
+  action?: ChatAction | null;
+  language?: "en" | "nl";
 };
 
 export type ChatLocale = {
