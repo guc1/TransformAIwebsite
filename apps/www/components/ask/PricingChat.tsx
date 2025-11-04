@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -22,6 +22,7 @@ type PricingChatProps = {
 
 export const PricingChat: React.FC<PricingChatProps> = ({ className, onOpenChange }) => {
   const t = useTranslations("Pricing.Chat");
+  const localeCode = useLocale();
   const locale = useMemo<ChatLocale>(
     () => ({
       ctaLabel: t("cta.label"),
@@ -113,6 +114,7 @@ export const PricingChat: React.FC<PricingChatProps> = ({ className, onOpenChang
           },
           body: JSON.stringify({
             messages: conversation.map(({ role, content }) => ({ role, content })),
+            locale: localeCode,
           }),
         });
 
@@ -145,7 +147,7 @@ export const PricingChat: React.FC<PricingChatProps> = ({ className, onOpenChang
         setIsLoading(false);
       }
     },
-    [locale.errorBody],
+    [locale.errorBody, localeCode],
   );
 
   const openChat = useCallback(() => {
