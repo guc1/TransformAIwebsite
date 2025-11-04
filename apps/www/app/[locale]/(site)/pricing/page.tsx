@@ -1,20 +1,11 @@
 "use client";
 import { PricingChat } from "@/components/ask";
 import { CTA } from "@/components/cta";
-import { Particles } from "@/components/particles";
 import { PricingCompareTable } from "@/components/pricing/pricing-compare-table";
 import { ShinyCardGroup } from "@/components/shiny-card";
 import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero";
 import { cn } from "@/lib/utils";
-import {
-  Check,
-  GraduationCap,
-  Handshake,
-  Languages,
-  Sparkles,
-  Timer,
-  TrendingUp,
-} from "lucide-react";
+import { Check, GraduationCap, Handshake, Languages, Sparkles, Timer, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
@@ -48,9 +39,10 @@ export default function PricingPage() {
     { icon: TrendingUp, label: header("highlights.roi") },
   ] as const;
 
-  const educationContactHref = "mailto:support@unkey.dev?subject=TransformAI%20Education%20Package";
-  const introductionContactHref = "mailto:support@unkey.dev?subject=TransformAI%20Introduction%20Package";
-  const enterpriseContactHref = "mailto:support@unkey.dev?subject=TransformAI%20Enterprise%20Solutions";
+  const basicEducationContactHref = "mailto:support@unkey.dev?subject=TransformAI%20Basic%20Education%20Module";
+  const advancedEducationContactHref = "mailto:support@unkey.dev?subject=TransformAI%20Advanced%20Education%20Module";
+  const aiseoBetaContactHref = "mailto:support@unkey.dev?subject=TransformAI%20AISEO%20Beta%20Application";
+  const overviewContactHref = "mailto:support@unkey.dev?subject=TransformAI%20AI%20Situation%20Overview";
   return (
     <div className="pt-[64px]">
       <PricingChat onOpenChange={setIsChatOpen} />
@@ -130,14 +122,20 @@ export default function PricingPage() {
 
         <PricingCompareTable />
 
+        <div className="mt-24 text-center">
+          <h2 className="text-balance text-3xl font-semibold text-white sm:text-4xl">
+            {packages("heading")}
+          </h2>
+        </div>
+
         <div id="pricing-tier-grid" className="mt-12">
-          <ShinyCardGroup className="grid h-full max-w-4xl grid-cols-2 gap-6 mx-auto group">
-            <PricingCard id="pricing-tier-1" color={Color.White} className="col-span-2 md:col-span-1">
+          <ShinyCardGroup className="grid h-full max-w-6xl grid-cols-1 gap-6 mx-auto group md:grid-cols-2 xl:grid-cols-3">
+            <PricingCard id="pricing-tier-1" color={Color.White} className="col-span-1">
               <FreeCardHighlight className="absolute top-0 right-0 pointer-events-none" />
 
               <PricingCardHeader
-                title={packages("education.title")}
-                description={packages("education.description")}
+                title={packages("basicEducation.title")}
+                description={packages("basicEducation.description")}
                 className="bg-gradient-to-tr from-transparent to-[#ffffff]/10 "
                 color={Color.White}
                 icon={GraduationCap}
@@ -146,147 +144,209 @@ export default function PricingPage() {
 
               <PricingCardContent>
                 <Cost
-                  dollar={packages("education.price")}
-                  frequency={packages("education.frequency")}
+                  dollar={packages("basicEducation.price")}
+                  frequency={packages("basicEducation.frequency")}
                 />
-                <Button label={packages("education.cta")} href={educationContactHref} />
-                <Bullets title={packages("common.included")}>
+                <Button label={packages("basicEducation.cta")} href={basicEducationContactHref} />
+                <Bullets title={packages("common.included")} className="flex-1">
                   <li>
-                    <Bullet Icon={Check} label={packages("education.bullets.courseV1")} color={Color.White} />
+                    <Bullet Icon={Check} label={packages("basicEducation.bullets.customLessons")} color={Color.White} />
                   </li>
                   <li>
-                    <Bullet Icon={Check} label={packages("education.bullets.courseV2")} color={Color.White} />
+                    <Bullet Icon={Check} label={packages("basicEducation.bullets.foundations")} color={Color.White} />
                   </li>
                   <li>
-                    <Bullet Icon={Check} label={packages("education.bullets.workshops")} color={Color.White} />
+                    <Bullet Icon={Check} label={packages("basicEducation.bullets.handsOn")} color={Color.White} />
                   </li>
                   <li>
                     <Bullet
                       Icon={Check}
-                      label={packages("education.bullets.trainingMaterials")}
+                      label={packages("basicEducation.bullets.catalog")}
                       color={Color.White}
                     />
                   </li>
                   <li>
-                    <Bullet Icon={Check} label={packages("education.bullets.certification")} color={Color.White} />
+                    <Bullet Icon={Check} label={packages("basicEducation.bullets.twoHours")} color={Color.White} />
                   </li>
                 </Bullets>
               </PricingCardContent>
               <PricingCardFooter>
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm font-bold text-white">{packages("education.footer.title")}</p>
-                  <p className="text-xs text-white/60">{packages("education.footer.body")}</p>
+                  <p className="text-sm font-bold text-white">{packages("basicEducation.footer.title")}</p>
+                  <p className="text-xs text-white/60">{packages("basicEducation.footer.body")}</p>
                 </div>
               </PricingCardFooter>
             </PricingCard>
 
-            <PricingCard id="pricing-tier-2" color={Color.Yellow} className="col-span-2 md:col-span-1">
+            <PricingCard id="pricing-tier-2" color={Color.Yellow} className="col-span-1">
               <ProCardHighlight className="absolute top-0 right-0 pointer-events-none" />
 
               <PricingCardHeader
-                title={packages("introduction.title")}
-                description={packages("introduction.description")}
+                title={packages("advancedEducation.title")}
+                description={packages("advancedEducation.description")}
                 className="bg-gradient-to-tr from-black/50 to-[#FFD600]/10 "
                 color={Color.Yellow}
-                icon={Handshake}
+                icon={Sparkles}
               />
               <Separator />
 
               <PricingCardContent>
                 <Cost
-                  dollar={packages("introduction.price")}
-                  frequency={packages("introduction.frequency")}
+                  dollar={packages("advancedEducation.price")}
+                  frequency={packages("advancedEducation.frequency")}
                 />
-                <Button label={packages("introduction.cta")} href={introductionContactHref} />
-                <Bullets title={packages("common.included")}>
+                <Button label={packages("advancedEducation.cta")} href={advancedEducationContactHref} />
+                <Bullets title={packages("common.included")} className="flex-1">
                   <li>
-                    <Bullet Icon={Check} label={packages("introduction.bullets.aiReadiness")} color={Color.Yellow} />
+                    <Bullet Icon={Check} label={packages("advancedEducation.bullets.innovationTracks")} color={Color.Yellow} />
                   </li>
                   <li>
                     <Bullet
                       Icon={Check}
-                      label={packages("introduction.bullets.automationSetup")}
+                      label={packages("advancedEducation.bullets.customBuilds")}
                       color={Color.Yellow}
                     />
                   </li>
                   <li>
-                    <Bullet Icon={Check} label={packages("introduction.bullets.pilotIntegration")} color={Color.Yellow} />
+                    <Bullet Icon={Check} label={packages("advancedEducation.bullets.tooling")} color={Color.Yellow} />
                   </li>
                   <li>
-                    <Bullet Icon={Check} label={packages("introduction.bullets.assessment")} color={Color.Yellow} />
+                    <Bullet Icon={Check} label={packages("advancedEducation.bullets.catalog")} color={Color.Yellow} />
                   </li>
                   <li>
-                    <Bullet Icon={Check} label={packages("introduction.bullets.guidance")} color={Color.Yellow} />
+                    <Bullet Icon={Check} label={packages("advancedEducation.bullets.mentorship")} color={Color.Yellow} />
                   </li>
                 </Bullets>
               </PricingCardContent>
               <PricingCardFooter>
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm font-bold text-white">{packages("introduction.footer.title")}</p>
-                  <p className="text-xs text-white/60">{packages("introduction.footer.body")}</p>
+                  <p className="text-sm font-bold text-white">{packages("advancedEducation.footer.title")}</p>
+                  <p className="text-xs text-white/60">{packages("advancedEducation.footer.body")}</p>
                 </div>
               </PricingCardFooter>
             </PricingCard>
 
-            <PricingCard id="pricing-tier-3" color={Color.Purple} className="col-span-2">
+            <PricingCard id="pricing-tier-3" color={Color.Purple} className="col-span-1 xl:col-span-1">
               <EnterpriseCardHighlight className="absolute top-0 right-0 pointer-events-none" />
 
-              <div className="flex flex-col h-full md:flex-row">
-                <div className="flex flex-col w-full gap-8">
-                  <PricingCardHeader
-                    title={packages("enterprise.title")}
-                    description={packages("enterprise.description")}
-                    color={Color.Purple}
-                    className="bg-gradient-to-tr from-transparent to-[#9D72FF]/10 "
-                    icon={Sparkles}
-                  />
-                  <PricingCardContent>
-                    <Cost
-                      dollar={packages("enterprise.price")}
-                      frequency={packages("enterprise.frequency")}
-                    />
-                    <Link href={enterpriseContactHref}>
-                      <div className="w-full p-px rounded-lg h-10 bg-gradient-to-r from-[#02DEFC] via-[#0239FC] to-[#7002FC] overflow-hidden">
-                        <div className="bg-black rounded-[7px] h-full bg-opacity-95 hover:bg-opacity-25 duration-1000">
-                          <div className="flex items-center justify-center w-full h-full bg-gradient-to-tr from-[#02DEFC]/20 via-[#0239FC]/20 to-[#7002FC]/20  rounded-[7px]">
-                            <span className="text-sm font-semibold text-white">{packages("enterprise.cta")}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  </PricingCardContent>
-              </div>
-              <Separator orientation="vertical" className="hidden md:flex" />
-              <Separator orientation="horizontal" className="md:hidden" />
-              <div className="relative w-full p-8">
-                <Particles
-                  className="absolute inset-0 duration-500 opacity-50 -z-10 group-hover:opacity-100"
-                  quantity={50}
+              <div className="flex flex-col h-full">
+                <PricingCardHeader
+                  title={packages("platform.title")}
+                  description={packages("platform.description")}
                   color={Color.Purple}
-                  vx={0.1}
-                  vy={-0.1}
+                  className="bg-gradient-to-tr from-transparent to-[#9D72FF]/10 "
+                  icon={Languages}
                 />
-                <Bullets title={packages("common.included")}>
+                <Separator />
+                <PricingCardContent>
+                  <Cost
+                    dollar={packages("platform.price")}
+                    frequency={packages("platform.frequency")}
+                  />
+                  <Button label={packages("platform.cta")} disabled />
+                  <Bullets title={packages("common.included")} className="flex-1">
+                    <li>
+                      <Bullet Icon={Check} label={packages("platform.bullets.operatingSystem")} color={Color.Purple} />
+                    </li>
+                    <li>
+                      <Bullet Icon={Check} label={packages("platform.bullets.efficiency")} color={Color.Purple} />
+                    </li>
+                    <li>
+                      <Bullet Icon={Check} label={packages("platform.bullets.integrations")} color={Color.Purple} />
+                    </li>
+                    <li>
+                      <Bullet Icon={Check} label={packages("platform.bullets.guidance")} color={Color.Purple} />
+                    </li>
+                    <li>
+                      <Bullet Icon={Check} label={packages("platform.bullets.insights")} color={Color.Purple} />
+                    </li>
+                  </Bullets>
+                </PricingCardContent>
+                <PricingCardFooter>
+                  <div className="flex flex-col gap-2">
+                    <p className="text-sm font-bold text-white">{packages("platform.footer.title")}</p>
+                    <p className="text-xs text-white/60">{packages("platform.footer.body")}</p>
+                  </div>
+                </PricingCardFooter>
+              </div>
+            </PricingCard>
+
+            <PricingCard color={Color.White} className="col-span-1">
+              <PricingCardHeader
+                title={packages("aiseo.title")}
+                description={packages("aiseo.description")}
+                className="bg-gradient-to-tr from-transparent to-[#ffffff]/10 "
+                color={Color.White}
+                icon={TrendingUp}
+              />
+              <Separator />
+              <PricingCardContent>
+                <Cost dollar={packages("aiseo.price")} frequency={packages("aiseo.frequency")} />
+                <Button label={packages("aiseo.cta")} href={aiseoBetaContactHref} />
+                <Bullets title={packages("common.included")} className="flex-1">
                   <li>
-                    <Bullet Icon={Check} label={packages("enterprise.bullets.tailoredIntegrations")} color={Color.Purple} />
+                    <Bullet Icon={Check} label={packages("aiseo.bullets.aiVisibility")} color={Color.White} />
                   </li>
                   <li>
-                    <Bullet Icon={Check} label={packages("enterprise.bullets.researchSupport")} color={Color.Purple} />
+                    <Bullet Icon={Check} label={packages("aiseo.bullets.knowledgeGraphs")} color={Color.White} />
                   </li>
                   <li>
-                    <Bullet Icon={Check} label={packages("enterprise.bullets.customModel")} color={Color.Purple} />
+                    <Bullet Icon={Check} label={packages("aiseo.bullets.searchFuture")} color={Color.White} />
                   </li>
                   <li>
-                    <Bullet Icon={Check} label={packages("enterprise.bullets.consulting")} color={Color.Purple} />
+                    <Bullet Icon={Check} label={packages("aiseo.bullets.experimentation")} color={Color.White} />
                   </li>
                   <li>
-                    <Bullet Icon={Check} label={packages("enterprise.bullets.continuousSupport")} color={Color.Purple} />
+                    <Bullet Icon={Check} label={packages("aiseo.bullets.reporting")} color={Color.White} />
                   </li>
                 </Bullets>
-              </div>
-            </div>
-          </PricingCard>
-        </ShinyCardGroup>
+              </PricingCardContent>
+              <PricingCardFooter>
+                <div className="flex flex-col gap-2">
+                  <p className="text-sm font-bold text-white">{packages("aiseo.footer.title")}</p>
+                  <p className="text-xs text-white/60">{packages("aiseo.footer.body")}</p>
+                </div>
+              </PricingCardFooter>
+            </PricingCard>
+
+            <PricingCard color={Color.Yellow} className="col-span-1">
+              <PricingCardHeader
+                title={packages("overview.title")}
+                description={packages("overview.description")}
+                className="bg-gradient-to-tr from-black/50 to-[#FFD600]/10 "
+                color={Color.Yellow}
+                icon={Handshake}
+              />
+              <Separator />
+              <PricingCardContent>
+                <Cost dollar={packages("overview.price")} frequency={packages("overview.frequency")} />
+                <Button label={packages("overview.cta")} href={overviewContactHref} />
+                <Bullets title={packages("common.included")} className="flex-1">
+                  <li>
+                    <Bullet Icon={Check} label={packages("overview.bullets.topTierAdvice")} color={Color.Yellow} />
+                  </li>
+                  <li>
+                    <Bullet Icon={Check} label={packages("overview.bullets.situationOverview")} color={Color.Yellow} />
+                  </li>
+                  <li>
+                    <Bullet Icon={Check} label={packages("overview.bullets.report")} color={Color.Yellow} />
+                  </li>
+                  <li>
+                    <Bullet Icon={Check} label={packages("overview.bullets.benchmark")} color={Color.Yellow} />
+                  </li>
+                  <li>
+                    <Bullet Icon={Check} label={packages("overview.bullets.endToEnd")} color={Color.Yellow} />
+                  </li>
+                </Bullets>
+              </PricingCardContent>
+              <PricingCardFooter>
+                <div className="flex flex-col gap-2">
+                  <p className="text-sm font-bold text-white">{packages("overview.footer.title")}</p>
+                  <p className="text-xs text-white/60">{packages("overview.footer.body")}</p>
+                </div>
+              </PricingCardFooter>
+            </PricingCard>
+          </ShinyCardGroup>
       </div>
       <BelowEnterpriseSvg className="container inset-x-0 top-0 mx-auto -mt-64 -mb-32" />
 

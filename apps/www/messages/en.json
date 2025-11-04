@@ -311,57 +311,98 @@
       }
     },
     "Packages": {
+      "heading": "Other solutions",
       "common": {
         "included": "What's included:"
       },
-      "education": {
-        "title": "Education Package",
-        "description": "Focused on educating the workforce and making employees future-proof for AI adoption.",
-        "price": "$6,000",
-        "frequency": "one-time investment",
-        "cta": "Request education proposal",
+      "basicEducation": {
+        "title": "Basic education module",
+        "description": "In-person group modules that give every role AI confidence.",
+        "price": "€800",
+        "frequency": "per module (2h in-person)",
+        "cta": "Book education module",
         "bullets": {
-          "courseV1": "AI Education Course V1",
-          "courseV2": "AI Education Course V2",
-          "workshops": "Workshops for teams",
-          "trainingMaterials": "Practical training materials",
-          "certification": "Certification of completion"
+          "customLessons": "Tailored cohorts for every team and role",
+          "foundations": "From core principles to confident day-to-day use",
+          "handsOn": "Hands-on prompts plus image & video creation labs",
+          "catalog": "Pick from 20+ on-site modules",
+          "twoHours": "Two-hour, in-person sessions per module"
         },
         "footer": {
-          "title": "Need a tailored curriculum?",
-          "body": "We can adapt the education program to the unique roles across your organization."
+          "title": "Planning multiple learning paths?",
+          "body": "We’ll curate the right mix of modules for every department."
         }
       },
-      "introduction": {
-        "title": "Introduction Package",
-        "description": "Designed for companies starting their AI transition journey.",
-        "price": "$5,000",
-        "frequency": "one-time engagement",
-        "cta": "Plan your AI kickoff",
+      "advancedEducation": {
+        "title": "Advanced education module",
+        "description": "Build-first workshops for teams ready to ship new AI products.",
+        "price": "€1,100",
+        "frequency": "per advanced module (2h in-person)",
+        "cta": "Book advanced module",
         "bullets": {
-          "aiReadiness": "AI-readiness analysis of the company",
-          "automationSetup": "Initial workflow automation setup",
-          "pilotIntegration": "Pilot project integration",
-          "assessment": "Productivity & cost-efficiency assessment",
-          "guidance": "Strategic guidance session with our team"
+          "innovationTracks": "Co-engineer frontier AI systems with our experts",
+          "customBuilds": "Tracks tuned for makers who already know the basics",
+          "tooling": "Deep dives into orchestration, automation, and multimodal stacks",
+          "catalog": "10 advanced modules pushing applied AI forward",
+          "mentorship": "Mentorship that turns ideas into production-ready prototypes"
         },
         "footer": {
-          "title": "Preparing to scale further?",
-          "body": "We can expand these foundations into enterprise-wide automation and governance."
+          "title": "Already mastered the basics?",
+          "body": "We’ll co-design build tracks that match your teams’ ambitions."
         }
       },
-      "enterprise": {
-        "title": "Enterprise Solutions",
-        "description": "Custom AI transformation solutions built around your organization.",
-        "price": "Custom $",
-        "frequency": "Tailored proposal",
-        "cta": "Contact Us",
+      "platform": {
+        "title": "Custom Platform Enrollment",
+        "description": "One control center to operationalise AI across your company.",
+        "price": "Coming soon",
+        "frequency": "Private beta in development",
+        "cta": "Coming soon",
         "bullets": {
-          "tailoredIntegrations": "Tailored AI integrations",
-          "researchSupport": "Advanced research support",
-          "customModel": "Custom model development",
-          "consulting": "Dedicated consulting",
-          "continuousSupport": "Continuous support"
+          "operatingSystem": "Central OS for assistants, workflows, and guardrails",
+          "efficiency": "Maximize efficiency and value from every AI initiative",
+          "integrations": "Integrations with the tools your teams already use",
+          "guidance": "Guided onboarding and playbooks by industry",
+          "insights": "Realtime adoption and ROI insight dashboards"
+        },
+        "footer": {
+          "title": "Want early access?",
+          "body": "Join the waitlist to hear when enrollment opens."
+        }
+      },
+      "aiseo": {
+        "title": "AISEO package (AIEO)",
+        "description": "Put your brand at the top of AI-driven discovery.",
+        "price": "Beta access",
+        "frequency": "Apply for invitation",
+        "cta": "Apply for beta",
+        "bullets": {
+          "aiVisibility": "Shape how leading AI assistants understand your company",
+          "knowledgeGraphs": "Influence the knowledge graphs generative AI trusts",
+          "searchFuture": "Stay visible as AI-native search replaces SEO",
+          "experimentation": "Co-develop ranking experiments with our team",
+          "reporting": "Track visibility gains across AI channels"
+        },
+        "footer": {
+          "title": "Limited beta availability",
+          "body": "We review applications weekly and onboard focused cohorts."
+        }
+      },
+      "overview": {
+        "title": "AI situation overview",
+        "description": "A two-hour strategy sprint benchmarking your AI position.",
+        "price": "€799",
+        "frequency": "two-hour strategy session",
+        "cta": "Apply now",
+        "bullets": {
+          "topTierAdvice": "Receive senior-level advice tailored to your goals",
+          "situationOverview": "See where your company stands in today’s AI landscape",
+          "report": "Get a detailed report with next steps and priorities",
+          "benchmark": "Benchmark progress against peers in your industry",
+          "endToEnd": "Map front- and back-end opportunities in one workshop"
+        },
+        "footer": {
+          "title": "Ready for what’s next?",
+          "body": "We’ll outline roadmap options and connect you with the right experts."
         }
       }
     },
