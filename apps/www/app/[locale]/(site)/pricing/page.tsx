@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   BelowEnterpriseSvg,
@@ -39,6 +39,7 @@ import {
 export default function PricingPage() {
   const header = useTranslations("Pricing.Header");
   const packages = useTranslations("Pricing.Packages");
+  const locale = useLocale();
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const highlightItems = [
@@ -89,17 +90,28 @@ export default function PricingPage() {
               <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle_at_center,_rgba(14,165,233,0.25),_rgba(15,23,42,0))]" />
             </div>
 
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/70 shadow-[0_0_32px_rgba(59,130,246,0.15)]">
-              <Sparkles className="h-4 w-4 text-sky-200" />
-              {header("eyebrow")}
-            </span>
+            {header("eyebrow") ? (
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/70 shadow-[0_0_32px_rgba(59,130,246,0.15)]">
+                <Sparkles className="h-4 w-4 text-sky-200" />
+                {header("eyebrow")}
+              </span>
+            ) : null}
 
             <h1 className="mt-6 text-balance text-4xl font-semibold leading-tight text-transparent sm:text-5xl sm:leading-tight bg-gradient-to-r from-white via-white to-white/70 bg-clip-text">
               {header("title")}
             </h1>
 
             <p className="mt-4 text-balance text-base text-white/70 sm:text-lg">
-              {header("subtitle")}
+              {header.rich("subtitle", {
+                contact: (chunks) => (
+                  <Link
+                    href={`/${locale}/contact`}
+                    className="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/[0.08] px-4 py-1.5 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/[0.14] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

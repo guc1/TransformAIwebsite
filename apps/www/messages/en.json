@@ -301,13 +301,13 @@
   },
   "Pricing": {
     "Header": {
-      "eyebrow": "Packages for decisive teams",
-      "title": "Choose the AI launch plan that matches your momentum",
-      "subtitle": "Each package compresses strategy and execution into weeks, keeping leaders, teams, and ROI aligned.",
+      "eyebrow": "Tailored AI solutions",
+      "title": "Choose the AI solution that work for you",
+      "subtitle": "Each solution will be customised per case, making sure maximum value can be extracted from each solution. Don't know which solution fits you, <contact>contact us</contact> and we will make sure we will find a match.",
       "highlights": {
-        "speed": "AI wins in 90 days.",
+        "speed": "Highest quality AI integrations",
         "support": "Guided by Dutch-speaking experts.",
-        "roi": "ROI benchmarks from 40+ cases."
+        "roi": "Productivity boost up to 10×"
       }
     },
     "Packages": {
@@ -366,69 +366,162 @@
       }
     },
     "Table": {
-      "title": "Compare packages",
+      "title": "Find Your Solution",
+      "description": "Phases are a way for us to distinguish the different location of companies in the AI transformation process.",
       "headers": {
-        "feature": "Feature",
+        "solution": "Solution",
         "info": "Information"
       },
       "tiers": {
-        "t1": "Education Package",
-        "t2": "Introduction Package",
-        "t3": "Enterprise Solutions",
-        "price": {
-          "t1": "$6,000 one-time",
-          "t2": "$5,000 one-time",
-          "t3": "Custom proposal"
+        "t1": {
+          "label": "Phase 1",
+          "subtitle": "(Foundation)"
+        },
+        "t2": {
+          "label": "Phase 2",
+          "subtitle": "(Standard)"
+        },
+        "t3": {
+          "label": "Phase 3",
+          "subtitle": "(Advanced)"
         }
       },
       "categories": {
-        "educationEnablement": "Education & enablement",
-        "implementation": "Implementation & strategy",
-        "enterprise": "Enterprise scale"
+        "foundation": {
+          "label": "Introduction to AI (purchase deal possible) → Foundation package",
+          "description": "Sets the foundation for a successful long term transformation of AI within your company"
+        },
+        "integration": {
+          "label": "First steps in AI (package deal possible) → Integrated Package",
+          "description": "This package makes sure the basics of AI are integrated within the company"
+        },
+        "scaling": {
+          "label": "Scalable AI (package deal possible) → Intrinsic Package",
+          "description": "The package is responsible for scaling the AI solutions to extract as much as possible value out of them for the company"
+        },
+        "cuttingEdge": {
+          "label": "The cutting edge AI",
+          "description": "The solutions here are meant for companies who are operating on the cutting edge of AI"
+        }
       },
       "rows": {
-        "educationCourseV1": "AI Education Course V1",
-        "educationCourseV2": "AI Education Course V2",
-        "workshops": "Workshops for teams",
-        "trainingMaterials": "Practical training materials",
-        "certification": "Certification of completion",
-        "aiReadiness": "AI-readiness analysis of the company",
-        "automationSetup": "Initial workflow automation setup",
-        "pilotIntegration": "Pilot project integration",
-        "assessment": "Productivity & cost-efficiency assessment",
-        "guidance": "Strategic guidance session with our team",
-        "tailoredIntegrations": "Tailored AI integrations",
-        "researchSupport": "Advanced research support",
-        "customModel": "Custom model development",
-        "consulting": "Dedicated consulting",
-        "continuousSupport": "Continuous support"
-      },
-      "priceRanges": {
-        "t1": "Estimated investment per included service: €450 – €1,200",
-        "t2": "Estimated investment per included service: €900 – €2,500",
-        "t3": "Custom engagements typically range from €2,500 – €8,500"
+        "currentSituationAssessment": {
+          "label": "Current situation assessment",
+          "priceRange": "€3K – €8K excl. VAT",
+          "info": "Assessment of the current situation on people, process, data and tools baseline, regarding AI"
+        },
+        "currentSituationFieldSpecific": {
+          "label": "Current situation in field specific (upgrade)",
+          "priceRange": "€1K – €2K excl. VAT",
+          "info": "A part of the current situation assessment in where the rate of AI development of the competition will be compared to the business"
+        },
+        "highRoiIdentification": {
+          "label": "Identification of high-ROI integrations",
+          "priceRange": "€2K – €5K excl. VAT",
+          "info": "A list of potential integrations, classified based on presumed difficulty"
+        },
+        "vision": {
+          "label": "Long & short-term vision on AI",
+          "priceRange": "€1.5K – €2.5K excl. VAT",
+          "info": "A company policy report regarding AI and the use of it within the company"
+        },
+        "adaptiveRoadmap": {
+          "label": "Adaptive roadmap creation",
+          "priceRange": "€2K – €4.5K excl. VAT",
+          "info": "An adaptive roadmap that will be able to guide the business in fast changing times"
+        },
+        "quickWinsImplementation": {
+          "label": "Practical implementation of quick gains use cases",
+          "priceRange": "Custom (depends on complexity)",
+          "info": "The low cost, fast and high ROI use cases will be implemented in a practical way in the company systems"
+        },
+        "foundationalEducation": {
+          "label": "Foundational education of employees in AI",
+          "priceRange": "€1,200 excl. VAT",
+          "info": "In module 1, the core concepts of AI are explained. In module 2, the risk and opportunities regarding AI are explained"
+        },
+        "futureReadySystems": {
+          "label": "Future-ready employee systems + presentation",
+          "priceRange": "€3K – €5K excl. VAT",
+          "info": "Creation of employee systems that create accountability using AI in practice."
+        },
+        "workflowCreation": {
+          "label": "AI-integrated workflow creation",
+          "priceRange": "€4K – €8K excl. VAT",
+          "info": "The change of standard workflows, to workflows in which AI is integrated"
+        },
+        "progressAssessment": {
+          "label": "Progress assessment",
+          "priceRange": "€6K – €8K excl. VAT",
+          "info": "A rapport that assess, the level of AI integration in its systems. Looking at how it changed with the recent changes made"
+        },
+        "refineCustomSolutions": {
+          "label": "Refine custom AI solutions",
+          "priceRange": "€5K – €10K excl. VAT",
+          "info": "Taking identified high ROI solutions and refining it. Especially meant for the not straightforward AI solutions."
+        },
+        "economicAssessment": {
+          "label": "Economic assessment of custom solutions",
+          "priceRange": "€8.5K – €20K excl. VAT",
+          "info": "Before going and optimising the high ROI solutions, an economic rapport is recommended that will indicate the needed circumstances to make the project worth optimising"
+        },
+        "optimizeIntegration": {
+          "label": "Optimize AI integration",
+          "priceRange": "€25K – €200K excl. VAT",
+          "info": "Optimising identified high-ROI solutions, so they are production level ready."
+        },
+        "workflowOptimization": {
+          "label": "AI workflow optimization",
+          "priceRange": "€5K – €20K excl. VAT",
+          "info": "Include AI in the strategic positions within the workflow, resulting in maximum value extraction from them"
+        },
+        "largeScaleDeployment": {
+          "label": "Large-scale AI deployment",
+          "priceRange": "€10K – €20K excl. VAT",
+          "info": "Taking the AI systems and deploying them in its full potential all across the organisation"
+        },
+        "aiAssessmentReport": {
+          "label": "AI assessment report",
+          "priceRange": "€10K – €15K excl. VAT",
+          "info": "A comprehensive analysis of the new state of AI within the company compared to pre AI adoption"
+        },
+        "automatingOptimisedSystems": {
+          "label": "Automating optimised AI systems",
+          "priceRange": "Custom",
+          "info": "The automatisation from optimised AI systems."
+        },
+        "cuttingEdgeSolutions": {
+          "label": "Creating cutting edge high quality custom solutions",
+          "priceRange": "Custom",
+          "info": "Creating cutting edge systems, which are build from complete sketch"
+        },
+        "customSolutions": {
+          "label": "Custom solutions",
+          "priceRange": "Custom — contact us",
+          "info": "Fully bespoke solutions created together to match unique ambitions beyond the structured phases."
+        }
       },
       "infoColumn": {
         "label": "Information",
-        "availableIn": "Available in {packages}",
-        "partialIn": "Limited availability in {packages}",
-        "notIncluded": "Not included in any package",
+        "availableIn": "Recommended in {packages}",
+        "partialIn": "Available depending on context in {packages}",
+        "notIncluded": "Not recommended for these phases",
         "tooltip": {
-          "line1": "Get a quick view of how each service spans across our packages.",
-          "line2": "Use it to guide conversations with your team before you dive into the detailed comparisons.",
-          "cta": "Read more"
+          "title": "How to read this table",
+          "description": "Hover over each status to reveal pricing guidance and recommended next steps.",
+          "cta": "Contact us to learn more"
         }
       },
       "legend": {
-        "included": "Included",
-        "notIncluded": "Not included",
-        "partial": "Limited availability"
+        "included": "Recommended",
+        "notIncluded": "Not recommended",
+        "partial": "Depends"
       },
       "cta": {
-        "scrollLabel": "Ready to choose the right fit?",
-        "chooseTier1": "Explore the Education Package",
-        "chooseTier2": "Explore the Introduction Package",
-        "chooseTier3": "Talk to Enterprise Solutions"
+        "scrollLabel": "Ready to explore the next phase?",
+        "chooseTier1": "Explore Phase 1 foundation",
+        "chooseTier2": "Explore Phase 2 standard",
+        "chooseTier3": "Explore Phase 3 advanced"
       }
     },
     "Chat": {

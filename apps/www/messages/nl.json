@@ -301,13 +301,13 @@
   },
   "Pricing": {
     "Header": {
-      "eyebrow": "Pakketten voor beslissers",
-      "title": "Kies het AI-traject dat past bij jullie tempo",
-      "subtitle": "Elk pakket versnelt strategie naar uitvoering in weken, met begeleiding die teams meeneemt en resultaat meetbaar maakt.",
+      "eyebrow": "Maatwerk AI-oplossingen",
+      "title": "Kies de AI-oplossing die bij u past",
+      "subtitle": "Elke oplossing wordt per bedrijf op maat gemaakt, zodat u uit elke oplossing maximale waarde haalt. Weet u niet welke oplossing bij u past? <contact>contacteren ons</contact> – dan zorgen wij voor de juiste match.",
       "highlights": {
-        "speed": "AI-resultaten binnen 90 dagen.",
-        "support": "Nederlandstalige experts op locatie en remote.",
-        "roi": "ROI bewezen in 40+ klantcases."
+        "speed": "AI-integraties van de hoogste kwaliteit",
+        "support": "Begeleid door Nederlandstalige experts",
+        "roi": "Productiviteitsboost tot 10×"
       }
     },
     "Packages": {
@@ -366,69 +366,162 @@
       }
     },
     "Table": {
-      "title": "Vergelijk pakketten",
+      "title": "Vind uw oplossing",
+      "description": "Fases helpen ons te bepalen waar bedrijven zich bevinden in het AI-transformatietraject.",
       "headers": {
-        "feature": "Kenmerk",
+        "solution": "Oplossing",
         "info": "Informatie"
       },
       "tiers": {
-        "t1": "Educatiepakket",
-        "t2": "Introductiepakket",
-        "t3": "Enterprise-oplossingen",
-        "price": {
-          "t1": "$6.000 eenmalig",
-          "t2": "$5.000 eenmalig",
-          "t3": "Maatwerk voorstel"
+        "t1": {
+          "label": "Fase 1",
+          "subtitle": "(Fundament)"
+        },
+        "t2": {
+          "label": "Fase 2",
+          "subtitle": "(Standaard)"
+        },
+        "t3": {
+          "label": "Fase 3",
+          "subtitle": "(Geavanceerd)"
         }
       },
       "categories": {
-        "educationEnablement": "Educatie & enablement",
-        "implementation": "Implementatie & strategie",
-        "enterprise": "Enterprise-schaal"
+        "foundation": {
+          "label": "Introductie tot AI (deal mogelijk) → Fundament-pakket",
+          "description": "Legt het fundament voor een succesvolle AI transitie van je bedrijf"
+        },
+        "integration": {
+          "label": "Eerste stappen in AI (package deal possible) —> Geïntegreerd pakket",
+          "description": "Dit pakket zorgt ervoor dat de basis van AI geïntegreerd wordt in het bedrijf."
+        },
+        "scaling": {
+          "label": "Schaalbare AI (pakket deal mogelijk) —> intrinsiek pakket",
+          "description": "Dit pakket zorgt ervoor dat de AI oplossingen opgeschaald worden, om zo maximale waarde eruit te halen voor het bedrijf."
+        },
+        "cuttingEdge": {
+          "label": "De nieuwste van het nieuwste AI",
+          "description": "De oplossingen hieronder zijn bedoeld voor bedrijven die het nieuwste van het nieuwste najagen in AI"
+        }
       },
       "rows": {
-        "educationCourseV1": "AI-opleidingsmodule V1",
-        "educationCourseV2": "AI-opleidingsmodule V2",
-        "workshops": "Workshops voor teams",
-        "trainingMaterials": "Praktische trainingsmaterialen",
-        "certification": "Certificaat van afronding",
-        "aiReadiness": "AI-ready analyse van het bedrijf",
-        "automationSetup": "Eerste workflow-automatisering",
-        "pilotIntegration": "Integratie van pilotproject",
-        "assessment": "Productiviteits- en kostenevaluatie",
-        "guidance": "Strategische sessie met ons team",
-        "tailoredIntegrations": "Maatwerk AI-integraties",
-        "researchSupport": "Geavanceerde onderzoeksbegeleiding",
-        "customModel": "Ontwikkeling van maatwerkmodellen",
-        "consulting": "Toegewijde consulting",
-        "continuousSupport": "Doorlopende ondersteuning"
-      },
-      "priceRanges": {
-        "t1": "Geschatte investering per inbegrepen service: €450 – €1.200",
-        "t2": "Geschatte investering per inbegrepen service: €900 – €2.500",
-        "t3": "Maatwerktrajecten variëren doorgaans van €2.500 – €8.500"
+        "currentSituationAssessment": {
+          "label": "Nulmeting huidige situatie",
+          "priceRange": "€3K - €8K exl. BTW",
+          "info": "Onderzoek naar de huidige baseline van mensen, processen, data en tools, van het bedrijf"
+        },
+        "currentSituationFieldSpecific": {
+          "label": "Huidige situatie domein specifiek (upgrade)",
+          "priceRange": "€1K - €2K exl. BTW",
+          "info": "Deel van het onderzoek van huidige situatie, waarin de situatie van het bedrijf in detail word vergeleken met de concurrentie"
+        },
+        "highRoiIdentification": {
+          "label": "Identificatie van hoog-ROI integraties",
+          "priceRange": "€2K - €5K exl. BTW",
+          "info": "Een lijst met alle potentiële AI integraties, geclassificeerd aan de hand van moeilijkheid van integreren"
+        },
+        "vision": {
+          "label": "Korte & langetermijnvisie op AI",
+          "priceRange": "€1.5K - €2.5K exl. BTW",
+          "info": "Een bedrijfs richtlijn m.b.t. AI en het gebruik ervan"
+        },
+        "adaptiveRoadmap": {
+          "label": "Adaptieve roadmap creatie",
+          "priceRange": "€2K - €4.5K exl. BTW",
+          "info": "Een gepersonaliseerde AI roadmap voor het bedrijf, dat begeleiding bied in snel veranderende tijden"
+        },
+        "quickWinsImplementation": {
+          "label": "Praktische implementatie van makkelijk integreerbare use-cases",
+          "priceRange": "Custom (verschilt per complexiteit)",
+          "info": "De lage kosten, snel en hoge ROI use-cases worden geïmplementeerd in de bedrijfs systemen"
+        },
+        "foundationalEducation": {
+          "label": "Fundamentele training voor medewerkers m.b.t. AI",
+          "priceRange": "€1200 exl. BTW",
+          "info": "In module 1 worden de basisconcepten van AI uitgelegd. In module 2 worden de risico’s en kansen die AI meebrengt besproken."
+        },
+        "futureReadySystems": {
+          "label": "Toekomstbestendige medewerkersystemen + presentatie",
+          "priceRange": "€3K - €5K exl. BTW",
+          "info": "De creatie van werknemerssystemen die aansprakelijkheid creëren m.b.t. AI in de praktijk"
+        },
+        "workflowCreation": {
+          "label": "AI-geïntegreerde workflowcreatie",
+          "priceRange": "€4K - €8K exl. BTW",
+          "info": "Het veranderen van standaard workflows, naar workflows die AI hebben geïntegreerd in hun processen"
+        },
+        "progressAssessment": {
+          "label": "Voortgangsbeoordeling",
+          "priceRange": "€6K - €8K exl. BTW",
+          "info": "Een rapport dat de voortgang beoordeeld van het bedrijf in de integratie van AI."
+        },
+        "refineCustomSolutions": {
+          "label": "Verfijn custom AI oplossingen",
+          "priceRange": "€5K - €10K exl. BTW",
+          "info": "Het verfijnen van de high-ROI oplossingen die niet eenvoudig te implementeren zijn."
+        },
+        "economicAssessment": {
+          "label": "Economische doorrekening van de custom oplossingen",
+          "priceRange": "€8.5K - €20K exl. BTW",
+          "info": "Een economisch rapport dat identificeert welke oplossing het waard zijn om te optimaliseren van een economisch perspectief"
+        },
+        "optimizeIntegration": {
+          "label": "Optimaliseer AI-integratie",
+          "priceRange": "€25K - €200K exl. BTW",
+          "info": "Optimalisatie van geïdentificeerde high-ROI oplossingen, voor productie level kwaliteit."
+        },
+        "workflowOptimization": {
+          "label": "Workflow-optimalisatie met AI",
+          "priceRange": "€5K - €20K exl. BTW",
+          "info": "Betrek AI in strategische posities van de workflow, om zo maximale waarde uit het bedrijfs systeem te halen"
+        },
+        "largeScaleDeployment": {
+          "label": "Organisatiebrede AI-uitrol",
+          "priceRange": "€10K - €20K exl. BTW",
+          "info": "Het uitrollen van de AI system over alle facetten van de organisatie"
+        },
+        "aiAssessmentReport": {
+          "label": "AI update rapport",
+          "priceRange": "€10K - €15K exl. BTW",
+          "info": "Een gedetailleerd onderzoek naar de situatie in het bedrijf nu, en ten opzichte van pre-AI adaptatie"
+        },
+        "automatingOptimisedSystems": {
+          "label": "Automatiseren van geoptimaliseerde AI systemen",
+          "priceRange": "Custom",
+          "info": "Het automatiseren van geoptimaliseerde AI systemen."
+        },
+        "cuttingEdgeSolutions": {
+          "label": "Het creëren van cutting edge hoogwaardige kwaliteit AI systemen",
+          "priceRange": "Custom",
+          "info": "Het ontwikkelen en combineren van nieuwste van het nieuwste in AI, als oplossingen."
+        },
+        "customSolutions": {
+          "label": "Custom solutions",
+          "priceRange": "Custom — neem contact op",
+          "info": "Volledig maatwerk dat we samen afstemmen op uw specifieke ambitie."
+        }
       },
       "infoColumn": {
         "label": "Informatie",
-        "availableIn": "Beschikbaar in {packages}",
-        "partialIn": "Beperkt beschikbaar in {packages}",
-        "notIncluded": "Niet inbegrepen in een pakket",
+        "availableIn": "Aanbevolen in {packages}",
+        "partialIn": "Afhankelijk beschikbaar in {packages}",
+        "notIncluded": "Niet aanbevolen voor deze fases",
         "tooltip": {
-          "line1": "Bekijk in één oogopslag hoe elke dienst over de pakketten is verdeeld.",
-          "line2": "Gebruik dit overzicht als vertrekpunt voor gesprekken met je team vóórdat je de details induikt.",
-          "cta": "Lees meer"
+          "title": "Zo leest u deze tabel",
+          "description": "Beweeg over elke status om prijsindicaties en aanbevolen vervolgstappen te zien.",
+          "cta": "Neem contact op voor meer informatie"
         }
       },
       "legend": {
-        "included": "Inbegrepen",
-        "notIncluded": "Niet inbegrepen",
-        "partial": "Gedeeltelijk inbegrepen"
+        "included": "Aanbevolen",
+        "notIncluded": "Niet aanbevolen",
+        "partial": "Afhankelijk"
       },
       "cta": {
-        "scrollLabel": "Klaar om het juiste pakket te kiezen?",
-        "chooseTier1": "Bekijk het educatiepakket",
-        "chooseTier2": "Bekijk het introductiepakket",
-        "chooseTier3": "Neem contact op voor enterprise"
+        "scrollLabel": "Klaar om de volgende fase te verkennen?",
+        "chooseTier1": "Ontdek Fase 1 fundament",
+        "chooseTier2": "Ontdek Fase 2 standaard",
+        "chooseTier3": "Ontdek Fase 3 geavanceerd"
       }
     },
     "Chat": {
