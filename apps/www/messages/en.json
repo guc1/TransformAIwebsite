@@ -27,6 +27,7 @@
       "exit": "Exit",
       "messages": "Messages",
       "overview": "Overview",
+      "inbox": "Inbox",
       "planning": "Planning",
       "hoursSaved": "Hours saved",
       "dashboard": "Dashboard",
@@ -219,7 +220,7 @@
       "eyebrow": "Let’s talk",
       "title": "Contact TransformAI",
       "body": "Share your challenge and we’ll respond with a tailored AI roadmap within two business days.",
-      "emailNotice": "Prefer email? Reach out at info@transformai.nl — this is our only official inbox."
+      "emailNotice": "Prefer email? Email info@transformai.nl directly."
     },
     "Highlights": {
       "label": "Why leaders reach out",
@@ -253,21 +254,21 @@
         "helper": "Choose the option that best matches your focus."
       },
       "requestTypes": {
-        "strategy": {
-          "title": "AI strategy sprint",
-          "description": "Align leadership around outcomes, KPIs, and the first 90-day roadmap."
+        "general": {
+          "title": "General questions",
+          "description": "Questions about the company."
         },
-        "automation": {
-          "title": "Automation opportunity audit",
-          "description": "Spot high-impact automations across teams and model the efficiency gains."
+        "solutions": {
+          "title": "Solution inquiries",
+          "description": "Any questions about the solutions we provide."
         },
-        "integration": {
-          "title": "Custom AI integration",
-          "description": "Design bespoke copilots, agents, or data products that plug into your stack."
+        "aiHelp": {
+          "title": "Help with AI",
+          "description": "Questions about AI in your organisation (complimentary)."
         },
-        "training": {
-          "title": "Executive enablement & training",
-          "description": "Upskill leaders and teams so AI adoption sticks across the organisation."
+        "other": {
+          "title": "Other",
+          "description": "Anything that doesn’t fit the other categories."
         }
       },
       "fields": {
@@ -280,7 +281,7 @@
           "placeholder": "Company or team name"
         },
         "email": {
-          "label": "Contact email (optional)",
+          "label": "Contact email (we'll reply here)",
           "placeholder": "you@company.com"
         },
         "description": {
@@ -1715,6 +1716,11 @@
         "title": "Coordinate the meeting agenda",
         "description": "Review availability, assign colleagues, and publish upcoming TransformAI strategy sessions."
       },
+      "inbox": {
+        "eyebrow": "Inbox",
+        "title": "Review incoming contact messages",
+        "description": "Monitor every enquiry from the contact page in one place."
+      },
       "outreach": {
         "eyebrow": "Outreach",
         "title": "Launch personalised landing pages",
@@ -1799,6 +1805,20 @@
         "outreach": "Coordinate with delivery leads to share the new AI maturity playbook with their accounts.",
         "briefings": "Prepare January leadership briefings showcasing ROI metrics from automation pilots."
       }
+    }
+  },
+  "DashboardInbox": {
+    "title": "Contact inbox",
+    "subtitle": "Review every message submitted through the TransformAI contact form.",
+    "currentUser": "Signed in as {email}",
+    "empty": "No contact messages yet. New enquiries will appear here instantly.",
+    "table": {
+      "received": "Received",
+      "requestType": "Request type",
+      "email": "Email",
+      "company": "Company",
+      "locale": "Locale",
+      "message": "Message"
     }
   },
   "OutreachPage": {
