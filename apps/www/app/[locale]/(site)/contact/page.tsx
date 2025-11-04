@@ -119,7 +119,7 @@ export default async function ContactPage({ params }: PageProps) {
             </FadeIn>
           </FadeInStagger>
           <FadeIn className="lg:translate-y-0">
-            <ContactForm />
+            <ContactForm locale={locale} />
           </FadeIn>
         </div>
       </Container>
