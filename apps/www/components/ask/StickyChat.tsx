@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   type CSSProperties,
   useCallback,
@@ -34,6 +34,7 @@ type StickyChatProps = {
 
 export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, boundaryId }) => {
   const t = useTranslations("CodeExamples.chat");
+  const localeCode = useLocale();
   const locale = useMemo<ChatLocale>(
     () => ({
       ctaLabel: t("cta.label"),
@@ -70,6 +71,9 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
+  const [visitorLanguage, setVisitorLanguage] = useState<"en" | "nl">(
+    localeCode === "nl" ? "nl" : "en",
+  );
   const [isDesktop, setIsDesktop] = useState(false);
   const [hasReachedTrigger, setHasReachedTrigger] = useState(false);
   const [hasReachedBoundary, setHasReachedBoundary] = useState(false);
@@ -472,6 +476,8 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
           },
           body: JSON.stringify({
             messages: conversation.map(({ role, content }) => ({ role, content })),
+            locale: localeCode,
+            language: visitorLanguage,
           }),
         });
 
@@ -481,12 +487,36 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
           throw new Error(message);
         }
 
-        const data = (await response.json().catch(() => ({}))) as { message?: string };
-        const assistantText = typeof data.message === "string" ? data.message.trim() : "";
+        const data = (await response.json().catch(() => ({}))) as {
+          reply?: string;
+          language?: "en" | "nl";
+          redirect?: {
+            url?: string;
+            label?: string;
+            confirm?: string;
+          } | null;
+        };
+        const assistantText = typeof data.reply === "string" ? data.reply.trim() : "";
 
         if (!assistantText) {
           throw new Error("Empty assistant response");
         }
+
+        const assistantLanguage = data.language === "nl" ? "nl" : data.language === "en" ? "en" : undefined;
+        const nextLanguage = assistantLanguage ?? visitorLanguage;
+        setVisitorLanguage(nextLanguage);
+
+        const redirect = data.redirect && typeof data.redirect === "object"
+          ? {
+              type: "redirect" as const,
+              url: typeof data.redirect.url === "string" ? data.redirect.url.trim() : "",
+              label: typeof data.redirect.label === "string" ? data.redirect.label.trim() : "",
+              confirm: typeof data.redirect.confirm === "string" ? data.redirect.confirm.trim() : "",
+            }
+          : null;
+
+        const action =
+          redirect && redirect.url && redirect.label && redirect.confirm ? redirect : null;
 
         setMessages((prev) => [
           ...prev,
@@ -494,6 +524,8 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
             id: crypto.randomUUID(),
             role: "assistant",
             content: assistantText,
+            action,
+            language: nextLanguage,
           },
         ]);
         setPendingPrompt(null);
@@ -504,7 +536,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
         setIsLoading(false);
       }
     },
-    [locale.errorBody],
+    [locale.errorBody, localeCode, visitorLanguage],
   );
 
   const handleSend = useCallback(
@@ -518,13 +550,19 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
         id: crypto.randomUUID(),
         role: "user",
         content: trimmed,
+        action: null,
+        language: visitorLanguage,
       };
 
+      let nextMessages: ChatMessage[] | null = null;
       setMessages((prev) => {
-        const next = [...prev, userMessage];
-        void sendToAssistant(next, trimmed);
-        return next;
+        nextMessages = [...prev, userMessage];
+        return nextMessages;
       });
+
+      if (nextMessages) {
+        void sendToAssistant(nextMessages, trimmed);
+      }
     },
     [sendToAssistant],
   );
