@@ -29,7 +29,7 @@ export const PricingCardHeader: React.FC<{
         <span className="bg-gradient-to-br text-transparent bg-gradient-stop  bg-clip-text from-white via-white via-30% to-white/30 font-medium ">
           {title}
         </span>
-        <p className="mt-4 text-sm text-white/60">{description}</p>
+        <p className="mt-4 text-sm leading-relaxed text-white/70 text-pretty">{description}</p>
       </div>
       {withIcon && Icon ? (
         <div
@@ -83,26 +83,46 @@ export const Cost: React.FC<{ dollar: string; className?: string; frequency?: st
   );
 };
 
-export const Button: React.FC<{ label: string; href: string }> = ({ label, href }) => {
+export const Button: React.FC<{ label: string; href?: string; disabled?: boolean }> = ({
+  label,
+  href,
+  disabled = false,
+}) => {
+  const baseClasses =
+    "block w-full h-10 text-sm font-semibold text-center rounded-lg border duration-500";
+  const enabledClasses = "text-black bg-white border-white hover:bg-transparent hover:text-white";
+  const disabledClasses = "text-white/60 border-white/20 bg-white/5 cursor-not-allowed";
+
+  if (href && !disabled) {
+    return (
+      <div>
+        <Link href={href}>
+          <button type="button" className={`${baseClasses} ${enabledClasses}`}>
+            {label}
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Link href={href}>
-        <button
-          type="button"
-          className="block w-full h-10 text-sm font-semibold text-center text-black duration-500 bg-white border border-white rounded-lg hover:bg-transparent hover:text-white"
-        >
-          {label}
-        </button>
-      </Link>
+      <button type="button" className={`${baseClasses} ${disabledClasses}`} disabled>
+        {label}
+      </button>
     </div>
   );
 };
 
-export const Bullets: React.FC<PropsWithChildren<{ title: string }>> = ({ children, title }) => {
+export const Bullets: React.FC<PropsWithChildren<{ title: string; className?: string }>> = ({
+  children,
+  title,
+  className,
+}) => {
   return (
-    <div>
+    <div className={cn("flex flex-col", className)}>
       <p className="text-white/50">{title}</p>
-      <ul className="flex flex-col gap-4 mt-6">{children}</ul>
+      <ul className="mt-6 flex flex-col gap-3">{children}</ul>
     </div>
   );
 };
@@ -125,7 +145,12 @@ export const Bullet: React.FC<{
       >
         <Icon className="w-3 h-3" />
       </div>
-      <span className={cn("text-sm text-white md:whitespace-nowrap sm:text-xs", textColor)}>
+      <span
+        className={cn(
+          "text-sm leading-relaxed text-white text-pretty sm:text-xs sm:leading-relaxed",
+          textColor,
+        )}
+      >
         {label}
       </span>
     </div>
@@ -138,7 +163,8 @@ export const PricingCardContent: React.FC<
   return (
     <div
       className={cn("flex gap-8 p-8", {
-        "flex-col": layout !== "horizontal",
+        "flex-row": layout === "horizontal",
+        "flex-1 flex-col": layout !== "horizontal",
       })}
     >
       {children}
@@ -183,7 +209,7 @@ export const PricingCard: React.FC<PropsWithChildren<{ color: Color; className?:
           },
         )}
       >
-        <div className="relative h-full bg-black rounded-[inherit] z-20 overflow-hidden ">
+        <div className="relative z-20 flex h-full flex-col overflow-hidden rounded-[inherit] bg-black ">
           {children}
         </div>
       </div>
