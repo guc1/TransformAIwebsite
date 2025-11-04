@@ -521,7 +521,9 @@
         "scrollLabel": "Klaar om de volgende fase te verkennen?",
         "chooseTier1": "Ontdek Fase 1 fundament",
         "chooseTier2": "Ontdek Fase 2 standaard",
-        "chooseTier3": "Ontdek Fase 3 geavanceerd"
+        "chooseTier3": "Ontdek Fase 3 geavanceerd",
+        "viewPackageDeal": "Bekijk pakketdeal",
+        "viewPackageDealFor": "Bekijk pakketdeal voor {package}"
       }
     },
     "Chat": {
