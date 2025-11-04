@@ -9,7 +9,7 @@ import { Check, Info, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { Fragment, useMemo, useState } from "react";
 
 type TierId = "t1" | "t2" | "t3";
 type Availability = "yes" | "no" | "partial";
@@ -27,6 +27,7 @@ type PricingTableCategory = {
   labelKey: string;
   descriptionKey: string;
   rows: PricingTableRow[];
+  packageSlug?: string;
 };
 
 type PricingTableData = {
@@ -60,6 +61,7 @@ const TABLE_DATA: PricingTableData = {
       id: "foundation",
       labelKey: "categories.foundation.label",
       descriptionKey: "categories.foundation.description",
+      packageSlug: "foundation",
       rows: [
         {
           id: "currentSituationAssessment",
@@ -102,6 +104,7 @@ const TABLE_DATA: PricingTableData = {
       id: "integration",
       labelKey: "categories.integration.label",
       descriptionKey: "categories.integration.description",
+      packageSlug: "integrated",
       rows: [
         {
           id: "quickWinsImplementation",
@@ -144,6 +147,7 @@ const TABLE_DATA: PricingTableData = {
       id: "scaling",
       labelKey: "categories.scaling.label",
       descriptionKey: "categories.scaling.description",
+      packageSlug: "intrinsic",
       rows: [
         {
           id: "refineCustomSolutions",
@@ -455,6 +459,8 @@ function AvailabilityIndicator({ value, label, priceRange, size = "md" }: Availa
 
 export function PricingCompareTable() {
   const t = useTranslations("Pricing.Table");
+  const locale = useLocale();
+  const [hoveredCategoryId, setHoveredCategoryId] = useState<string | null>(null);
 
   const availabilityLabels: Record<Availability, string> = {
     yes: t("legend.included"),
@@ -561,79 +567,151 @@ export function PricingCompareTable() {
                     </th>
                   </tr>
                 </thead>
-                {TABLE_DATA.categories.map((category) => (
-                  <tbody key={category.id}>
-                    <tr>
-                      <th
-                        scope="colgroup"
-                        colSpan={TABLE_DATA.tiers.length + 2}
-                        className="px-6 pt-8 pb-3 text-left"
+                {TABLE_DATA.categories.map((category) => {
+                  const packageHref = category.packageSlug
+                    ? `/${locale}/packages/${category.packageSlug}`
+                    : null;
+                  const isHighlighted = hoveredCategoryId === category.id;
+
+                  const packageLabel = t(category.labelKey);
+
+                  return (
+                    <Fragment key={category.id}>
+                      <tbody>
+                        <tr>
+                          <th
+                            scope="colgroup"
+                            colSpan={TABLE_DATA.tiers.length + 2}
+                            className="px-6 pt-8 pb-3 text-left"
+                          >
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                              <div className="space-y-1">
+                                <span className="text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
+                                  {packageLabel}
+                                </span>
+                                <p className="text-xs font-medium text-white/55">
+                                  {t(category.descriptionKey)}
+                                </p>
+                              </div>
+                              {packageHref ? (
+                                <Link
+                                  href={packageHref}
+                                  className="inline-flex items-center justify-center rounded-full border border-[#9D72FF]/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.28em] text-[#CDBDFF] transition hover:border-[#C6B4FF] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B39CFF] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+                                  aria-label={t("cta.viewPackageDealFor", { package: packageLabel })}
+                                  onMouseEnter={() => setHoveredCategoryId(category.id)}
+                                  onMouseLeave={() => setHoveredCategoryId(null)}
+                                  onFocus={() => setHoveredCategoryId(category.id)}
+                                  onBlur={() => setHoveredCategoryId(null)}
+                                >
+                                  {t("cta.viewPackageDeal")}
+                                </Link>
+                              ) : null}
+                            </div>
+                          </th>
+                        </tr>
+                      </tbody>
+                      <tbody
+                        className={cn(
+                          isHighlighted &&
+                            "relative before:pointer-events-none before:absolute before:inset-x-2 before:top-1 before:bottom-1 before:rounded-[28px] before:border before:border-[#9D72FF]/60 before:shadow-[0_0_32px_rgba(157,114,255,0.45)] before:content-['']",
+                        )}
                       >
-                        <div className="space-y-1">
-                          <span className="text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
-                            {t(category.labelKey)}
-                          </span>
-                          <p className="text-xs font-medium text-white/55">
-                            {t(category.descriptionKey)}
-                          </p>
-                        </div>
-                      </th>
-                    </tr>
-                    {category.rows.map((row) => (
-                      <tr
-                        key={row.id}
-                        className="border-t border-white/10 text-sm transition-colors hover:bg-white/[0.05]"
-                      >
-                        <th scope="row" className="px-6 py-5 text-left font-medium text-white/90">
-                          {t(row.labelKey)}
-                        </th>
-                        {TABLE_DATA.tiers.map((tier) => {
-                          const availabilityValue = row.availability[tier.id];
-                          return (
-                            <td key={tier.id} className="px-6 py-5 text-center align-top">
-                              <AvailabilityIndicator
-                                value={availabilityValue}
-                                label={availabilityLabels[availabilityValue]}
-                                priceRange={
-                                  row.priceRangeKey && availabilityValue !== "no"
-                                    ? t(row.priceRangeKey)
-                                    : undefined
-                                }
+                        {category.rows.map((row) => (
+                          <tr
+                            key={row.id}
+                            className={cn(
+                              "border-t border-white/10 text-sm transition-colors hover:bg-white/[0.05]",
+                              isHighlighted &&
+                                "relative z-10 bg-white/[0.04] hover:bg-white/[0.08] first:rounded-t-[24px] last:rounded-b-[24px]",
+                            )}
+                          >
+                            <th scope="row" className="px-6 py-5 text-left font-medium text-white/90">
+                              {t(row.labelKey)}
+                            </th>
+                            {TABLE_DATA.tiers.map((tier) => {
+                              const availabilityValue = row.availability[tier.id];
+                              return (
+                                <td key={tier.id} className="px-6 py-5 text-center align-top">
+                                  <AvailabilityIndicator
+                                    value={availabilityValue}
+                                    label={availabilityLabels[availabilityValue]}
+                                    priceRange={
+                                      row.priceRangeKey && availabilityValue !== "no"
+                                        ? t(row.priceRangeKey)
+                                        : undefined
+                                    }
+                                  />
+                                </td>
+                              );
+                            })}
+                            <td className="px-6 py-5 align-top">
+                              <InformationSummary
+                                availability={row.availability}
+                                infoKey={row.infoKey}
+                                className="mx-auto"
                               />
                             </td>
-                          );
-                        })}
-                        <td className="px-6 py-5 align-top">
-                          <InformationSummary
-                            availability={row.availability}
-                            infoKey={row.infoKey}
-                            className="mx-auto"
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Fragment>
+                  );
+                })}
               </table>
             </div>
 
             <div className="md:hidden">
               <Accordion type="multiple" defaultValue={TABLE_DATA.categories.map((category) => category.id)}>
-                {TABLE_DATA.categories.map((category) => (
-                  <AccordionItem key={category.id} value={category.id} className="border-b border-white/10">
-                    <AccordionTrigger className="text-left">
-                      <span className="block text-base font-semibold text-white">{t(category.labelKey)}</span>
-                      <span className="mt-1 block text-sm text-white/60">{t(category.descriptionKey)}</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-1">
-                      <div className="space-y-4">
-                        {category.rows.map((row) => (
-                          <div
-                            key={row.id}
-                            className="relative overflow-hidden rounded-3xl border border-white/12 bg-neutral-950/75 p-5 shadow-[0_24px_110px_rgba(8,12,24,0.6)] backdrop-blur-xl"
+                {TABLE_DATA.categories.map((category) => {
+                  const packageHref = category.packageSlug
+                    ? `/${locale}/packages/${category.packageSlug}`
+                    : null;
+                  const isHighlighted = hoveredCategoryId === category.id;
+
+                  const packageLabel = t(category.labelKey);
+
+                  return (
+                    <AccordionItem
+                      key={category.id}
+                      value={category.id}
+                      className="relative border-b border-white/10"
+                      onMouseLeave={() => setHoveredCategoryId(null)}
+                    >
+                      {packageHref ? (
+                        <Link
+                          href={packageHref}
+                          className="absolute right-3 top-3 inline-flex items-center justify-center rounded-full border border-[#9D72FF]/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#CDBDFF] transition hover:border-[#C6B4FF] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B39CFF] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+                          aria-label={t("cta.viewPackageDealFor", { package: packageLabel })}
+                          onMouseEnter={() => setHoveredCategoryId(category.id)}
+                          onMouseLeave={() => setHoveredCategoryId(null)}
+                          onFocus={() => setHoveredCategoryId(category.id)}
+                          onBlur={() => setHoveredCategoryId(null)}
+                        >
+                          {t("cta.viewPackageDeal")}
+                        </Link>
+                      ) : null}
+                      <AccordionTrigger className="pr-28 text-left">
+                        <span className="block text-base font-semibold text-white">{packageLabel}</span>
+                        <span className="mt-1 block text-sm text-white/60">{t(category.descriptionKey)}</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-1">
+                        <div
+                          className={cn(
+                            "relative space-y-4",
+                            isHighlighted &&
+                              "before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:bottom-0 before:rounded-[26px] before:border before:border-[#9D72FF]/60 before:shadow-[0_0_32px_rgba(157,114,255,0.45)] before:content-['']",
+                          )}
                           >
-                            <div aria-hidden className="pointer-events-none absolute inset-0">
-                              <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_0%_20%,rgba(59,130,246,0.18),transparent_75%)]" />
+                          {category.rows.map((row) => (
+                            <div
+                              key={row.id}
+                              className={cn(
+                                "relative overflow-hidden rounded-3xl border border-white/12 bg-neutral-950/75 p-5 shadow-[0_24px_110px_rgba(8,12,24,0.6)] backdrop-blur-xl",
+                                isHighlighted && "relative z-10",
+                              )}
+                            >
+                              <div aria-hidden className="pointer-events-none absolute inset-0">
+                                <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_0%_20%,rgba(59,130,246,0.18),transparent_75%)]" />
                               <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_100%_80%,rgba(157,114,255,0.22),transparent_75%)]" />
                               <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-75" />
                             </div>
@@ -668,11 +746,12 @@ export function PricingCompareTable() {
                               })}
                             </div>
                           </div>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
               </Accordion>
             </div>
 
