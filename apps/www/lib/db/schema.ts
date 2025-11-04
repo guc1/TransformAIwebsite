@@ -146,6 +146,30 @@ export const meetingBookings = pgTable(
   }),
 );
 
+export const contactMessages = pgTable(
+  "contact_messages",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    name: text("name").notNull(),
+    company: text("company"),
+    email: text("email").notNull(),
+    requestType: text("request_type").notNull(),
+    description: text("description").notNull(),
+    locale: text("locale").notNull(),
+    createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => ({
+    createdAtIdx: index("contact_messages_created_at_idx").on(table.createdAt),
+    requestTypeIdx: index("contact_messages_request_type_idx").on(
+      table.requestType,
+    ),
+  }),
+);
+
 export const visitorSessions = pgTable(
   "visitor_sessions",
   {
