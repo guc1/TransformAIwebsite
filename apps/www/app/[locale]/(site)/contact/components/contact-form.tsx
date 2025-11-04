@@ -12,7 +12,8 @@ import {
   CONTACT_REQUEST_TYPES,
   type ContactRequestType,
 } from "../constants";
-import { initialState, sendContactMessage } from "../server/send-message";
+import type { ContactFormState } from "../server/send-message";
+import { sendContactMessage } from "../server/send-message";
 import { RequestTypeSelector } from "./request-type-selector";
 
 type FieldName = "name" | "company" | "email";
@@ -29,9 +30,20 @@ type FieldConfig = {
 const fieldClassName =
   "w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder:text-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:border-white/40 transition disabled:cursor-not-allowed disabled:opacity-60";
 
-export function ContactForm() {
+interface ContactFormProps {
+  locale: string;
+}
+
+const CONTACT_FORM_INITIAL_STATE: ContactFormState = {
+  status: "idle",
+};
+
+export function ContactForm({ locale }: ContactFormProps) {
   const t = useTranslations("Contact.Form");
-  const [state, formAction] = useFormState(sendContactMessage, initialState);
+  const [state, formAction] = useFormState(
+    sendContactMessage,
+    CONTACT_FORM_INITIAL_STATE,
+  );
   const formRef = useRef<HTMLFormElement>(null);
   const [requestType, setRequestType] = useState<ContactRequestType>(
     CONTACT_REQUEST_TYPES[0].value,
@@ -74,6 +86,7 @@ export function ContactForm() {
       label: t("fields.email.label"),
       placeholder: t("fields.email.placeholder"),
       autoComplete: "email",
+      required: true,
     },
   ];
 
@@ -138,9 +151,14 @@ export function ContactForm() {
           error={state.fieldErrors?.requestType}
         />
 
+        <input type="hidden" name="locale" value={locale} />
+
         <div className="grid gap-4 sm:grid-cols-2">
           {fields.map(({ name, label, placeholder, type = "text", autoComplete, required }) => (
-            <div key={name} className="space-y-2">
+            <div
+              key={name}
+              className={cn("space-y-2", name === "email" ? "sm:col-span-2" : undefined)}
+            >
               <label className="text-xs font-medium uppercase tracking-[0.2em] text-white/60" htmlFor={name}>
                 {label}
                 {required ? <span className="ml-1 text-white/40">*</span> : null}
