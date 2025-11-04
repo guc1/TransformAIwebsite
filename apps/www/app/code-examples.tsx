@@ -3,20 +3,13 @@ import { StickyChat } from "@/components/ask";
 import { PrimaryButton, SecondaryButton } from "@/components/button";
 import { SectionTitle } from "@/components/section";
 import type { LangIconProps } from "@/components/svg/lang-icons";
-import {
-  CurlIcon,
-  EducationIcon,
-  ElixirIcon,
-  JavaIcon,
-  PythonIcon,
-  ResearchIcon,
-} from "@/components/svg/lang-icons";
+import { EducationIcon, ResearchIcon } from "@/components/svg/lang-icons";
 import { CodeEditor } from "@/components/ui/code-editor";
 import { CopyCodeSnippetButton } from "@/components/ui/copy-code-button";
 import { MeteorLines } from "@/components/ui/meteorLines";
 import { cn } from "@/lib/utils";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Lightbulb } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
@@ -71,152 +64,6 @@ const editorTheme = {
     },
   ],
 } satisfies PrismTheme;
-
-const pythonCodeBlock = `import asyncio
-import os
-import unkey
-
-async def main() -> None:
-  client = unkey.Client(api_key=os.environ["API_KEY"])
-  await client.start()
-
-  result = await client.keys.verify_key("prefix_abc123")
-
- if result.is_ok:
-   print(data.valid)
- else:
-   print(result.unwrap_err())`;
-
-const pythonFastAPICodeBlock = `import os
-from typing import Any, Dict, Optional
-
-import fastapi  # pip install fastapi
-import unkey  # pip install unkey.py
-import uvicorn  # pip install uvicorn
-
-app = fastapi.FastAPI()
-
-
-def key_extractor(*args: Any, **kwargs: Any) -> Optional[str]:
-    if isinstance(auth := kwargs.get("authorization"), str):
-        return auth.split(" ")[-1]
-
-    return None
-
-
-@app.get("/protected")
-@unkey.protected(os.environ["UNKEY_API_ID"], key_extractor)
-async def protected_route(
-    *,
-    authorization: str = fastapi.Header(None),
-    unkey_verification: Any = None,
-) -> Dict[str, Optional[str]]:
-    assert isinstance(unkey_verification, unkey.ApiKeyVerification)
-    assert unkey_verification.valid
-    print(unkey_verification.owner_id)
-    return {"message": "protected!"}
-
-
-if __name__ == "__main__":
-    uvicorn.run(app)
-`;
-
-const curlVerifyCodeBlock = `curl --request POST \\
-  --url https://api.unkey.dev/v1/keys.verifyKey \\
-  --header 'Content-Type: application/json' \\
-  --data '{
-    "apiId": "api_1234",
-    "key": "sk_1234",
-  }'`;
-
-const exampleKeyExpiration = new Date("2025-01-01T00:00:00Z").getTime();
-
-const curlCreateKeyCodeBlock = `curl --request POST \\
-  --url https://api.unkey.dev/v1/keys.createKey \\
-  --header 'Authorization: Bearer <UNKEY_ROOT_KEY>' \\
-  --header 'Content-Type: application/json' \\
-  --data '{
-    "apiId": "api_123",
-    "ownerId": "user_123",
-    "expires": ${exampleKeyExpiration},
-    "ratelimit": {
-      "type": "fast",
-      "limit": 10,
-      "duration": 60_000
-    },
-  }'`;
-
-const curlRatelimitCodeBlock = `curl --request POST \
-  --url https://api.unkey.dev/v1/ratelimits.limit \
-  --header 'Authorization: Bearer <token>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "namespace": "email.outbound",
-    "identifier": "user_123",
-    "limit": 10,
-    "duration": 60000,
-    "async": true
-}'`;
-
-const elixirCodeBlock = `UnkeyElixirSdk.verify_key("xyz_AS5HDkXXPot2MMoPHD8jnL")
-# returns
-%{"valid" => true,
-  "ownerId" => "chronark",
-  "meta" => %{
-    "hello" => "world"
-  }}`;
-
-const rustCodeBlock = `use unkey::models::{VerifyKeyRequest, Wrapped};
-use unkey::Client;
-
-async fn verify_key() {
-    let api_key = env::var("UNKEY_API_KEY").expect("Environment variable UNKEY_API_KEY not found");
-    let c = Client::new(&api_key);
-    let req = VerifyKeyRequest::new("test_req", "api_458vdYdbwut5LWABzXZP3Z8jPVas");
-
-    match c.verify_key(req).await {
-        Wrapped::Ok(res) => println!("{res:?}"),
-        Wrapped::Err(err) => eprintln!("{err:?}"),
-    }
-}`;
-
-const javaVerifyKeyCodeBlock = `package com.example.myapp;
-import com.unkey.unkeysdk.dto.KeyVerifyRequest;
-import com.unkey.unkeysdk.dto.KeyVerifyResponse;
-
-@RestController
-public class APIController {
-
-    private static IKeyService keyService = new KeyService();
-
-    @PostMapping("/verify")
-    public KeyVerifyResponse verifyKey(
-        @RequestBody KeyVerifyRequest keyVerifyRequest) {
-        // Delegate the creation of the key to the KeyService from the SDK
-        return keyService.verifyKey(keyVerifyRequest);
-    }
-}`;
-
-const javaCreateKeyCodeBlock = `package com.example.myapp;
-
-import com.unkey.unkeysdk.dto.KeyCreateResponse;
-import com.unkey.unkeysdk.dto.KeyCreateRequest;
-
-@RestController
-public class APIController {
-
-    private static IKeyService keyService = new KeyService();
-
-    @PostMapping("/createKey")
-    public KeyCreateResponse createKey(
-            @RequestBody KeyCreateRequest keyCreateRequest,
-            @RequestHeader("Authorization") String authToken) {
-        // Delegate the creation of the key to the KeyService from the SDK
-        return keyService.createKey(keyCreateRequest, authToken);
-    }
-}
-
-`;
 
 type FrameworkLocalizedImage = {
   src: string;
@@ -274,6 +121,27 @@ const resolveProjectMessage = (
 
 const languagesList = {
   "AI integration pt1": [
+    {
+      name: "AI transformation",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/aitransformation/images/transformcover.png",
+        alt: "TransformAI case study cover about the company-wide AI transition",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt1/aitransformation/images/transformcovernl.png",
+            alt: "TransformAI casestudycover over de bedrijfsbrede AI-transitie",
+          },
+        },
+      },
+      contentKey: "aiIntegrationAiTransformation",
+      href: {
+        en: "/blog/the-ai-transition-simple-overview",
+        nl: "/blog/de-ai-transitie-snelle-uitleg-en-onderzoeksupdate",
+      },
+    },
     {
       name: "HR researcher",
       Icon: ResearchIcon,
@@ -359,18 +227,90 @@ const languagesList = {
       },
     },
   ],
-  Python: [
+  "AI integration pt2": [
     {
-      name: "Python",
-      Icon: PythonIcon,
-      codeBlock: pythonCodeBlock,
-      editorLanguage: "python",
+      name: "Company Finder",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/b2bfinder/images/b2bcoverim.png",
+        alt: "Case study cover showing an AI B2B company finder interface",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/b2bfinder/images/b2bcoverimnl.png",
+            alt: "Casestudycover met een AI B2B-bedrijvengids interface",
+          },
+        },
+      },
+      contentKey: "aiIntegrationPt2CompanyFinder",
+      href: {
+        en: "/blog/ai-powered-b2b-prospecting-find-the-right-companies-responsibly",
+        nl: "/blog/ai-gedreven-b2b-prospecting-vind-de-juiste-bedrijven-verantwoord",
+      },
     },
     {
-      name: "FastAPI",
-      Icon: PythonIcon,
-      codeBlock: pythonFastAPICodeBlock,
-      editorLanguage: "python",
+      name: "Backend",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/backendtransform/images/coverback.png",
+        alt: "Cover showing backend AI integration strategy visuals",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/backendtransform/images/coverbacknl.png",
+            alt: "Cover met visuals over backend AI-integratiestrategie",
+          },
+        },
+      },
+      contentKey: "aiIntegrationPt2Backend",
+      href: {
+        en: "/blog/backend-ai-integration-why-it-comes-first",
+        nl: "/blog/backend-ai-integratie-waarom-dit-eerst-komt",
+      },
+    },
+    {
+      name: "Frontend",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/frontendtransfrom/images/coverfront.png",
+        alt: "Cover illustrating front-end AI product integration",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/frontendtransfrom/images/coverfrontnl.png",
+            alt: "Cover die front-end AI-productintegratie toont",
+          },
+        },
+      },
+      contentKey: "aiIntegrationPt2Frontend",
+      href: {
+        en: "/blog/front-end-ai-integration-products-revenue-and-market-share",
+        nl: "/blog/front-end-ai-integratie-producten-omzet-en-marktaandeel",
+      },
+    },
+    {
+      name: "Agentic Researcher",
+      Icon: ResearchIcon,
+      image: {
+        src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/researchagent/images/researchcoverim.png",
+        alt: "Case study cover of the agentic AI researcher workflow",
+        width: 1536,
+        height: 1024,
+        locale: {
+          nl: {
+            src: "/images/blog-images/mdxfilesforprojects/aiintegrationpt2/researchagent/images/researchcoverimnl.png",
+            alt: "Casestudycover van de agentische AI-onderzoekerworkflow",
+          },
+        },
+      },
+      contentKey: "aiIntegrationPt2AgenticResearcher",
+      href: {
+        en: "/blog/agentic-research-phd-level-ai-for-small-decisions-humans-for-big-calls",
+        nl: "/blog/agentische-research-phd-niveau-ai-voor-kleine-beslissingen-mensen-voor-de-grote",
+      },
     },
   ],
   Research: [
@@ -433,28 +373,6 @@ const languagesList = {
         en: "/blog/winning-the-model-ranking-higher-in-ai-recommendations",
         nl: "/blog/de-modelrace-winnen-hoger-scoren-in-ai-aanbevelingen",
       },
-    },
-  ],
-  Java: [
-    {
-      name: "Verify key",
-      Icon: JavaIcon,
-      codeBlock: javaVerifyKeyCodeBlock,
-      editorLanguage: "tsx",
-    },
-    {
-      name: "Create key",
-      Icon: JavaIcon,
-      codeBlock: javaCreateKeyCodeBlock,
-      editorLanguage: "tsx",
-    },
-  ],
-  Elixir: [
-    {
-      name: "Verify key",
-      Icon: ElixirIcon,
-      codeBlock: elixirCodeBlock,
-      editorLanguage: "tsx",
     },
   ],
   Education: [
@@ -537,26 +455,6 @@ const languagesList = {
       },
     },
   ],
-  Curl: [
-    {
-      name: "Verify key",
-      Icon: CurlIcon,
-      codeBlock: curlVerifyCodeBlock,
-      editorLanguage: "tsx",
-    },
-    {
-      name: "Create key",
-      Icon: CurlIcon,
-      codeBlock: curlCreateKeyCodeBlock,
-      editorLanguage: "tsx",
-    },
-    {
-      name: "Ratelimit",
-      Icon: CurlIcon,
-      codeBlock: curlRatelimitCodeBlock,
-      editorLanguage: "tsx",
-    },
-  ],
 } as const satisfies {
   [key: string]: Framework[];
 };
@@ -581,24 +479,18 @@ type Props = {
 };
 type Language =
   | "AI integration pt1"
-  | "Python"
+  | "AI integration pt2"
   | "Education"
-  | "Research"
-  | "Curl"
-  | "Elixir"
-  | "Java";
+  | "Research";
 type LanguagesList = {
   name: Language;
   Icon: React.FC<LangIconProps>;
 };
 const languages = [
   { name: "AI integration pt1", Icon: ResearchIcon },
-  { name: "Python", Icon: PythonIcon },
+  { name: "AI integration pt2", Icon: ResearchIcon },
   { name: "Education", Icon: EducationIcon },
   { name: "Research", Icon: ResearchIcon },
-  { name: "Curl", Icon: CurlIcon },
-  { name: "Elixir", Icon: ElixirIcon },
-  { name: "Java", Icon: JavaIcon },
 ] as LanguagesList[];
 
 // TODO extract this automatically from our languages array
@@ -625,8 +517,11 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
   const t = useTranslations("CodeExamples");
   const cta = useTranslations("CTA");
   const projectCopy = useTranslations("CodeExamples.projects");
+  const locale = useLocale();
+  const meetingHref = `/${locale}/meeting`;
+  const solutionsHref = `/${locale}/pricing`;
   const [language, setLanguage] = useState<Language>("AI integration pt1");
-  const [framework, setFramework] = useState<FrameworkName>("HR researcher");
+  const [framework, setFramework] = useState<FrameworkName>("AI transformation");
   const [languageHover, setLanguageHover] = useState("AI integration pt1");
   const frameworksForLanguage: Framework[] = languagesList[language];
   const currentFrameworkData: Framework | undefined =
@@ -738,15 +633,16 @@ export const CodeExamples: React.FC<Props> = ({ className }) => {
         </div>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-4 mt-12">
-        <Link key="get-started" href="https://app.unkey.com">
+        <Link key="get-started" href={meetingHref}>
           <PrimaryButton
             shiny
             label={cta("getStarted")}
             IconRight={ChevronRight}
           />
         </Link>
-        <Link key="explore-projects" href="/docs">
+        <Link key="explore-projects" href={solutionsHref}>
           <SecondaryButton
+            IconLeft={Lightbulb}
             label={cta("exploreProjects")}
             IconRight={ChevronRight}
           />

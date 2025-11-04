@@ -16,150 +16,556 @@
     "ariaHome": "Home",
     "menu": "Menu",
     "close": "Close",
+    "members": "Members",
+    "scheduleCall": "Schedule a Call",
     "createAccount": "Create Account",
     "signIn": "Sign In",
     "language": "Language",
+    "loggedIn": {
+      "aria": "Member navigation",
+      "comingSoon": "Coming soon",
+      "exit": "Exit",
+      "messages": "Messages",
+      "overview": "Overview",
+      "inbox": "Inbox",
+      "planning": "Planning",
+      "hoursSaved": "Hours saved",
+      "dashboard": "Dashboard",
+      "premium": "Premium"
+    },
+    "membersMenu": {
+      "createAccountDescription": "Join TransformAI to unlock member resources.",
+      "signInDescription": "Access your dashboard and ongoing projects.",
+      "continueHeading": "Continue where you left off",
+      "continueRole": {
+        "client": "Members hub",
+        "staff": "Staff workspace"
+      }
+    },
+    "settingsMenu": {
+      "aria": "Quick settings",
+      "triggerLabel": "Open quick settings"
+    },
     "links": {
       "home": "Home",
       "about": "About",
       "blog": "Blog",
-      "pricing": "Pricing",
+      "pricing": "Solutions",
+      "contact": "Contact",
       "changelog": "Changelog",
       "templates": "Templates",
       "docs": "Docs",
       "discord": "Discord"
     }
   },
+  "Meeting": {
+    "meta": {
+      "title": "Schedule a meeting",
+      "description": "Reserve a TransformAI strategy session within the next two weeks."
+    },
+    "Hero": {
+      "badge": "Schedule a meeting for free",
+      "title": "Book a TransformAI intro session",
+      "subtitle": "Pick a time that fits your agenda. We'll confirm the details and pair you with the right specialist."
+    },
+    "Calendar": {
+      "heading": "Availability",
+      "caption": "Tap a date to review remaining blocks. Colours update in real time as teams book in.",
+      "status": {
+        "available": "Open",
+        "limited": "Nearly full",
+        "full": "Fully booked"
+      },
+      "slotsCount": "{available}/{total} slots open",
+      "noSlots": "No open blocks"
+    },
+    "Slots": {
+      "badge": "Choose your moment",
+      "heading": "Times on {day}",
+      "timeZoneLabel": "Your timezone",
+      "timeZoneHelper": "Times adjust to your selected timezone.",
+      "empty": "This day is fully booked. Try another date to find open time blocks.",
+      "selectError": "Select a time block to continue.",
+      "takenHeading": "Taken slots",
+      "takenBadge": "Taken"
+    },
+    "Form": {
+      "heading": "Tell us a little more",
+      "caption": "We’ll use these details to prepare the agenda and send the meeting link.",
+      "submit": "Schedule meeting",
+      "submitPending": "Scheduling…",
+      "privacy": "We only use your email to share the meeting link and follow-up notes.",
+      "outreachTracking": {
+        "title": "Tracking outreach link",
+        "body": "We’ll record this booking against /outreach/{slug} so your personalised dashboard stays up to date."
+      },
+      "success": {
+        "title": "Meeting confirmed",
+        "message": "The meeting will take place through Google Zoom on {date}. Ten minutes before the meeting you will receive a link to the meeting."
+      },
+      "errors": {
+        "unavailable": "This block was just booked. Please choose another time.",
+        "generic": "We couldn’t schedule this meeting. Please try again."
+      },
+      "fields": {
+        "reason": {
+          "label": "Reason for the meeting",
+          "placeholder": "Share what you’d like to cover"
+        },
+        "company": {
+          "label": "Company (optional)",
+          "placeholder": "Organisation name"
+        },
+        "personName": {
+          "label": "Your name",
+          "placeholder": "Who should we greet?"
+        },
+        "email": {
+          "label": "Email address",
+          "placeholder": "you@company.com"
+        },
+        "description": {
+          "label": "Additional context",
+          "placeholder": "Describe priorities, goals, or questions for this call"
+        }
+      }
+    }
+  },
+  "Planning": {
+    "eyebrow": "Staff planning",
+    "title": "Coordinate availability",
+    "subtitle": "Drag to open new slots, assign teammates, and manage bookings in real time.",
+    "calendar": {
+      "heading": "Team calendar",
+      "caption": "Select a day to view and edit blocks. Availability updates instantly for the public page.",
+      "status": {
+        "available": "Open",
+        "limited": "Limited",
+        "full": "Full"
+      },
+      "count": {
+        "available": "{count, plural, one {# open block} other {# open blocks}}",
+        "booked": "{count, plural, one {# booked} other {# booked}}",
+        "blocked": "{count, plural, one {# blocked} other {# blocked}}",
+        "hidden": "{count, plural, one {# hidden} other {# hidden}}"
+      },
+      "metrics": {
+        "available": "Open: {count}",
+        "booked": "Booked: {count}",
+        "blocked": "Blocked: {count}",
+        "hidden": "Hidden: {count}",
+        "total": "Total: {count}"
+      }
+    },
+    "legend": {
+      "title": "Legend",
+      "available": "Available",
+      "booked": "Booked",
+      "blocked": "Blocked",
+      "hidden": "Hidden"
+    },
+    "timeline": {
+      "heading": "Daily timeline",
+      "createHint": "Drag on the grid to add a new availability block.",
+      "updateHint": "Grab the top or bottom edge to extend or shorten an existing slot.",
+      "availableLabel": "Available block"
+    },
+    "form": {
+      "heading": "Slot details",
+      "empty": "Select a block to manage its settings.",
+      "error": "We couldn’t save these changes. Please try again.",
+      "instructions": "Select a block in the timeline to edit details, assign staff, or remove it.",
+      "booking": {
+        "heading": "Meeting details",
+        "person": "Contact",
+        "company": "Company",
+        "reason": "Reason",
+        "email": "Email"
+      },
+      "labels": {
+        "staff": "Assign staff member",
+        "customStaff": "Display name",
+        "status": "Status",
+        "published": "Visible to clients",
+        "description": "Description shown publicly"
+      },
+      "placeholders": {
+        "customStaff": "Optional name visible to clients",
+        "description": "Add context clients will see when picking this block"
+      },
+      "staff": {
+        "unassigned": "No assignment"
+      },
+      "status": {
+        "available": "Available",
+        "unavailable": "Unavailable"
+      },
+      "alerts": {
+        "bookedLocked": "Booked meetings can’t switch status while confirmed.",
+        "deleteDisabled": "Booked meetings can’t be removed."
+      },
+      "errors": {
+        "deleteBooked": "This block already has a confirmed meeting and can’t be removed."
+      },
+      "actions": {
+        "save": "Save changes",
+        "saving": "Saving…",
+        "delete": "Remove block",
+        "deleting": "Removing…"
+      }
+    }
+  },
+  "Contact": {
+    "Hero": {
+      "eyebrow": "Let’s talk",
+      "title": "Contact TransformAI",
+      "body": "Share your challenge and we’ll respond with a tailored AI roadmap within two business days.",
+      "emailNotice": "Prefer email? Email info@transformai.nl directly."
+    },
+    "Highlights": {
+      "label": "Why leaders reach out",
+      "title": "From first idea to scaled automation",
+      "description": "We partner with Dutch leadership teams to translate AI ambition into measurable results.",
+      "items": {
+        "strategy": {
+          "title": "Strategic direction in weeks",
+          "description": "Run an AI strategy sprint that lands clear priorities, KPIs, and a board-ready plan."
+        },
+        "coCreation": {
+          "title": "Co-create with your operators",
+          "description": "Embed our specialists alongside your teams to map automations and redesign workflows."
+        },
+        "governance": {
+          "title": "Governance without slowing down",
+          "description": "Implement responsible guardrails, data policies, and change management that teams adopt."
+        }
+      }
+    },
+    "Form": {
+      "badge": "Direct line",
+      "title": "Send us a message",
+      "subtitle": "Tell us what you need and we’ll reply within one business day.",
+      "channel": {
+        "label": "Official inbox",
+        "caption": "Every submission is delivered straight to {email} so our leadership team can respond quickly."
+      },
+      "requestType": {
+        "label": "Request type",
+        "helper": "Choose the option that best matches your focus."
+      },
+      "requestTypes": {
+        "general": {
+          "title": "General questions",
+          "description": "Questions about the company."
+        },
+        "solutions": {
+          "title": "Solution inquiries",
+          "description": "Any questions about the solutions we provide."
+        },
+        "aiHelp": {
+          "title": "Help with AI",
+          "description": "Questions about AI in your organisation (complimentary)."
+        },
+        "other": {
+          "title": "Other",
+          "description": "Anything that doesn’t fit the other categories."
+        }
+      },
+      "fields": {
+        "name": {
+          "label": "Full name",
+          "placeholder": "Your name"
+        },
+        "company": {
+          "label": "Company (optional)",
+          "placeholder": "Company or team name"
+        },
+        "email": {
+          "label": "Contact email (we'll reply here)",
+          "placeholder": "you@company.com"
+        },
+        "description": {
+          "label": "Describe your request",
+          "placeholder": "Share context, goals, timelines, or anything else that helps us prepare."
+        }
+      },
+      "submit": {
+        "label": "Send message",
+        "pending": "Sending…"
+      },
+      "feedback": {
+        "successTitle": "Message sent",
+        "errorTitle": "We couldn’t send your message"
+      },
+      "footnote": "We’ll only use the details you share to respond from {email}."
+    }
+  },
   "Pricing": {
     "Header": {
-      "eyebrow": "Packages for decisive teams",
-      "title": "Choose the AI launch plan that matches your momentum",
-      "subtitle": "Each package compresses strategy and execution into weeks, keeping leaders, teams, and ROI aligned.",
+      "eyebrow": "Tailored AI solutions",
+      "title": "Choose the AI solution that work for you",
+      "subtitle": "Each solution will be customised per case, making sure maximum value can be extracted from each solution. Don't know which solution fits you, <contact>contact us</contact> and we will make sure we will find a match.",
       "highlights": {
-        "speed": "AI wins in 90 days.",
+        "speed": "Highest quality AI integrations",
         "support": "Guided by Dutch-speaking experts.",
-        "roi": "ROI benchmarks from 40+ cases."
+        "roi": "Productivity boost up to 10×"
       }
     },
     "Packages": {
+      "heading": "Other solutions",
       "common": {
         "included": "What's included:"
       },
-      "education": {
-        "title": "Education Package",
-        "description": "Focused on educating the workforce and making employees future-proof for AI adoption.",
-        "price": "$6,000",
-        "frequency": "one-time investment",
-        "cta": "Request education proposal",
+      "basicEducation": {
+        "title": "Basic education module",
+        "description": "In-person group modules that give every role AI confidence.",
+        "price": "€800",
+        "frequency": "per module (2h in-person)",
+        "cta": "Book education module",
         "bullets": {
-          "courseV1": "AI Education Course V1",
-          "courseV2": "AI Education Course V2",
-          "workshops": "Workshops for teams",
-          "trainingMaterials": "Practical training materials",
-          "certification": "Certification of completion"
+          "customLessons": "Tailored cohorts for every team and role",
+          "foundations": "From core principles to confident day-to-day use",
+          "handsOn": "Hands-on prompts plus image & video creation labs",
+          "catalog": "Pick from 20+ on-site modules",
+          "twoHours": "Two-hour, in-person sessions per module"
         },
         "footer": {
-          "title": "Need a tailored curriculum?",
-          "body": "We can adapt the education program to the unique roles across your organization."
+          "title": "Planning multiple learning paths?",
+          "body": "We’ll curate the right mix of modules for every department."
         }
       },
-      "introduction": {
-        "title": "Introduction Package",
-        "description": "Designed for companies starting their AI transition journey.",
-        "price": "$5,000",
-        "frequency": "one-time engagement",
-        "cta": "Plan your AI kickoff",
+      "advancedEducation": {
+        "title": "Advanced education module",
+        "description": "Build-first workshops for teams ready to ship new AI products.",
+        "price": "€1,100",
+        "frequency": "per advanced module (2h in-person)",
+        "cta": "Book advanced module",
         "bullets": {
-          "aiReadiness": "AI-readiness analysis of the company",
-          "automationSetup": "Initial workflow automation setup",
-          "pilotIntegration": "Pilot project integration",
-          "assessment": "Productivity & cost-efficiency assessment",
-          "guidance": "Strategic guidance session with our team"
+          "innovationTracks": "Co-engineer frontier AI systems with our experts",
+          "customBuilds": "Tracks tuned for makers who already know the basics",
+          "tooling": "Deep dives into orchestration, automation, and multimodal stacks",
+          "catalog": "10 advanced modules pushing applied AI forward",
+          "mentorship": "Mentorship that turns ideas into production-ready prototypes"
         },
         "footer": {
-          "title": "Preparing to scale further?",
-          "body": "We can expand these foundations into enterprise-wide automation and governance."
+          "title": "Already mastered the basics?",
+          "body": "We’ll co-design build tracks that match your teams’ ambitions."
         }
       },
-      "enterprise": {
-        "title": "Enterprise Solutions",
-        "description": "Custom AI transformation solutions built around your organization.",
-        "price": "Custom $",
-        "frequency": "Tailored proposal",
-        "cta": "Contact Us",
+      "platform": {
+        "title": "Custom Platform Enrollment",
+        "description": "One control center to operationalise AI across your company.",
+        "price": "Coming soon",
+        "frequency": "Private beta in development",
+        "cta": "Coming soon",
         "bullets": {
-          "tailoredIntegrations": "Tailored AI integrations",
-          "researchSupport": "Advanced research support",
-          "customModel": "Custom model development",
-          "consulting": "Dedicated consulting",
-          "continuousSupport": "Continuous support"
+          "operatingSystem": "Central OS for assistants, workflows, and guardrails",
+          "efficiency": "Maximize efficiency and value from every AI initiative",
+          "integrations": "Integrations with the tools your teams already use",
+          "guidance": "Guided onboarding and playbooks by industry",
+          "insights": "Realtime adoption and ROI insight dashboards"
+        },
+        "footer": {
+          "title": "Want early access?",
+          "body": "Join the waitlist to hear when enrollment opens."
+        }
+      },
+      "aiseo": {
+        "title": "AISEO package (AIEO)",
+        "description": "Put your brand at the top of AI-driven discovery.",
+        "price": "Beta access",
+        "frequency": "Apply for invitation",
+        "cta": "Apply for beta",
+        "bullets": {
+          "aiVisibility": "Shape how leading AI assistants understand your company",
+          "knowledgeGraphs": "Influence the knowledge graphs generative AI trusts",
+          "searchFuture": "Stay visible as AI-native search replaces SEO",
+          "experimentation": "Co-develop ranking experiments with our team",
+          "reporting": "Track visibility gains across AI channels"
+        },
+        "footer": {
+          "title": "Limited beta availability",
+          "body": "We review applications weekly and onboard focused cohorts."
+        }
+      },
+      "overview": {
+        "title": "AI situation overview",
+        "description": "A two-hour strategy sprint benchmarking your AI position.",
+        "price": "€799",
+        "frequency": "two-hour strategy session",
+        "cta": "Apply now",
+        "bullets": {
+          "topTierAdvice": "Receive senior-level advice tailored to your goals",
+          "situationOverview": "See where your company stands in today’s AI landscape",
+          "report": "Get a detailed report with next steps and priorities",
+          "benchmark": "Benchmark progress against peers in your industry",
+          "endToEnd": "Map front- and back-end opportunities in one workshop"
+        },
+        "footer": {
+          "title": "Ready for what’s next?",
+          "body": "We’ll outline roadmap options and connect you with the right experts."
         }
       }
     },
     "Table": {
-      "title": "Compare packages",
+      "title": "Find Your Solution",
+      "description": "Phases are a way for us to distinguish the different location of companies in the AI transformation process.",
       "headers": {
-        "feature": "Feature",
+        "solution": "Solution",
         "info": "Information"
       },
       "tiers": {
-        "t1": "Education Package",
-        "t2": "Introduction Package",
-        "t3": "Enterprise Solutions",
-        "price": {
-          "t1": "$6,000 one-time",
-          "t2": "$5,000 one-time",
-          "t3": "Custom proposal"
+        "t1": {
+          "label": "Phase 1",
+          "subtitle": "(Foundation)"
+        },
+        "t2": {
+          "label": "Phase 2",
+          "subtitle": "(Standard)"
+        },
+        "t3": {
+          "label": "Phase 3",
+          "subtitle": "(Advanced)"
         }
       },
       "categories": {
-        "educationEnablement": "Education & enablement",
-        "implementation": "Implementation & strategy",
-        "enterprise": "Enterprise scale"
+        "foundation": {
+          "label": "Introduction to AI (purchase deal possible) → Foundation package",
+          "description": "Sets the foundation for a successful long term transformation of AI within your company"
+        },
+        "integration": {
+          "label": "First steps in AI (package deal possible) → Integrated Package",
+          "description": "This package makes sure the basics of AI are integrated within the company"
+        },
+        "scaling": {
+          "label": "Scalable AI (package deal possible) → Intrinsic Package",
+          "description": "The package is responsible for scaling the AI solutions to extract as much as possible value out of them for the company"
+        },
+        "cuttingEdge": {
+          "label": "The cutting edge AI",
+          "description": "The solutions here are meant for companies who are operating on the cutting edge of AI"
+        }
       },
       "rows": {
-        "educationCourseV1": "AI Education Course V1",
-        "educationCourseV2": "AI Education Course V2",
-        "workshops": "Workshops for teams",
-        "trainingMaterials": "Practical training materials",
-        "certification": "Certification of completion",
-        "aiReadiness": "AI-readiness analysis of the company",
-        "automationSetup": "Initial workflow automation setup",
-        "pilotIntegration": "Pilot project integration",
-        "assessment": "Productivity & cost-efficiency assessment",
-        "guidance": "Strategic guidance session with our team",
-        "tailoredIntegrations": "Tailored AI integrations",
-        "researchSupport": "Advanced research support",
-        "customModel": "Custom model development",
-        "consulting": "Dedicated consulting",
-        "continuousSupport": "Continuous support"
-      },
-      "priceRanges": {
-        "t1": "Estimated investment per included service: €450 – €1,200",
-        "t2": "Estimated investment per included service: €900 – €2,500",
-        "t3": "Custom engagements typically range from €2,500 – €8,500"
+        "currentSituationAssessment": {
+          "label": "Current situation assessment",
+          "priceRange": "€3K – €8K excl. VAT",
+          "info": "Assessment of the current situation on people, process, data and tools baseline, regarding AI"
+        },
+        "currentSituationFieldSpecific": {
+          "label": "Current situation in field specific (upgrade)",
+          "priceRange": "€1K – €2K excl. VAT",
+          "info": "A part of the current situation assessment in where the rate of AI development of the competition will be compared to the business"
+        },
+        "highRoiIdentification": {
+          "label": "Identification of high-ROI integrations",
+          "priceRange": "€2K – €5K excl. VAT",
+          "info": "A list of potential integrations, classified based on presumed difficulty"
+        },
+        "vision": {
+          "label": "Long & short-term vision on AI",
+          "priceRange": "€1.5K – €2.5K excl. VAT",
+          "info": "A company policy report regarding AI and the use of it within the company"
+        },
+        "adaptiveRoadmap": {
+          "label": "Adaptive roadmap creation",
+          "priceRange": "€2K – €4.5K excl. VAT",
+          "info": "An adaptive roadmap that will be able to guide the business in fast changing times"
+        },
+        "quickWinsImplementation": {
+          "label": "Practical implementation of quick gains use cases",
+          "priceRange": "Custom (depends on complexity)",
+          "info": "The low cost, fast and high ROI use cases will be implemented in a practical way in the company systems"
+        },
+        "foundationalEducation": {
+          "label": "Foundational education of employees in AI",
+          "priceRange": "€1,200 excl. VAT",
+          "info": "In module 1, the core concepts of AI are explained. In module 2, the risk and opportunities regarding AI are explained"
+        },
+        "futureReadySystems": {
+          "label": "Future-ready employee systems + presentation",
+          "priceRange": "€3K – €5K excl. VAT",
+          "info": "Creation of employee systems that create accountability using AI in practice."
+        },
+        "workflowCreation": {
+          "label": "AI-integrated workflow creation",
+          "priceRange": "€4K – €8K excl. VAT",
+          "info": "The change of standard workflows, to workflows in which AI is integrated"
+        },
+        "progressAssessment": {
+          "label": "Progress assessment",
+          "priceRange": "€6K – €8K excl. VAT",
+          "info": "A rapport that assess, the level of AI integration in its systems. Looking at how it changed with the recent changes made"
+        },
+        "refineCustomSolutions": {
+          "label": "Refine custom AI solutions",
+          "priceRange": "€5K – €10K excl. VAT",
+          "info": "Taking identified high ROI solutions and refining it. Especially meant for the not straightforward AI solutions."
+        },
+        "economicAssessment": {
+          "label": "Economic assessment of custom solutions",
+          "priceRange": "€8.5K – €20K excl. VAT",
+          "info": "Before going and optimising the high ROI solutions, an economic rapport is recommended that will indicate the needed circumstances to make the project worth optimising"
+        },
+        "optimizeIntegration": {
+          "label": "Optimize AI integration",
+          "priceRange": "€25K – €200K excl. VAT",
+          "info": "Optimising identified high-ROI solutions, so they are production level ready."
+        },
+        "workflowOptimization": {
+          "label": "AI workflow optimization",
+          "priceRange": "€5K – €20K excl. VAT",
+          "info": "Include AI in the strategic positions within the workflow, resulting in maximum value extraction from them"
+        },
+        "largeScaleDeployment": {
+          "label": "Large-scale AI deployment",
+          "priceRange": "€10K – €20K excl. VAT",
+          "info": "Taking the AI systems and deploying them in its full potential all across the organisation"
+        },
+        "aiAssessmentReport": {
+          "label": "AI assessment report",
+          "priceRange": "€10K – €15K excl. VAT",
+          "info": "A comprehensive analysis of the new state of AI within the company compared to pre AI adoption"
+        },
+        "automatingOptimisedSystems": {
+          "label": "Automating optimised AI systems",
+          "priceRange": "Custom",
+          "info": "The automatisation from optimised AI systems."
+        },
+        "cuttingEdgeSolutions": {
+          "label": "Creating cutting edge high quality custom solutions",
+          "priceRange": "Custom",
+          "info": "Creating cutting edge systems, which are build from complete sketch"
+        },
+        "customSolutions": {
+          "label": "Custom solutions",
+          "priceRange": "Custom — contact us",
+          "info": "Fully bespoke solutions created together to match unique ambitions beyond the structured phases."
+        }
       },
       "infoColumn": {
         "label": "Information",
-        "availableIn": "Available in {packages}",
-        "partialIn": "Limited availability in {packages}",
-        "notIncluded": "Not included in any package",
+        "availableIn": "Recommended in {packages}",
+        "partialIn": "Available depending on context in {packages}",
+        "notIncluded": "Not recommended for these phases",
         "tooltip": {
-          "line1": "Get a quick view of how each service spans across our packages.",
-          "line2": "Use it to guide conversations with your team before you dive into the detailed comparisons.",
-          "cta": "Read more"
+          "title": "How to read this table",
+          "description": "Hover over each status to reveal pricing guidance and recommended next steps.",
+          "cta": "Contact us to learn more"
         }
       },
       "legend": {
-        "included": "Included",
-        "notIncluded": "Not included",
-        "partial": "Limited availability"
+        "included": "Recommended",
+        "notIncluded": "Not recommended",
+        "partial": "Depends"
       },
       "cta": {
-        "scrollLabel": "Ready to choose the right fit?",
-        "chooseTier1": "Explore the Education Package",
-        "chooseTier2": "Explore the Introduction Package",
-        "chooseTier3": "Talk to Enterprise Solutions"
+        "scrollLabel": "Ready to explore the next phase?",
+        "chooseTier1": "Explore Phase 1 foundation",
+        "chooseTier2": "Explore Phase 2 standard",
+        "chooseTier3": "Explore Phase 3 advanced",
+        "viewPackageDeal": "View package deal",
+        "viewPackageDealFor": "View package deal for {package}"
       }
     },
     "Chat": {
@@ -197,6 +603,119 @@
         "title": "Unable to reach the assistant",
         "body": "Please try again in a few moments.",
         "retry": "Retry"
+      }
+    }
+  },
+  "SpecialOffer": {
+    "hero": {
+      "eyebrow": "Exclusive special offer",
+      "title": "Exclusive premium-first AI transformation packages for Dutch companies",
+      "subtitle": "Lock in an exclusive engagement tailored to your ambition—start with the Basis Pakket for focused backend wins or choose the Het koopje pakket for an all-in acceleration.",
+      "highlight": "Our exclusive Premium Deal package is designed to be your first and most powerful move.",
+      "notice": "This exclusive special offer is tailored for companies in our pilot programme, unlocking preferential pricing. Limited time only."
+    },
+    "packages": {
+      "common": {
+        "included": "What's included",
+        "exVat": "excl. VAT"
+      },
+      "premium": {
+        "badge": "Most exclusive & comprehensive",
+        "title": "Het koopje pakket",
+        "tagline": "Exclusive Premium Deal package",
+        "description": "Intensive one-week AI transformation project with senior specialists on-site and remote, reserved for our pilot partners.",
+        "price": "€9.100",
+        "cta": "Request access",
+        "bullets": {
+          "bootcamp": {
+            "title": "1-week project: 2 days on-site, 4 days of reporting, 1 day presentation",
+            "description": "We embed with your team, analyse the organisation, and present a crystal-clear narrative for every stakeholder."
+          },
+          "assessment": {
+            "title": "Detailed assessment of your current position",
+            "description": "The assessment report scores your company on AI adoption, data readiness, and operational maturity."
+          },
+          "comparison": {
+            "title": "Benchmark against your field and adjacent industries",
+            "description": "See how you perform versus peers so you can frame decisions with real market context."
+          },
+          "solutions": {
+            "title": "Full catalogue of integration possibilities",
+            "description": "Every solution is mapped with complexity, cost, and expected impact so you can prioritise with confidence."
+          },
+          "policy": {
+            "title": "Co-created AI governance and policy",
+            "description": "We align with your values and legal requirements to define responsible AI guardrails."
+          },
+          "roadmap": {
+            "title": "Robust AI roadmap",
+            "description": "A staged implementation plan showing what to deliver, by whom, and when."
+          },
+          "systems": {
+            "title": "Covers both frontend and backend systems",
+            "description": "The transformation plan spans customer-facing and internal platforms for a complete rollout."
+          }
+        },
+        "guarantee": {
+          "title": "Money-back guarantee",
+          "description": "If we do not deliver the promised insights and roadmap, you receive your investment back."
+        },
+        "bonus": {
+          "title": "Exclusive premium bonuses",
+          "items": [
+            {
+              "title": "Founder-to-founder advisory session",
+              "description": "Personal guidance on long-term AI positioning so leadership knows how to steer beyond the project."
+            },
+            {
+              "title": "2 free education modules (worth €1.400)",
+              "description": "In-person training delivered later to upskill your team without extra cost."
+            }
+          ]
+        }
+      },
+      "basic": {
+        "badge": "Exclusive starter option",
+        "title": "Basis Pakket",
+        "tagline": "Get started package",
+        "description": "Three-day accelerator to understand your AI baseline and unlock immediate backend wins with exclusive pilot pricing.",
+        "price": "€3.400",
+        "cta": "Request access",
+        "bullets": {
+          "bootcamp": {
+            "title": "3-day bootcamp: 1 day on-site, 1 day reporting, 1 day presentation",
+            "description": "We partner with your team for a rapid discovery, craft the report, and present the findings."
+          },
+          "assessment": {
+            "title": "Detailed assessment of your current position",
+            "description": "Measures how your backend uses AI today, covering data, processes, and tooling."
+          },
+          "quickWins": {
+            "title": "Quick wins playbook",
+            "description": "We highlight fast-to-implement improvements and outline exactly how to deploy them."
+          },
+          "roadmap": {
+            "title": "Backend roadmap",
+            "description": "Creates the first-stage roadmap to guide your backend team through the next steps."
+          },
+          "backendFocus": {
+            "title": "Backend-focused engagement",
+            "description": "The assessment and recommendations zero in on backend systems to keep scope sharp."
+          }
+        },
+        "footer": "Need support across frontend as well? The Het koopje pakket covers the full stack."
+      }
+    },
+    "metadata": {
+      "title": "Exclusive Special Offer Packages | TransformAI",
+      "description": "Unlock exclusive pilot pricing on TransformAI's Basis Pakket and Het koopje pakket—bespoke AI engagements for ambitious Dutch companies.",
+      "openGraph": {
+        "title": "Exclusive Special Offer Packages | TransformAI",
+        "description": "Discover TransformAI's exclusive pilot offer with premium and basis packages tailored for decisive teams."
+      },
+      "twitter": {
+        "title": "Exclusive Special Offer Packages | TransformAI",
+        "description": "Secure limited-time pilot pricing on TransformAI's premium and basis AI transformation packages."
       }
     }
   },
@@ -326,6 +845,49 @@
       "body": "Explore insights, tips, and updates directly from our team members"
     }
   },
+  "Careers": {
+    "hero": {
+      "title": "Open positions",
+      "subtitle": "Based in Amsterdam, the Netherlands — working remote is also discussable."
+    },
+    "apply": {
+      "label": "Apply here"
+    },
+    "details": {
+      "focus": "Focus",
+      "experience": "Experience",
+      "portfolio": "Portfolio",
+      "evaluation": "Evaluation",
+      "salary": "Salary"
+    },
+    "positions": {
+      "socialMediaMarketingManager": {
+        "title": "Social Media Marketing Manager",
+        "summary": "Grow TransformAI’s voice across every social channel and translate product stories into measurable brand momentum.",
+        "focus": "Lead strategic campaigns, collaborate with founders on storytelling, and keep our community engaged with fresh, insight-driven content.",
+        "experience": "+3 years shaping social media marketing programs with proven growth metrics.",
+        "portfolio": "Share a portfolio that highlights campaign creativity, performance data, and content craft.",
+        "salary": "€4,500+ net per month.",
+        "emailSubject": "Application – Social Media Marketing Manager"
+      },
+      "aiIntegrationExpert": {
+        "title": "AI Integration Expert",
+        "summary": "Design and deliver AI-driven workflows for clients ready to operationalise advanced automation.",
+        "focus": "Architect integrations that blend strategy, technical execution, and change management for Dutch enterprises.",
+        "evaluation": "An interview test covering technical depth, AI integration insights, and a personality assessment will determine fit.",
+        "salary": "€12,500 net per month.",
+        "emailSubject": "Application – AI Integration Expert"
+      },
+      "juniorDataAnalyst": {
+        "title": "Junior Data Analyst",
+        "summary": "Accelerate how we analyse AI programme data and keep our internal CRM intelligence sharp.",
+        "focus": "Automate reporting pipelines, organise experiment results, and support the insights team across active engagements.",
+        "experience": "No prior experience required — bring curiosity and a willingness to learn.",
+        "salary": "€6,750+ net per month.",
+        "emailSubject": "Application – Junior Data Analyst"
+      }
+    }
+  },
   "LogoCloud": {
     "label": "Partners"
   },
@@ -405,6 +967,15 @@
         "description": "Stay current with a weekly roundup of what’s new in AI—beginner and advanced explanations, use cases, reviews, and on-request follow-up information so every team can act on what matters.",
         "cta": "Read more"
       },
+      "aiIntegrationAiTransformation": {
+        "label": "AI transformation",
+        "field": "AI integration",
+        "name": "AI transformation",
+        "title": "The AI Transition",
+        "description": "Our view: AI is a company-wide transition, not a feature. Compounding curves in compute, capability, and adoption make a backend-first approach a necessity to create durable value and stay ready for future step-ups.",
+        "result": "Part of our AI Integration Pt.1 case study series.",
+        "cta": "Read more"
+      },
       "aiIntegrationHrResearcher": {
         "label": "HR researcher",
         "field": "Research",
@@ -439,6 +1010,42 @@
         "title": "From 20h to 45m: Scalable AI Image Workflows",
         "description": "How a custom platform with parallel generations and prompt memory cut labor from 20 hours (manual) and 7 hours (normal AI) to 45 minutes for the same-quality image.",
         "result": "Part of our AI Integration Pt.1 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationPt2CompanyFinder": {
+        "label": "Company Finder",
+        "field": "AI integration pt2",
+        "name": "Company Finder",
+        "title": "AI search for B2B outreach",
+        "description": "Our agent uses tool calling to scan the public web, match companies to your criteria, and return legitimate contact routes—built with ethics and compliance in mind.",
+        "result": "Part of our AI Integration Pt.2 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationPt2Backend": {
+        "label": "Backend",
+        "field": "AI integration pt2",
+        "name": "Backend",
+        "title": "Backend AI Integration: Why It Comes First",
+        "description": "Backend is where value is created—across finance, support, sales, HR, IT, and risk. Our phased view focuses on outcomes (integrated → internalised → adaptive) and explains why backend-first multiplies front-end results, while avoiding mis-adoption, skipped steps, and lock-in.",
+        "result": "Part of our AI Integration Pt.2 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationPt2Frontend": {
+        "label": "Frontend",
+        "field": "AI integration pt2",
+        "name": "Frontend",
+        "title": "Front-End AI Integration: Products, Revenue & Market Share",
+        "description": "Front end is where capability becomes revenue. We explain how it differs from backend, what “front end” includes in practice, the outcome-based phases (AI-Integrated → AI-Internalised → AI-Adaptive), key product-side risks, and how it runs in parallel with backend to defend and grow share.",
+        "result": "Part of our AI Integration Pt.2 case study series.",
+        "cta": "Read more"
+      },
+      "aiIntegrationPt2AgenticResearcher": {
+        "label": "Agentic Researcher",
+        "field": "AI integration pt2",
+        "name": "Agentic Researcher",
+        "title": "Agentic AI Research",
+        "description": "Our human-in-the-loop workflow lets PhD-level AI researcher handle repetitive tasks—saving ~10 minutes per data point—while researchers make the big calls, scaling to millions of data points.",
+        "result": "Part of our AI Integration Pt.2 case study series.",
         "cta": "Read more"
       },
       "researchAiAdoption": {
@@ -481,7 +1088,7 @@
   },
   "CTA": {
     "getStarted": "Get Started",
-    "exploreProjects": "Explore All projects",
+    "exploreProjects": "Explore Solutions",
     "hoursSavedLabel": "Hours saved using AI",
     "hoursSavedAmount": "100000+"
   },
@@ -494,6 +1101,57 @@
   },
   "Analytics": {
     "requestAccess": "Request Access",
+    "requestForm": {
+      "badge": "Platform beta",
+      "title": "Request access to the TransformAI platform",
+      "subtitle": "Share a bit about your team and we'll reach out with next steps.",
+      "dismiss": "Close request form",
+      "channel": {
+        "label": "Prefer email?",
+        "caption": "Email {email} and we'll respond within one business day."
+      },
+      "feedback": {
+        "successTitle": "Request received",
+        "errorTitle": "We couldn't send that"
+      },
+      "requestType": {
+        "label": "What brings you here?",
+        "helper": "Pick the option that best describes your request.",
+        "options": {
+          "platformAccess": {
+            "title": "Request access to the platform",
+            "description": "Join the beta and connect your team to TransformAI's workspace."
+          },
+          "other": {
+            "title": "Something else",
+            "description": "Ask a different question about the platform beta."
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "label": "Your name",
+          "placeholder": "Alex Janssen"
+        },
+        "company": {
+          "label": "Company",
+          "placeholder": "Company name"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "name@company.com"
+        },
+        "description": {
+          "label": "How can we help?",
+          "placeholder": "Tell us about your team, use case, or anything else we should know."
+        }
+      },
+      "submit": {
+        "label": "Send request",
+        "pending": "Sending..."
+      },
+      "footnote": "Prefer email? Reach us at {email}."
+    },
     "caption": {
       "title": "Realtime Analytics",
       "subtitle": "Live insight into AI usage across your company."
@@ -653,8 +1311,8 @@
     }
   },
   "Footer": {
-    "tagline": "Build better APIs faster.",
-    "copyright": "Unkeyed, Inc. {year}",
+    "tagline": "We Build The Future",
+    "copyright": "TransformAI, inc. 2025",
     "sections": {
       "company": "Company",
       "resources": "Resources",
@@ -665,8 +1323,7 @@
       "about": "About",
       "roadmap": "Roadmap",
       "careers": "Careers",
-      "sourceCode": "Source Code",
-      "status": "Status Page",
+      "contact": "Contact",
       "blog": "Blog",
       "changelog": "Changelog",
       "templates": "Templates",
@@ -674,8 +1331,9 @@
       "glossary": "Glossary",
       "twitter": "X (Twitter)",
       "discord": "Discord",
-      "ossFriends": "OSS Friends",
       "bookCall": "Book a Call",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
       "terms": "Terms of Service",
       "privacy": "Privacy Policy"
     }
@@ -708,6 +1366,7 @@
   },
   "Language": {
     "selectTitle": "Select language",
+    "tagline": "TransformAI founded in 2025 in Amsterdam, The Netherlands.",
     "english": "English",
     "dutch": "Nederlands",
     "submit": "Continue"
@@ -720,5 +1379,487 @@
     "heading": "Not found.",
     "cta": "Go to homepage",
     "tagline": "Build better APIs faster."
+  },
+  "Auth": {
+    "SignUp": {
+      "metaTitle": "Create account",
+      "metaDescription": "Join TransformAI to receive member-only news updates and staff dashboards.",
+      "eyebrow": "Members",
+      "title": "Create your TransformAI account",
+      "subtitle": "Unlock tailored AI news and staff dashboards.",
+      "staffButton": "Client",
+      "staffModeOn": "Staff mode",
+      "staffDialog": {
+        "title": "Staff access code",
+        "description": "Only internal team members should use staff mode. Enter the shared code to continue.",
+        "codeLabel": "Access code",
+        "codePlaceholder": "Enter the staff code",
+        "submit": "Unlock staff mode",
+        "reset": "Use client access"
+      },
+      "googleCta": "Continue with Google",
+      "or": "or continue with email",
+      "nameLabel": "Full name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Create a password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "submit": "Create account",
+      "submitStaff": "Create staff account",
+      "afterSubmit": {
+        "title": "What happens next",
+        "staff": "We'll route you straight to the staff dashboard so you can monitor client momentum.",
+        "client": "We'll send you directly to News Updates with curated briefings for TransformAI members."
+      },
+      "haveAccount": "Already have an account?",
+      "signInLink": "Sign in",
+      "errors": {
+        "intentFailed": "We couldn't verify that access code. Try again.",
+        "emailInUse": "An account already exists for that email.",
+        "invalidStaffCode": "The staff code is incorrect.",
+        "validation": "Double-check the form fields and try again.",
+        "generic": "Something went wrong while creating your account.",
+        "signInAfterRegister": "Your account was created, but automatic sign-in failed. Try signing in manually."
+      }
+    },
+    "SignIn": {
+      "metaTitle": "Sign in",
+      "metaDescription": "Sign in to TransformAI to read member news and access the staff dashboard.",
+      "eyebrow": "Members",
+      "title": "Welcome back",
+      "subtitle": "Pick up where you left off with tailored updates.",
+      "googleCta": "Sign in with Google",
+      "or": "or continue with email",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "Sign in",
+      "cta": "Need an account?",
+      "ctaLink": "Create one",
+      "errors": {
+        "invalid": "We couldn’t match those credentials. Try again."
+      }
+    },
+    "PostSignIn": {
+      "redirecting": "Redirecting you, {name}…"
+    }
+  },
+  "NewsUpdates": {
+    "eyebrow": "Client dashboard",
+    "title": "Dashboard",
+    "subtitle": "Track progress, plan the next phase, and unlock premium AI resources when you need them.",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "premium": "Premium"
+    },
+    "overview": {
+      "heading": "Dashboard overview",
+      "progress": {
+        "eyebrow": "Progress made",
+        "title": "Progress made",
+        "value": "0%",
+        "caption": "We'll publish your metrics here as soon as the first initiatives land."
+      },
+      "phase": {
+        "eyebrow": "Development phase",
+        "title": "Phase of development",
+        "value": "Phase 0",
+        "caption": "You're at the starting line—kickoff unlocks phase 1 milestones and measurable outputs."
+      },
+      "cta": {
+        "eyebrow": "Need momentum?",
+        "title": "Want to make progress with your company in AI?",
+        "subtitle": "Book a strategy call with our consultants to identify quick wins and architect the roadmap.",
+        "button": "Book a call"
+      }
+    },
+    "premium": {
+      "eyebrow": "Premium access",
+      "title": "Premium intelligence on standby",
+      "subtitle": "Upgrade for weekly debriefs, quantified outcomes, and executive-ready toolkits.",
+      "weekly": {
+        "eyebrow": "Weekly update",
+        "title": "Deep-dive report on active initiatives",
+        "caption": "Impact metrics, implementation notes, and stakeholder-ready talking points—refreshed every Friday.",
+        "locked": "Locked for premium members",
+        "ctaLabel": "Want to get access?",
+        "button": "Contact us"
+      },
+      "resources": {
+        "eyebrow": "Premium resources",
+        "title": "Resource vault",
+        "caption": "Blueprints, templates, and benchmark data curated for Dutch leadership teams.",
+        "items": {
+          "item1": "Executive-ready AI opportunity assessments tailored to your operations.",
+          "item2": "Process automation templates with ROI models and risk controls.",
+          "item3": "Change enablement playbooks to guide teams through adoption."
+        },
+        "button": "Get access"
+      }
+    }
+  },
+  "Dashboard": {
+    "title": "Hours saved planner",
+    "subtitle": "Set the starting total and adjust hourly increments for the next seven days.",
+    "currentUser": "Signed in as {email}",
+    "summary": {
+      "currentLabel": "Current ticker",
+      "currentValue": "{amount} hrs total",
+      "nextLabel": "Next update",
+      "nextValue": "{time}",
+      "noUpcoming": "No scheduled updates in the next 7 days."
+    },
+    "hoursSaved": {
+      "base": {
+        "label": "Starting amount",
+        "helper": "Resets the ticker to this total immediately."
+      },
+      "dailyTarget": {
+        "label": "Daily auto-add total",
+        "helper": "Randomly distribute this many hours across each day in the window."
+      },
+      "days": {
+        "heading": "Plan the next 7 days",
+        "helper": "Select a day to edit the hourly increments.",
+        "todayBadge": "Today",
+        "todaySummary": "Current window {window}. {remaining, plural, one {# hour left today.} other {# hours left today.}}",
+        "daySummary": "{count, plural, one {# hour scheduled.} other {# hours scheduled.}}",
+        "hourButtonAria": "Edit {time}. Currently {amount} hours."
+      },
+      "editor": {
+        "title": "Update {time}",
+        "helper": "Set how many hours will be added automatically at this time.",
+        "amountLabel": "Hours",
+        "amountSuffix": "hrs"
+      },
+      "actions": {
+        "submit": "Push changes",
+        "saving": "Saving…",
+        "copy": "Copy day",
+        "copyClose": "Close copy",
+        "regenerate": "Regenerate schedule",
+        "regenerating": "Regenerating…"
+      },
+      "copy": {
+        "title": "Copy schedule to other days",
+        "description": "Reuse the hourly plan from one day and apply it elsewhere.",
+        "sourceLabel": "Copy from",
+        "targetLabel": "Apply to",
+        "helper": "Selecting a day overwrites its hourly values.",
+        "apply": "Apply copy",
+        "cancel": "Cancel"
+      },
+      "status": {
+        "success": "Hours saved schedule updated.",
+        "error": "We couldn't update the schedule. Try again.",
+        "validation": "Enter a non-negative value for the starting amount, daily target, and each hour.",
+        "copyValidation": "Select a source day and at least one day to copy to.",
+        "copySuccess": "Day copied successfully."
+      }
+    }
+  },
+  "DashboardOutreach": {
+    "eyebrow": "Outreach workspace",
+    "title": "Spin up personalised outreach pages",
+    "subtitle": "Import company names and talking points, preview the batch, and push bespoke landing pages live in seconds.",
+    "currentUser": "Signed in as {email}",
+    "metrics": {
+      "total": {
+        "label": "Pages published",
+        "caption": "{count, plural, one {# live page} other {# live pages}}"
+      },
+      "visited": {
+        "label": "Pages visited",
+        "caption": "{count, plural, one {# link opened} other {# links opened}}"
+      },
+      "untouched": {
+        "label": "Awaiting first visit",
+        "caption": "{count, plural, one {# page still unused} other {# pages still unused}}"
+      },
+      "booked": {
+        "label": "Meetings booked",
+        "caption": "{count, plural, one {# meeting confirmed} other {# meetings confirmed}}"
+      }
+    },
+    "templates": {
+      "eyebrow": "Template library",
+      "title": "Choose the personalised layout",
+      "description": "Preview the current outreach templates before assigning them inside the CSV.",
+      "badge": "Template {id}",
+      "items": {
+        "1": {
+          "title": "Consultative hero with countdown",
+          "body": "Highlights the prospect name, reiterates our offer, and drives an instant booking CTA with a 48-hour timer.",
+          "points": [
+            "Hero headline personalised with the company name",
+            "Countdown timer nudging a fast response",
+            "Primary CTA deep-linking into the meeting scheduler"
+          ]
+        }
+      }
+    },
+    "upload": {
+      "eyebrow": "CSV uploader",
+      "title": "Import outreach copy",
+      "description": "Upload a CSV with Name, Text to display, and Template columns. We'll validate each row before anything goes live.",
+      "cta": "Choose CSV",
+      "fileSelected": "Selected: {name}",
+      "noFile": "No file selected yet",
+      "push": "Push {count, plural, one {# page} other {# pages}}",
+      "pushing": "Pushing…",
+      "validation": "Upload a CSV that includes Name, Text to display, and Template columns before pushing.",
+      "previewLabel": "{count, plural, one {# entry ready} other {# entries ready}}",
+      "previewColumns": {
+        "name": "Company name",
+        "slug": "Slug",
+        "template": "Template",
+        "templateLabel": "Template {id}",
+        "text": "Text to display"
+      },
+      "errors": {
+        "title": "{count, plural, one {We found # issue} other {We found # issues}}",
+        "empty": "The file looks empty—add at least one row before uploading.",
+        "missingColumns": "Add \"Name\", \"Text to display\", and \"Template\" columns to the CSV.",
+        "missingValues": "Row {row} is missing either the name or the text to display.",
+        "invalidSlug": "Row {row} cannot be converted into a valid URL slug.",
+        "invalidTemplate": "Row {row} needs a template number (1, 2, 3…)."
+      }
+    },
+    "status": {
+      "success": "Pushed {created, plural, one {# new page} other {# new pages}} and updated {updated, plural, one {# existing page} other {# existing pages}}.",
+      "validation": "Fix the highlighted CSV issues and try again.",
+      "unauthorized": "You are not authorized to manage outreach pages.",
+      "error": "We couldn't process the upload. Try again."
+    },
+    "filters": {
+      "sortBy": "Sort by",
+      "sortOrder": "Sort order",
+      "order": {
+        "asc": "Oldest first",
+        "desc": "Newest first"
+      },
+      "sortOptions": {
+        "createdAt": "Date added",
+        "lastVisitedAt": "Last visit",
+        "visitCount": "Total visits"
+      },
+      "visitStatus": "Visit status",
+      "visitOptions": {
+        "any": "All pages",
+        "visited": "Visited pages",
+        "notVisited": "Not yet visited"
+      },
+      "booked": "Booked meeting",
+      "bookedOptions": {
+        "any": "All",
+        "yes": "Booked",
+        "no": "Not booked"
+      },
+      "addedOn": "Added on",
+      "templates": "Templates",
+      "templateLabel": "Template {id}",
+      "templatesEmpty": "Templates will appear here once you've published pages.",
+      "clear": "Clear all filters"
+    },
+    "table": {
+      "eyebrow": "Published pages",
+      "title": "Live outreach links",
+      "description": "Track every personalised link, see which prospects have opened it, and refine the view with filters when the list grows.",
+      "empty": "No outreach pages have been pushed yet.",
+      "noMatches": "No outreach pages match your filters.",
+      "openLink": "Open page",
+      "delete": {
+        "label": "Delete",
+        "pending": "Deleting…",
+        "success": "Removed /outreach/{slug} successfully.",
+        "error": "We couldn't delete that outreach page. Try again.",
+        "notFound": "That outreach page has already been removed."
+      },
+      "columns": {
+        "company": "Company",
+        "link": "Link",
+        "template": "Template",
+        "text": "Displayed text",
+        "visits": "Visits",
+        "added": "Added",
+        "booked": "Booked meeting",
+        "updated": "Last updated",
+        "actions": "Actions"
+      },
+      "status": {
+        "visited": "{count, plural, one {Visited once} other {Visited # times}}",
+        "pending": "Awaiting first visit",
+        "notVisited": "Not visited yet"
+      },
+      "bookedStatus": {
+        "yes": "Booked",
+        "no": "Not booked"
+      }
+    }
+  },
+  "DashboardOverview": {
+    "eyebrow": "Staff workspace",
+    "title": "Choose the area you want to manage",
+    "subtitle": "Jump straight into the tools you need today. Each module keeps its data within the TransformAI staff workspace.",
+    "currentUser": "Signed in as {email}",
+    "cta": "Open",
+    "sections": {
+      "hoursSaved": {
+        "eyebrow": "Hours saved",
+        "title": "Tune the AI hours ticker",
+        "description": "Reset the starting total and plan the automatic increments for the next seven days."
+      },
+      "planning": {
+        "eyebrow": "Planning",
+        "title": "Coordinate the meeting agenda",
+        "description": "Review availability, assign colleagues, and publish upcoming TransformAI strategy sessions."
+      },
+      "inbox": {
+        "eyebrow": "Inbox",
+        "title": "Review incoming contact messages",
+        "description": "Monitor every enquiry from the contact page in one place."
+      },
+      "outreach": {
+        "eyebrow": "Outreach",
+        "title": "Launch personalised landing pages",
+        "description": "Upload company-specific copy and push bespoke outreach pages that come to life the moment a prospect clicks."
+      }
+    },
+    "metrics": {
+      "clients": {
+        "title": "Client accounts",
+        "caption": "{count, plural, one {# client live} other {# clients live}}"
+      },
+      "staff": {
+        "title": "Staff accounts",
+        "caption": "{count, plural, one {# internal teammate online} other {# internal teammates online}}"
+      },
+      "visitors": {
+        "title": "Unique visitors",
+        "caption": "{count, plural, one {# visitor session recorded} other {# visitor sessions recorded}}"
+      },
+      "hoursSaved": {
+        "title": "Hours saved with AI",
+        "caption": "{count, plural, one {# hour automated} other {# hours automated}}",
+        "manage": "Open planner"
+      },
+      "outreach": {
+        "title": "Outreach pages live",
+        "caption": "{count, plural, one {# personalised link published} other {# personalised links published}}"
+      },
+      "ratio": {
+        "title": "Client-to-staff ratio",
+        "caption": "Healthy coverage is between 4:1 and 8:1 so every project has a partner lead."
+      }
+    },
+    "accounts": {
+      "clients": {
+        "title": "Client account roster",
+        "description": "Review every client profile that has been provisioned.",
+        "empty": "No client accounts have been created yet."
+      },
+      "staff": {
+        "title": "Staff workspace roster",
+        "description": "See the teammates who can access internal tooling.",
+        "empty": "No staff accounts have been created yet."
+      },
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "createdAt": "Created"
+      }
+    },
+    "visitors": {
+      "title": "Visitor traffic",
+      "description": "We count a visitor the moment a new analytics cookie is issued.",
+      "tabs": {
+        "hourly": "Last 24 hours",
+        "daily": "Last 7 days"
+      },
+      "empty": {
+        "hourly": "No new visitor sessions were recorded in the last 24 hours.",
+        "daily": "No new visitor sessions were recorded in the last 7 days."
+      },
+      "tooltip": {
+        "hour": "{count, plural, one {{count} visitor between {start}–{end}} other {{count} visitors between {start}–{end}}}",
+        "day": "{count, plural, one {{count} visitor on {day}} other {{count} visitors on {day}}}"
+      }
+    },
+    "meetings": {
+      "title": "Upcoming meetings",
+      "empty": "No meetings scheduled yet. New bookings will appear here instantly.",
+      "fields": {
+        "when": "When",
+        "reason": "Reason",
+        "contact": "Contact",
+        "staff": "Owner",
+        "notes": "Slot notes"
+      }
+    },
+    "nextSteps": {
+      "title": "Next steps",
+      "items": {
+        "audit": "Audit onboarding journeys for clients without recent logins and schedule success calls.",
+        "outreach": "Coordinate with delivery leads to share the new AI maturity playbook with their accounts.",
+        "briefings": "Prepare January leadership briefings showcasing ROI metrics from automation pilots."
+      }
+    }
+  },
+  "DashboardInbox": {
+    "title": "Contact inbox",
+    "subtitle": "Review every message submitted through the TransformAI contact form.",
+    "currentUser": "Signed in as {email}",
+    "empty": "No contact messages yet. New enquiries will appear here instantly.",
+    "table": {
+      "received": "Received",
+      "requestType": "Request type",
+      "email": "Email",
+      "company": "Company",
+      "locale": "Locale",
+      "message": "Message"
+    }
+  },
+  "OutreachPage": {
+    "eyebrow": "Tailored for your team",
+    "headline": "How TransformAI can accelerate {company}",
+    "templateBadge": "Template {id}",
+    "primaryCta": "Book a strategy session",
+    "secondaryCta": "Explore recent wins",
+    "timer": {
+      "eyebrow": "Hold timer",
+      "running": "Reserved for you · {time} left",
+      "expired": "This invitation window has closed",
+      "helper": "We hold this personalised plan for 48 hours from your first visit."
+    },
+    "bodyTitle": "What this collaboration unlocks for {company}",
+    "bodySubtitle": "We crafted this mini-brief after researching your public footprint and current AI readiness.",
+    "bookedBanner": "A meeting is already confirmed from this page—we’ll arrive prepared with next steps.",
+    "commitment": {
+      "title": "What to expect next",
+      "body": "Share the landing page internally or book a call above and we will tailor a concrete transformation roadmap aligned to your priorities."
+    },
+    "metaTitle": "{company} × TransformAI",
+    "metaDescription": "A bespoke TransformAI overview prepared for your team."
+  },
+  "hoursSaved": {
+    "dialog": {
+      "title": "Automate the hours saved ticker",
+      "description": "Plan the next 24 hours of automatic additions. Times use {timeZone}.",
+      "baseLabel": "Starting amount",
+      "baseHelper": "Resets the ticker to this total immediately.",
+      "scheduleHeading": "Next 24 hours",
+      "scheduleDescription": "Each entry is added at the top of the hour ({timeZone}).",
+      "timeColumnLabel": "Hour",
+      "reset": "Reset defaults",
+      "submit": "Save schedule",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "success": "Hours saved schedule updated.",
+      "error": "We couldn’t update the schedule. Try again.",
+      "validation": "Enter a non-negative value for each field.",
+      "amountSuffix": "hrs"
+    }
   }
 }

@@ -1,24 +1,40 @@
 import Link from "next/link";
 
 import { PrimaryButton, SecondaryButton } from "@/components/button";
-import { BookOpen, ChevronRight, LogIn } from "lucide-react";
+import { ChevronRight, Lightbulb, LogIn } from "lucide-react";
+
+import { HoursSavedTicker, type HoursSavedNumberFormatOptions } from "./hours-saved-ticker";
 
 type HeroMainSectionProps = {
   title: string;
   body: string;
   primaryCtaLabel: string;
+  primaryCtaHref: string;
   secondaryCtaLabel: string;
+  secondaryCtaHref: string;
   hoursSavedLabel: string;
-  hoursSavedAmount: string;
+  hoursSavedInitialAmount: number;
+  hoursSavedInitialFormatted: string;
+  hoursSavedInitialFormatterLocale: string;
+  hoursSavedInitialFormatterOptions: HoursSavedNumberFormatOptions;
+  hoursSavedNextUpdateAt: string | null;
+  locale: string;
 };
 
 export function HeroMainSection({
   title,
   body,
   primaryCtaLabel,
+  primaryCtaHref,
   secondaryCtaLabel,
+  secondaryCtaHref,
   hoursSavedLabel,
-  hoursSavedAmount,
+  hoursSavedInitialAmount,
+  hoursSavedInitialFormatted,
+  hoursSavedInitialFormatterLocale,
+  hoursSavedInitialFormatterOptions,
+  hoursSavedNextUpdateAt,
+  locale,
 }: HeroMainSectionProps) {
   return (
     <div className="relative flex flex-col items-center text-center">
@@ -31,7 +47,7 @@ export function HeroMainSection({
       </p>
 
       <div className="mt-16 flex w-full flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-center sm:gap-8">
-        <Link href="https://app.unkey.com" className="group block w-full sm:inline-flex sm:w-auto sm:flex-shrink-0">
+        <Link href={primaryCtaHref} className="group block w-full sm:inline-flex sm:w-auto sm:flex-shrink-0">
           <PrimaryButton
             shiny
             IconLeft={LogIn}
@@ -42,11 +58,22 @@ export function HeroMainSection({
         <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2 font-semibold uppercase text-white/70 backdrop-blur-sm sm:gap-3 sm:px-8 sm:py-2.5 whitespace-nowrap">
           <span className="text-[0.75rem] tracking-[0.35em] text-white/60 sm:text-xs">{hoursSavedLabel}</span>
           <span className="text-white/40">:</span>
-          <span className="text-sm tracking-[0.2em] text-white sm:text-base">{hoursSavedAmount}</span>
+          <HoursSavedTicker
+            initialAmount={hoursSavedInitialAmount}
+            initialFormattedAmount={hoursSavedInitialFormatted}
+            initialFormattedLocale={hoursSavedInitialFormatterLocale}
+            initialFormattedOptions={hoursSavedInitialFormatterOptions}
+            initialNextUpdateAt={hoursSavedNextUpdateAt}
+            locale={locale}
+            className="text-sm tracking-[0.2em] text-white sm:text-base"
+          />
         </div>
-        <Link href="/docs" className="hidden w-full sm:inline-flex sm:w-auto sm:flex-shrink-0">
+        <Link
+          href={secondaryCtaHref}
+          className="hidden w-full sm:inline-flex sm:w-auto sm:flex-shrink-0"
+        >
           <SecondaryButton
-            IconLeft={BookOpen}
+            IconLeft={Lightbulb}
             label={secondaryCtaLabel}
             IconRight={ChevronRight}
             className="sm:min-w-[200px] justify-center"

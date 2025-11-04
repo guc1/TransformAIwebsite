@@ -12,6 +12,7 @@ import type { ReactNode } from "react";
 
 import { ConsentBanner } from "../consent-banner";
 import { Tracking } from "../tracking";
+import { VisitorSessionInitializer } from "../visitor-session-initializer";
 
 const parsedEnv = env();
 
@@ -64,7 +65,7 @@ export async function generateMetadata({
       card: "summary_large_image",
     },
     icons: {
-      shortcut: "/unkey.png",
+      shortcut: "/images/logos/transformai/logosvg.svg",
     },
     alternates: {
       languages: languageAlternates,
@@ -106,6 +107,7 @@ export default async function LocaleLayout({
 
         <div className="relative overflow-x-clip">
           <Navigation />
+          <VisitorSessionInitializer />
           {children}
           <Tracking />
           {process.env.NODE_ENV !== "production" ? (

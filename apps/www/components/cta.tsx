@@ -1,14 +1,16 @@
 "use client";
 import { SectionTitle } from "@/components/section";
-import { track } from "@vercel/analytics/server";
+import { track } from "@vercel/analytics";
 import { CalendarDays, ChevronRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import type React from "react";
 import { PrimaryButton, SecondaryButton } from "./button";
 
 export const CTA: React.FC = () => {
   const t = useTranslations("Cta");
+  const locale = useLocale();
+  const meetingHref = `/${locale}/meeting`;
 
   return (
     <div className="w-full h-full overflow-hidden">
@@ -21,11 +23,10 @@ export const CTA: React.FC = () => {
         >
           <div className="flex flex-col items-center justify-center gap-6 mt-2 sm:mt-5 sm:flex-row">
             <Link
-              target="_blank"
               onClick={async () => {
                 await track("chat");
               }}
-              href="https://cal.com/team/unkey/user-interview?utm_source=banner&utm_campaign=oss"
+              href={meetingHref}
             >
               <SecondaryButton label={t("primary")} IconRight={CalendarDays} />
             </Link>
@@ -33,7 +34,7 @@ export const CTA: React.FC = () => {
               onClick={async () => {
                 await track("sign up", { location: "CTA" });
               }}
-              href="https://app.unkey.com"
+              href={meetingHref}
             >
               <PrimaryButton shiny label={t("secondary")} IconRight={ChevronRight} />
             </Link>

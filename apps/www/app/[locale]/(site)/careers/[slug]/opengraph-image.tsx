@@ -8,9 +8,6 @@ const truncate = (str: string | null, length: number) => {
 };
 
 export const contentType = "image/png";
-const _baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
 export default async function Image({ params }: { params: { slug: string } }) {
   try {
     // const satoshiBold = await fetch(new URL("@/styles/Satoshi-Bold.ttf", import.meta.url)).then(

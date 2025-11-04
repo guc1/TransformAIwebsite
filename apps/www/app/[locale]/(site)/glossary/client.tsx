@@ -10,9 +10,12 @@ import { MeteorLinesAngular } from "@/components/ui/meteorLines";
 import { LogIn } from "lucide-react";
 import { Zap } from "lucide-react";
 import Link from "next/link";
+import { useLocale } from "next-intl";
 
 export function GlossaryClient() {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  const locale = useLocale();
+  const meetingHref = `/${locale}/meeting`;
 
   const groupedTerms = allGlossaries.reduce(
     (acc, term) => {
@@ -107,7 +110,7 @@ export function GlossaryClient() {
         </div>
         <div className="flex justify-center gap-6">
           <p className="mt-6 text-base about-founders-text-gradient ">Ready to protect your API?</p>
-          <Link href="https://app.unkey.com" className="group self-end">
+          <Link href={meetingHref} className="group self-end">
             <PrimaryButton shiny IconLeft={LogIn} label="Get started" className="h-8" />
           </Link>
         </div>

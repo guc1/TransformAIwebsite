@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -9,7 +9,9 @@ import { cn } from "@/lib/utils";
 import { AskCta } from "./AskCta";
 import type { ChatLocale, ChatMessage } from "./types";
 
-const ChatPanel = dynamic(() => import("./ChatPanel").then((mod) => mod.ChatPanel), {
+type ChatPanelComponent = typeof import("./ChatPanel").default;
+
+const ChatPanel = dynamic<ChatPanelComponent>(() => import("./ChatPanel"), {
   ssr: false,
 });
 
@@ -20,6 +22,7 @@ type PricingChatProps = {
 
 export const PricingChat: React.FC<PricingChatProps> = ({ className, onOpenChange }) => {
   const t = useTranslations("Pricing.Chat");
+  const localeCode = useLocale();
   const locale = useMemo<ChatLocale>(
     () => ({
       ctaLabel: t("cta.label"),
@@ -111,6 +114,7 @@ export const PricingChat: React.FC<PricingChatProps> = ({ className, onOpenChang
           },
           body: JSON.stringify({
             messages: conversation.map(({ role, content }) => ({ role, content })),
+            locale: localeCode,
           }),
         });
 
@@ -143,7 +147,7 @@ export const PricingChat: React.FC<PricingChatProps> = ({ className, onOpenChang
         setIsLoading(false);
       }
     },
-    [locale.errorBody],
+    [locale.errorBody, localeCode],
   );
 
   const openChat = useCallback(() => {
@@ -176,11 +180,15 @@ export const PricingChat: React.FC<PricingChatProps> = ({ className, onOpenChang
         content: trimmed,
       };
 
+      let nextMessages: ChatMessage[] | null = null;
       setMessages((prev) => {
-        const next = [...prev, userMessage];
-        void sendToAssistant(next, trimmed);
-        return next;
+        nextMessages = [...prev, userMessage];
+        return nextMessages;
       });
+
+      if (nextMessages) {
+        void sendToAssistant(nextMessages, trimmed);
+      }
     },
     [sendToAssistant],
   );

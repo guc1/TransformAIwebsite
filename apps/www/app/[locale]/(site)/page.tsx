@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { AnalyticsBento } from "@/components/analytics/analytics-bento";
 import { AuditLogsBento } from "@/components/audit-logs-bento";
 import { PrimaryButton, SecondaryButton } from "@/components/button";
@@ -5,6 +7,7 @@ import { CTA } from "@/components/cta";
 import { FeatureGrid } from "@/components/feature/feature-grid";
 import { HashedKeysBento } from "@/components/hashed-keys-bento";
 import { Hero } from "@/components/hero/hero";
+import type { HoursSavedNumberFormatOptions } from "@/components/hero/hours-saved-ticker";
 import { ImageWithBlur } from "@/components/image-with-blur";
 import { IpWhitelistingBento } from "@/components/ip-whitelisting-bento";
 import { LatencyBento } from "@/components/latency-bento";
@@ -16,11 +19,13 @@ import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero
 import { OssLight } from "@/components/svg/oss-light";
 import { UsageBento } from "@/components/usage-bento";
 import { isLocale } from "@/i18n/routing";
+import { getHoursSavedOverview } from "@/lib/hours-saved";
 import {
   BarChart3,
   ChevronRight,
   Clock,
   GraduationCap,
+  Lightbulb,
   LineChart,
   LogIn,
   Puzzle,
@@ -31,6 +36,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { unstable_noStore as noStore } from "next/cache";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -83,7 +89,7 @@ export async function generateMetadata({
       card: "summary_large_image",
     },
     icons: {
-      shortcut: "/unkey.png",
+      shortcut: "/images/logos/transformai/logosvg.svg",
     },
   };
 }
@@ -97,12 +103,50 @@ export default async function Landing({
     notFound();
   }
 
+  noStore();
+
+  const meetingHref = `/${locale}/meeting` as const;
+  const solutionsHref = `/${locale}/pricing` as const;
+
   const [cta, platform, hero, featureSection] = await Promise.all([
     getTranslations({ locale, namespace: "CTA" }),
     getTranslations({ locale, namespace: "Platform" }),
     getTranslations({ locale, namespace: "Hero" }),
     getTranslations({ locale, namespace: "FeatureSection" }),
   ]);
+
+  const hoursSavedOverview = await getHoursSavedOverview();
+  const hoursSavedFormatter = new Intl.NumberFormat(locale);
+  const hoursSavedInitialFormatted = hoursSavedFormatter.format(
+    hoursSavedOverview.currentAmount,
+  );
+  const hoursSavedFormatterResolved = hoursSavedFormatter.resolvedOptions();
+  const hoursSavedInitialFormatterLocale = hoursSavedFormatterResolved.locale;
+  const hoursSavedInitialFormatterOptions: HoursSavedNumberFormatOptions = {
+    locale: hoursSavedFormatterResolved.locale,
+    numberingSystem: hoursSavedFormatterResolved.numberingSystem,
+    style: hoursSavedFormatterResolved.style,
+    currency: hoursSavedFormatterResolved.currency,
+    currencyDisplay: hoursSavedFormatterResolved.currencyDisplay,
+    currencySign: hoursSavedFormatterResolved.currencySign,
+    unit: hoursSavedFormatterResolved.unit,
+    unitDisplay: hoursSavedFormatterResolved.unitDisplay,
+    notation: hoursSavedFormatterResolved.notation,
+    compactDisplay: hoursSavedFormatterResolved.compactDisplay,
+    signDisplay: hoursSavedFormatterResolved.signDisplay,
+    useGrouping: hoursSavedFormatterResolved.useGrouping,
+    minimumIntegerDigits: hoursSavedFormatterResolved.minimumIntegerDigits,
+    minimumFractionDigits: hoursSavedFormatterResolved.minimumFractionDigits,
+    maximumFractionDigits: hoursSavedFormatterResolved.maximumFractionDigits,
+    minimumSignificantDigits:
+      hoursSavedFormatterResolved.minimumSignificantDigits,
+    maximumSignificantDigits:
+      hoursSavedFormatterResolved.maximumSignificantDigits,
+    roundingIncrement: hoursSavedFormatterResolved.roundingIncrement,
+    roundingMode: hoursSavedFormatterResolved.roundingMode,
+    roundingPriority: hoursSavedFormatterResolved.roundingPriority,
+    trailingZeroDisplay: hoursSavedFormatterResolved.trailingZeroDisplay,
+  };
 
   const featureBoxes = [
     { key: "futureProofWorkforce", icon: GraduationCap },
@@ -137,7 +181,17 @@ export default async function Landing({
         </div>
         <div className="container relative flex flex-col mx-auto space-y-16 md:space-y-32">
           <Section>
-            <Hero />
+            <Hero
+              initialHoursSavedAmount={hoursSavedOverview.currentAmount}
+              initialHoursSavedFormatted={hoursSavedInitialFormatted}
+              initialHoursSavedFormatterLocale={hoursSavedInitialFormatterLocale}
+              initialHoursSavedFormatterOptions={hoursSavedInitialFormatterOptions}
+              initialHoursSavedNextUpdateAt={
+                hoursSavedOverview.nextUpdateAt
+                  ? hoursSavedOverview.nextUpdateAt.toISOString()
+                  : null
+              }
+            />
           </Section>
           <Section className="mt-16 md:mt-32">
             <DesktopLogoCloud />
@@ -177,7 +231,7 @@ export default async function Landing({
               align="center"
             >
               <div className="flex mt-10 mb-10 space-x-6">
-                <Link href="https://app.unkey.com" className="group">
+                <Link href={meetingHref} className="group">
                   <PrimaryButton
                     shiny
                     IconLeft={LogIn}
@@ -185,8 +239,9 @@ export default async function Landing({
                     className="h-10"
                   />
                 </Link>
-                <Link href="/docs">
+                <Link href={solutionsHref}>
                   <SecondaryButton
+                    IconLeft={Lightbulb}
                     label={cta("exploreProjects")}
                     IconRight={ChevronRight}
                   />
@@ -228,7 +283,7 @@ export default async function Landing({
                 text={featureSection("text")}
               >
                 <div className="flex mt-10 mb-10 space-x-6">
-                  <Link href="https://app.unkey.com" className="group">
+                  <Link href={meetingHref} className="group">
                     <PrimaryButton
                       shiny
                       IconLeft={LogIn}
@@ -239,6 +294,7 @@ export default async function Landing({
 
                   <Link href="/docs">
                     <SecondaryButton
+                      IconLeft={Lightbulb}
                       label={cta("exploreProjects")}
                       IconRight={ChevronRight}
                     />

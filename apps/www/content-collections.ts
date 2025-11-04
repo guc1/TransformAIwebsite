@@ -6,6 +6,8 @@ import { categoryEnum } from "./app/[locale]/(site)/glossary/data";
 import { faqSchema } from "./lib/schemas/faq-schema";
 import { takeawaysSchema } from "./lib/schemas/takeaways-schema";
 
+const PROJECT_POST_PREFIX = "mdxfilesforprojects/";
+
 const posts = defineCollection({
   name: "posts",
   directory: "content/blog",
@@ -43,13 +45,17 @@ const posts = defineCollection({
         slug: content ? slugger.slug(content) : undefined,
       };
     });
+    const sourcePath = document._meta.path;
     const slugFromPath =
-      document._meta.path.split("/").pop() ?? document._meta.fileName.replace(/\.mdx$/i, "");
+      sourcePath.split("/").pop() ?? document._meta.fileName.replace(/\.mdx$/i, "");
+    const isProjectPost = sourcePath.startsWith(PROJECT_POST_PREFIX);
 
     return {
       ...document,
       language: normalizedLanguage,
       mdx,
+      sourcePath,
+      isProjectPost,
       slug: slugFromPath,
       url: `/blog/${slugFromPath}`,
       tableOfContents,

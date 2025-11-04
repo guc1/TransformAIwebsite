@@ -5,6 +5,7 @@ import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/back
 import { MeteorLinesAngular } from "@/components/ui/meteorLines";
 import { authors } from "@/content/blog/authors";
 import { shouldIncludePostForLocale } from "@/lib/blog-language";
+import { filterProjectPosts } from "@/lib/blog-posts";
 import { type Post, allPosts } from "content-collections";
 import Link from "next/link";
 
@@ -31,7 +32,7 @@ export const metadata = {
     card: "summary_large_image",
   },
   icons: {
-    shortcut: "/images/landing/unkey.png",
+    shortcut: "/images/logos/transformai/logosvg.svg",
   },
 };
 
@@ -40,7 +41,8 @@ export default async function Blog({
 }: {
   params: { locale: string };
 }) {
-  const filteredPosts = allPosts.filter((post) =>
+  const projectPosts = filterProjectPosts(allPosts);
+  const filteredPosts = projectPosts.filter((post) =>
     shouldIncludePostForLocale(post.language, params.locale),
   );
 

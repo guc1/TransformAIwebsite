@@ -16,150 +16,556 @@
     "ariaHome": "Home",
     "menu": "Menu",
     "close": "Sluiten",
+    "members": "Leden",
+    "scheduleCall": "Plan een Gesprek",
     "createAccount": "Account aanmaken",
     "signIn": "Inloggen",
     "language": "Taal",
+    "loggedIn": {
+      "aria": "Navigatie ledenomgeving",
+      "comingSoon": "Binnenkort beschikbaar",
+      "exit": "Afsluiten",
+      "messages": "Berichten",
+      "overview": "Overzicht",
+      "inbox": "Inbox",
+      "planning": "Planning",
+      "hoursSaved": "Uren bespaard",
+      "dashboard": "Dashboard",
+      "premium": "Premium"
+    },
+    "membersMenu": {
+      "createAccountDescription": "Meld je aan om toegang te krijgen tot onze ledenomgeving.",
+      "signInDescription": "Log in voor je dashboard en lopende trajecten.",
+      "continueHeading": "Ga verder waar je gebleven was",
+      "continueRole": {
+        "client": "Ledenomgeving",
+        "staff": "Teamdashboard"
+      }
+    },
+    "settingsMenu": {
+      "aria": "Snelle instellingen",
+      "triggerLabel": "Snelle instellingen openen"
+    },
     "links": {
       "home": "Home",
       "about": "Over ons",
       "blog": "Blog",
-      "pricing": "Prijzen",
+      "pricing": "Oplossingen",
+      "contact": "Contact",
       "changelog": "Wijzigingen",
       "templates": "Templates",
       "docs": "Documentatie",
       "discord": "Discord"
     }
   },
+  "Meeting": {
+    "meta": {
+      "title": "Plan een afspraak",
+      "description": "Reserveer een TransformAI-strategiesessie in de komende twee weken."
+    },
+    "Hero": {
+      "badge": "Plan gratis een afspraak",
+      "title": "Boek een TransformAI-introsessie",
+      "subtitle": "Kies een moment dat in jouw agenda past. Wij bevestigen de details en koppelen je aan de juiste specialist."
+    },
+    "Calendar": {
+      "heading": "Beschikbaarheid",
+      "caption": "Klik op een datum om de overgebleven blokken te bekijken. Kleuren worden live bijgewerkt zodra teams boeken.",
+      "status": {
+        "available": "Open",
+        "limited": "Bijna vol",
+        "full": "Volgeboekt"
+      },
+      "slotsCount": "Vrij: {available}/{total}",
+      "noSlots": "Geen vrije blokken"
+    },
+    "Slots": {
+      "badge": "Kies je moment",
+      "heading": "Tijden op {day}",
+      "timeZoneLabel": "Jouw tijdzone",
+      "timeZoneHelper": "De tijden passen zich aan jouw tijdzone aan.",
+      "empty": "Deze dag is volgeboekt. Probeer een andere datum om vrije blokken te vinden.",
+      "selectError": "Selecteer een tijdsblok om verder te gaan.",
+      "takenHeading": "Bezette blokken",
+      "takenBadge": "Bezet"
+    },
+    "Form": {
+      "heading": "Vertel ons iets meer",
+      "caption": "Met deze gegevens bereiden we de agenda voor en sturen we de meetinglink.",
+      "submit": "Afspraak inplannen",
+      "submitPending": "Bezig met plannen…",
+      "privacy": "We gebruiken je e-mail alleen voor de meetinglink en opvolging.",
+      "outreachTracking": {
+        "title": "Outreach-link wordt gevolgd",
+        "body": "We koppelen deze boeking aan /outreach/{slug} zodat het dashboard direct meeloopt."
+      },
+      "success": {
+        "title": "Meeting bevestigd",
+        "message": "De meeting vindt plaats via Google Zoom op {date}. Tien minuten voor de meeting ontvang je een link."
+      },
+      "errors": {
+        "unavailable": "Dit blok is zojuist geboekt. Kies een ander tijdstip.",
+        "generic": "Het plannen is mislukt. Probeer het opnieuw."
+      },
+      "fields": {
+        "reason": {
+          "label": "Reden voor de meeting",
+          "placeholder": "Waar wil je het over hebben?"
+        },
+        "company": {
+          "label": "Bedrijf (optioneel)",
+          "placeholder": "Naam van de organisatie"
+        },
+        "personName": {
+          "label": "Jouw naam",
+          "placeholder": "Wie mogen we verwelkomen?"
+        },
+        "email": {
+          "label": "E-mailadres",
+          "placeholder": "jij@bedrijf.nl"
+        },
+        "description": {
+          "label": "Aanvullende context",
+          "placeholder": "Beschrijf prioriteiten, doelen of vragen voor dit gesprek"
+        }
+      }
+    }
+  },
+  "Planning": {
+    "eyebrow": "Teamplanning",
+    "title": "Beschikbaarheid afstemmen",
+    "subtitle": "Sleep om nieuwe blokken te openen, wijs teamleden toe en beheer boekingen in realtime.",
+    "calendar": {
+      "heading": "Teamkalender",
+      "caption": "Selecteer een dag om blokken te bekijken en te bewerken. Beschikbaarheid wordt direct doorgezet naar de publieke pagina.",
+      "status": {
+        "available": "Beschikbaar",
+        "limited": "Beperkt",
+        "full": "Vol"
+      },
+      "count": {
+        "available": "{count, plural, one {# open blok} other {# open blokken}}",
+        "booked": "{count, plural, one {# geboekt} other {# geboekt}}",
+        "blocked": "{count, plural, one {# geblokkeerd} other {# geblokkeerd}}",
+        "hidden": "{count, plural, one {# verborgen} other {# verborgen}}"
+      },
+      "metrics": {
+        "available": "Vrij: {count}",
+        "booked": "Bezet: {count}",
+        "blocked": "Geblokkeerd: {count}",
+        "hidden": "Verborgen: {count}",
+        "total": "Totaal: {count}"
+      }
+    },
+    "legend": {
+      "title": "Legenda",
+      "available": "Beschikbaar",
+      "booked": "Geboekt",
+      "blocked": "Niet beschikbaar",
+      "hidden": "Verborgen"
+    },
+    "timeline": {
+      "heading": "Dagindeling",
+      "createHint": "Sleep over het raster om een nieuw beschikbaarheidsblok aan te maken.",
+      "updateHint": "Pak de boven- of onderkant om een slot te verlengen of te verkorten.",
+      "availableLabel": "Beschikbaar blok"
+    },
+    "form": {
+      "heading": "Slotdetails",
+      "empty": "Selecteer een blok om de instellingen te beheren.",
+      "error": "Opslaan is niet gelukt. Probeer het opnieuw.",
+      "instructions": "Selecteer een blok in de tijdlijn om details te bewerken, teamleden toe te wijzen of het te verwijderen.",
+      "booking": {
+        "heading": "Meetingdetails",
+        "person": "Contactpersoon",
+        "company": "Bedrijf",
+        "reason": "Reden",
+        "email": "E-mail"
+      },
+      "labels": {
+        "staff": "Wijs teamlid toe",
+        "customStaff": "Weergavenaam",
+        "status": "Status",
+        "published": "Zichtbaar voor klanten",
+        "description": "Omschrijving voor bezoekers"
+      },
+      "placeholders": {
+        "customStaff": "Optionele naam die klanten zien",
+        "description": "Voeg context toe die zichtbaar is bij dit blok"
+      },
+      "staff": {
+        "unassigned": "Geen toewijzing"
+      },
+      "status": {
+        "available": "Beschikbaar",
+        "unavailable": "Niet beschikbaar"
+      },
+      "alerts": {
+        "bookedLocked": "Geboekte meetings kunnen niet van status veranderen.",
+        "deleteDisabled": "Geboekte meetings kunnen niet worden verwijderd."
+      },
+      "errors": {
+        "deleteBooked": "Dit blok heeft nu een bevestigde meeting en kan niet worden verwijderd."
+      },
+      "actions": {
+        "save": "Wijzigingen opslaan",
+        "saving": "Opslaan…",
+        "delete": "Blok verwijderen",
+        "deleting": "Verwijderen…"
+      }
+    }
+  },
+  "Contact": {
+    "Hero": {
+      "eyebrow": "Laten we praten",
+      "title": "Neem contact op met TransformAI",
+      "body": "Deel je uitdaging en wij leveren binnen twee werkdagen een op maat gemaakt AI-plan.",
+      "emailNotice": "Liever mailen? Mail direct naar info@transformai.nl."
+    },
+    "Highlights": {
+      "label": "Waarom leiders ons benaderen",
+      "title": "Van eerste idee naar schaalbare automatisering",
+      "description": "We begeleiden Nederlandse organisaties om AI-ambities om te zetten in meetbare resultaten.",
+      "items": {
+        "strategy": {
+          "title": "Strategische richting in weken",
+          "description": "Doorloop een AI-strategiesprint met duidelijke prioriteiten, KPI's en een board-ready plan."
+        },
+        "coCreation": {
+          "title": "Samen met jouw teams bouwen",
+          "description": "Werk schouder aan schouder met onze specialisten om automatiseringen te ontdekken en processen te herontwerpen."
+        },
+        "governance": {
+          "title": "Governance zonder vertraging",
+          "description": "Introduceer verantwoorde kaders, databeleid en change management dat teams echt adopteren."
+        }
+      }
+    },
+    "Form": {
+      "badge": "Directe lijn",
+      "title": "Stuur ons een bericht",
+      "subtitle": "Laat weten wat je nodig hebt en we reageren binnen één werkdag.",
+      "channel": {
+        "label": "Officiële inbox",
+        "caption": "Elke inzending gaat rechtstreeks naar {email} zodat ons leadershipteam snel kan reageren."
+      },
+      "requestType": {
+        "label": "Soort aanvraag",
+        "helper": "Kies de optie die het beste bij je vraag past."
+      },
+      "requestTypes": {
+        "general": {
+          "title": "Algemene vragen",
+          "description": "Vragen met betrekking tot het bedrijf."
+        },
+        "solutions": {
+          "title": "Vragen over oplossingen",
+          "description": "Alle vragen met betrekking tot de oplossingen die wij aanbieden."
+        },
+        "aiHelp": {
+          "title": "Hulp met AI",
+          "description": "Voor vragen met betrekking tot AI in uw bedrijf (kostenloos)."
+        },
+        "other": {
+          "title": "Overige",
+          "description": "Voor alle vragen die niet in de andere categorieën vallen."
+        }
+      },
+      "fields": {
+        "name": {
+          "label": "Volledige naam",
+          "placeholder": "Je naam"
+        },
+        "company": {
+          "label": "Bedrijf (optioneel)",
+          "placeholder": "Bedrijfs- of teamnaam"
+        },
+        "email": {
+          "label": "Contact e-mail (Hier zullen wij u terug op berichten)",
+          "placeholder": "jij@bedrijf.nl"
+        },
+        "description": {
+          "label": "Beschrijf je aanvraag",
+          "placeholder": "Deel context, doelen, planning of andere details die ons helpen voorbereiden."
+        }
+      },
+      "submit": {
+        "label": "Bericht versturen",
+        "pending": "Versturen…"
+      },
+      "feedback": {
+        "successTitle": "Bericht verzonden",
+        "errorTitle": "Bericht kon niet worden verzonden"
+      },
+      "footnote": "We gebruiken je gegevens alleen om te reageren via {email}."
+    }
+  },
   "Pricing": {
     "Header": {
-      "eyebrow": "Pakketten voor beslissers",
-      "title": "Kies het AI-traject dat past bij jullie tempo",
-      "subtitle": "Elk pakket versnelt strategie naar uitvoering in weken, met begeleiding die teams meeneemt en resultaat meetbaar maakt.",
+      "eyebrow": "Maatwerk AI-oplossingen",
+      "title": "Kies de AI-oplossing die bij u past",
+      "subtitle": "Elke oplossing wordt per bedrijf op maat gemaakt, zodat u uit elke oplossing maximale waarde haalt. Weet u niet welke oplossing bij u past? <contact>contacteren ons</contact> – dan zorgen wij voor de juiste match.",
       "highlights": {
-        "speed": "AI-resultaten binnen 90 dagen.",
-        "support": "Nederlandstalige experts op locatie en remote.",
-        "roi": "ROI bewezen in 40+ klantcases."
+        "speed": "AI-integraties van de hoogste kwaliteit",
+        "support": "Begeleid door Nederlandstalige experts",
+        "roi": "Productiviteitsboost tot 10×"
       }
     },
     "Packages": {
+      "heading": "Overige oplossingen",
       "common": {
         "included": "Dit zit erin:"
       },
-      "education": {
-        "title": "Educatiepakket",
-        "description": "Richt zich op het opleiden van medewerkers en maakt teams toekomstbestendig voor AI-adoptie.",
-        "price": "$6.000",
-        "frequency": "eenmalige investering",
-        "cta": "Vraag opleidingsvoorstel aan",
+      "basicEducation": {
+        "title": "Basismodule educatie",
+        "description": "Groepsmodules op locatie die elke rol AI-vaardig maken.",
+        "price": "€800",
+        "frequency": "per module (2u op locatie)",
+        "cta": "Boek educatiemodule",
         "bullets": {
-          "courseV1": "AI-opleidingsmodule V1",
-          "courseV2": "AI-opleidingsmodule V2",
-          "workshops": "Workshops voor teams",
-          "trainingMaterials": "Praktische trainingsmaterialen",
-          "certification": "Certificaat van afronding"
+          "customLessons": "Cohorten op maat voor elk team en elke rol",
+          "foundations": "Van kernprincipes tot dagelijkse toepassing",
+          "handsOn": "Hands-on prompts plus beeld- en videogeneratie",
+          "catalog": "Kies uit 20+ modules op locatie",
+          "twoHours": "Twee uur per module, altijd in persoon"
         },
         "footer": {
-          "title": "Maatwerk nodig?",
-          "body": "We stemmen het leerprogramma af op de specifieke rollen binnen jouw organisatie."
+          "title": "Meerdere leerpaden nodig?",
+          "body": "We helpen de ideale mix per afdeling samen te stellen."
         }
       },
-      "introduction": {
-        "title": "Introductiepakket",
-        "description": "Voor bedrijven die hun AI-transitie opstarten.",
-        "price": "$5.000",
-        "frequency": "eenmalig traject",
-        "cta": "Plan jullie AI-kick-off",
+      "advancedEducation": {
+        "title": "Geavanceerde educatiemodule",
+        "description": "Build-first sessies voor teams die nieuwe AI-producten willen bouwen.",
+        "price": "€1.100",
+        "frequency": "per geavanceerde module (2u op locatie)",
+        "cta": "Boek geavanceerde module",
         "bullets": {
-          "aiReadiness": "AI-ready analyse van het bedrijf",
-          "automationSetup": "Eerste workflow-automatisering",
-          "pilotIntegration": "Integratie van pilotproject",
-          "assessment": "Productiviteits- en kostenevaluatie",
-          "guidance": "Strategische sessie met ons team"
+          "innovationTracks": "Co-engineer grensverleggende AI-systemen met onze experts",
+          "customBuilds": "Trajecten op maat voor teams die de basis beheersen",
+          "tooling": "Diepduiken in orchestration, automatisering en multimodaal",
+          "catalog": "10 geavanceerde modules die applied AI versnellen",
+          "mentorship": "Begeleiding richting productieklare prototypes"
         },
         "footer": {
-          "title": "Groeien voorbij de pilot?",
-          "body": "We helpen om deze basis uit te breiden naar organisatiebrede automatisering en governance."
+          "title": "Basis al onder controle?",
+          "body": "We ontwerpen vervolgtrajecten die passen bij jullie ambitie."
         }
       },
-      "enterprise": {
-        "title": "Enterprise-oplossingen",
-        "description": "Maatwerk AI-transformatieoplossingen rond jouw organisatie.",
-        "price": "Custom $",
-        "frequency": "Op maat gemaakte offerte",
-        "cta": "Neem contact op",
+      "platform": {
+        "title": "Custom Platform Enrollment",
+        "description": "Eén controlecentrum om AI door de hele organisatie te operationaliseren.",
+        "price": "Binnenkort beschikbaar",
+        "frequency": "Private beta in ontwikkeling",
+        "cta": "Binnenkort beschikbaar",
         "bullets": {
-          "tailoredIntegrations": "Maatwerk AI-integraties",
-          "researchSupport": "Geavanceerde onderzoeksbegeleiding",
-          "customModel": "Ontwikkeling van maatwerkmodellen",
-          "consulting": "Toegewijde consulting",
-          "continuousSupport": "Doorlopende ondersteuning"
+          "operatingSystem": "Centraal OS voor assistants, workflows en guardrails",
+          "efficiency": "Maximaliseer efficiëntie en waarde uit elk AI-initiatief",
+          "integrations": "Integraties met de tools die jullie al gebruiken",
+          "guidance": "Begeleide onboarding en playbooks per sector",
+          "insights": "Realtime dashboards voor adoptie en ROI"
+        },
+        "footer": {
+          "title": "Interesse in vroege toegang?",
+          "body": "Schrijf je in voor de wachtlijst en hoor direct wanneer we openen."
+        }
+      },
+      "aiseo": {
+        "title": "AISEO-pakket (AIEO)",
+        "description": "Zorg dat AI-gedreven zoekresultaten jullie merk bovenaan plaatsen.",
+        "price": "Beta-toegang",
+        "frequency": "Vraag uitnodiging aan",
+        "cta": "Meld je aan voor beta",
+        "bullets": {
+          "aiVisibility": "Stuur hoe toonaangevende AI-assistenten jullie organisatie begrijpen",
+          "knowledgeGraphs": "Beïnvloed de kennisgrafen waar generatieve AI op vertrouwt",
+          "searchFuture": "Blijf zichtbaar nu AI-gestuurde search SEO vervangt",
+          "experimentation": "Ontwikkel ranking-experimenten samen met ons team",
+          "reporting": "Krijg duidelijke rapportages over zichtbaarheid in AI-kanalen"
+        },
+        "footer": {
+          "title": "Beperkte beta-capaciteit",
+          "body": "We beoordelen wekelijks en starten gefocuste cohorts."
+        }
+      },
+      "overview": {
+        "title": "AI-situatieoverzicht",
+        "description": "Een strategie sprint van twee uur die jullie AI-positie benchmarkt.",
+        "price": "€799",
+        "frequency": "twee uur strategieconsult",
+        "cta": "Meld je nu aan",
+        "bullets": {
+          "topTierAdvice": "Ontvang senior advies op maat van jullie doelen",
+          "situationOverview": "Zie waar jullie organisatie staat in het AI-landschap",
+          "report": "Krijg een helder rapport met concrete vervolgstappen",
+          "benchmark": "Benchmark tegen peers binnen jullie sector",
+          "endToEnd": "Breng front- en backend-kansen in één workshop in kaart"
+        },
+        "footer": {
+          "title": "Klaar voor de volgende stap?",
+          "body": "We schetsen roadmap-opties en koppelen je aan de juiste experts."
         }
       }
     },
     "Table": {
-      "title": "Vergelijk pakketten",
+      "title": "Vind uw oplossing",
+      "description": "Fases helpen ons te bepalen waar bedrijven zich bevinden in het AI-transformatietraject.",
       "headers": {
-        "feature": "Kenmerk",
+        "solution": "Oplossing",
         "info": "Informatie"
       },
       "tiers": {
-        "t1": "Educatiepakket",
-        "t2": "Introductiepakket",
-        "t3": "Enterprise-oplossingen",
-        "price": {
-          "t1": "$6.000 eenmalig",
-          "t2": "$5.000 eenmalig",
-          "t3": "Maatwerk voorstel"
+        "t1": {
+          "label": "Fase 1",
+          "subtitle": "(Fundament)"
+        },
+        "t2": {
+          "label": "Fase 2",
+          "subtitle": "(Standaard)"
+        },
+        "t3": {
+          "label": "Fase 3",
+          "subtitle": "(Geavanceerd)"
         }
       },
       "categories": {
-        "educationEnablement": "Educatie & enablement",
-        "implementation": "Implementatie & strategie",
-        "enterprise": "Enterprise-schaal"
+        "foundation": {
+          "label": "Introductie tot AI (deal mogelijk) → Fundament-pakket",
+          "description": "Legt het fundament voor een succesvolle AI transitie van je bedrijf"
+        },
+        "integration": {
+          "label": "Eerste stappen in AI (package deal possible) —> Geïntegreerd pakket",
+          "description": "Dit pakket zorgt ervoor dat de basis van AI geïntegreerd wordt in het bedrijf."
+        },
+        "scaling": {
+          "label": "Schaalbare AI (pakket deal mogelijk) —> intrinsiek pakket",
+          "description": "Dit pakket zorgt ervoor dat de AI oplossingen opgeschaald worden, om zo maximale waarde eruit te halen voor het bedrijf."
+        },
+        "cuttingEdge": {
+          "label": "De nieuwste van het nieuwste AI",
+          "description": "De oplossingen hieronder zijn bedoeld voor bedrijven die het nieuwste van het nieuwste najagen in AI"
+        }
       },
       "rows": {
-        "educationCourseV1": "AI-opleidingsmodule V1",
-        "educationCourseV2": "AI-opleidingsmodule V2",
-        "workshops": "Workshops voor teams",
-        "trainingMaterials": "Praktische trainingsmaterialen",
-        "certification": "Certificaat van afronding",
-        "aiReadiness": "AI-ready analyse van het bedrijf",
-        "automationSetup": "Eerste workflow-automatisering",
-        "pilotIntegration": "Integratie van pilotproject",
-        "assessment": "Productiviteits- en kostenevaluatie",
-        "guidance": "Strategische sessie met ons team",
-        "tailoredIntegrations": "Maatwerk AI-integraties",
-        "researchSupport": "Geavanceerde onderzoeksbegeleiding",
-        "customModel": "Ontwikkeling van maatwerkmodellen",
-        "consulting": "Toegewijde consulting",
-        "continuousSupport": "Doorlopende ondersteuning"
-      },
-      "priceRanges": {
-        "t1": "Geschatte investering per inbegrepen service: €450 – €1.200",
-        "t2": "Geschatte investering per inbegrepen service: €900 – €2.500",
-        "t3": "Maatwerktrajecten variëren doorgaans van €2.500 – €8.500"
+        "currentSituationAssessment": {
+          "label": "Nulmeting huidige situatie",
+          "priceRange": "€3K - €8K exl. BTW",
+          "info": "Onderzoek naar de huidige baseline van mensen, processen, data en tools, van het bedrijf"
+        },
+        "currentSituationFieldSpecific": {
+          "label": "Huidige situatie domein specifiek (upgrade)",
+          "priceRange": "€1K - €2K exl. BTW",
+          "info": "Deel van het onderzoek van huidige situatie, waarin de situatie van het bedrijf in detail word vergeleken met de concurrentie"
+        },
+        "highRoiIdentification": {
+          "label": "Identificatie van hoog-ROI integraties",
+          "priceRange": "€2K - €5K exl. BTW",
+          "info": "Een lijst met alle potentiële AI integraties, geclassificeerd aan de hand van moeilijkheid van integreren"
+        },
+        "vision": {
+          "label": "Korte & langetermijnvisie op AI",
+          "priceRange": "€1.5K - €2.5K exl. BTW",
+          "info": "Een bedrijfs richtlijn m.b.t. AI en het gebruik ervan"
+        },
+        "adaptiveRoadmap": {
+          "label": "Adaptieve roadmap creatie",
+          "priceRange": "€2K - €4.5K exl. BTW",
+          "info": "Een gepersonaliseerde AI roadmap voor het bedrijf, dat begeleiding bied in snel veranderende tijden"
+        },
+        "quickWinsImplementation": {
+          "label": "Praktische implementatie van makkelijk integreerbare use-cases",
+          "priceRange": "Custom (verschilt per complexiteit)",
+          "info": "De lage kosten, snel en hoge ROI use-cases worden geïmplementeerd in de bedrijfs systemen"
+        },
+        "foundationalEducation": {
+          "label": "Fundamentele training voor medewerkers m.b.t. AI",
+          "priceRange": "€1200 exl. BTW",
+          "info": "In module 1 worden de basisconcepten van AI uitgelegd. In module 2 worden de risico’s en kansen die AI meebrengt besproken."
+        },
+        "futureReadySystems": {
+          "label": "Toekomstbestendige medewerkersystemen + presentatie",
+          "priceRange": "€3K - €5K exl. BTW",
+          "info": "De creatie van werknemerssystemen die aansprakelijkheid creëren m.b.t. AI in de praktijk"
+        },
+        "workflowCreation": {
+          "label": "AI-geïntegreerde workflowcreatie",
+          "priceRange": "€4K - €8K exl. BTW",
+          "info": "Het veranderen van standaard workflows, naar workflows die AI hebben geïntegreerd in hun processen"
+        },
+        "progressAssessment": {
+          "label": "Voortgangsbeoordeling",
+          "priceRange": "€6K - €8K exl. BTW",
+          "info": "Een rapport dat de voortgang beoordeeld van het bedrijf in de integratie van AI."
+        },
+        "refineCustomSolutions": {
+          "label": "Verfijn custom AI oplossingen",
+          "priceRange": "€5K - €10K exl. BTW",
+          "info": "Het verfijnen van de high-ROI oplossingen die niet eenvoudig te implementeren zijn."
+        },
+        "economicAssessment": {
+          "label": "Economische doorrekening van de custom oplossingen",
+          "priceRange": "€8.5K - €20K exl. BTW",
+          "info": "Een economisch rapport dat identificeert welke oplossing het waard zijn om te optimaliseren van een economisch perspectief"
+        },
+        "optimizeIntegration": {
+          "label": "Optimaliseer AI-integratie",
+          "priceRange": "€25K - €200K exl. BTW",
+          "info": "Optimalisatie van geïdentificeerde high-ROI oplossingen, voor productie level kwaliteit."
+        },
+        "workflowOptimization": {
+          "label": "Workflow-optimalisatie met AI",
+          "priceRange": "€5K - €20K exl. BTW",
+          "info": "Betrek AI in strategische posities van de workflow, om zo maximale waarde uit het bedrijfs systeem te halen"
+        },
+        "largeScaleDeployment": {
+          "label": "Organisatiebrede AI-uitrol",
+          "priceRange": "€10K - €20K exl. BTW",
+          "info": "Het uitrollen van de AI system over alle facetten van de organisatie"
+        },
+        "aiAssessmentReport": {
+          "label": "AI update rapport",
+          "priceRange": "€10K - €15K exl. BTW",
+          "info": "Een gedetailleerd onderzoek naar de situatie in het bedrijf nu, en ten opzichte van pre-AI adaptatie"
+        },
+        "automatingOptimisedSystems": {
+          "label": "Automatiseren van geoptimaliseerde AI systemen",
+          "priceRange": "Custom",
+          "info": "Het automatiseren van geoptimaliseerde AI systemen."
+        },
+        "cuttingEdgeSolutions": {
+          "label": "Het creëren van cutting edge hoogwaardige kwaliteit AI systemen",
+          "priceRange": "Custom",
+          "info": "Het ontwikkelen en combineren van nieuwste van het nieuwste in AI, als oplossingen."
+        },
+        "customSolutions": {
+          "label": "Custom solutions",
+          "priceRange": "Custom — neem contact op",
+          "info": "Volledig maatwerk dat we samen afstemmen op uw specifieke ambitie."
+        }
       },
       "infoColumn": {
         "label": "Informatie",
-        "availableIn": "Beschikbaar in {packages}",
-        "partialIn": "Beperkt beschikbaar in {packages}",
-        "notIncluded": "Niet inbegrepen in een pakket",
+        "availableIn": "Aanbevolen in {packages}",
+        "partialIn": "Afhankelijk beschikbaar in {packages}",
+        "notIncluded": "Niet aanbevolen voor deze fases",
         "tooltip": {
-          "line1": "Bekijk in één oogopslag hoe elke dienst over de pakketten is verdeeld.",
-          "line2": "Gebruik dit overzicht als vertrekpunt voor gesprekken met je team vóórdat je de details induikt.",
-          "cta": "Lees meer"
+          "title": "Zo leest u deze tabel",
+          "description": "Beweeg over elke status om prijsindicaties en aanbevolen vervolgstappen te zien.",
+          "cta": "Neem contact op voor meer informatie"
         }
       },
       "legend": {
-        "included": "Inbegrepen",
-        "notIncluded": "Niet inbegrepen",
-        "partial": "Gedeeltelijk inbegrepen"
+        "included": "Aanbevolen",
+        "notIncluded": "Niet aanbevolen",
+        "partial": "Afhankelijk"
       },
       "cta": {
-        "scrollLabel": "Klaar om het juiste pakket te kiezen?",
-        "chooseTier1": "Bekijk het educatiepakket",
-        "chooseTier2": "Bekijk het introductiepakket",
-        "chooseTier3": "Neem contact op voor enterprise"
+        "scrollLabel": "Klaar om de volgende fase te verkennen?",
+        "chooseTier1": "Ontdek Fase 1 fundament",
+        "chooseTier2": "Ontdek Fase 2 standaard",
+        "chooseTier3": "Ontdek Fase 3 geavanceerd",
+        "viewPackageDeal": "Bekijk pakketdeal",
+        "viewPackageDealFor": "Bekijk pakketdeal voor {package}"
       }
     },
     "Chat": {
@@ -197,6 +603,119 @@
         "title": "Assistent niet bereikbaar",
         "body": "Probeer het over een moment opnieuw.",
         "retry": "Opnieuw proberen"
+      }
+    }
+  },
+  "SpecialOffer": {
+    "hero": {
+      "eyebrow": "Exclusieve special",
+      "title": "Exclusieve AI-transformatie pakketten voor Nederlandse bedrijven",
+      "subtitle": "Kies een exclusieve aanpak die past bij jullie ambitie: start met het Basis Pakket voor gerichte backend-impact of kies Het koopje pakket voor een totale versnelling.",
+      "highlight": "Ons exclusieve Premium Deal pakket is gemaakt als jullie krachtigste eerste stap.",
+      "notice": "Deze exclusieve aanbieding is bedoeld voor bedrijven in onze pilot en geeft toegang tot een voorkeurtarief. Alleen tijdelijk beschikbaar."
+    },
+    "packages": {
+      "common": {
+        "included": "Inclusief",
+        "exVat": "excl. btw"
+      },
+      "premium": {
+        "badge": "Meest exclusief en compleet",
+        "title": "Het koopje pakket",
+        "tagline": "Exclusief Premium Deal pakket",
+        "description": "Intensief éénweekstraject met senior specialisten op locatie en remote, gereserveerd voor onze pilotpartners.",
+        "price": "€9.100",
+        "cta": "Request access",
+        "bullets": {
+          "bootcamp": {
+            "title": "1-week traject: 2 dagen on-site, 4 dagen rapportage, 1 dag presentatie",
+            "description": "We werken naast jouw team, analyseren de organisatie en presenteren een helder verhaal voor elke stakeholder."
+          },
+          "assessment": {
+            "title": "Diepgaande nulmeting van de huidige positie",
+            "description": "Het rapport scoort jullie op AI-gebruik, data-gereedheid en operationele volwassenheid."
+          },
+          "comparison": {
+            "title": "Vergelijking met jouw sector en aanverwante branches",
+            "description": "Ontdek hoe jullie presteren ten opzichte van peers zodat beslissingen op marktcijfers rusten."
+          },
+          "solutions": {
+            "title": "Volledig overzicht van integratie-opties",
+            "description": "Elke oplossing krijgt een inschatting van complexiteit, kosten en resultaat voor heldere prioritering."
+          },
+          "policy": {
+            "title": "AI-beleid op maat",
+            "description": "We verankeren jullie waarden en juridische vereisten in concrete AI-richtlijnen."
+          },
+          "roadmap": {
+            "title": "Robuuste AI-roadmap",
+            "description": "Een gefaseerd plan dat laat zien wat wanneer geleverd wordt en door wie."
+          },
+          "systems": {
+            "title": "Behandelt zowel frontend als backend systemen",
+            "description": "De transformatieroute dekt klantgerichte en interne platforms voor een volledige uitrol."
+          }
+        },
+        "guarantee": {
+          "title": "Geld-terug-garantie",
+          "description": "Leveren we de beloofde inzichten en roadmap niet? Dan krijg je de investering terug."
+        },
+        "bonus": {
+          "title": "Exclusieve premium bonussen",
+          "items": [
+            {
+              "title": "Founder-to-founder advies sessie",
+              "description": "Persoonlijk advies over lange termijn AI-positionering zodat de directie vooruit kan kijken."
+            },
+            {
+              "title": "2 gratis opleidingsmodules (t.w.v. €1.400)",
+              "description": "Latere sessies op locatie om je team zonder extra kosten op te leiden."
+            }
+          ]
+        }
+      },
+      "basic": {
+        "badge": "Exclusieve starter",
+        "title": "Basis Pakket",
+        "tagline": "Get started pakket",
+        "description": "Driedaagse versneller om je AI-nulmeting te doen en directe backend-kansen te pakken met exclusieve pilotvoorwaarden.",
+        "price": "€3.400",
+        "cta": "Request access",
+        "bullets": {
+          "bootcamp": {
+            "title": "3-daagse bootcamp: 1 dag on-site, 1 dag rapportage, 1 dag presentatie",
+            "description": "We doorlopen de ontdekking, schrijven het rapport en presenteren de conclusies met je team."
+          },
+          "assessment": {
+            "title": "Diepgaande nulmeting van de huidige positie",
+            "description": "Brengt het huidige AI-gebruik in je backend, processen en tooling scherp in kaart."
+          },
+          "quickWins": {
+            "title": "Quick wins draaiboek",
+            "description": "We benoemen snelle verbeteringen en leggen uit hoe je ze direct implementeert."
+          },
+          "roadmap": {
+            "title": "Backend roadmap",
+            "description": "Bouwt de eerste roadmap waarmee het backend-team de volgende stappen kan plannen."
+          },
+          "backendFocus": {
+            "title": "Focus op backend",
+            "description": "Analyse en aanbevelingen richten zich volledig op de backend-systemen voor maximale scherpte."
+          }
+        },
+        "footer": "Ook front-end meenemen? Het koopje pakket dekt de volledige stack."
+      }
+    },
+    "metadata": {
+      "title": "Exclusieve special offer pakketten | TransformAI",
+      "description": "Profiteer van exclusieve pilotprijzen voor het Basis Pakket en Het koopje pakket van TransformAI—maatwerk AI-trajecten voor ambitieuze Nederlandse bedrijven.",
+      "openGraph": {
+        "title": "Exclusieve special offer pakketten | TransformAI",
+        "description": "Ontdek TransformAI's exclusieve pilotaanbod met premium en basis pakketten voor vooruitstrevende teams."
+      },
+      "twitter": {
+        "title": "Exclusieve special offer pakketten | TransformAI",
+        "description": "Zeker tijdelijk pilottarief op de premium en basis AI-transformatiepakketten van TransformAI."
       }
     }
   },
@@ -405,6 +924,15 @@
         "description": "Blijf op de hoogte met een wekelijkse samenvatting over wat nieuw is in AI: uitleg voor beginners en gevorderden, use cases, reviews en follow-upinformatie op aanvraag—zodat elke laag in het bedrijf gericht kan handelen.",
         "cta": "Lees meer"
       },
+      "aiIntegrationAiTransformation": {
+        "label": "AI-transformatie",
+        "field": "AI-integratie",
+        "name": "AI-transformatie",
+        "title": "De AI-transitie",
+        "description": "Onze visie: AI is geen losse functie maar een bedrijfsbrede transitie. Door opstapelende effecten van compute, mogelijkheden en adoptie is een backend-eerst aanpak noodzakelijk voor blijvende waarde en om toekomstige sprongen te benutten.",
+        "result": "Onderdeel van onze AI-integratie Pt.1 casestudyreeks.",
+        "cta": "Lees meer"
+      },
       "aiIntegrationHrResearcher": {
         "label": "HR researcher",
         "field": "Onderzoek",
@@ -439,6 +967,42 @@
         "title": "Van 20u naar 45m: schaalbare AI-visuals",
         "description": "Met parallelle generaties en een promptbibliotheek verkortte een custom platform de arbeidstijd van 20 uur (handmatig) en 7 uur (standaard AI) naar 45 minuten voor dezelfde kwaliteit.",
         "result": "Onderdeel van onze AI-integratie Pt.1 casestudyreeks.",
+        "cta": "Lees meer"
+      },
+      "aiIntegrationPt2CompanyFinder": {
+        "label": "Company Finder",
+        "field": "AI-integratie pt2",
+        "name": "Company Finder",
+        "title": "AI search voor B2B outreach",
+        "description": "Onze agent gebruikt tool calling om het openbare web te doorzoeken, bedrijven te matchen met jouw criteria en alleen legitieme, publieke contact routes aan te leveren—terwijl ethische en regulatorische kwesties worden nageleefd.",
+        "result": "Onderdeel van onze AI-integratie Pt.2 casestudyreeks.",
+        "cta": "Lees meer"
+      },
+      "aiIntegrationPt2Backend": {
+        "label": "Backend",
+        "field": "AI-integratie pt2",
+        "name": "Backend",
+        "title": "Backend AI-integratie: waarom dit eerst komt",
+        "description": "De backend is waar waarde ontstaat—in finance, support, sales, HR, IT en risk. We schetsen de fasen (geïntegreerd → verankerd → adaptief) en waarom backend-eerst front-end sneller en veiliger maakt, met oog voor valkuilen als verkeerde keuzes, stappen overslaan en lock-in.",
+        "result": "Onderdeel van onze AI-integratie Pt.2 casestudyreeks.",
+        "cta": "Lees meer"
+      },
+      "aiIntegrationPt2Frontend": {
+        "label": "Frontend",
+        "field": "AI-integratie pt2",
+        "name": "Frontend",
+        "title": "Front-end AI-integratie: Producten, Omzet & Marktaandeel",
+        "description": "Aan de front-end wordt capability omzet. We maken het verschil met backend helder, schetsen wat “front-end” in de praktijk is, de resultaatgerichte fasen (AI-Integrated → AI-Internalised → AI-Adaptive), de specifieke productrisico’s en hoe dit parallel met backend loopt om marktaandeel te behouden en te vergroten.",
+        "result": "Onderdeel van onze AI-integratie Pt.2 casestudyreeks.",
+        "cta": "Lees meer"
+      },
+      "aiIntegrationPt2AgenticResearcher": {
+        "label": "Agentische onderzoeker",
+        "field": "AI-integratie pt2",
+        "name": "Agentische onderzoeker",
+        "title": "Agentische AI onderzoeker",
+        "description": "In onze human-in-the-loop workflow doet de AI onderzoeker het repetitieve werk (~10 min per datapunt bespaard) en nemen onderzoekers de grote beslissingen—opschalend naar miljoenen datapunten.",
+        "result": "Onderdeel van onze AI-integratie Pt.2 casestudyreeks.",
         "cta": "Lees meer"
       },
       "researchAiAdoption": {
@@ -481,7 +1045,7 @@
   },
   "CTA": {
     "getStarted": "Begin Nu",
-    "exploreProjects": "Ontdek alle projecten",
+    "exploreProjects": "Ontdek onze Oplossingen",
     "hoursSavedLabel": "Uren bespaard met AI",
     "hoursSavedAmount": "100.000+"
   },
@@ -494,6 +1058,57 @@
   },
   "Analytics": {
     "requestAccess": "Vraag Toegang",
+    "requestForm": {
+      "badge": "Platform bèta",
+      "title": "Toegang aanvragen tot het TransformAI-platform",
+      "subtitle": "Vertel kort waar je naar zoekt en we nemen contact op.",
+      "dismiss": "Aanvraagformulier sluiten",
+      "channel": {
+        "label": "Liever mailen?",
+        "caption": "Mail {email} en we reageren binnen één werkdag."
+      },
+      "feedback": {
+        "successTitle": "Aanvraag ontvangen",
+        "errorTitle": "Verzenden is niet gelukt"
+      },
+      "requestType": {
+        "label": "Waarmee kunnen we helpen?",
+        "helper": "Kies de optie die het beste past.",
+        "options": {
+          "platformAccess": {
+            "title": "Toegang tot het platform",
+            "description": "Doe mee aan de bèta en geef je team toegang tot de TransformAI-omgeving."
+          },
+          "other": {
+            "title": "Iets anders",
+            "description": "Stel een andere vraag over de platform-bèta."
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "label": "Naam",
+          "placeholder": "Alex Janssen"
+        },
+        "company": {
+          "label": "Bedrijf",
+          "placeholder": "Bedrijfsnaam"
+        },
+        "email": {
+          "label": "E-mail",
+          "placeholder": "naam@bedrijf.nl"
+        },
+        "description": {
+          "label": "Hoe kunnen we helpen?",
+          "placeholder": "Vertel over je team, use-case of andere details."
+        }
+      },
+      "submit": {
+        "label": "Aanvraag versturen",
+        "pending": "Versturen..."
+      },
+      "footnote": "Liever mailen? Bereik ons op {email}."
+    },
     "caption": {
       "title": "Realtime-analyse",
       "subtitle": "Direct inzicht in AI-gebruik binnen jouw organisatie."
@@ -653,8 +1268,8 @@
     }
   },
   "Footer": {
-    "tagline": "Bouw betere API's sneller.",
-    "copyright": "Unkeyed, Inc. {year}",
+    "tagline": "Wij bouwen de toekomst.",
+    "copyright": "TransformAI, inc. 2025",
     "sections": {
       "company": "Bedrijf",
       "resources": "Resources",
@@ -665,8 +1280,7 @@
       "about": "Over ons",
       "roadmap": "Roadmap",
       "careers": "Carrières",
-      "sourceCode": "Broncode",
-      "status": "Statuspagina",
+      "contact": "Contact",
       "blog": "Blog",
       "changelog": "Wijzigingen",
       "templates": "Templates",
@@ -674,8 +1288,9 @@
       "glossary": "Woordenlijst",
       "twitter": "X (Twitter)",
       "discord": "Discord",
-      "ossFriends": "OSS-vrienden",
       "bookCall": "Plan een gesprek",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
       "terms": "Servicevoorwaarden",
       "privacy": "Privacybeleid"
     }
@@ -708,6 +1323,7 @@
   },
   "Language": {
     "selectTitle": "Selecteer taal",
+    "tagline": "TransformAI opgericht in 2025 in Amsterdam, Nederland.",
     "english": "Engels",
     "dutch": "Nederlands",
     "submit": "Doorgaan"
@@ -720,5 +1336,487 @@
     "heading": "Niet gevonden.",
     "cta": "Ga naar de homepage",
     "tagline": "Bouw betere API's sneller."
+  },
+  "Auth": {
+    "SignUp": {
+      "metaTitle": "Account aanmaken",
+      "metaDescription": "Word lid van TransformAI voor exclusieve nieuwsupdates en staff-toegang.",
+      "eyebrow": "Leden",
+      "title": "Maak je TransformAI-account",
+      "subtitle": "Ontvang exclusieve AI-updates en toegang tot het teamdashboard.",
+      "staffButton": "Client",
+      "staffModeOn": "Staff-modus",
+      "staffDialog": {
+        "title": "Staff-toegangscode",
+        "description": "Alleen interne teamleden gebruiken staff-modus. Vul de gedeelde code in om door te gaan.",
+        "codeLabel": "Toegangscode",
+        "codePlaceholder": "Voer de staffcode in",
+        "submit": "Staff-modus ontgrendelen",
+        "reset": "Gebruik klanttoegang"
+      },
+      "googleCta": "Ga verder met Google",
+      "or": "of ga verder met e-mail",
+      "nameLabel": "Volledige naam",
+      "namePlaceholder": "Je naam",
+      "emailLabel": "E-mailadres",
+      "emailPlaceholder": "jij@voorbeeld.nl",
+      "passwordLabel": "Maak een wachtwoord",
+      "passwordPlaceholder": "Minimaal 8 tekens",
+      "submit": "Maak account",
+      "submitStaff": "Maak staff-account",
+      "afterSubmit": {
+        "title": "Wat er hierna gebeurt",
+        "staff": "Je gaat direct naar het staff-dashboard om klantactiviteit te volgen.",
+        "client": "Je wordt direct doorgestuurd naar News Updates met geselecteerde inzichten voor leden."
+      },
+      "haveAccount": "Heb je al een account?",
+      "signInLink": "Log in",
+      "errors": {
+        "intentFailed": "We konden de toegangscode niet valideren. Probeer het opnieuw.",
+        "emailInUse": "Er bestaat al een account voor dit e-mailadres.",
+        "invalidStaffCode": "De staffcode is onjuist.",
+        "validation": "Controleer de velden en probeer opnieuw.",
+        "generic": "Er ging iets mis bij het aanmaken van je account.",
+        "signInAfterRegister": "Je account is aangemaakt, maar automatisch inloggen is mislukt. Log handmatig in."
+      }
+    },
+    "SignIn": {
+      "metaTitle": "Inloggen",
+      "metaDescription": "Log in bij TransformAI voor ledennieuws en het staff-dashboard.",
+      "eyebrow": "Leden",
+      "title": "Welkom terug",
+      "subtitle": "Ga verder met je persoonlijke AI-updates.",
+      "googleCta": "Log in met Google",
+      "or": "of ga verder met e-mail",
+      "emailLabel": "E-mailadres",
+      "emailPlaceholder": "jij@voorbeeld.nl",
+      "passwordLabel": "Wachtwoord",
+      "passwordPlaceholder": "Vul je wachtwoord in",
+      "submit": "Log in",
+      "cta": "Nog geen account?",
+      "ctaLink": "Maak er een",
+      "errors": {
+        "invalid": "We konden deze inloggegevens niet vinden. Probeer het opnieuw."
+      }
+    },
+    "PostSignIn": {
+      "redirecting": "Bezig met doorsturen, {name}…"
+    }
+  },
+  "NewsUpdates": {
+    "eyebrow": "Klantdashboard",
+    "title": "Dashboard",
+    "subtitle": "Volg de voortgang, plan de volgende fase en ontgrendel premium AI-resources wanneer het nodig is.",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "premium": "Premium"
+    },
+    "overview": {
+      "heading": "Dashboard-overzicht",
+      "progress": {
+        "eyebrow": "Voortgang",
+        "title": "Voortgang",
+        "value": "0%",
+        "caption": "We delen je statistieken hier zodra de eerste initiatieven live staan."
+      },
+      "phase": {
+        "eyebrow": "Ontwikkelfase",
+        "title": "Fase van ontwikkeling",
+        "value": "Fase 0",
+        "caption": "Je staat aan de start—na de kick-off ontgrendelen we fase 1 mijlpalen en meetbare resultaten."
+      },
+      "cta": {
+        "eyebrow": "Meer momentum?",
+        "title": "Wil je vooruitgang boeken met je bedrijf in AI?",
+        "subtitle": "Plan een strategiesessie met onze consultants om quick wins te identificeren en de roadmap op te zetten.",
+        "button": "Plan een call"
+      }
+    },
+    "premium": {
+      "eyebrow": "Premium toegang",
+      "title": "Premium intelligence staat klaar",
+      "subtitle": "Upgrade voor wekelijkse debriefs, gekwantificeerde resultaten en executive-ready toolkits.",
+      "weekly": {
+        "eyebrow": "Wekelijkse update",
+        "title": "Diepgaand rapport over lopende initiatieven",
+        "caption": "Impactmetrics, implementatie-notes en boardroom-ready talking points—iedere vrijdag vernieuwd.",
+        "locked": "Vergrendeld voor premiumleden",
+        "ctaLabel": "Toegang krijgen?",
+        "button": "Neem contact op"
+      },
+      "resources": {
+        "eyebrow": "Premium resources",
+        "title": "Resourcekluis",
+        "caption": "Blueprints, templates en benchmarkdata samengesteld voor Nederlandse leiderschapsteams.",
+        "items": {
+          "item1": "Executive-ready AI-kansenanalyses op maat voor jouw operatie.",
+          "item2": "Procesautomatiserings-templates met ROI-modellen en risicobeheersing.",
+          "item3": "Change-management playbooks om teams door adoptie te begeleiden."
+        },
+        "button": "Krijg toegang"
+      }
+    }
+  },
+  "Dashboard": {
+    "title": "Planner voor bespaarde uren",
+    "subtitle": "Stel de startwaarde in en beheer de uurlijkse toevoegingen voor de komende zeven dagen.",
+    "currentUser": "Ingelogd als {email}",
+    "summary": {
+      "currentLabel": "Huidige teller",
+      "currentValue": "{amount} uur totaal",
+      "nextLabel": "Volgende update",
+      "nextValue": "{time}",
+      "noUpcoming": "Geen ingeplande updates in de komende 7 dagen."
+    },
+    "hoursSaved": {
+      "base": {
+        "label": "Startwaarde",
+        "helper": "Zet de teller direct op dit totaal."
+      },
+      "dailyTarget": {
+        "label": "Dagelijkse automatische toevoeging",
+        "helper": "Verdeel dit aantal uren willekeurig over elke dag binnen het venster."
+      },
+      "days": {
+        "heading": "Plan de komende 7 dagen",
+        "helper": "Kies een dag om de uurlijkse toevoegingen aan te passen.",
+        "todayBadge": "Vandaag",
+        "todaySummary": "Huidig venster {window}. {remaining, plural, one {# uur resterend vandaag.} other {# uren resterend vandaag.}}",
+        "daySummary": "{count, plural, one {# uur gepland.} other {# uren gepland.}}",
+        "hourButtonAria": "Bewerk {time}. Momenteel {amount} uur."
+      },
+      "editor": {
+        "title": "Werk {time} bij",
+        "helper": "Bepaal hoeveel uur er op dit tijdstip automatisch wordt toegevoegd.",
+        "amountLabel": "Uren",
+        "amountSuffix": "uur"
+      },
+      "actions": {
+        "submit": "Wijzigingen doorvoeren",
+        "saving": "Bezig…",
+        "copy": "Dag kopiëren",
+        "copyClose": "Kopiëren sluiten",
+        "regenerate": "Schema vernieuwen",
+        "regenerating": "Schema wordt vernieuwd…"
+      },
+      "copy": {
+        "title": "Kopieer schema naar andere dagen",
+        "description": "Herbruik het uurschema van één dag en pas het elders toe.",
+        "sourceLabel": "Kopieer van",
+        "targetLabel": "Toepassen op",
+        "helper": "Geselecteerde dagen worden overschreven met deze waarden.",
+        "apply": "Kopie toepassen",
+        "cancel": "Annuleren"
+      },
+      "status": {
+        "success": "Schema voor bespaarde uren bijgewerkt.",
+        "error": "Bijwerken is mislukt. Probeer het opnieuw.",
+        "validation": "Voer voor startwaarde, dagdoel en elk uur een niet-negatieve waarde in.",
+        "copyValidation": "Selecteer een bron-dag en minstens één dag om naar te kopiëren.",
+        "copySuccess": "Dag succesvol gekopieerd."
+      }
+    }
+  },
+  "DashboardOutreach": {
+    "eyebrow": "Outreach-werkruimte",
+    "title": "Zet gepersonaliseerde outreachpagina’s klaar",
+    "subtitle": "Importeer bedrijfsnamen met maatwerkboodschappen, controleer de batch en publiceer binnen enkele seconden.",
+    "currentUser": "Ingelogd als {email}",
+    "metrics": {
+      "total": {
+        "label": "Pagina’s gepubliceerd",
+        "caption": "{count, plural, one {# pagina live} other {# pagina’s live}}"
+      },
+      "visited": {
+        "label": "Pagina’s bezocht",
+        "caption": "{count, plural, one {# link geopend} other {# links geopend}}"
+      },
+      "untouched": {
+        "label": "Wacht op eerste bezoek",
+        "caption": "{count, plural, one {# pagina wacht nog} other {# pagina’s wachten nog}}"
+      },
+      "booked": {
+        "label": "Meetings geboekt",
+        "caption": "{count, plural, one {# meeting bevestigd} other {# meetings bevestigd}}"
+      }
+    },
+    "templates": {
+      "eyebrow": "Templatebibliotheek",
+      "title": "Kies de gepersonaliseerde lay-out",
+      "description": "Bekijk de huidige outreach-templates voordat je ze in de CSV toewijst.",
+      "badge": "Template {id}",
+      "items": {
+        "1": {
+          "title": "Consultatieve hero met countdown",
+          "body": "Benadrukt de bedrijfsnaam, herhaalt ons aanbod en stuurt op een directe boeking met een timer van 48 uur.",
+          "points": [
+            "Hero-headline met de bedrijfsnaam",
+            "Countdown die aanzet tot snelle reactie",
+            "Primaire CTA linkt direct naar de meetingplanner"
+          ]
+        }
+      }
+    },
+    "upload": {
+      "eyebrow": "CSV-upload",
+      "title": "Importeer outreach-tekst",
+      "description": "Upload een CSV met de kolommen Naam, Tekst voor op de pagina en Template. We controleren elke rij voordat hij live gaat.",
+      "cta": "Kies CSV",
+      "fileSelected": "Geselecteerd: {name}",
+      "noFile": "Nog geen bestand gekozen",
+      "push": "Publiceer {count, plural, one {# pagina} other {# pagina’s}}",
+      "pushing": "Publiceren…",
+      "validation": "Upload een CSV met Naam, Tekst voor op de pagina en Template voordat je publiceert.",
+      "previewLabel": "{count, plural, one {# item klaar} other {# items klaar}}",
+      "previewColumns": {
+        "name": "Bedrijfsnaam",
+        "slug": "Slug",
+        "template": "Template",
+        "templateLabel": "Template {id}",
+        "text": "Tekst op de pagina"
+      },
+      "errors": {
+        "title": "{count, plural, one {We vonden # fout} other {We vonden # fouten}}",
+        "empty": "Het bestand lijkt leeg—voeg minstens één rij toe.",
+        "missingColumns": "Voeg de kolommen \"Naam\", \"Tekst voor op de pagina\" en \"Template\" toe.",
+        "missingValues": "Rij {row} mist de naam of de tekst.",
+        "invalidSlug": "Rij {row} kan niet worden omgezet in een geldige URL-slug.",
+        "invalidTemplate": "Rij {row} heeft een templatenummer nodig (1, 2, 3…)."
+      }
+    },
+    "status": {
+      "success": "Geplaatst: {created, plural, one {# nieuwe pagina} other {# nieuwe pagina’s}} en bijgewerkt: {updated, plural, one {# bestaande pagina} other {# bestaande pagina’s}}.",
+      "validation": "Los de gemarkeerde CSV-problemen op en probeer het opnieuw.",
+      "unauthorized": "Je hebt geen rechten om outreachpagina’s te beheren.",
+      "error": "Het uploaden is mislukt. Probeer het opnieuw."
+    },
+    "filters": {
+      "sortBy": "Sorteren op",
+      "sortOrder": "Sorteervolgorde",
+      "order": {
+        "asc": "Oudste eerst",
+        "desc": "Nieuwste eerst"
+      },
+      "sortOptions": {
+        "createdAt": "Datum toegevoegd",
+        "lastVisitedAt": "Laatste bezoek",
+        "visitCount": "Totaal bezoeken"
+      },
+      "visitStatus": "Bezoekstatus",
+      "visitOptions": {
+        "any": "Alle pagina’s",
+        "visited": "Bezochte pagina’s",
+        "notVisited": "Nog niet bezocht"
+      },
+      "booked": "Meeting geboekt",
+      "bookedOptions": {
+        "any": "Alle",
+        "yes": "Geboekt",
+        "no": "Niet geboekt"
+      },
+      "addedOn": "Toegevoegd op",
+      "templates": "Templates",
+      "templateLabel": "Template {id}",
+      "templatesEmpty": "Templates verschijnen hier zodra er pagina’s live staan.",
+      "clear": "Filters wissen"
+    },
+    "table": {
+      "eyebrow": "Gepubliceerde pagina’s",
+      "title": "Live outreach-links",
+      "description": "Volg elke gepersonaliseerde link, zie wie hem opent en filter wanneer de lijst groeit.",
+      "empty": "Er zijn nog geen outreachpagina’s gepubliceerd.",
+      "noMatches": "Geen outreachpagina’s voldoen aan je filters.",
+      "openLink": "Pagina openen",
+      "delete": {
+        "label": "Verwijderen",
+        "pending": "Verwijderen…",
+        "success": "/outreach/{slug} is verwijderd.",
+        "error": "Het verwijderen is mislukt. Probeer het opnieuw.",
+        "notFound": "Deze outreachpagina was al verwijderd."
+      },
+      "columns": {
+        "company": "Bedrijf",
+        "link": "Link",
+        "template": "Template",
+        "text": "Getoonde tekst",
+        "visits": "Bezoeken",
+        "added": "Toegevoegd",
+        "booked": "Meeting geboekt",
+        "updated": "Laatst bijgewerkt",
+        "actions": "Acties"
+      },
+      "status": {
+        "visited": "{count, plural, one {Eén keer bezocht} other {# keer bezocht}}",
+        "pending": "Wacht op eerste bezoek",
+        "notVisited": "Nog niet bezocht"
+      },
+      "bookedStatus": {
+        "yes": "Geboekt",
+        "no": "Niet geboekt"
+      }
+    }
+  },
+  "DashboardOverview": {
+    "eyebrow": "Teamomgeving",
+    "title": "Kies welke module je wilt openen",
+    "subtitle": "Start direct in de tools die je vandaag nodig hebt. Elke module blijft binnen de beveiligde TransformAI-teamomgeving.",
+    "currentUser": "Ingelogd als {email}",
+    "cta": "Openen",
+    "sections": {
+      "hoursSaved": {
+        "eyebrow": "Uren bespaard",
+        "title": "Stel de AI-urenteller af",
+        "description": "Reset de startwaarde en plan de automatische toevoegingen voor de komende zeven dagen."
+      },
+      "planning": {
+        "eyebrow": "Planning",
+        "title": "Stem de agenda af",
+        "description": "Bekijk de beschikbaarheid, wijs collega’s toe en publiceer aankomende TransformAI-strategiesessies."
+      },
+      "inbox": {
+        "eyebrow": "Inbox",
+        "title": "Bekijk inkomende contactberichten",
+        "description": "Houd alle aanvragen van de contactpagina centraal bij."
+      },
+      "outreach": {
+        "eyebrow": "Outreach",
+        "title": "Activeer gepersonaliseerde landingspagina’s",
+        "description": "Upload bedrijfsnamen met maatwerktekst en publiceer de pagina zodra een prospect klikt."
+      }
+    },
+    "metrics": {
+      "clients": {
+        "title": "Klantaccounts",
+        "caption": "{count, plural, one {# klant actief} other {# klanten actief}}"
+      },
+      "staff": {
+        "title": "Staff-accounts",
+        "caption": "{count, plural, one {# collega online} other {# collega's online}}"
+      },
+      "visitors": {
+        "title": "Unieke bezoekers",
+        "caption": "{count, plural, one {# bezoekersessie geregistreerd} other {# bezoekersessies geregistreerd}}"
+      },
+      "hoursSaved": {
+        "title": "Bespaarde uren met AI",
+        "caption": "{count, plural, one {# uur geautomatiseerd} other {# uren geautomatiseerd}}",
+        "manage": "Planner openen"
+      },
+      "outreach": {
+        "title": "Outreach-pagina’s live",
+        "caption": "{count, plural, one {# gepersonaliseerde link live} other {# gepersonaliseerde links live}}"
+      },
+      "ratio": {
+        "title": "Verhouding klant/staff",
+        "caption": "Een gezonde dekking ligt tussen 4:1 en 8:1 zodat elk project een partnerlead heeft."
+      }
+    },
+    "accounts": {
+      "clients": {
+        "title": "Overzicht klantaccounts",
+        "description": "Bekijk alle klantprofielen die zijn aangemaakt.",
+        "empty": "Er zijn nog geen klantaccounts aangemaakt."
+      },
+      "staff": {
+        "title": "Overzicht teamaccounts",
+        "description": "Zie welke teamleden toegang hebben tot de interne tooling.",
+        "empty": "Er zijn nog geen teamaccounts aangemaakt."
+      },
+      "columns": {
+        "name": "Naam",
+        "email": "E-mail",
+        "createdAt": "Aangemaakt"
+      }
+    },
+    "visitors": {
+      "title": "Bezoekersverkeer",
+      "description": "We tellen een bezoeker zodra er een nieuwe analytische cookie wordt uitgegeven.",
+      "tabs": {
+        "hourly": "Laatste 24 uur",
+        "daily": "Laatste 7 dagen"
+      },
+      "empty": {
+        "hourly": "Er zijn de afgelopen 24 uur geen nieuwe bezoekersessies geregistreerd.",
+        "daily": "Er zijn de afgelopen 7 dagen geen nieuwe bezoekersessies geregistreerd."
+      },
+      "tooltip": {
+        "hour": "{count, plural, one {{count} bezoeker tussen {start}–{end}} other {{count} bezoekers tussen {start}–{end}}}",
+        "day": "{count, plural, one {{count} bezoeker op {day}} other {{count} bezoekers op {day}}}"
+      }
+    },
+    "meetings": {
+      "title": "Aankomende meetings",
+      "empty": "Er staan nog geen meetings gepland. Nieuwe boekingen verschijnen hier direct.",
+      "fields": {
+        "when": "Wanneer",
+        "reason": "Reden",
+        "contact": "Contact",
+        "staff": "Eigenaar",
+        "notes": "Slotnotities"
+      }
+    },
+    "nextSteps": {
+      "title": "Volgende stappen",
+      "items": {
+        "audit": "Controleer onboarding-reizen voor klanten zonder recente logins en plan succesgesprekken.",
+        "outreach": "Stem met delivery leads af om het nieuwe AI-maturiteitsplaybook bij hun accounts te delen.",
+        "briefings": "Bereid leiderschapsbriefings voor januari voor met ROI-cijfers uit de automatiseringspilots."
+      }
+    }
+  },
+  "DashboardInbox": {
+    "title": "Contact-inbox",
+    "subtitle": "Bekijk elk bericht dat via het TransformAI-contactformulier is verzonden.",
+    "currentUser": "Ingelogd als {email}",
+    "empty": "Er zijn nog geen contactberichten. Nieuwe aanvragen verschijnen hier direct.",
+    "table": {
+      "received": "Ontvangen",
+      "requestType": "Aanvraagtype",
+      "email": "E-mail",
+      "company": "Bedrijf",
+      "locale": "Taal",
+      "message": "Bericht"
+    }
+  },
+  "OutreachPage": {
+    "eyebrow": "Speciaal voor jullie team",
+    "headline": "Hoe TransformAI {company} versnelt",
+    "templateBadge": "Template {id}",
+    "primaryCta": "Plan een strategiegesprek",
+    "secondaryCta": "Bekijk recente resultaten",
+    "timer": {
+      "eyebrow": "Reservering",
+      "running": "Gereserveerd voor jullie · nog {time}",
+      "expired": "Dit aanbod is verlopen",
+      "helper": "We houden deze gepersonaliseerde pagina 48 uur voor jullie vrij vanaf het eerste bezoek."
+    },
+    "bodyTitle": "Wat deze samenwerking {company} oplevert",
+    "bodySubtitle": "We stelden dit mini-voorstel samen op basis van jullie publieke profiel en huidige AI-rijpheid.",
+    "bookedBanner": "Via deze pagina is al een meeting ingepland—wij bereiden concrete vervolgstappen voor.",
+    "commitment": {
+      "title": "Wat je van ons mag verwachten",
+      "body": "Deel de pagina intern of plan het gesprek hierboven; we werken graag een concrete AI-roadmap op maat uit."
+    },
+    "metaTitle": "{company} × TransformAI",
+    "metaDescription": "Een persoonlijk TransformAI-overzicht voor jullie team."
+  },
+  "hoursSaved": {
+    "dialog": {
+      "title": "Automatiseer de teller voor bespaarde uren",
+      "description": "Plan de automatische toevoegingen voor de komende 24 uur. Tijden gebruiken {timeZone}.",
+      "baseLabel": "Startwaarde",
+      "baseHelper": "Zet de teller direct op dit totaal.",
+      "scheduleHeading": "Komende 24 uur",
+      "scheduleDescription": "Elke waarde wordt op het hele uur toegevoegd ({timeZone}).",
+      "timeColumnLabel": "Uur",
+      "reset": "Herstel standaard",
+      "submit": "Schema opslaan",
+      "saving": "Bezig…",
+      "cancel": "Annuleren",
+      "success": "Schema voor bespaarde uren bijgewerkt.",
+      "error": "Bijwerken is mislukt. Probeer het opnieuw.",
+      "validation": "Voer voor elk veld een niet-negatieve waarde in.",
+      "amountSuffix": "uur"
+    }
   }
 }

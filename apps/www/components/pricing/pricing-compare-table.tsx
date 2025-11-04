@@ -5,11 +5,11 @@ import { Particles } from "@/components/particles";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { Check, Info, Minus, X } from "lucide-react";
+import { Check, Info, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { Fragment, useMemo, useState } from "react";
 
 type TierId = "t1" | "t2" | "t3";
 type Availability = "yes" | "no" | "partial";
@@ -18,17 +18,20 @@ type PricingTableRow = {
   id: string;
   labelKey: string;
   availability: Record<TierId, Availability>;
-  noteKey?: string;
+  priceRangeKey?: string;
+  infoKey: string;
 };
 
 type PricingTableCategory = {
   id: string;
   labelKey: string;
+  descriptionKey: string;
   rows: PricingTableRow[];
+  packageSlug?: string;
 };
 
 type PricingTableData = {
-  tiers: Array<{ id: TierId; labelKey: string; priceKey: string; anchor: string; priceRangeKey: string }>;
+  tiers: Array<{ id: TierId; labelKey: string; subtitleKey: string; anchor: string }>;
   categories: PricingTableCategory[];
 };
 
@@ -36,142 +39,208 @@ const TABLE_DATA: PricingTableData = {
   tiers: [
     {
       id: "t1",
-      labelKey: "tiers.t1",
-      priceKey: "tiers.price.t1",
+      labelKey: "tiers.t1.label",
+      subtitleKey: "tiers.t1.subtitle",
       anchor: "#pricing-tier-1",
-      priceRangeKey: "priceRanges.t1",
     },
     {
       id: "t2",
-      labelKey: "tiers.t2",
-      priceKey: "tiers.price.t2",
+      labelKey: "tiers.t2.label",
+      subtitleKey: "tiers.t2.subtitle",
       anchor: "#pricing-tier-2",
-      priceRangeKey: "priceRanges.t2",
     },
     {
       id: "t3",
-      labelKey: "tiers.t3",
-      priceKey: "tiers.price.t3",
+      labelKey: "tiers.t3.label",
+      subtitleKey: "tiers.t3.subtitle",
       anchor: "#pricing-tier-3",
-      priceRangeKey: "priceRanges.t3",
     },
   ],
   categories: [
     {
-      id: "educationEnablement",
-      labelKey: "categories.educationEnablement",
+      id: "foundation",
+      labelKey: "categories.foundation.label",
+      descriptionKey: "categories.foundation.description",
+      packageSlug: "foundation",
       rows: [
         {
-          id: "educationCourseV1",
-          labelKey: "rows.educationCourseV1",
-          availability: { t1: "yes", t2: "yes", t3: "yes" },
+          id: "currentSituationAssessment",
+          labelKey: "rows.currentSituationAssessment.label",
+          availability: { t1: "yes", t2: "yes", t3: "partial" },
+          priceRangeKey: "rows.currentSituationAssessment.priceRange",
+          infoKey: "rows.currentSituationAssessment.info",
         },
         {
-          id: "educationCourseV2",
-          labelKey: "rows.educationCourseV2",
-          availability: { t1: "yes", t2: "yes", t3: "yes" },
+          id: "currentSituationFieldSpecific",
+          labelKey: "rows.currentSituationFieldSpecific.label",
+          availability: { t1: "yes", t2: "yes", t3: "partial" },
+          priceRangeKey: "rows.currentSituationFieldSpecific.priceRange",
+          infoKey: "rows.currentSituationFieldSpecific.info",
         },
         {
-          id: "workshops",
-          labelKey: "rows.workshops",
-          availability: { t1: "yes", t2: "yes", t3: "yes" },
+          id: "highRoiIdentification",
+          labelKey: "rows.highRoiIdentification.label",
+          availability: { t1: "yes", t2: "yes", t3: "partial" },
+          priceRangeKey: "rows.highRoiIdentification.priceRange",
+          infoKey: "rows.highRoiIdentification.info",
         },
         {
-          id: "trainingMaterials",
-          labelKey: "rows.trainingMaterials",
+          id: "vision",
+          labelKey: "rows.vision.label",
           availability: { t1: "yes", t2: "yes", t3: "yes" },
+          priceRangeKey: "rows.vision.priceRange",
+          infoKey: "rows.vision.info",
         },
         {
-          id: "certification",
-          labelKey: "rows.certification",
-          availability: { t1: "yes", t2: "yes", t3: "yes" },
+          id: "adaptiveRoadmap",
+          labelKey: "rows.adaptiveRoadmap.label",
+          availability: { t1: "partial", t2: "yes", t3: "no" },
+          priceRangeKey: "rows.adaptiveRoadmap.priceRange",
+          infoKey: "rows.adaptiveRoadmap.info",
         },
       ],
     },
     {
-      id: "implementation",
-      labelKey: "categories.implementation",
+      id: "integration",
+      labelKey: "categories.integration.label",
+      descriptionKey: "categories.integration.description",
+      packageSlug: "integrated",
       rows: [
         {
-          id: "aiReadiness",
-          labelKey: "rows.aiReadiness",
-          availability: { t1: "no", t2: "yes", t3: "yes" },
+          id: "quickWinsImplementation",
+          labelKey: "rows.quickWinsImplementation.label",
+          availability: { t1: "yes", t2: "partial", t3: "partial" },
+          priceRangeKey: "rows.quickWinsImplementation.priceRange",
+          infoKey: "rows.quickWinsImplementation.info",
         },
         {
-          id: "automationSetup",
-          labelKey: "rows.automationSetup",
-          availability: { t1: "no", t2: "yes", t3: "yes" },
+          id: "foundationalEducation",
+          labelKey: "rows.foundationalEducation.label",
+          availability: { t1: "yes", t2: "yes", t3: "partial" },
+          priceRangeKey: "rows.foundationalEducation.priceRange",
+          infoKey: "rows.foundationalEducation.info",
         },
         {
-          id: "pilotIntegration",
-          labelKey: "rows.pilotIntegration",
-          availability: { t1: "no", t2: "yes", t3: "yes" },
+          id: "futureReadySystems",
+          labelKey: "rows.futureReadySystems.label",
+          availability: { t1: "yes", t2: "yes", t3: "no" },
+          priceRangeKey: "rows.futureReadySystems.priceRange",
+          infoKey: "rows.futureReadySystems.info",
         },
         {
-          id: "assessment",
-          labelKey: "rows.assessment",
-          availability: { t1: "no", t2: "yes", t3: "yes" },
+          id: "workflowCreation",
+          labelKey: "rows.workflowCreation.label",
+          availability: { t1: "yes", t2: "yes", t3: "partial" },
+          priceRangeKey: "rows.workflowCreation.priceRange",
+          infoKey: "rows.workflowCreation.info",
         },
         {
-          id: "guidance",
-          labelKey: "rows.guidance",
-          availability: { t1: "no", t2: "yes", t3: "yes" },
+          id: "progressAssessment",
+          labelKey: "rows.progressAssessment.label",
+          availability: { t1: "no", t2: "yes", t3: "no" },
+          priceRangeKey: "rows.progressAssessment.priceRange",
+          infoKey: "rows.progressAssessment.info",
         },
       ],
     },
     {
-      id: "enterprise",
-      labelKey: "categories.enterprise",
+      id: "scaling",
+      labelKey: "categories.scaling.label",
+      descriptionKey: "categories.scaling.description",
+      packageSlug: "intrinsic",
       rows: [
         {
-          id: "tailoredIntegrations",
-          labelKey: "rows.tailoredIntegrations",
-          availability: { t1: "no", t2: "no", t3: "yes" },
+          id: "refineCustomSolutions",
+          labelKey: "rows.refineCustomSolutions.label",
+          availability: { t1: "partial", t2: "yes", t3: "partial" },
+          priceRangeKey: "rows.refineCustomSolutions.priceRange",
+          infoKey: "rows.refineCustomSolutions.info",
         },
         {
-          id: "researchSupport",
-          labelKey: "rows.researchSupport",
-          availability: { t1: "no", t2: "no", t3: "yes" },
+          id: "economicAssessment",
+          labelKey: "rows.economicAssessment.label",
+          availability: { t1: "no", t2: "yes", t3: "yes" },
+          priceRangeKey: "rows.economicAssessment.priceRange",
+          infoKey: "rows.economicAssessment.info",
         },
         {
-          id: "customModel",
-          labelKey: "rows.customModel",
-          availability: { t1: "no", t2: "no", t3: "yes" },
+          id: "optimizeIntegration",
+          labelKey: "rows.optimizeIntegration.label",
+          availability: { t1: "no", t2: "yes", t3: "yes" },
+          priceRangeKey: "rows.optimizeIntegration.priceRange",
+          infoKey: "rows.optimizeIntegration.info",
         },
         {
-          id: "consulting",
-          labelKey: "rows.consulting",
-          availability: { t1: "no", t2: "no", t3: "yes" },
+          id: "workflowOptimization",
+          labelKey: "rows.workflowOptimization.label",
+          availability: { t1: "no", t2: "yes", t3: "yes" },
+          priceRangeKey: "rows.workflowOptimization.priceRange",
+          infoKey: "rows.workflowOptimization.info",
         },
         {
-          id: "continuousSupport",
-          labelKey: "rows.continuousSupport",
+          id: "largeScaleDeployment",
+          labelKey: "rows.largeScaleDeployment.label",
+          availability: { t1: "no", t2: "yes", t3: "partial" },
+          priceRangeKey: "rows.largeScaleDeployment.priceRange",
+          infoKey: "rows.largeScaleDeployment.info",
+        },
+        {
+          id: "aiAssessmentReport",
+          labelKey: "rows.aiAssessmentReport.label",
+          availability: { t1: "no", t2: "yes", t3: "no" },
+          priceRangeKey: "rows.aiAssessmentReport.priceRange",
+          infoKey: "rows.aiAssessmentReport.info",
+        },
+      ],
+    },
+    {
+      id: "cuttingEdge",
+      labelKey: "categories.cuttingEdge.label",
+      descriptionKey: "categories.cuttingEdge.description",
+      rows: [
+        {
+          id: "automatingOptimisedSystems",
+          labelKey: "rows.automatingOptimisedSystems.label",
+          availability: { t1: "no", t2: "partial", t3: "yes" },
+          priceRangeKey: "rows.automatingOptimisedSystems.priceRange",
+          infoKey: "rows.automatingOptimisedSystems.info",
+        },
+        {
+          id: "cuttingEdgeSolutions",
+          labelKey: "rows.cuttingEdgeSolutions.label",
           availability: { t1: "no", t2: "no", t3: "yes" },
+          priceRangeKey: "rows.cuttingEdgeSolutions.priceRange",
+          infoKey: "rows.cuttingEdgeSolutions.info",
+        },
+        {
+          id: "customSolutions",
+          labelKey: "rows.customSolutions.label",
+          availability: { t1: "partial", t2: "partial", t3: "partial" },
+          priceRangeKey: "rows.customSolutions.priceRange",
+          infoKey: "rows.customSolutions.info",
         },
       ],
     },
   ],
 };
 
-const AVAILABILITY_META: Record<Availability, { icon: LucideIcon; className: string }> = {
+const AVAILABILITY_META: Record<Availability, { icon?: LucideIcon; className: string }> = {
   yes: {
     icon: Check,
-    className: "border-emerald-400/50 bg-emerald-400/20 text-emerald-200",
+    className: "border-emerald-400/70 bg-emerald-400/20 text-emerald-100",
   },
   partial: {
-    icon: Minus,
-    className: "border-amber-300/40 bg-amber-400/20 text-amber-100",
+    className: "border-amber-400/70 bg-amber-500/20 text-amber-100",
   },
   no: {
     icon: X,
-    className: "border-white/20 bg-white/5 text-white/60",
+    className: "border-white/25 bg-white/5 text-white/60",
   },
 };
 
 type AvailabilityIndicatorProps = {
   value: Availability;
   label: string;
-  note?: string;
   priceRange?: string;
   size?: "md" | "sm";
 };
@@ -189,13 +258,16 @@ const TIER_SEGMENT_STYLES: Record<TierId, string> = {
 
 type InformationSummaryProps = {
   availability: PricingTableRow["availability"];
+  infoKey: string;
   className?: string;
   variant?: "table" | "card";
 };
 
-function InformationSummary({ availability, className, variant = "table" }: InformationSummaryProps) {
+function InformationSummary({ availability, infoKey, className, variant = "table" }: InformationSummaryProps) {
   const t = useTranslations("Pricing.Table");
   const locale = useLocale();
+
+  const contactHref = `/${locale}/contact`;
 
   const listFormatter = useMemo(
     () =>
@@ -245,8 +317,9 @@ function InformationSummary({ availability, className, variant = "table" }: Info
     className,
   );
 
-  const tooltipSideOffset = variant === "card" ? 12 : 18;
-  const tooltipAlignOffset = variant === "card" ? -8 : -24;
+  const tooltipSide = variant === "card" ? "bottom" : "right";
+  const tooltipSideOffset = variant === "card" ? 14 : 20;
+  const tooltipAlignOffset = variant === "card" ? 0 : -12;
 
   return (
     <Tooltip>
@@ -264,11 +337,11 @@ function InformationSummary({ availability, className, variant = "table" }: Info
         </button>
       </TooltipTrigger>
       <TooltipContent
-        side="top"
+        side={tooltipSide}
         align="end"
         alignOffset={tooltipAlignOffset}
         sideOffset={tooltipSideOffset}
-        collisionPadding={{ left: 24, right: 24 }}
+        collisionPadding={{ left: 24, right: 24, top: 24, bottom: 24 }}
         className="relative w-[min(90vw,420px)] overflow-hidden rounded-3xl border border-white/12 bg-neutral-950/95 p-6 text-left text-sm text-white/80 shadow-[0_32px_180px_rgba(8,12,24,0.78)] backdrop-blur-xl"
       >
         <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -286,11 +359,10 @@ function InformationSummary({ availability, className, variant = "table" }: Info
         >
           <div className="flex flex-col gap-4">
             <div className="space-y-2">
-              <p className="leading-relaxed text-white/85">{t("infoColumn.tooltip.line1")}</p>
-              <p className="leading-relaxed text-white/70">{t("infoColumn.tooltip.line2")}</p>
+              <p className="leading-relaxed text-white/85">{t(infoKey)}</p>
             </div>
             <Link
-              href="#"
+              href={contactHref}
               className="relative inline-flex w-full items-center justify-center rounded-full border border-white/20 bg-white/[0.08] px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white/40 hover:bg-white/[0.16] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 min-[420px]:w-auto min-[420px]:self-start"
             >
               {t("infoColumn.tooltip.cta")}
@@ -344,68 +416,51 @@ function InformationSummary({ availability, className, variant = "table" }: Info
   );
 }
 
-function AvailabilityIndicator({ value, label, note, priceRange, size = "md" }: AvailabilityIndicatorProps) {
+function AvailabilityIndicator({ value, label, priceRange, size = "md" }: AvailabilityIndicatorProps) {
   const meta = AVAILABILITY_META[value];
   const Icon = meta.icon;
 
   const indicatorClasses = cn(
-    "inline-flex items-center justify-center rounded-full border bg-opacity-20 font-medium transition-colors",
+    "inline-flex items-center justify-center rounded-full border bg-opacity-20 font-semibold transition-colors",
     sizeMap[size],
     meta.className,
   );
 
-  const iconElement = <Icon className={cn(size === "md" ? "h-4 w-4" : "h-3.5 w-3.5")} />;
+  const iconElement =
+    value === "partial" ? (
+      <span className={cn("text-base", size === "sm" && "text-sm")}>½</span>
+    ) : Icon ? (
+      <Icon className={cn(size === "md" ? "h-4 w-4" : "h-3.5 w-3.5")} />
+    ) : null;
 
-  const shouldShowPriceTooltip = value === "yes" && Boolean(priceRange);
+  const description = [label, priceRange].filter(Boolean).join(". ");
 
   return (
-    <div className="flex items-center justify-center gap-2">
-      {shouldShowPriceTooltip ? (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              type="button"
-              className={cn(
-                indicatorClasses,
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900",
-              )}
-              aria-label={`${label}. ${priceRange}`}
-            >
-              {iconElement}
-            </button>
-          </TooltipTrigger>
-          <TooltipContent side="top" className="max-w-xs text-left text-white">
-            <p>{priceRange}</p>
-          </TooltipContent>
-        </Tooltip>
-      ) : (
-        <span aria-hidden className={indicatorClasses}>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          className={cn(
+            indicatorClasses,
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900",
+          )}
+          aria-label={description}
+        >
           {iconElement}
-        </span>
-      )}
-      {shouldShowPriceTooltip ? null : <span className="sr-only">{label}</span>}
-      {value === "partial" && note ? (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              type="button"
-              className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/20 text-white/80 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 hover:text-white"
-              aria-label={note}
-            >
-              <Info className="h-3.5 w-3.5" />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent side="top" className="max-w-xs text-left text-white">
-            <p>{note}</p>
-          </TooltipContent>
-        </Tooltip>
-      ) : null}
-    </div>
+        </button>
+      </TooltipTrigger>
+      <TooltipContent side="top" className="max-w-xs space-y-1 text-left text-white">
+        <p className="text-sm font-semibold text-white">{label}</p>
+        {priceRange ? <p className="text-xs leading-relaxed text-white/70">{priceRange}</p> : null}
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
 export function PricingCompareTable() {
   const t = useTranslations("Pricing.Table");
+  const locale = useLocale();
+  const [hoveredCategoryId, setHoveredCategoryId] = useState<string | null>(null);
 
   const availabilityLabels: Record<Availability, string> = {
     yes: t("legend.included"),
@@ -445,6 +500,7 @@ export function PricingCompareTable() {
               >
                 {t("title")}
               </h2>
+              <p className="mt-4 text-sm text-white/70 sm:text-base">{t("description")}</p>
             </div>
 
             <div className="hidden md:block">
@@ -453,13 +509,13 @@ export function PricingCompareTable() {
                 <thead>
                   <tr className="text-sm text-white/80">
                     <th scope="col" className="px-6 pb-4 text-left font-medium text-white/70">
-                      {t("headers.feature")}
+                      {t("headers.solution")}
                     </th>
                     {TABLE_DATA.tiers.map((tier) => (
                       <th key={tier.id} scope="col" className="px-6 pb-4 text-center font-semibold text-white">
                         <div className="flex flex-col items-center gap-1">
                           <span className="text-base sm:text-lg">{t(tier.labelKey)}</span>
-                          <span className="text-xs font-medium text-white/60">{t(tier.priceKey)}</span>
+                          <span className="text-xs font-medium text-white/60">{t(tier.subtitleKey)}</span>
                         </div>
                       </th>
                     ))}
@@ -497,8 +553,8 @@ export function PricingCompareTable() {
                               <div className="absolute -bottom-24 right-0 h-40 w-40 rounded-full bg-[radial-gradient(circle_at_bottom,_rgba(147,51,234,0.32),_transparent_72%)] blur-2xl" />
                               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-80" />
                             </div>
-                            <p className="relative z-10 leading-relaxed text-white/85">{t("infoColumn.tooltip.line1")}</p>
-                            <p className="relative z-10 leading-relaxed text-white/70">{t("infoColumn.tooltip.line2")}</p>
+                            <p className="relative z-10 text-sm font-semibold text-white">{t("infoColumn.tooltip.title")}</p>
+                            <p className="relative z-10 leading-relaxed text-white/70">{t("infoColumn.tooltip.description")}</p>
                             <Link
                               href="#"
                               className="relative z-10 inline-flex w-full items-center justify-center rounded-full border border-white/20 bg-white/[0.08] px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white/40 hover:bg-white/[0.16] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 min-[360px]:w-auto min-[360px]:self-start"
@@ -511,65 +567,151 @@ export function PricingCompareTable() {
                     </th>
                   </tr>
                 </thead>
-                {TABLE_DATA.categories.map((category) => (
-                  <tbody key={category.id}>
-                    <tr>
-                      <th
-                        scope="colgroup"
-                        colSpan={TABLE_DATA.tiers.length + 2}
-                        className="px-6 pt-8 pb-3 text-xs font-semibold uppercase tracking-[0.35em] text-white/60"
+                {TABLE_DATA.categories.map((category) => {
+                  const packageHref = category.packageSlug
+                    ? `/${locale}/packages/${category.packageSlug}`
+                    : null;
+                  const isHighlighted = hoveredCategoryId === category.id;
+
+                  const packageLabel = t(category.labelKey);
+
+                  return (
+                    <Fragment key={category.id}>
+                      <tbody>
+                        <tr>
+                          <th
+                            scope="colgroup"
+                            colSpan={TABLE_DATA.tiers.length + 2}
+                            className="px-6 pt-8 pb-3 text-left"
+                          >
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                              <div className="space-y-1">
+                                <span className="text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
+                                  {packageLabel}
+                                </span>
+                                <p className="text-xs font-medium text-white/55">
+                                  {t(category.descriptionKey)}
+                                </p>
+                              </div>
+                              {packageHref ? (
+                                <Link
+                                  href={packageHref}
+                                  className="inline-flex items-center justify-center rounded-full border border-[#9D72FF]/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.28em] text-[#CDBDFF] transition hover:border-[#C6B4FF] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B39CFF] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+                                  aria-label={t("cta.viewPackageDealFor", { package: packageLabel })}
+                                  onMouseEnter={() => setHoveredCategoryId(category.id)}
+                                  onMouseLeave={() => setHoveredCategoryId(null)}
+                                  onFocus={() => setHoveredCategoryId(category.id)}
+                                  onBlur={() => setHoveredCategoryId(null)}
+                                >
+                                  {t("cta.viewPackageDeal")}
+                                </Link>
+                              ) : null}
+                            </div>
+                          </th>
+                        </tr>
+                      </tbody>
+                      <tbody
+                        className={cn(
+                          isHighlighted &&
+                            "relative before:pointer-events-none before:absolute before:inset-x-2 before:top-1 before:bottom-1 before:rounded-[28px] before:border before:border-[#9D72FF]/60 before:shadow-[0_0_32px_rgba(157,114,255,0.45)] before:content-['']",
+                        )}
                       >
-                        {t(category.labelKey)}
-                      </th>
-                    </tr>
-                    {category.rows.map((row) => (
-                      <tr
-                        key={row.id}
-                        className="border-t border-white/10 text-sm transition-colors hover:bg-white/[0.05]"
-                      >
-                        <th scope="row" className="px-6 py-5 text-left font-medium text-white/90">
-                          {t(row.labelKey)}
-                        </th>
-                        {TABLE_DATA.tiers.map((tier) => (
-                          <td key={tier.id} className="px-6 py-5 text-center align-top">
-                            <AvailabilityIndicator
-                              value={row.availability[tier.id]}
-                              label={availabilityLabels[row.availability[tier.id]]}
-                              note={row.noteKey ? t(row.noteKey) : undefined}
-                              priceRange={
-                                row.availability[tier.id] === "yes"
-                                  ? t(tier.priceRangeKey)
-                                  : undefined
-                              }
-                            />
-                          </td>
+                        {category.rows.map((row) => (
+                          <tr
+                            key={row.id}
+                            className={cn(
+                              "border-t border-white/10 text-sm transition-colors hover:bg-white/[0.05]",
+                              isHighlighted &&
+                                "relative z-10 bg-white/[0.04] hover:bg-white/[0.08] first:rounded-t-[24px] last:rounded-b-[24px]",
+                            )}
+                          >
+                            <th scope="row" className="px-6 py-5 text-left font-medium text-white/90">
+                              {t(row.labelKey)}
+                            </th>
+                            {TABLE_DATA.tiers.map((tier) => {
+                              const availabilityValue = row.availability[tier.id];
+                              return (
+                                <td key={tier.id} className="px-6 py-5 text-center align-top">
+                                  <AvailabilityIndicator
+                                    value={availabilityValue}
+                                    label={availabilityLabels[availabilityValue]}
+                                    priceRange={
+                                      row.priceRangeKey && availabilityValue !== "no"
+                                        ? t(row.priceRangeKey)
+                                        : undefined
+                                    }
+                                  />
+                                </td>
+                              );
+                            })}
+                            <td className="px-6 py-5 align-top">
+                              <InformationSummary
+                                availability={row.availability}
+                                infoKey={row.infoKey}
+                                className="mx-auto"
+                              />
+                            </td>
+                          </tr>
                         ))}
-                        <td className="px-6 py-5 align-top">
-                          <InformationSummary availability={row.availability} className="mx-auto" />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                ))}
+                      </tbody>
+                    </Fragment>
+                  );
+                })}
               </table>
             </div>
 
             <div className="md:hidden">
               <Accordion type="multiple" defaultValue={TABLE_DATA.categories.map((category) => category.id)}>
-                {TABLE_DATA.categories.map((category) => (
-                  <AccordionItem key={category.id} value={category.id} className="border-b border-white/10">
-                    <AccordionTrigger className="text-left text-base font-semibold text-white">
-                      {t(category.labelKey)}
-                    </AccordionTrigger>
-                    <AccordionContent className="px-1">
-                      <div className="space-y-4">
-                        {category.rows.map((row) => (
-                          <div
-                            key={row.id}
-                            className="relative overflow-hidden rounded-3xl border border-white/12 bg-neutral-950/75 p-5 shadow-[0_24px_110px_rgba(8,12,24,0.6)] backdrop-blur-xl"
+                {TABLE_DATA.categories.map((category) => {
+                  const packageHref = category.packageSlug
+                    ? `/${locale}/packages/${category.packageSlug}`
+                    : null;
+                  const isHighlighted = hoveredCategoryId === category.id;
+
+                  const packageLabel = t(category.labelKey);
+
+                  return (
+                    <AccordionItem
+                      key={category.id}
+                      value={category.id}
+                      className="relative border-b border-white/10"
+                      onMouseLeave={() => setHoveredCategoryId(null)}
+                    >
+                      {packageHref ? (
+                        <Link
+                          href={packageHref}
+                          className="absolute right-3 top-3 inline-flex items-center justify-center rounded-full border border-[#9D72FF]/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#CDBDFF] transition hover:border-[#C6B4FF] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B39CFF] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+                          aria-label={t("cta.viewPackageDealFor", { package: packageLabel })}
+                          onMouseEnter={() => setHoveredCategoryId(category.id)}
+                          onMouseLeave={() => setHoveredCategoryId(null)}
+                          onFocus={() => setHoveredCategoryId(category.id)}
+                          onBlur={() => setHoveredCategoryId(null)}
+                        >
+                          {t("cta.viewPackageDeal")}
+                        </Link>
+                      ) : null}
+                      <AccordionTrigger className="pr-28 text-left">
+                        <span className="block text-base font-semibold text-white">{packageLabel}</span>
+                        <span className="mt-1 block text-sm text-white/60">{t(category.descriptionKey)}</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-1">
+                        <div
+                          className={cn(
+                            "relative space-y-4",
+                            isHighlighted &&
+                              "before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:bottom-0 before:rounded-[26px] before:border before:border-[#9D72FF]/60 before:shadow-[0_0_32px_rgba(157,114,255,0.45)] before:content-['']",
+                          )}
                           >
-                            <div aria-hidden className="pointer-events-none absolute inset-0">
-                              <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_0%_20%,rgba(59,130,246,0.18),transparent_75%)]" />
+                          {category.rows.map((row) => (
+                            <div
+                              key={row.id}
+                              className={cn(
+                                "relative overflow-hidden rounded-3xl border border-white/12 bg-neutral-950/75 p-5 shadow-[0_24px_110px_rgba(8,12,24,0.6)] backdrop-blur-xl",
+                                isHighlighted && "relative z-10",
+                              )}
+                            >
+                              <div aria-hidden className="pointer-events-none absolute inset-0">
+                                <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_0%_20%,rgba(59,130,246,0.18),transparent_75%)]" />
                               <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_100%_80%,rgba(157,114,255,0.22),transparent_75%)]" />
                               <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-75" />
                             </div>
@@ -577,38 +719,39 @@ export function PricingCompareTable() {
                               <p className="flex-1 text-sm font-medium leading-snug text-white">{t(row.labelKey)}</p>
                               <InformationSummary
                                 availability={row.availability}
+                                infoKey={row.infoKey}
                                 variant="card"
                                 className="shrink-0"
                               />
                             </div>
                             <div className="relative z-10 mt-4 grid grid-cols-3 gap-3">
-                              {TABLE_DATA.tiers.map((tier) => (
-                                <div key={tier.id} className="flex flex-col items-center gap-2 text-center">
-                                  <span className="text-xs font-medium text-white/80">{t(tier.labelKey)}</span>
-                                  <AvailabilityIndicator
-                                    value={row.availability[tier.id]}
-                                    label={availabilityLabels[row.availability[tier.id]]}
-                                    note={row.noteKey ? t(row.noteKey) : undefined}
-                                    priceRange={
-                                      row.availability[tier.id] === "yes"
-                                        ? t(tier.priceRangeKey)
-                                        : undefined
-                                    }
-                                    size="sm"
-                                  />
-                                  <span className="text-[11px] text-white/60">{t(tier.priceKey)}</span>
-                                </div>
-                              ))}
+                              {TABLE_DATA.tiers.map((tier) => {
+                                const availabilityValue = row.availability[tier.id];
+                                return (
+                                  <div key={tier.id} className="flex flex-col items-center gap-2 text-center">
+                                    <span className="text-xs font-medium text-white/80">{t(tier.labelKey)}</span>
+                                    <AvailabilityIndicator
+                                      value={availabilityValue}
+                                      label={availabilityLabels[availabilityValue]}
+                                      priceRange={
+                                        row.priceRangeKey && availabilityValue !== "no"
+                                          ? t(row.priceRangeKey)
+                                          : undefined
+                                      }
+                                      size="sm"
+                                    />
+                                    <span className="text-[11px] text-white/60">{t(tier.subtitleKey)}</span>
+                                  </div>
+                                );
+                              })}
                             </div>
-                            {row.noteKey ? (
-                              <p className="mt-3 text-xs text-white/60 md:hidden">{t(row.noteKey)}</p>
-                            ) : null}
                           </div>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
               </Accordion>
             </div>
 
