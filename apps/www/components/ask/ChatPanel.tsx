@@ -3,6 +3,7 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { AlertTriangle, Loader2, Send, Sparkles, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import {
   type KeyboardEvent as ReactKeyboardEvent,
   type MutableRefObject,
@@ -13,7 +14,7 @@ import {
   useRef,
   useState,
 } from "react";
-import type { ChatLocale, ChatMessage } from "./types";
+import type { ChatAction, ChatLocale, ChatMessage } from "./types";
 
 export type ChatPanelProps = {
   messages: ChatMessage[];
@@ -342,6 +343,9 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, locale }) => {
           <p className="text-xs font-medium uppercase tracking-[0.08em] text-white/60">{locale.assistantLabel}</p>
           <div className="mt-2 w-full rounded-2xl border border-white/10 bg-neutral-900/90 p-4 text-sm leading-relaxed text-white/90 shadow-[0_25px_60px_rgba(30,64,175,0.25)]">
             <p className="whitespace-pre-wrap text-left">{message.content}</p>
+            {message.action && message.action.type === "redirect" ? (
+              <RedirectAction action={message.action} />
+            ) : null}
           </div>
         </div>
       </div>
@@ -356,6 +360,62 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, locale }) => {
           {message.content}
         </div>
       </div>
+    </div>
+  );
+};
+
+type RedirectActionProps = {
+  action: Extract<ChatAction, { type: "redirect" }>;
+};
+
+const RedirectAction: React.FC<RedirectActionProps> = ({ action }) => {
+  const router = useRouter();
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  const handleRedirect = useCallback(() => {
+    if (isNavigating) {
+      return;
+    }
+    const target = action.url.trim();
+    if (!target) {
+      return;
+    }
+
+    const isSupported = target.startsWith("/") || /^https?:\/\//i.test(target);
+    if (!isSupported) {
+      console.error("Unsupported redirect URL", target);
+      return;
+    }
+
+    setIsNavigating(true);
+
+    try {
+      if (target.startsWith("http://") || target.startsWith("https://")) {
+        window.location.href = target;
+        return;
+      }
+      router.push(target);
+      window.setTimeout(() => {
+        setIsNavigating(false);
+      }, 1200);
+    } catch (error) {
+      console.error("Failed to redirect visitor", error);
+      setIsNavigating(false);
+    }
+  }, [action.url, isNavigating, router]);
+
+  return (
+    <div className="mt-4 space-y-3 rounded-2xl border border-white/10 bg-white/5 p-3">
+      <p className="text-sm leading-relaxed text-white/80">{action.confirm}</p>
+      <button
+        type="button"
+        onClick={handleRedirect}
+        disabled={isNavigating}
+        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/10 bg-gradient-to-r from-teal-400 via-sky-500 to-purple-500 px-4 py-2 text-sm font-semibold text-white transition hover:shadow-[0_0_30px_rgba(56,189,248,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 disabled:cursor-not-allowed disabled:opacity-70"
+      >
+        {isNavigating ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : null}
+        <span>{action.label}</span>
+      </button>
     </div>
   );
 };
