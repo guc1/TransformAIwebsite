@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   type CSSProperties,
   useCallback,
@@ -34,6 +34,7 @@ type StickyChatProps = {
 
 export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, boundaryId }) => {
   const t = useTranslations("CodeExamples.chat");
+  const localeCode = useLocale();
   const locale = useMemo<ChatLocale>(
     () => ({
       ctaLabel: t("cta.label"),
@@ -472,6 +473,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
           },
           body: JSON.stringify({
             messages: conversation.map(({ role, content }) => ({ role, content })),
+            locale: localeCode,
           }),
         });
 
@@ -504,7 +506,7 @@ export const StickyChat: React.FC<StickyChatProps> = ({ className, triggerId, bo
         setIsLoading(false);
       }
     },
-    [locale.errorBody],
+    [locale.errorBody, localeCode],
   );
 
   const handleSend = useCallback(

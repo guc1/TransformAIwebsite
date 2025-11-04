@@ -16,4 +16,4 @@ Follow our [contributing guide](https://engineering.unkey.com/contributing)
 
 You can find the instructions for each project in their respective directories.
 
-Before running the marketing site with the new assistant, copy `.env.example` to `.env.local` and set `TRANSFORMAI_ASSISTANT_KEY`.
+Before running the marketing site with the new assistant, copy `.env.example` to `.env.local` and set `TRANSFORMAI_ASSISTANT_KEY` and `OPENAI_API_KEY`.
