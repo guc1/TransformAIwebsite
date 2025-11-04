@@ -521,7 +521,9 @@
         "scrollLabel": "Ready to explore the next phase?",
         "chooseTier1": "Explore Phase 1 foundation",
         "chooseTier2": "Explore Phase 2 standard",
-        "chooseTier3": "Explore Phase 3 advanced"
+        "chooseTier3": "Explore Phase 3 advanced",
+        "viewPackageDeal": "View package deal",
+        "viewPackageDealFor": "View package deal for {package}"
       }
     },
     "Chat": {
