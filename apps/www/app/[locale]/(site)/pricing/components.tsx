@@ -83,17 +83,33 @@ export const Cost: React.FC<{ dollar: string; className?: string; frequency?: st
   );
 };
 
-export const Button: React.FC<{ label: string; href: string }> = ({ label, href }) => {
+export const Button: React.FC<{ label: string; href?: string; disabled?: boolean }> = ({
+  label,
+  href,
+  disabled = false,
+}) => {
+  const baseClasses =
+    "block w-full h-10 text-sm font-semibold text-center rounded-lg border duration-500";
+  const enabledClasses = "text-black bg-white border-white hover:bg-transparent hover:text-white";
+  const disabledClasses = "text-white/60 border-white/20 bg-white/5 cursor-not-allowed";
+
+  if (href && !disabled) {
+    return (
+      <div>
+        <Link href={href}>
+          <button type="button" className={`${baseClasses} ${enabledClasses}`}>
+            {label}
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Link href={href}>
-        <button
-          type="button"
-          className="block w-full h-10 text-sm font-semibold text-center text-black duration-500 bg-white border border-white rounded-lg hover:bg-transparent hover:text-white"
-        >
-          {label}
-        </button>
-      </Link>
+      <button type="button" className={`${baseClasses} ${disabledClasses}`} disabled>
+        {label}
+      </button>
     </div>
   );
 };

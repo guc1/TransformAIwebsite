@@ -314,54 +314,94 @@
       "common": {
         "included": "Dit zit erin:"
       },
-      "education": {
-        "title": "Educatiepakket",
-        "description": "Richt zich op het opleiden van medewerkers en maakt teams toekomstbestendig voor AI-adoptie.",
-        "price": "$6.000",
-        "frequency": "eenmalige investering",
-        "cta": "Vraag opleidingsvoorstel aan",
+      "basicEducation": {
+        "title": "Basismodule educatie",
+        "description": "Groepslessen waarmee elke rol binnen de organisatie AI-vaardig wordt.",
+        "price": "€800",
+        "frequency": "per module (2u op locatie)",
+        "cta": "Boek educatiemodule",
         "bullets": {
-          "courseV1": "AI-opleidingsmodule V1",
-          "courseV2": "AI-opleidingsmodule V2",
-          "workshops": "Workshops voor teams",
-          "trainingMaterials": "Praktische trainingsmaterialen",
-          "certification": "Certificaat van afronding"
+          "customLessons": "Gepersonaliseerde groepslessen voor elk team en elke rol",
+          "foundations": "Van fundament tot gevorderd: alle kernprincipes van AI",
+          "handsOn": "Hands-on oefenen met prompts, beeld- en videogeneratie",
+          "catalog": "Keuze uit meer dan 20 modules op locatie",
+          "twoHours": "Iedere module duurt twee uur en wordt in persoon gegeven"
         },
         "footer": {
-          "title": "Maatwerk nodig?",
-          "body": "We stemmen het leerprogramma af op de specifieke rollen binnen jouw organisatie."
+          "title": "Meerdere leerpaden nodig?",
+          "body": "Wij helpen de juiste mix van modules per afdeling samen te stellen."
         }
       },
-      "introduction": {
-        "title": "Introductiepakket",
-        "description": "Voor bedrijven die hun AI-transitie opstarten.",
-        "price": "$5.000",
-        "frequency": "eenmalig traject",
-        "cta": "Plan jullie AI-kick-off",
+      "advancedEducation": {
+        "title": "Geavanceerde educatiemodule",
+        "description": "Maaktrajecten voor teams die klaar zijn om nieuwe AI-oplossingen te bouwen.",
+        "price": "€1.100",
+        "frequency": "per geavanceerde module (2u op locatie)",
+        "cta": "Boek geavanceerde module",
         "bullets": {
-          "aiReadiness": "AI-ready analyse van het bedrijf",
-          "automationSetup": "Eerste workflow-automatisering",
-          "pilotIntegration": "Integratie van pilotproject",
-          "assessment": "Productiviteits- en kostenevaluatie",
-          "guidance": "Strategische sessie met ons team"
+          "innovationTracks": "Ontwerp grensverleggende AI-systemen samen met onze experts",
+          "customBuilds": "Curricula op maat voor teams die de basis al beheersen",
+          "tooling": "Diepgaande sessies over agent orchestration, automatisering en multimodaal",
+          "catalog": "10 geavanceerde modules met focus op high-impact innovatie",
+          "mentorship": "Intensieve begeleiding richting productieklare prototypes"
         },
         "footer": {
-          "title": "Groeien voorbij de pilot?",
-          "body": "We helpen om deze basis uit te breiden naar organisatiebrede automatisering en governance."
+          "title": "Basis al onder controle?",
+          "body": "We ontwerpen vervolgtrajecten die passen bij de ambitie van jullie teams."
         }
       },
-      "enterprise": {
-        "title": "Enterprise-oplossingen",
-        "description": "Maatwerk AI-transformatieoplossingen rond jouw organisatie.",
-        "price": "Custom $",
-        "frequency": "Op maat gemaakte offerte",
-        "cta": "Neem contact op",
+      "platform": {
+        "title": "Custom Platform Enrollment",
+        "description": "Een platform dat AI centraal in de organisatie operationaliseert.",
+        "price": "Binnenkort beschikbaar",
+        "frequency": "Private beta in ontwikkeling",
+        "cta": "Binnenkort beschikbaar",
         "bullets": {
-          "tailoredIntegrations": "Maatwerk AI-integraties",
-          "researchSupport": "Geavanceerde onderzoeksbegeleiding",
-          "customModel": "Ontwikkeling van maatwerkmodellen",
-          "consulting": "Toegewijde consulting",
-          "continuousSupport": "Doorlopende ondersteuning"
+          "operatingSystem": "Centraal besturingssysteem voor assistants, workflows en guardrails",
+          "efficiency": "Maximaliseer efficiëntie en waarde uit alle AI-initiatieven",
+          "integrations": "Diepe integraties met de tools die jullie al gebruiken",
+          "guidance": "Begeleide onboarding en playbooks per sector",
+          "insights": "Realtime dashboards voor adoptie en ROI"
+        },
+        "footer": {
+          "title": "Interesse in vroege toegang?",
+          "body": "Schrijf je in voor de wachtlijst en hoor als de enrollment opent."
+        }
+      },
+      "aiseo": {
+        "title": "AISEO-pakket (AIEO)",
+        "description": "Zorg dat AI-systemen jullie merk als eerste herkennen en aanbevelen.",
+        "price": "Beta-toegang",
+        "frequency": "Vraag uitnodiging aan",
+        "cta": "Meld je aan voor beta",
+        "bullets": {
+          "aiVisibility": "Optimaliseer hoe toonaangevende AI-assistenten jullie organisatie begrijpen",
+          "knowledgeGraphs": "Stuur de kennisgrafen aan waar generatieve AI zich op baseert",
+          "searchFuture": "Maak jullie vindbaarheid future-proof nu AI-gestuurde search de norm wordt",
+          "experimentation": "Werk samen met ons team terwijl we de ranking-algoritmes verfijnen",
+          "reporting": "Transparante rapportages over zichtbaarheid in AI-kanalen"
+        },
+        "footer": {
+          "title": "Beperkte beta-capaciteit",
+          "body": "We beoordelen aanmeldingen wekelijks en starten cohorts gefaseerd op."
+        }
+      },
+      "overview": {
+        "title": "AI-situatieoverzicht",
+        "description": "Een strategische sessie van twee uur die jullie positie in het AI-landschap vergelijkt.",
+        "price": "€799",
+        "frequency": "twee uur strategieconsult",
+        "cta": "Meld je nu aan",
+        "bullets": {
+          "topTierAdvice": "Topadvies op maat van jullie doelen en randvoorwaarden",
+          "situationOverview": "Inzicht in waar jullie organisatie nu staat in het AI-landschap",
+          "report": "Uitgebreid rapport met concrete vervolgstappen en prioriteiten",
+          "benchmark": "Benchmark ten opzichte van branchegenoten",
+          "endToEnd": "Front- en backend-kansen in één overzicht uitgewerkt"
+        },
+        "footer": {
+          "title": "Klaar voor de volgende stap?",
+          "body": "We schetsen de roadmap-opties en koppelen je aan de juiste experts."
         }
       }
     },
