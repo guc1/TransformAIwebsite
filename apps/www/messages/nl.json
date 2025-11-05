@@ -869,12 +869,12 @@
         "send": "Versturen"
       },
       "empty": {
-        "title": "Waarmee kunnen we helpen…",
+        "title": "basis vragen",
         "prompts": [
-          "Welke AI-transformatiediensten biedt TransformAI voor middelgrote bedrijven?",
-          "Hoe plan ik een gratis kennismakingsgesprek?",
-          "Kun je het verschil uitleggen tussen het Education- en het Introduction-pakket?",
-          "Hoe zorgt TransformAI ervoor dat AI-adoptie compliant blijft?"
+          "Wat is TransformAI?",
+          "Welke oplossingen biedt TransformAI aan?",
+          "Waar kan ik contact opnemen?",
+          "Hoe kan jij zo snel typen?"
         ],
         "action": "Stel deze vraag"
       },
@@ -1344,6 +1344,16 @@
       "eyebrow": "Leden",
       "title": "Maak je TransformAI-account",
       "subtitle": "Ontvang exclusieve AI-updates en toegang tot het teamdashboard.",
+      "clientGate": {
+        "eyebrow": "Leden",
+        "title": "Voer je klantcode in",
+        "description": "Alleen TransformAI-klanten kunnen een account aanmaken. Vul de gedeelde klantcode in om door te gaan.",
+        "label": "Klantcode",
+        "placeholder": "Voer de code van TransformAI in",
+        "submit": "Ga verder naar account aanmaken",
+        "hint": "Hulp nodig? Neem contact op met je TransformAI-consultant voor de actuele klantcode.",
+        "error": "Die klantcode klopt niet. Probeer het opnieuw."
+      },
       "staffButton": "Client",
       "staffModeOn": "Staff-modus",
       "staffDialog": {
@@ -1386,6 +1396,16 @@
       "eyebrow": "Leden",
       "title": "Welkom terug",
       "subtitle": "Ga verder met je persoonlijke AI-updates.",
+      "clientGate": {
+        "eyebrow": "Leden",
+        "title": "Bevestig je klanttoegang",
+        "description": "Vul de TransformAI-klantcode in om door te gaan naar de inlogpagina.",
+        "label": "Klantcode",
+        "placeholder": "Voer de code van TransformAI in",
+        "submit": "Ga verder naar inloggen",
+        "hint": "Code kwijt? Neem contact op met je TransformAI-contactpersoon.",
+        "error": "Die klantcode klopt niet. Probeer het opnieuw."
+      },
       "googleCta": "Log in met Google",
       "or": "of ga verder met e-mail",
       "emailLabel": "E-mailadres",
