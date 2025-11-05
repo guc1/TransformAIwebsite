@@ -1,4 +1,5 @@
 import { SignInForm } from "@/components/auth/sign-in-form";
+import { ClientAccessGate } from "@/components/auth/client-access-gate";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
@@ -25,7 +26,9 @@ export default function SignInPage() {
         className="pointer-events-none absolute inset-x-0 top-[-320px] h-[640px] bg-gradient-to-b from-indigo-500/25 via-transparent to-transparent blur-3xl"
       />
       <div className="container relative z-10 max-w-2xl">
-        <SignInForm />
+        <ClientAccessGate variant="signIn">
+          <SignInForm />
+        </ClientAccessGate>
       </div>
     </div>
   );

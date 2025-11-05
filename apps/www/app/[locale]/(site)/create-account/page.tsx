@@ -1,4 +1,5 @@
 import { SignUpForm } from "@/components/auth/sign-up-form";
+import { ClientAccessGate } from "@/components/auth/client-access-gate";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
@@ -25,7 +26,9 @@ export default function CreateAccountPage() {
         className="pointer-events-none absolute inset-x-0 top-[-320px] h-[640px] bg-gradient-to-b from-sky-400/20 via-transparent to-transparent blur-3xl"
       />
       <div className="container relative z-10 max-w-2xl">
-        <SignUpForm />
+        <ClientAccessGate variant="signUp">
+          <SignUpForm />
+        </ClientAccessGate>
       </div>
     </div>
   );

@@ -912,12 +912,12 @@
         "send": "Send"
       },
       "empty": {
-        "title": "How we can help…",
+        "title": "Common questions",
         "prompts": [
-          "What AI transformation services does TransformAI offer for mid-sized companies?",
-          "How do I schedule a free introduction call?",
-          "Can you compare the Education and Introduction packages?",
-          "How does TransformAI ensure AI adoption stays compliant?"
+          "What is TransformAI?",
+          "Which solutions does TransformAI provide?",
+          "Where can I get in touch?",
+          "How can you type so fast?"
         ],
         "action": "Ask this question"
       },
@@ -1387,6 +1387,16 @@
       "eyebrow": "Members",
       "title": "Create your TransformAI account",
       "subtitle": "Unlock tailored AI news and staff dashboards.",
+      "clientGate": {
+        "eyebrow": "Members",
+        "title": "Enter your client access code",
+        "description": "Only TransformAI clients can create an account. Enter the shared code to continue.",
+        "label": "Client access code",
+        "placeholder": "Enter the code from TransformAI",
+        "submit": "Continue to create account",
+        "hint": "Need access? Contact your TransformAI consultant to request the latest client code.",
+        "error": "That client code doesn't match. Try again."
+      },
       "staffButton": "Client",
       "staffModeOn": "Staff mode",
       "staffDialog": {
@@ -1429,6 +1439,16 @@
       "eyebrow": "Members",
       "title": "Welcome back",
       "subtitle": "Pick up where you left off with tailored updates.",
+      "clientGate": {
+        "eyebrow": "Members",
+        "title": "Confirm your client access",
+        "description": "Enter the TransformAI client code to continue to the sign-in page.",
+        "label": "Client access code",
+        "placeholder": "Enter the code from TransformAI",
+        "submit": "Continue to sign in",
+        "hint": "Need the code? Reach out to your TransformAI point of contact.",
+        "error": "That client code doesn't match. Try again."
+      },
       "googleCta": "Sign in with Google",
       "or": "or continue with email",
       "emailLabel": "Email address",
