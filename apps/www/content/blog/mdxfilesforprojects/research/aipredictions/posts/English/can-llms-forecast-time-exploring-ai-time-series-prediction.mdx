@@ -1,0 +1,67 @@
+---
+date: 2025-06-27
+title: "Can LLMs Forecast Time? Exploring AI Time-Series Prediction"
+description: "As AI advances, can transformer LLMs forecast how variables evolve over time? We outline use cases, our research focus on semantics and fine-tuning, and summarize findings from From Tokens to Temperatures."
+author: yergush
+tags: ["ai", "research", "time-series", "llm", "climate"]
+image: "/images/blog-images/mdxfilesforprojects/research/aipredictions/images/coverpredict.png"
+language: English
+---
+# Can LLMs Forecast Time? Exploring AI Time-Series Prediction
+
+![Homescreen cover](/images/blog-images/mdxfilesforprojects/research/aipredictions/images/coverpredict.png)
+
+As AI gets better, the questions we ask it get harder. One of the toughest: **can modern AI predict how things change over time?** Unlike classical algorithms, large language models (LLMs) are **non-deterministic**, which raises concerns for time-series forecasting where stability and calibration matter. Still, with rapidly improving models and tooling, it seems less a question of *if* and more of *when* credible AI time-series forecasts become routine.
+
+## Why time-series forecasting matters
+
+Potential use cases span consumer, enterprise, and science:
+
+- Markets: stock signals, regime shifts, risk alerts  
+- Product & growth: user base projections, churn/retention, demand planning  
+- Operations: capacity, staffing, logistics, inventory  
+- Earth system science: weather nowcasting, **temperature forecasting**
+
+Each domain has different tolerance for risk and error, which is why measuring **both accuracy and reliability** is essential.
+
+## Our research focus
+
+We investigate **how well transformer-based LLMs can predict variables over time** when given structured signals (e.g., forcing variables) and **semantic context** (meaningful labels/prompts). In short: does “meaning” in the input help a model reason about the future rather than just fit patterns?
+
+Key questions:
+
+- What’s the delta between **raw numeric inputs** vs. **semantically labeled** inputs?  
+- How much does **model size** matter for forecasting skill?  
+- Do **lightweight fine-tuning** approaches (e.g., QLoRA) improve stability and accuracy?  
+- How do we evaluate **both** point accuracy and error tails (outliers)?
+
+## Study spotlight: From Tokens to Temperatures (summary)
+
+**Context.** This thesis examines whether adding semantic context improves LLM forecasting of **global mean surface air temperature** from climate forcing data.  
+**Models.** Open-source Qwen-2.5 transformers at **3B** and **7B** parameters.  
+**Design.** Inputs under four conditions of increasing semantic richness: (1) no labels, (2) incorrect/mismatched labels, (3) correct labels, (4) correct labels + a short explanatory prompt. Each model was evaluated **zero-shot** and after **light fine-tuning** (2 epochs, QLoRA).
+
+**Main findings (in plain language):**
+
+- **Meaning matters—substantially.** A 3B model rose from ~**1%** accuracy (unlabeled) to ~**29%** (correct labels). The 7B model rose from ~**10%** to ~**37%** under the same shift. Even mismatched labels beat no labels; **truthful labels** yielded the largest gains.  
+- **Scale helps, context helps more.** Bigger models performed better on average, yet the **largest jumps** came from adding **semantic context**.  
+- **Light fine-tuning boosts stability and accuracy.** The **7B** model reached **~45%** best accuracy post fine-tuning, and **large outliers (>5 K)** were virtually eliminated whenever labels were present.  
+- **Statistical significance.** ANOVA and post-hoc tests confirm that improvements from **semantic context**, **model size**, and **fine-tuning** are significant.
+
+![Chart: results snapshot](/images/blog-images/mdxfilesforprojects/research/aipredictions/images/chartsfrompaper.png)
+
+## Why this matters
+
+These results provide controlled evidence that LLMs can use **semantic information**—not only numeric correlations—to make **more accurate and more stable** scientific forecasts. With careful problem framing (labels/prompts) and modest adaptation (light fine-tuning), LLMs move closer to genuine data understanding in complex time-series tasks.
+
+> Full paper: [From Tokens to Temperatures (Google Doc)](https://docs.google.com/document/d/1C_aoIrUVfBRAkgEE1aik6_ByQjDdnZfZxJs4OQDMs5Q/edit?usp=sharing)
+
+## Takeaways
+
+- LLMs are stochastic, but **stochastic ≠ unusable** for forecasting.  
+- **Semantic labels are leverage**—they improve both accuracy and error behavior, even for small models.  
+- Evaluate **error tails**, not just mean scores; eliminating large outliers can matter most in practice.
+
+## What’s next
+
+We’re testing generalization beyond climate (user metrics, ops signals, financial series), comparing LLMs with classical forecasters under identical data regimes, and measuring **calibration, uncertainty, drift**, and **cost–quality trade-offs** for production viability.

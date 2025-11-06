@@ -1,27 +1,83 @@
 import Link from "next/link";
 
 import { PrimaryButton, SecondaryButton } from "@/components/button";
-import { BookOpen, ChevronRight, LogIn } from "lucide-react";
+import { ChevronRight, Lightbulb, LogIn } from "lucide-react";
 
-export function HeroMainSection() {
+import { HoursSavedTicker, type HoursSavedNumberFormatOptions } from "./hours-saved-ticker";
+
+type HeroMainSectionProps = {
+  title: string;
+  body: string;
+  primaryCtaLabel: string;
+  primaryCtaHref: string;
+  secondaryCtaLabel: string;
+  secondaryCtaHref: string;
+  hoursSavedLabel: string;
+  hoursSavedInitialAmount: number;
+  hoursSavedInitialFormatted: string;
+  hoursSavedInitialFormatterLocale: string;
+  hoursSavedInitialFormatterOptions: HoursSavedNumberFormatOptions;
+  hoursSavedNextUpdateAt: string | null;
+  locale: string;
+};
+
+export function HeroMainSection({
+  title,
+  body,
+  primaryCtaLabel,
+  primaryCtaHref,
+  secondaryCtaLabel,
+  secondaryCtaHref,
+  hoursSavedLabel,
+  hoursSavedInitialAmount,
+  hoursSavedInitialFormatted,
+  hoursSavedInitialFormatterLocale,
+  hoursSavedInitialFormatterOptions,
+  hoursSavedNextUpdateAt,
+  locale,
+}: HeroMainSectionProps) {
   return (
-    <div className="relative flex flex-col items-center text-center ">
+    <div className="relative flex flex-col items-center text-center">
       <h1 className="bg-gradient-to-br text-balance text-transparent bg-gradient-stop bg-clip-text from-white via-white via-30% to-white/30  font-medium text-6xl leading-none xl:text-[82px] tracking-tighter">
-        The Developer Platform for Modern APIs
+        {title}
       </h1>
 
       <p className="mt-6 sm:mt-8 bg-gradient-to-br text-transparent text-balance bg-gradient-stop bg-clip-text max-w-sm sm:max-w-lg xl:max-w-4xl from-white/70 via-white/70 via-40% to-white/30 text-base md:text-lg">
-        Easily integrate necessary API features like API keys, rate limiting, and usage analytics,
-        ensuring your API is ready to scale.
+        {body}
       </p>
 
-      <div className="flex items-center gap-6 mt-16">
-        <Link href="https://app.unkey.com" className="group">
-          <PrimaryButton shiny IconLeft={LogIn} label="Get started" className="h-10" />
+      <div className="mt-16 flex w-full flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-center sm:gap-8">
+        <Link href={primaryCtaHref} className="group block w-full sm:inline-flex sm:w-auto sm:flex-shrink-0">
+          <PrimaryButton
+            shiny
+            IconLeft={LogIn}
+            label={primaryCtaLabel}
+            className="h-10 w-full justify-center sm:w-auto sm:min-w-[200px]"
+          />
         </Link>
-
-        <Link href="/docs" className="hidden sm:flex">
-          <SecondaryButton IconLeft={BookOpen} label="Documentation" IconRight={ChevronRight} />
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2 font-semibold uppercase text-white/70 backdrop-blur-sm sm:gap-3 sm:px-8 sm:py-2.5 whitespace-nowrap">
+          <span className="text-[0.75rem] tracking-[0.35em] text-white/60 sm:text-xs">{hoursSavedLabel}</span>
+          <span className="text-white/40">:</span>
+          <HoursSavedTicker
+            initialAmount={hoursSavedInitialAmount}
+            initialFormattedAmount={hoursSavedInitialFormatted}
+            initialFormattedLocale={hoursSavedInitialFormatterLocale}
+            initialFormattedOptions={hoursSavedInitialFormatterOptions}
+            initialNextUpdateAt={hoursSavedNextUpdateAt}
+            locale={locale}
+            className="text-sm tracking-[0.2em] text-white sm:text-base"
+          />
+        </div>
+        <Link
+          href={secondaryCtaHref}
+          className="hidden w-full sm:inline-flex sm:w-auto sm:flex-shrink-0"
+        >
+          <SecondaryButton
+            IconLeft={Lightbulb}
+            label={secondaryCtaLabel}
+            IconRight={ChevronRight}
+            className="sm:min-w-[200px] justify-center"
+          />
         </Link>
       </div>
     </div>

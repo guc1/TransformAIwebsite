@@ -1,102 +1,116 @@
 "use client";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { UnkeyLogo } from "./footer-svgs";
-import { Wordmark } from "./wordmark";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { TransformAILogo } from "./footer-svgs";
 
 type NavLink = {
-  title: string;
+  titleKey: string;
   href: string;
   external?: boolean;
+  disabled?: boolean;
 };
 const navigation = [
   {
-    title: "Company",
+    titleKey: "sections.company",
     links: [
-      { title: "About", href: "/about" },
-
-      { title: "Roadmap", href: "/roadmap" },
-      { title: "Careers", href: "/careers" },
-      {
-        title: "Source Code",
-        href: "https://go.unkey.com/github",
-        external: true,
-      },
-      {
-        title: "Status Page",
-        href: "https://status.unkey.com",
-        external: true,
-      },
+      { titleKey: "links.about", href: "/about" },
+      { titleKey: "links.roadmap", href: "/roadmap", disabled: true },
+      { titleKey: "links.careers", href: "/careers" },
+      { titleKey: "links.contact", href: "/contact" },
     ],
   },
   {
-    title: "Resources",
+    titleKey: "sections.resources",
     links: [
-      { title: "Blog", href: "/blog" },
-      { title: "Changelog", href: "/changelog" },
-      { title: "Templates", href: "/templates" },
+      { titleKey: "links.blog", href: "/blog" },
+      { titleKey: "links.changelog", href: "/changelog", disabled: true },
+      { titleKey: "links.templates", href: "/templates", disabled: true },
       {
-        title: "Docs",
+        titleKey: "links.docs",
         href: "/docs",
         external: true,
+        disabled: true,
       },
       {
-        title: "Glossary",
+        titleKey: "links.glossary",
         href: "/glossary",
+        disabled: true,
       },
     ],
   },
   {
-    title: "Connect",
+    titleKey: "sections.connect",
     links: [
       {
-        title: "X (Twitter)",
+        titleKey: "links.twitter",
         href: "https://go.unkey.com/twitter",
         external: true,
+        disabled: true,
       },
       {
-        title: "Discord",
+        titleKey: "links.discord",
         href: "https://go.unkey.com/discord",
         external: true,
+        disabled: true,
       },
-      { title: "OSS Friends", href: "/oss-friends" },
       {
-        title: "Book a Call",
-        href: "https://cal.com/team/unkey/user-interview?utm_source=banner&utm_campaign=oss",
+        titleKey: "links.bookCall",
+        href: "/meeting",
+      },
+      {
+        titleKey: "links.facebook",
+        href: "https://www.facebook.com/TransformAI",
+        external: true,
+      },
+      {
+        titleKey: "links.linkedin",
+        href: "https://www.linkedin.com/company/transformai",
         external: true,
       },
     ],
   },
   {
-    title: "Legal",
+    titleKey: "sections.legal",
     links: [
-      { title: "Terms of Service", href: "/policies/terms" },
-      { title: "Privacy Policy", href: "/policies/privacy" },
+      { titleKey: "links.terms", href: "/policies/terms", disabled: true },
+      { titleKey: "links.privacy", href: "/policies/privacy", disabled: true },
     ],
   },
-] satisfies Array<{ title: string; links: Array<NavLink> }>;
+] satisfies Array<{ titleKey: string; links: Array<NavLink> }>;
 
 const Column: React.FC<{
-  title: string;
+  titleKey: string;
   links: Array<NavLink>;
   className?: string;
-}> = ({ title, links, className }) => {
+}> = ({ titleKey, links, className }) => {
+  const t = useTranslations("Footer");
   return (
     <div className={cn("flex flex-col gap-8   text-left ", className)}>
       <span className="w-full text-sm font-medium tracking-wider text-white font-display">
-        {title}
+        {t(titleKey)}
       </span>
       <ul className="flex flex-col gap-4 md:gap-6">
         {links.map((link) => (
-          <li key={link.href}>
-            <Link
-              href={link.href}
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noopener noreferrer" : undefined}
-              className="text-sm font-normal transition hover:text-white/40 text-white/70"
-            >
-              {link.title}
-            </Link>
+          <li key={link.titleKey}>
+            {link.disabled ? (
+              <span
+                className="text-sm font-normal text-white/70"
+                aria-disabled="true"
+              >
+                {t(link.titleKey)}
+              </span>
+            ) : (
+              <Link
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                className="text-sm font-normal transition hover:text-white/40 text-white/70"
+              >
+                {t(link.titleKey)}
+              </Link>
+            )}
           </li>
         ))}
       </ul>
@@ -104,27 +118,34 @@ const Column: React.FC<{
   );
 };
 
-export function Footer() {
+export function Footer({ initialYear }: { initialYear: number }) {
+  const t = useTranslations("Footer");
+  const [year, setYear] = useState(initialYear);
+
+  useEffect(() => {
+    const currentYear = new Date().getUTCFullYear();
+    if (currentYear !== year) {
+      setYear(currentYear);
+    }
+  }, [year]);
+
   return (
     <div className="border-t border-white/20 blog-footer-radial-gradient">
-      <footer className="container relative grid grid-cols-2 gap-8 pt-8 mx-auto overflow-hidden lg:gap-16 sm:grid-cols-3 xl:grid-cols-5 sm:pt-12 md:pt-16 lg:pt-24 xl:pt-32">
+      <footer className="container relative grid grid-cols-2 gap-8 pt-8 pb-12 mx-auto overflow-hidden lg:gap-16 sm:grid-cols-3 xl:grid-cols-5 sm:pt-12 sm:pb-16 md:pt-16 md:pb-20 lg:pt-24 lg:pb-24 xl:pt-32 xl:pb-32">
         <div className="flex flex-col items-center col-span-2 sm:items-start sm:col-span-3 xl:col-span-1">
-          <UnkeyLogo />
+          <TransformAILogo className="h-12 w-auto" sizes="(max-width: 768px) 160px, 220px" />
           <div className="mt-8 text-sm font-normal leading-6 text-white/60">
-            Build better APIs faster.
+            {t("tagline")}
           </div>
           <div className="text-sm font-normal leading-6 text-white/40">
-            Unkeyed, Inc. {new Date().getUTCFullYear()}
+            {t("copyright", { year })}
           </div>
         </div>
 
-        {navigation.map(({ title, links }) => (
-          <Column key={title} title={title} links={links} className="col-span-1 " />
+        {navigation.map(({ titleKey, links }) => (
+          <Column key={titleKey} titleKey={titleKey} links={links} className="col-span-1 " />
         ))}
       </footer>
-      <div className="container mt-8 h-[100px]">
-        <Wordmark className="flex w-full" />
-      </div>
     </div>
   );
 }

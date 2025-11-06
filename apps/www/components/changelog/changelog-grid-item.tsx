@@ -1,5 +1,7 @@
 import { MDX } from "@/components/mdx-content";
 import { Separator } from "@/components/ui/separator";
+import { formatDateUtc } from "@/lib/date";
+import { env } from "@/lib/env";
 import { cn } from "@/lib/utils";
 import type { Changelog } from "content-collections";
 import Link from "next/link";
@@ -12,18 +14,18 @@ type Props = {
 };
 
 export async function ChangelogGridItem({ className, changelog }: Props) {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
+  const { NEXT_PUBLIC_BASE_URL } = env();
+  const shareTarget = new URL(`/changelog#${changelog.slug}`, NEXT_PUBLIC_BASE_URL);
+  const shareText = encodeURIComponent(`${changelog.title}\n\n${shareTarget.toString()}`);
 
   return (
     <div id={changelog.slug} className={cn("w-full", className)}>
       <div>
         <div className="flex flex-col sm:flex-row pb-10 gap-4 font-medium">
-          {new Date(changelog.date).toLocaleDateString("en-US", {
-            year: "numeric",
+          {formatDateUtc(changelog.date, {
             month: "long",
             day: "numeric",
+            year: "numeric",
           })}
           <div className="flex flex-row gap-x-3">
             {changelog.tags?.map((tag) => (
@@ -62,7 +64,7 @@ export async function ChangelogGridItem({ className, changelog }: Props) {
         <MDX code={changelog.mdx} />
         <XShareButton
           className="my-2"
-          url={`https://x.com/intent/post?text=${changelog.title}%0a%0a${baseUrl}/changelog#${changelog.slug}`}
+          url={`https://x.com/intent/post?text=${shareText}`}
         />
       </div>
       <div>

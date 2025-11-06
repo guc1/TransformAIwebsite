@@ -268,6 +268,111 @@ li > p {
   animation: slideGradient 1.5s linear forwards;
 }
 
+.hero-mainboard-lights {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.hero-mainboard-lights::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  background:
+    radial-gradient(
+      140% 130% at 18% 12%,
+      hsla(var(--feature-11), 0.32) 0%,
+      hsla(var(--feature-11), 0.12) 40%,
+      transparent 72%
+    ),
+    linear-gradient(
+      90deg,
+      hsla(var(--success-11), 0.32) 0%,
+      hsla(var(--info-11), 0.36) 46%,
+      hsla(var(--feature-11), 0.55) 92%
+    );
+  mix-blend-mode: screen;
+  filter: blur(46px);
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.hero-mainboard-light {
+  position: absolute;
+  top: var(--hero-mainboard-light-top, 40%);
+  height: var(--hero-mainboard-light-height, 24%);
+  width: 220%;
+  left: -70%;
+  opacity: 0.68;
+  border-radius: 999px;
+  --hero-mainboard-light-radial-x: 24%;
+  --hero-mainboard-light-radial-y: 14%;
+  --hero-mainboard-light-teal-start: 18%;
+  --hero-mainboard-light-blue-crest: 46%;
+  --hero-mainboard-light-purple-crest: 72%;
+  --hero-mainboard-light-purple-falloff: 86%;
+  background:
+    radial-gradient(
+      150% 150% at var(--hero-mainboard-light-radial-x) var(--hero-mainboard-light-radial-y),
+      hsla(var(--feature-11), 0.52) 0%,
+      hsla(var(--feature-11), 0.24) 38%,
+      hsla(var(--feature-11), 0.08) 64%,
+      transparent 80%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      hsla(var(--success-11), 0.32) var(--hero-mainboard-light-teal-start),
+      hsla(var(--info-10), 0.52) var(--hero-mainboard-light-blue-crest),
+      hsla(var(--feature-11), 0.68) var(--hero-mainboard-light-purple-crest),
+      hsla(var(--feature-10), 0.42) var(--hero-mainboard-light-purple-falloff),
+      transparent 100%
+    );
+  background-repeat: no-repeat;
+  background-blend-mode: screen;
+  filter: blur(20px);
+  animation: hero-mainboard-scan var(--hero-mainboard-light-duration, 10s) linear infinite;
+  animation-delay: var(--hero-mainboard-light-delay, 0s);
+}
+
+.hero-mainboard-light--one {
+  --hero-mainboard-light-top: 28%;
+  --hero-mainboard-light-height: 22%;
+  --hero-mainboard-light-duration: 9s;
+  --hero-mainboard-light-delay: 0s;
+  --hero-mainboard-light-radial-x: 20%;
+  --hero-mainboard-light-radial-y: 10%;
+  --hero-mainboard-light-teal-start: 14%;
+  --hero-mainboard-light-blue-crest: 44%;
+  --hero-mainboard-light-purple-crest: 68%;
+}
+
+.hero-mainboard-light--two {
+  --hero-mainboard-light-top: 46%;
+  --hero-mainboard-light-height: 18%;
+  --hero-mainboard-light-duration: 12s;
+  --hero-mainboard-light-delay: -4s;
+  --hero-mainboard-light-radial-x: 26%;
+  --hero-mainboard-light-radial-y: 18%;
+  --hero-mainboard-light-teal-start: 18%;
+  --hero-mainboard-light-blue-crest: 50%;
+  --hero-mainboard-light-purple-crest: 74%;
+}
+
+.hero-mainboard-light--three {
+  --hero-mainboard-light-top: 64%;
+  --hero-mainboard-light-height: 24%;
+  --hero-mainboard-light-duration: 10.5s;
+  --hero-mainboard-light-delay: -7s;
+  --hero-mainboard-light-radial-x: 30%;
+  --hero-mainboard-light-radial-y: 24%;
+  --hero-mainboard-light-teal-start: 20%;
+  --hero-mainboard-light-blue-crest: 52%;
+  --hero-mainboard-light-purple-crest: 76%;
+}
+
 @keyframes slideGradient {
   from {
     left: -50%;
@@ -275,6 +380,51 @@ li > p {
 
   to {
     left: 0;
+  }
+}
+
+@keyframes hero-mainboard-scan {
+  0% {
+    transform: translate3d(-45%, 0, 0);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  85% {
+    opacity: 0.45;
+  }
+
+  100% {
+    transform: translate3d(45%, 0, 0);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mainboard-light {
+    animation: none;
+    opacity: 0.3;
+  }
+}
+
+@keyframes chat-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(0);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
   }
 }
 

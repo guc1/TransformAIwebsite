@@ -1,6 +1,7 @@
+import { formatDateUtc } from "@/lib/date";
+import { filterProjectPosts } from "@/lib/blog-posts";
 import { cn } from "@/lib/utils";
 import { type Post, allPosts } from "content-collections";
-import { format } from "date-fns";
 import Link from "next/link";
 import { Frame } from "../frame";
 import { ImageWithBlur } from "../image-with-blur";
@@ -11,7 +12,9 @@ type BlogListProps = {
 };
 
 export function SuggestedBlogs({ className, currentPostSlug }: BlogListProps): JSX.Element {
-  const posts = allPosts.filter((post: Post, _i) => post.url !== currentPostSlug).slice(0, 3);
+  const posts = filterProjectPosts(allPosts)
+    .filter((post: Post) => post.url !== currentPostSlug)
+    .slice(0, 3);
   if (posts.length === 0) {
     return <></>;
   }
@@ -32,7 +35,11 @@ export function SuggestedBlogs({ className, currentPostSlug }: BlogListProps): J
                 </Frame>
                 <p className="text-white">{post?.title}</p>
                 <p className="text-sm text-white/50">
-                  {format(new Date(post?.date!), "MMM dd, yyyy")}
+                  {formatDateUtc(post?.date, {
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                  })}
                 </p>
               </div>
             </div>

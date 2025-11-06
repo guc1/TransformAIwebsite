@@ -1,8 +1,14 @@
 "use client";
 
-import { useMousePosition } from "@/lib/mouse";
 import type React from "react";
-import { type PropsWithChildren, useCallback, useEffect, useRef, useState } from "react";
+import {
+  Children,
+  type PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 
 type ShinyCardGroupProps = {
   children: React.ReactNode;
@@ -16,62 +22,120 @@ export const ShinyCardGroup: React.FC<ShinyCardGroupProps> = ({
   refresh = false,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mousePosition = useMousePosition();
-  const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const containerSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
-  const [boxes, setBoxes] = useState<Array<HTMLElement>>([]);
+  const boxesRef = useRef<HTMLElement[]>([]);
+  const boxOffsetsRef = useRef<Array<{ left: number; top: number }>>([]);
+  const pointerFrameRef = useRef<number | null>(null);
+  const childCount = useMemo(() => Children.count(children), [children]);
 
-  useEffect(() => {
-    containerRef.current &&
-      setBoxes(Array.from(containerRef.current.children).map((el) => el as HTMLElement));
+  const measureBoxes = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) {
+      boxesRef.current = [];
+      boxOffsetsRef.current = [];
+      return;
+    }
+
+    boxesRef.current = Array.from(container.children).map((el) => el as HTMLElement);
+    const containerRect = container.getBoundingClientRect();
+
+    boxOffsetsRef.current = boxesRef.current.map((box) => {
+      const rect = box.getBoundingClientRect();
+      return {
+        left: rect.left - containerRect.left,
+        top: rect.top - containerRect.top,
+      };
+    });
   }, []);
 
   useEffect(() => {
-    initContainer();
-    window.addEventListener("resize", initContainer);
+    measureBoxes();
+  }, [measureBoxes, refresh, childCount]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      measureBoxes();
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", initContainer);
+      window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [measureBoxes]);
 
-  const initContainer = useCallback(() => {
-    if (containerRef.current) {
-      containerSize.current.w = containerRef.current.offsetWidth;
-      containerSize.current.h = containerRef.current.offsetHeight;
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || typeof ResizeObserver === "undefined") {
+      return;
     }
-  }, []);
 
-  const onMouseMove = useCallback(() => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      const { w, h } = containerSize.current;
-      const x = mousePosition.x - rect.left;
-      const y = mousePosition.y - rect.top;
-      const inside = x < w && x > 0 && y < h && y > 0;
-      if (inside) {
-        mouse.current.x = x;
-        mouse.current.y = y;
-        boxes.forEach((box) => {
-          const boxX = -(box.getBoundingClientRect().left - rect.left) + mouse.current.x;
-          const boxY = -(box.getBoundingClientRect().top - rect.top) + mouse.current.y;
+    const observer = new ResizeObserver(() => {
+      measureBoxes();
+    });
+
+    observer.observe(container);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [measureBoxes]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) {
+      return;
+    }
+
+    const handlePointerMove = (event: PointerEvent) => {
+      if (pointerFrameRef.current !== null) {
+        window.cancelAnimationFrame(pointerFrameRef.current);
+      }
+
+      pointerFrameRef.current = window.requestAnimationFrame(() => {
+        const rect = container.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+          pointerFrameRef.current = null;
+          return;
+        }
+
+        boxesRef.current.forEach((box, index) => {
+          const bounds = boxOffsetsRef.current[index];
+          if (!bounds) {
+            return;
+          }
+
+          const boxX = x - bounds.left;
+          const boxY = y - bounds.top;
           box.style.setProperty("--mouse-x", `${boxX}px`);
           box.style.setProperty("--mouse-y", `${boxY}px`);
         });
+
+        pointerFrameRef.current = null;
+      });
+    };
+
+    const handlePointerLeave = () => {
+      if (pointerFrameRef.current !== null) {
+        window.cancelAnimationFrame(pointerFrameRef.current);
+        pointerFrameRef.current = null;
       }
-    }
-  }, [boxes, mousePosition.x, mousePosition.y]);
+    };
 
-  useEffect(() => {
-    onMouseMove();
-  }, [onMouseMove]);
+    container.addEventListener("pointermove", handlePointerMove);
+    container.addEventListener("pointerleave", handlePointerLeave);
 
-  useEffect(() => {
-    if (!refresh) {
-      return;
-    }
-    initContainer();
-  }, [initContainer, refresh]);
+    return () => {
+      container.removeEventListener("pointermove", handlePointerMove);
+      container.removeEventListener("pointerleave", handlePointerLeave);
+      if (pointerFrameRef.current !== null) {
+        window.cancelAnimationFrame(pointerFrameRef.current);
+        pointerFrameRef.current = null;
+      }
+    };
+  }, [childCount]);
 
   return (
     <div className={className} ref={containerRef}>

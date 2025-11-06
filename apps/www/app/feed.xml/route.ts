@@ -1,4 +1,5 @@
 import { authors } from "@/content/blog/authors";
+import { filterProjectPosts } from "@/lib/blog-posts";
 import { type Post, allPosts } from "content-collections";
 import RSS from "rss";
 const feed = new RSS({
@@ -11,7 +12,7 @@ const feed = new RSS({
   pubDate: new Date(),
 });
 
-const posts = allPosts.sort((a: Post, b: Post) => {
+const posts = filterProjectPosts([...allPosts]).sort((a: Post, b: Post) => {
   return new Date(b.date).getTime() - new Date(a.date).getTime();
 });
 

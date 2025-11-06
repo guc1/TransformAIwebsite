@@ -1,4 +1,6 @@
 "use client";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { TransformAILogo } from "@/components/footer/footer-svgs";
 import {
   Drawer,
   DrawerContent,
@@ -6,19 +8,32 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { Link, usePathname } from "@/i18n/navigation";
+import { locales } from "@/i18n/routing";
+import { useAccountHistory } from "@/hooks/use-account-history";
 import { cn } from "@/lib/utils";
 import { useConsentManager } from "@c15t/nextjs";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { track } from "@vercel/analytics";
 import { motion } from "framer-motion";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { PrimaryButton, SecondaryButton } from "../button";
+import {
+  CalendarClock,
+  ChevronDown,
+  ChevronRight,
+  LogIn,
+  MoreVertical,
+  UserPlus,
+  UsersRound,
+  type LucideIcon,
+} from "lucide-react";
+import { useTranslations } from "next-intl";
+import { forwardRef, useEffect, useState, type ComponentPropsWithoutRef } from "react";
 import { DesktopNavLink, MobileNavLink } from "./link";
 
 export function Navigation() {
-  const [scrollPercent, setScrollPercent] = useState(0);
-  const { hasConsentFor } = useConsentManager();
+  const [scrollY, setScrollY] = useState(0);
+  const t = useTranslations("Navigation");
+  const pathname = usePathname();
   const containerVariants = {
     hidden: {
       opacity: 0,
@@ -33,68 +48,622 @@ export function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollThreshold = 100;
-      const scrollPercent = Math.min(window.scrollY / 2 / scrollThreshold, 1);
-      setScrollPercent(scrollPercent);
+      setScrollY(window.scrollY);
     };
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const backgroundOpacity = Math.min(scrollY / 200, 1);
+  const borderOpacity = Math.min(backgroundOpacity / 5, 0.15);
+  const shrinkProgress = Math.min(scrollY / 60, 1);
+  const trimmedPathname =
+    pathname && pathname.length > 1 && pathname.endsWith("/")
+      ? pathname.slice(0, -1)
+      : pathname ?? "/";
+  const localeStrippedPath = locales.reduce((current, code) => {
+    const prefix = `/${code}`;
+    if (current === prefix) {
+      return "/";
+    }
+    if (current.startsWith(`${prefix}/`)) {
+      return current.slice(prefix.length) || "/";
+    }
+    return current;
+  }, trimmedPathname);
+  const normalizedPathname =
+    localeStrippedPath.length > 1 && localeStrippedPath.endsWith("/")
+      ? localeStrippedPath.slice(0, -1)
+      : localeStrippedPath || "/";
+  const isHome = normalizedPathname === "/";
+  const isClientView =
+    normalizedPathname === "/newsupdates" || normalizedPathname.startsWith("/newsupdates/");
+  const isStaffOverviewView = normalizedPathname === "/dashboard";
+  const isStaffPlanningView = normalizedPathname.startsWith("/dashboard/planning");
+  const isStaffHoursSavedView = normalizedPathname.startsWith("/dashboard/hours-saved");
+  const isStaffInboxView = normalizedPathname.startsWith("/dashboard/inbox");
+  const isStaffView =
+    isStaffOverviewView ||
+    isStaffPlanningView ||
+    isStaffHoursSavedView ||
+    isStaffInboxView ||
+    normalizedPathname.startsWith("/dashboard/");
+  const isLoggedInView = isClientView || isStaffView;
+  const settledLogoScale = 0.68;
+  const initialLogoScale = isHome ? 1 : 0.74;
+  const logoScale =
+    initialLogoScale - (initialLogoScale - settledLogoScale) * shrinkProgress;
+  const basePadding = 12;
+  const compactPadding = 8;
+  const padding = basePadding - (basePadding - compactPadding) * shrinkProgress;
+
+  const loggedInItems = isLoggedInView
+    ? isStaffView
+      ? ([
+          {
+            key: "exit",
+            href: "/",
+            label: t("loggedIn.exit"),
+          },
+          {
+            key: "overview",
+            href: "/dashboard",
+            label: t("loggedIn.overview"),
+            current: isStaffOverviewView,
+          },
+          {
+            key: "inbox",
+            href: "/dashboard/inbox",
+            label: t("loggedIn.inbox"),
+            current: isStaffInboxView,
+          },
+          {
+            key: "hoursSaved",
+            href: "/dashboard/hours-saved",
+            label: t("loggedIn.hoursSaved"),
+            current: isStaffHoursSavedView,
+          },
+          {
+            key: "planning",
+            href: "/dashboard/planning",
+            label: t("loggedIn.planning"),
+            current: isStaffPlanningView,
+          },
+        ] satisfies LoggedInNavItem[])
+      : ([
+          {
+            key: "exit",
+            href: "/",
+            label: t("loggedIn.exit"),
+          },
+          {
+            key: "dashboard",
+            href: "/newsupdates",
+            label: t("loggedIn.dashboard"),
+            current: isClientView,
+          },
+          {
+            key: "premium",
+            href: "/newsupdates#premium",
+            label: t("loggedIn.premium"),
+          },
+          {
+            key: "messages",
+            label: t("loggedIn.messages"),
+            comingSoon: true,
+          },
+        ] satisfies LoggedInNavItem[])
+    : [];
 
   return (
     <motion.nav
       style={{
-        backgroundColor: `rgba(0, 0, 0, ${scrollPercent})`,
-        borderColor: `rgba(255, 255, 255, ${Math.min(scrollPercent / 5, 0.15)})`,
+        backgroundColor: `rgba(0, 0, 0, ${backgroundOpacity})`,
+        borderColor: `rgba(255, 255, 255, ${borderOpacity})`,
+        paddingTop: `${padding}px`,
+        paddingBottom: `${padding}px`,
       }}
-      className="fixed z-[100] top-0 border-b-[.75px] border-white/10 w-full py-3"
+      className="fixed z-[100] top-0 border-b-[.75px] border-white/10 w-full py-3 transition-all duration-200 ease-out"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      <div className="container flex items-center justify-between">
-        <div className="flex items-center justify-between w-full sm:w-auto sm:gap-12 lg:gap-20">
-          <Link href="/" aria-label="Home">
-            <Logo className="min-w-[50px]" />
+      {isLoggedInView ? (
+        <LoggedInNavigationSection
+          comingSoonLabel={t("loggedIn.comingSoon")}
+          items={loggedInItems}
+          logoScale={logoScale}
+          navAriaLabel={t("loggedIn.aria")}
+          homeAriaLabel={t("ariaHome")}
+        />
+      ) : (
+        <div className="container flex items-center gap-4 lg:gap-8">
+          <Link href="/" aria-label={t("ariaHome")} className="block shrink-0">
+            <Logo scale={logoScale} />
           </Link>
-          <MobileLinks className="lg:hidden" />
-          <DesktopLinks className="hidden lg:flex" />
+          <div className="flex flex-1 items-center justify-end gap-4 sm:gap-8 lg:justify-center">
+            <MobileLinks className="lg:hidden" />
+            <DesktopLinks className="hidden lg:flex" />
+          </div>
+          <div className="hidden sm:flex items-center gap-3 md:gap-4">
+            <DesktopNavLink href="/contact" label={t("links.contact")} />
+            <MembersMenu className="flex-shrink-0" />
+            <ScheduleCallButton className="flex-shrink-0" />
+            <SettingsMenu className="flex-shrink-0" />
+          </div>
         </div>
-        <div className="hidden sm:flex">
-          <Link href="https://app.unkey.com/auth/sign-up">
-            <SecondaryButton
-              label="Create Account"
-              IconRight={ChevronRight}
-              className="h-8 text-sm"
-              onClick={async () => {
+      )}
+    </motion.nav>
+  );
+}
+
+type LoggedInNavItem = {
+  key: string;
+  label: string;
+  href?: string;
+  current?: boolean;
+  comingSoon?: boolean;
+};
+
+type LoggedInNavigationSectionProps = {
+  comingSoonLabel: string;
+  homeAriaLabel: string;
+  items: LoggedInNavItem[];
+  logoScale: number;
+  navAriaLabel: string;
+};
+
+function LoggedInNavigationSection({
+  comingSoonLabel,
+  homeAriaLabel,
+  items,
+  logoScale,
+  navAriaLabel,
+}: LoggedInNavigationSectionProps) {
+  return (
+    <div className="container flex flex-wrap items-center gap-4 sm:gap-6">
+      <Link href="/" aria-label={homeAriaLabel} className="block shrink-0">
+        <Logo scale={logoScale} />
+      </Link>
+      <nav
+        aria-label={navAriaLabel}
+        className="flex flex-wrap items-center gap-3 text-sm font-semibold text-white/70 sm:gap-5"
+      >
+        {items.map((item) => (
+          <LoggedInNavLink key={item.key} item={item} comingSoonLabel={comingSoonLabel} />
+        ))}
+      </nav>
+    </div>
+  );
+}
+
+function LoggedInNavLink({
+  item,
+  comingSoonLabel,
+}: {
+  item: LoggedInNavItem;
+  comingSoonLabel: string;
+}) {
+  if (item.href) {
+    return (
+      <Link
+        href={item.href}
+        aria-current={item.current ? "page" : undefined}
+        className={cn(
+          "inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold transition",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+          item.current
+            ? "border border-white/25 bg-white/10 text-white shadow-lg shadow-emerald-500/10"
+            : "border border-transparent text-white/70 hover:text-white",
+        )}
+      >
+        {item.label}
+      </Link>
+    );
+  }
+
+  return (
+    <span
+      aria-disabled="true"
+      className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 text-sm font-semibold text-white/50"
+    >
+      {item.label}
+      {item.comingSoon ? (
+        <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-white/55">
+          {comingSoonLabel}
+        </span>
+      ) : null}
+    </span>
+  );
+}
+
+function SettingsMenu({ className }: { className?: string }) {
+  const t = useTranslations("Navigation");
+  const [open, setOpen] = useState(false);
+  const contentId = "navigation-settings";
+
+  return (
+    <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
+      <PopoverPrimitive.Trigger asChild>
+        <button
+          type="button"
+          aria-label={t("settingsMenu.triggerLabel")}
+          aria-controls={contentId}
+          aria-expanded={open}
+          aria-haspopup="menu"
+          className={cn(
+            "relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/12 bg-white/10 text-white/70",
+            "transition-colors duration-200 hover:bg-white/15 hover:text-white",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+            "data-[state=open]:border-white/20 data-[state=open]:bg-white/15 data-[state=open]:text-white",
+            className,
+          )}
+        >
+          <MoreVertical className="h-4 w-4" aria-hidden="true" />
+          <span className="sr-only">{t("settingsMenu.triggerLabel")}</span>
+        </button>
+      </PopoverPrimitive.Trigger>
+      <PopoverPrimitive.Content
+        align="end"
+        sideOffset={16}
+        id={contentId}
+        className={cn(
+          "z-[120] w-56 rounded-2xl border border-white/12 bg-black/85 p-4 shadow-lg shadow-sky-500/15 backdrop-blur-xl",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        )}
+      >
+        <div role="menu" aria-label={t("settingsMenu.aria")} className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
+            <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/40">
+              {t("language")}
+            </p>
+            <LanguageSwitcher className="w-full justify-between text-sm text-white/80" />
+          </div>
+        </div>
+      </PopoverPrimitive.Content>
+    </PopoverPrimitive.Root>
+  );
+}
+
+function MembersMenu({ className }: { className?: string }) {
+  const t = useTranslations("Navigation");
+  const { hasConsentFor } = useConsentManager();
+  const [open, setOpen] = useState(false);
+  const contentId = "members-menu";
+  const accounts = useAccountHistory();
+
+  return (
+    <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
+      <PopoverPrimitive.Trigger asChild>
+        <MembersButton
+          label={t("members")}
+          pressed={open}
+          className={className}
+          aria-controls={contentId}
+          aria-expanded={open}
+          aria-haspopup="menu"
+        />
+      </PopoverPrimitive.Trigger>
+      <PopoverPrimitive.Content
+        align="end"
+        sideOffset={16}
+        id={contentId}
+        className={cn(
+          "z-[120] w-64 rounded-2xl border border-white/15 bg-black/80 p-3 shadow-lg shadow-sky-500/15 backdrop-blur-xl",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        )}
+      >
+        <div className="flex flex-col gap-3">
+          {accounts.length > 0 ? (
+            <div role="group" aria-label={t("membersMenu.continueHeading")} className="flex flex-col gap-2">
+              <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/50">
+                {t("membersMenu.continueHeading")}
+              </p>
+              <div className="flex flex-col gap-2">
+                {accounts.map((account) => (
+                  <MembersAccountLink
+                    key={account.id}
+                    href={account.role === "staff" ? "/dashboard" : "/newsupdates"}
+                    name={account.name?.trim() || account.email}
+                    subtitle={
+                      account.role === "staff"
+                        ? t("membersMenu.continueRole.staff")
+                        : t("membersMenu.continueRole.client")
+                    }
+                    onClick={() => {
+                      setOpen(false);
+                      if (hasConsentFor("measurement")) {
+                        track("members-continue", { role: account.role, surface: "navigation" });
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          <nav className="flex flex-col gap-2" aria-label={t("members")}>
+            <MembersMenuLink
+              href="/create-account"
+              label={t("createAccount")}
+              description={t("membersMenu.createAccountDescription")}
+              icon={UserPlus}
+              onClick={() => {
+                setOpen(false);
                 if (hasConsentFor("measurement")) {
                   track("signup", { location: "navigation" });
                 }
               }}
             />
-          </Link>
-          <Link href="https://app.unkey.com">
-            <PrimaryButton
-              shiny
-              label="Sign In"
-              IconRight={ChevronRight}
-              className="h-8"
-              onClick={async () => {
+            <MembersMenuLink
+              href="/sign-in"
+              label={t("signIn")}
+              description={t("membersMenu.signInDescription")}
+              icon={LogIn}
+              onClick={() => {
+                setOpen(false);
                 track("signin", { location: "navigation" });
               }}
             />
-          </Link>
+          </nav>
         </div>
-      </div>
-    </motion.nav>
+      </PopoverPrimitive.Content>
+    </PopoverPrimitive.Root>
+  );
+}
+
+type MembersDrawerMenuProps = {
+  onNavigate: () => void;
+};
+
+const MembersDrawerMenu = ({ onNavigate }: MembersDrawerMenuProps) => {
+  const t = useTranslations("Navigation");
+  const { hasConsentFor } = useConsentManager();
+  const [open, setOpen] = useState(false);
+  const menuId = "drawer-members-menu";
+  const accounts = useAccountHistory();
+
+  return (
+    <div className="w-full">
+      <MembersButton
+        label={t("members")}
+        pressed={open}
+        onClick={() => setOpen((previous) => !previous)}
+        className="w-full"
+        innerClassName="w-full justify-between px-5 py-2"
+        aria-controls={menuId}
+        aria-expanded={open}
+        aria-haspopup="menu"
+      />
+      {open ? (
+        <div id={menuId} className="mt-3 flex flex-col gap-3" role="menu" aria-label={t("members")}>
+          {accounts.length > 0 ? (
+            <div role="group" aria-label={t("membersMenu.continueHeading")} className="flex flex-col gap-2">
+              <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/50">
+                {t("membersMenu.continueHeading")}
+              </p>
+              <div className="flex flex-col gap-2">
+                {accounts.map((account) => (
+                  <MembersAccountLink
+                    key={account.id}
+                    href={account.role === "staff" ? "/dashboard" : "/newsupdates"}
+                    name={account.name?.trim() || account.email}
+                    subtitle={
+                      account.role === "staff"
+                        ? t("membersMenu.continueRole.staff")
+                        : t("membersMenu.continueRole.client")
+                    }
+                    className="border-white/10 bg-white/5"
+                    onClick={() => {
+                      setOpen(false);
+                      onNavigate();
+                      if (hasConsentFor("measurement")) {
+                        track("members-continue", { role: account.role, surface: "navigation-mobile" });
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          <MembersMenuLink
+            href="/create-account"
+            label={t("createAccount")}
+            description={t("membersMenu.createAccountDescription")}
+            icon={UserPlus}
+            className="border-white/10 bg-white/5"
+            onClick={() => {
+              setOpen(false);
+              onNavigate();
+              if (hasConsentFor("measurement")) {
+                track("signup", { location: "navigation-mobile" });
+              }
+            }}
+          />
+          <MembersMenuLink
+            href="/sign-in"
+            label={t("signIn")}
+            description={t("membersMenu.signInDescription")}
+            icon={LogIn}
+            className="border-white/10 bg-white/5"
+            onClick={() => {
+              setOpen(false);
+              onNavigate();
+              track("signin", { location: "navigation-mobile" });
+            }}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+type MembersMenuLinkProps = {
+  href: string;
+  label: string;
+  description: string;
+  icon: LucideIcon;
+  className?: string;
+  onClick?: () => void;
+};
+
+function MembersMenuLink({ href, label, description, icon: Icon, className, onClick }: MembersMenuLinkProps) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      role="menuitem"
+      className={cn(
+        "group flex w-full items-center justify-between gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-left text-sm text-white/85 transition hover:border-white/20 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+        className,
+      )}
+    >
+      <span className="flex flex-col gap-1 text-left">
+        <span className="flex items-center gap-2 font-semibold text-white">
+          <Icon className="h-4 w-4 text-sky-200 transition group-hover:text-sky-100" />
+          {label}
+        </span>
+        <span className="text-xs text-white/60">{description}</span>
+      </span>
+      <ChevronRight className="h-4 w-4 shrink-0 translate-x-0 text-white/50 transition group-hover:translate-x-1 group-hover:text-white/80" />
+    </Link>
+  );
+}
+
+type MembersAccountLinkProps = {
+  href: string;
+  name: string;
+  subtitle: string;
+  className?: string;
+  onClick?: () => void;
+};
+
+function MembersAccountLink({ href, name, subtitle, className, onClick }: MembersAccountLinkProps) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      role="menuitem"
+      className={cn(
+        "group flex w-full items-center justify-between gap-3 rounded-xl border border-white/15 bg-white/8 px-4 py-3 text-left text-sm text-white transition hover:border-white/25 hover:bg-white/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+        className,
+      )}
+    >
+      <span className="flex flex-col text-left">
+        <span className="font-semibold text-white">{name}</span>
+        <span className="text-xs text-white/60">{subtitle}</span>
+      </span>
+      <ChevronRight className="h-4 w-4 shrink-0 translate-x-0 text-white/50 transition group-hover:translate-x-1 group-hover:text-white/80" />
+    </Link>
+  );
+}
+
+type MembersButtonProps = {
+  label: string;
+  pressed: boolean;
+  icon?: LucideIcon;
+  innerClassName?: string;
+} & ComponentPropsWithoutRef<"button">;
+
+const MembersButton = forwardRef<HTMLButtonElement, MembersButtonProps>(
+  ({ label, pressed, icon: Icon = UsersRound, className, innerClassName, ...props }, ref) => {
+    return (
+      <button
+        ref={ref}
+        type="button"
+        data-state={pressed ? "open" : "closed"}
+        className={cn(
+          "group relative inline-flex items-center justify-center rounded-full p-[1px] text-sm font-semibold text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+          "hero-hiring-gradient shadow-lg shadow-sky-500/20 hover:shadow-sky-400/25",
+          "group-data-[state=open]:shadow-sky-400/30 active:scale-[0.98]",
+          className,
+        )}
+        {...props}
+      >
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-teal-400/20 via-sky-500/25 to-purple-500/20 opacity-70 transition duration-300 group-hover:opacity-100 group-data-[state=open]:opacity-90"
+        />
+        <span
+          className={cn(
+            "relative inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-white transition duration-300",
+            "bg-white/10 backdrop-blur-xl group-hover:bg-white/15",
+            "group-data-[state=open]:bg-gradient-to-r group-data-[state=open]:from-teal-400 group-data-[state=open]:via-sky-500 group-data-[state=open]:to-purple-500 group-data-[state=open]:text-slate-950 group-data-[state=open]:shadow-lg group-data-[state=open]:shadow-sky-500/25",
+            innerClassName,
+          )}
+        >
+          <Icon className="h-4 w-4 text-sky-200 transition duration-300 group-hover:rotate-3 group-data-[state=open]:rotate-3 group-data-[state=open]:text-slate-900" />
+          <span>{label}</span>
+          <ChevronDown className="h-4 w-4 transition duration-300 group-data-[state=open]:rotate-180" />
+        </span>
+      </button>
+    );
+  },
+);
+
+MembersButton.displayName = "MembersButton";
+
+function ScheduleCallButton({
+  className,
+  innerClassName,
+  onClick,
+}: {
+  className?: string;
+  innerClassName?: string;
+  onClick?: () => void;
+}) {
+  const t = useTranslations("Navigation");
+
+  return (
+    <Link
+      href="/meeting"
+      onClick={onClick}
+      className={cn(
+        "group relative inline-flex items-center justify-center rounded-full p-[1px] text-sm font-semibold text-white transition",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+        "hero-hiring-gradient shadow-lg shadow-sky-500/20 hover:shadow-sky-400/25",
+        "active:scale-[0.98]",
+        className,
+      )}
+    >
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-teal-400/20 via-sky-500/25 to-purple-500/20 opacity-70 transition duration-300 group-hover:opacity-100"
+      />
+      <span
+        className={cn(
+          "relative inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-slate-950 transition duration-300",
+          "bg-gradient-to-r from-teal-400 via-sky-500 to-purple-500 shadow-lg shadow-sky-500/25",
+          "group-hover:shadow-sky-400/25",
+          innerClassName,
+        )}
+      >
+        <CalendarClock
+          aria-hidden
+          className="h-4 w-4 text-slate-900/80 transition duration-300 group-hover:rotate-3"
+        />
+        {t("scheduleCall")}
+      </span>
+    </Link>
   );
 }
 
 function MobileLinks({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("Navigation");
+  const primaryLinks = [
+    { key: "home", href: "/", label: t("links.home") },
+    { key: "about", href: "/about", label: t("links.about") },
+    { key: "blog", href: "/blog", label: t("links.blog") },
+    { key: "solutions", href: "/pricing", label: t("links.pricing") },
+    { key: "contact", href: "/contact", label: t("links.contact") },
+  ];
   return (
     <div className={className}>
       <Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -104,7 +673,7 @@ function MobileLinks({ className }: { className?: string }) {
             onClick={() => setIsOpen(true)}
             className="flex items-center justify-end h-8 gap-2 pl-3 py-2 text-sm duration-150 text-white/60 hover:text-white/80"
           >
-            Menu
+            {t("menu")}
             <ChevronDown className="w-4 h-4 relative top-[1px]" />
           </button>
         </DrawerTrigger>
@@ -114,57 +683,25 @@ function MobileLinks({ className }: { className?: string }) {
           </DrawerHeader>
           <div className="relative w-full mx-auto antialiased z-[110]">
             <ul className="flex flex-col px-8 divide-y divide-white/25">
-              <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/" label="Home" />
-              </li>
-              <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/about" label="About" />
-              </li>
-              <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/blog" label="Blog" />
-              </li>
-              <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/pricing" label="Pricing" />
-              </li>
-              <li>
-                <MobileNavLink
-                  onClick={() => setIsOpen(false)}
-                  href="/changelog"
-                  label="Changelog"
-                />
-              </li>
-              <li>
-                <MobileNavLink
-                  onClick={() => setIsOpen(false)}
-                  href="/templates"
-                  label="Templates"
-                />
-              </li>
-              <li>
-                <MobileNavLink onClick={() => setIsOpen(false)} href="/docs" label="Docs" />
-              </li>
-              <li>
-                <MobileNavLink
-                  onClick={() => setIsOpen(false)}
-                  href="https://go.unkey.com/discord"
-                  label="Discord"
-                  external
-                />
-              </li>
+              {primaryLinks.map((item) => (
+                <li key={item.key}>
+                  <MobileNavLink
+                    onClick={() => setIsOpen(false)}
+                    href={item.href}
+                    label={item.label}
+                  />
+                </li>
+              ))}
             </ul>
           </div>
           <DrawerFooter>
-            <Link href="https://app.unkey.com">
-              <PrimaryButton
-                shiny
-                label="Sign In"
-                IconRight={ChevronRight}
-                className="flex justify-center w-full text-center"
-                onClick={async () => {
-                  track("signin", { location: "navigation-mobile" });
-                }}
-              />
-            </Link>
+            <LanguageSwitcher className="w-full justify-between" />
+            <ScheduleCallButton
+              className="w-full"
+              innerClassName="w-full justify-center"
+              onClick={() => setIsOpen(false)}
+            />
+            <MembersDrawerMenu onNavigate={() => setIsOpen(false)} />
             <button
               type="button"
               onClick={() => setIsOpen(false)}
@@ -173,7 +710,7 @@ function MobileLinks({ className }: { className?: string }) {
                 className,
               )}
             >
-              Close
+              {t("close")}
             </button>
           </DrawerFooter>
         </DrawerContent>
@@ -182,56 +719,41 @@ function MobileLinks({ className }: { className?: string }) {
   );
 }
 
-const DesktopLinks: React.FC<{ className: string }> = ({ className }) => (
-  <ul className={cn("items-center hidden gap-8 lg:flex xl:gap-12", className)}>
-    <li>
-      <DesktopNavLink href="/about" label="About" />
-    </li>
-    <li>
-      <DesktopNavLink href="/blog" label="Blog" />
-    </li>
-    <li>
-      <DesktopNavLink href="/pricing" label="Pricing" />
-    </li>
-    <li>
-      <DesktopNavLink href="/changelog" label="Changelog" />
-    </li>
-    <li>
-      <DesktopNavLink href="/templates" label="Templates" />
-    </li>
-    <li>
-      <DesktopNavLink href="/docs" label="Docs" />
-    </li>
-    <li>
-      <DesktopNavLink href="https://go.unkey.com/discord" label="Discord" external />
-    </li>
-  </ul>
-);
+function DesktopLinks({ className }: { className: string }) {
+  const t = useTranslations("Navigation");
+  const primaryLinks = [
+    { key: "home", href: "/", label: t("links.home") },
+    { key: "about", href: "/about", label: t("links.about") },
+    { key: "blog", href: "/blog", label: t("links.blog") },
+    { key: "solutions", href: "/pricing", label: t("links.pricing") },
+  ];
 
-const Logo: React.FC<{ className?: string }> = ({ className }) => (
-  <svg
-    className={className}
-    xmlns="http://www.w3.org/2000/svg"
-    width="93"
-    height="40"
-    viewBox="0 0 93 40"
-  >
-    <path
-      d="M10.8 30.3C4.8 30.3 1.38 27.12 1.38 21.66V9.9H4.59V21.45C4.59 25.5 6.39 27.18 10.8 27.18C15.21 27.18 17.01 25.5 17.01 21.45V9.9H20.25V21.66C20.25 27.12 16.83 30.3 10.8 30.3ZM26.3611 30H23.1211V15.09H26.0911V19.71H26.3011C26.7511 17.19 28.7311 14.79 32.5111 14.79C36.6511 14.79 38.6911 17.58 38.6911 21.03V30H35.4511V21.9C35.4511 19.11 34.1911 17.7 31.1011 17.7C27.8311 17.7 26.3611 19.38 26.3611 22.62V30ZM44.8181 30H41.5781V9.9H44.8181V21H49.0781L53.5481 15.09H57.3281L51.7181 22.26L57.2981 30H53.4881L49.0781 23.91H44.8181V30ZM66.4219 30.3C61.5319 30.3 58.3219 27.54 58.3219 22.56C58.3219 17.91 61.5019 14.79 66.3619 14.79C70.9819 14.79 74.1319 17.34 74.1319 21.87C74.1319 22.41 74.1019 22.83 74.0119 23.28H61.3519C61.4719 26.16 62.8819 27.69 66.3319 27.69C69.4519 27.69 70.7419 26.67 70.7419 24.9V24.66H73.9819V24.93C73.9819 28.11 70.8619 30.3 66.4219 30.3ZM66.3019 17.34C63.0019 17.34 61.5619 18.81 61.3819 21.48H71.0719V21.42C71.0719 18.66 69.4819 17.34 66.3019 17.34ZM78.9586 35.1H76.8286V32.16H79.7386C81.0586 32.16 81.5986 31.8 82.0486 30.78L82.4086 30L75.0586 15.09H78.6886L82.4986 23.01L83.9686 26.58H84.2086L85.6186 22.98L89.1286 15.09H92.6986L84.9286 31.62C83.6986 34.29 82.0186 35.1 78.9586 35.1Z"
-      fill="url(#paint0_radial_301_76)"
-    />
-    <defs>
-      <radialGradient
-        id="paint0_radial_301_76"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="rotate(23.2729) scale(101.237 101.088)"
-      >
-        <stop offset="0.26875" stopColor="white" />
-        <stop offset="0.904454" stopColor="white" stopOpacity="0.5" />
-      </radialGradient>
-    </defs>
-  </svg>
-);
+  return (
+    <ul className={cn("hidden items-center gap-6 text-[15px] font-medium lg:flex xl:gap-10", className)}>
+      {primaryLinks.map((item) => (
+        <li key={item.key}>
+          <DesktopNavLink href={item.href} label={item.label} />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Logo({ className, scale = 1 }: { className?: string; scale?: number }) {
+  return (
+    <div
+      className="inline-flex origin-left transition-transform duration-200 ease-out"
+      style={{ transform: `scale(${scale})` }}
+    >
+      <TransformAILogo
+        variant="transparent"
+        className={cn(
+          "h-auto w-[128px] sm:w-[164px] md:w-[188px] lg:w-[204px] shrink-0",
+          className,
+        )}
+        priority
+        sizes="(max-width: 640px) 164px, (max-width: 1024px) 188px, 204px"
+      />
+    </div>
+  );
+}

@@ -1,0 +1,67 @@
+---
+date: 2025-06-27
+title: "Kunnen LLMs de tijd voorspellen? AI voor tijdreeksprognoses"
+description: "Naarmate AI verbetert, rijst de vraag: kunnen transformer-LLMs voorspellen hoe variabelen in de tijd evolueren? We schetsen use-cases, onze focus op semantiek en fine-tuning, en bevindingen uit From Tokens to Temperatures."
+author: yergush
+tags: ["ai", "research", "time-series", "llm", "climate"]
+image: "/images/blog-images/mdxfilesforprojects/research/aipredictions/images/coverpredict.png"
+language: Dutch
+---
+# Kunnen LLMs de tijd voorspellen? AI voor tijdreeksprognoses
+
+![Homescreen cover](/images/blog-images/mdxfilesforprojects/research/aipredictions/images/coverpredict.png)
+
+Naarmate AI beter wordt, worden onze vragen ambitieuzer. Een van de lastigste: **kunnen moderne AI-modellen voorspellen hoe dingen in de tijd veranderen?** Grote taalmodellen (LLMs) zijn **niet-deterministisch**, wat spanning geeft bij forecasting waar stabiliteit en kalibratie cruciaal zijn. Toch lijkt het met de snelle vooruitgang minder een kwestie van *of* en meer van *wanneer* betrouwbare AI-voorspellingen gemeengoed worden.
+
+## Waarom tijdreeksvoorspellingen tellen
+
+Mogelijke toepassingen lopen van consument tot wetenschap:
+
+- Markten: koerssignalen, regimewissels, risicomeldingen  
+- Product & groei: gebruikersgroei, churn/retentie, demand planning  
+- Operaties: capaciteit, bezetting, logistiek, voorraad  
+- Aard­systeem­wetenschap: nowcasting van weer, **temperatuurvoorspellingen**
+
+Elke domein accepteert een andere foutmarge; daarom meten we **zowel nauwkeurigheid als betrouwbaarheid**.
+
+## Onze onderzoeksfocus
+
+We onderzoeken **hoe goed transformer-LLMs variabelen door de tijd kunnen voorspellen** wanneer ze zowel gestructureerde signalen (bijv. forcing-variabelen) als **semantische context** (betekenisvolle labels/prompts) krijgen. Kernvraag: helpt “betekenis” het model om **te redeneren** i.p.v. alleen patronen te **fitten**?
+
+Vragen die we verkennen:
+
+- Wat is het verschil tussen **ruwe numerieke inputs** en **semantisch gelabelde** inputs?  
+- Hoeveel doet **modelgrootte** voor voorspelvaardigheid?  
+- Geven **lichte fine-tuning** methoden (zoals QLoRA) stabielere en nauwkeurigere uitkomsten?  
+- Hoe evalueren we **puntnauwkeurigheid én staarten** (uitbijters)?
+
+## Studiolicht: From Tokens to Temperatures (samenvatting)
+
+**Context.** Deze thesis onderzoekt of semantische context LLM-voorspellingen van **gemiddelde mondiale luchttemperatuur aan het aardoppervlak** verbetert op basis van klimaat-forcings.  
+**Modellen.** Open-source Qwen-2.5 transformers met **3B** en **7B** parameters.  
+**Opzet.** Inputs onder vier condities met oplopende semantiek: (1) geen labels, (2) onjuiste/mismatchende labels, (3) juiste labels, (4) juiste labels + korte uitlegprompt. Elk model is getest **zero-shot** en na **lichte fine-tuning** (2 epochs, QLoRA).
+
+**Belangrijkste bevindingen (in gewone taal):**
+
+- **Betekenis telt — flink.** Een 3B-model steeg van ~**1%** (zonder labels) naar ~**29%** (met juiste labels). Het 7B-model ging van ~**10%** naar ~**37%** onder dezelfde verschuiving. Zelfs mismatchende labels deden het beter dan geen labels; **ware labels** leverden de grootste winst.  
+- **Schaal helpt, context helpt meer.** Grotere modellen scoren gemiddeld beter, maar de **grootste sprongen** komen door **semantische context**.  
+- **Lichte fine-tuning verhoogt stabiliteit en precisie.** Het **7B**-model haalde **~45%** beste nauwkeurigheid na fine-tuning, en **grote uitbijters (>5 K)** verdwenen vrijwel zodra labels aanwezig waren.  
+- **Statistisch significant.** ANOVA en post-hoc-tests bevestigen dat winst uit **semantiek**, **modelgrootte** en **fine-tuning** echt is.
+
+![Grafiek: resultatenoverzicht](/images/blog-images/mdxfilesforprojects/research/aipredictions/images/chartsfrompaper.png)
+
+## Waarom dit ertoe doet
+
+De resultaten tonen gecontroleerd aan dat LLMs **semantische informatie** kunnen benutten—niet alleen numerieke correlaties—om **nauwkeurigere en stabielere** wetenschappelijke voorspellingen te maken. Met zorgvuldige probleemframing (labels/prompts) en bescheiden aanpassing (lichte fine-tuning) komen LLMs dichter bij **echte gegevensbegrip** in complexe tijdreeks­taken.
+
+> Volledige paper: [From Tokens to Temperatures (Google Doc)](https://docs.google.com/document/d/1C_aoIrUVfBRAkgEE1aik6_ByQjDdnZfZxJs4OQDMs5Q/edit?usp=sharing)
+
+## Conclusies
+
+- LLMs zijn stochastisch, maar **stochastisch ≠ onbruikbaar** voor forecasting.  
+- **Semantische labels zijn hefboom**—ze verbeteren nauwkeurigheid én foutgedrag, zelfs bij kleine modellen.  
+- Kijk naar **foutstaarten**, niet alleen gemiddelden; het uitsluiten van grote uitbijters weegt in de praktijk vaak zwaarder.
+
+## Wat volgt
+
+We testen generalisatie buiten klimaat (gebruikersmetrics, operationele signalen, financiële reeksen), vergelijken LLMs met klassieke forecasters onder identieke datacondities en meten **kalibratie, onzekerheid, drift** en **kosten-kwaliteit-afwegingen** voor productiegeschiktheid.

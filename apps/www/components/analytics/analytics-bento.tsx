@@ -1,70 +1,30 @@
 "use client";
-import type { LangIconProps } from "@/components/svg/lang-icons";
-import { CurlIcon, GoIcon, PythonIcon, RustIcon, TSIcon } from "@/components/svg/lang-icons";
-import { CopyCodeSnippetButton } from "@/components/ui/copy-code-button";
+
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Wand2 } from "lucide-react";
-import type { PrismTheme } from "prism-react-renderer";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
+
 import { PrimaryButton } from "../button";
 import { AnalyticsStars } from "../svg/analytics-stars";
 import { WebAppLight } from "../svg/web-app-light";
-import { CodeEditor } from "../ui/code-editor";
-
-const theme = {
-  plain: {
-    color: "#F8F8F2",
-    backgroundColor: "#282A36",
-  },
-  styles: [
-    {
-      types: ["keyword"],
-      style: {
-        color: "#9D72FF",
-      },
-    },
-    {
-      types: ["function"],
-      style: {
-        color: "#FB3186",
-      },
-    },
-    {
-      types: ["string"],
-      style: {
-        color: "#3CEEAE",
-      },
-    },
-    {
-      types: ["string-property"],
-      style: {
-        color: "#9D72FF",
-      },
-    },
-    {
-      types: ["number"],
-      style: {
-        color: "#FB3186",
-      },
-    },
-    {
-      types: ["comment"],
-      style: {
-        color: "#4D4D4D",
-      },
-    },
-  ],
-} satisfies PrismTheme;
+import { AnalyticsRequestForm } from "./request-form";
 
 export function AnalyticsBento() {
-  const [showApi, toggleShowApi] = useState(false);
+  const [showRequestForm, setShowRequestForm] = useState(false);
+  const t = useTranslations("Analytics");
 
   return (
     <div className="relative flex justify-center w-full">
       <div className="absolute z-50 top-14">
-        <button type="button" aria-label="Show API code" onClick={() => toggleShowApi(!showApi)}>
-          <PrimaryButton shiny label="Show API code" IconLeft={Wand2} />
+        <button
+          type="button"
+          aria-label={t("requestAccess")}
+          aria-pressed={showRequestForm}
+          onClick={() => setShowRequestForm((prev) => !prev)}
+        >
+          <PrimaryButton shiny label={t("requestAccess")} IconLeft={Wand2} />
         </button>
       </div>
       <div
@@ -76,11 +36,17 @@ export function AnalyticsBento() {
         {/* TODO: horizontal scroll */}
         <LightSvg className="absolute hidden md:flex top-[-180px] left-0 lg:left-[300px] z-50 pointer-events-none" />
         <AnalyticsStars className="w-[90px] shrink-0 hidden md:flex" />
-        {showApi ? <AnalyticsApiView /> : <AnalyticsWebAppView />}
+        {showRequestForm ? (
+          <AnalyticsRequestForm onDismiss={() => setShowRequestForm(false)} />
+        ) : (
+          <AnalyticsWebAppView />
+        )}
         <div className="absolute inset-0 w-full h-full duration-500 pointer-events-none bg-gradient-to-t from-black from-10% via-black/50 to-transparent group-hover:opacity-0 group-hover:backdrop-blur-0" />
         <BentoText
           className={
-            showApi ? "group-hover:opacity-0 group-hover:pointer-events-none duration-500" : ""
+            showRequestForm
+              ? "group-hover:opacity-0 group-hover:pointer-events-none duration-500"
+              : ""
           }
         />
       </div>
@@ -88,206 +54,9 @@ export function AnalyticsBento() {
   );
 }
 
-type Language = {
-  name: string;
-  Icon: React.FC<LangIconProps>;
-  codeBlock: string;
-};
-
-type LanguageName = "TypeScript" | "Python" | "Rust" | "Go" | "cURL";
-
-const curlCodeBlock = `curl --request GET \\
-    --url https://api.unkey.dev/v1/keys.getKey?keyId=key_123 \\
-    --header 'Authorization: Bearer <UNKEY_ROOT_KEY>'
-`;
-
-const tsCodeBlock = `import { Unkey } from "@unkey/api";
-
-const unkey = new Unkey({ rootKey: "<UNKEY_ROOT_KEY>" });
-
-const { result, error } = await unkey.keys.get({ keyId: "key_123" });
-
-if ( error ) {
-  // handle network error
-}
-
-// handle request
-`;
-
-const pythonCodeBlock = `import asyncio
-import os
-import unkey
-
-async def main() -> None:
-    client = unkey.Client("<UNKEY_ROOT_KEY>")
-    await client.start()
-
-    result = await client.keys.get_key("key_123")
-
-    if result.is_ok:
-        data = result.unwrap()
-        print(data.id)
-    else:
-        print(result.unwrap_err())
-
-    await client.close()
-`;
-
-const goCodeBlock = `package main
-
-import (
-	"context"
-	"log"
-
-	unkeygo "github.com/unkeyed/unkey-go"
-	"github.com/unkeyed/unkey-go/models/operations"
-)
-
-func main() {
-	s := unkeygo.New(
-		unkeygo.WithSecurity("<UNKEY_ROOT_KEY>"),
-	)
-
-	ctx := context.Background()
-	res, err := s.Keys.GetKey(ctx, operations.GetKeyRequest{
-		KeyID: "key_123",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	if res.Key != nil {
-		// handle response
-	}
-}
-`;
-
-const rustCodeBlock = `use unkey::models::GetKeyRequest;
-use unkey::Client;
-
-async fn get_key() {
-    let c = Client::new("<UNKEY_ROOT_KEY>");
-    let req = GetKeyRequest::new("key_123");
-
-    match c.get_key(req).await {
-        Ok(res) => println!("{res:?}"),
-        Err(err) => eprintln!("{err:?}"),
-    }
-}
-`;
-
-const languagesList = {
-  cURL: {
-    Icon: CurlIcon,
-    name: "cURL",
-    codeBlock: curlCodeBlock,
-    editorLanguage: "tsx",
-  },
-  TypeScript: {
-    Icon: TSIcon,
-    name: "TypeScript",
-    codeBlock: tsCodeBlock,
-    editorLanguage: "tsx",
-  },
-  Python: {
-    Icon: PythonIcon,
-    name: "Python",
-    codeBlock: pythonCodeBlock,
-    editorLanguage: "python",
-  },
-  Go: {
-    Icon: GoIcon,
-    name: "Go",
-    codeBlock: goCodeBlock,
-    editorLanguage: "go",
-  },
-  Rust: {
-    Icon: RustIcon,
-    name: "Rust",
-    codeBlock: rustCodeBlock,
-    editorLanguage: "rust",
-  },
-};
-
-function AnalyticsApiView() {
-  const [language, setLanguage] = useState<LanguageName>("cURL");
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2, ease: "easeInOut" }}
-      whileInView="visible"
-      className="w-full overflow-x-hidden relative"
-    >
-      <CopyCodeSnippetButton
-        textToCopy={languagesList[language].codeBlock}
-        className="sticky right-12 top-16 float-right hidden cursor-pointer lg:flex"
-      />
-      <div
-        className={cn(
-          "w-full bg-black bg-opacity-02 lg:rounded-3xl xxl:mr-10",
-          "border-white/10 border border-b-0 border-l-0 border-r-0",
-          "flex flex-col md:flex-row rounded-tl-3xl h-[600px] xl:h-[576px]",
-        )}
-      >
-        <LanguageSwitcher
-          languages={Object.values(languagesList)}
-          currentLanguage={language}
-          setLanguage={setLanguage}
-        />
-        <div className="flex pt-4 pb-8 pl-8 overflow-x-hidden scrollbar-hidden font-mono text-xs text-white sm:text-sm">
-          <CodeEditor
-            theme={theme}
-            codeBlock={languagesList[language].codeBlock}
-            language={languagesList[language].editorLanguage}
-          />
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function LanguageSwitcher({
-  languages,
-  currentLanguage,
-  setLanguage,
-}: {
-  languages: Language[];
-  currentLanguage: LanguageName;
-  setLanguage: React.Dispatch<React.SetStateAction<LanguageName>>;
-}) {
-  return (
-    <div
-      className={cn(
-        "flex flex-col w-[216px] text-white text-sm pt-6 px-4 font-mon",
-        "md:border-r md:border-white/5 overflow-x-hidden scrollbar-hidden",
-      )}
-    >
-      <div className="flex items-center space-x-2 sm:flex-col sm:space-x-0 sm:space-y-2">
-        {languages.map(({ Icon, name }) => (
-          <button
-            key={name}
-            type="button"
-            onClick={() => setLanguage(name as LanguageName)}
-            className={cn(
-              "flex items-center cursor-pointer bg-white/5 py-1 px-2 rounded-lg w-[184px]",
-              {
-                "bg-white/10 text-white": currentLanguage === name,
-                "text-white/40": currentLanguage !== name,
-              },
-            )}
-          >
-            <Icon active={currentLanguage === name} />
-            <div className="ml-3">{name}</div>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function AnalyticsWebAppView() {
+  const t = useTranslations("Analytics");
+
   function Tab({
     backgroundColor,
     text,
@@ -515,7 +284,7 @@ function AnalyticsWebAppView() {
                 fill="white"
               />
             </svg>
-            <p>Acme Co</p>
+            <p>{t("dashboard.sidebar.company")}</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -532,7 +301,7 @@ function AnalyticsWebAppView() {
               />
             </svg>
           </div>
-          <p className="my-6">General</p>
+          <p className="my-6">{t("dashboard.sidebar.section")}</p>
           <div>
             <p className="flex items-center">
               <svg
@@ -558,7 +327,7 @@ function AnalyticsWebAppView() {
                   strokeOpacity="0.2"
                 />
               </svg>
-              APIs
+              {t("dashboard.sidebar.items.usage")}
             </p>
             <p className="flex items-center">
               <svg
@@ -584,7 +353,7 @@ function AnalyticsWebAppView() {
                   strokeOpacity="0.2"
                 />
               </svg>
-              Settings
+              {t("dashboard.sidebar.items.automation")}
             </p>
             <p className="flex items-center">
               <svg
@@ -603,16 +372,38 @@ function AnalyticsWebAppView() {
                   fillOpacity="0.2"
                 />
               </svg>
-              Docs
+              {t("dashboard.sidebar.items.policies")}
             </p>
           </div>
-          <p className="mt-8">Your APIs</p>
+          <p className="mt-8">{t("dashboard.sidebar.topUsersTitle")}</p>
+          <p className="mt-2 text-xs text-white/40">{t("dashboard.sidebar.countLabel")}</p>
           <div className="mt-4">
-            <Tab backgroundColor="#6E56CF" light text="QuantumWeather" icon={icons.sun} />
-            <Tab backgroundColor="#4CBBA5" text="StellarTranslate" icon={icons.translate} />
-            <Tab backgroundColor="#978365" text="NebulaAnalytics" icon={icons.analytics} />
-            <Tab backgroundColor="#00A2C7" text="CryptoSentiment" icon={icons.crypto} />
-            <Tab backgroundColor="#8DB654" text="BioSyncHealth" icon={icons.bio} />
+            <Tab
+              backgroundColor="#6E56CF"
+              light
+              text={t("dashboard.sidebar.topUsers.sales")}
+              icon={icons.sun}
+            />
+            <Tab
+              backgroundColor="#4CBBA5"
+              text={t("dashboard.sidebar.topUsers.support")}
+              icon={icons.translate}
+            />
+            <Tab
+              backgroundColor="#978365"
+              text={t("dashboard.sidebar.topUsers.ops")}
+              icon={icons.analytics}
+            />
+            <Tab
+              backgroundColor="#00A2C7"
+              text={t("dashboard.sidebar.topUsers.marketing")}
+              icon={icons.crypto}
+            />
+            <Tab
+              backgroundColor="#8DB654"
+              text={t("dashboard.sidebar.topUsers.finance")}
+              icon={icons.bio}
+            />
           </div>
         </div>
         <div className="text-white pt-4 pl-8 flex w-full px-[40px] flex-col">
@@ -688,97 +479,84 @@ function AnalyticsWebAppView() {
                   />
                 </svg>
               </div>
-              QuantumWeather
+              {t("dashboard.header.title")}
             </div>
             <div className="flex items-center">
-              <div className="flex items-center gap-2 px-3 py-1 font-mono text-xs  rounded-lg bg-white/5 font-sm text-white/40">
-                api_UNWrXjYp6AF2h7Nx
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M13 5.00002C13.4886 5.00002 13.6599 5.00244 13.7927 5.02884C14.3877 5.1472 14.8528 5.61235 14.9712 6.20738C14.9976 6.34011 15 6.5114 15 7.00002H16L16 6.94215V6.94213C16.0001 6.53333 16.0002 6.25469 15.952 6.01229C15.7547 5.02057 14.9795 4.24532 13.9877 4.04806C13.7453 3.99984 13.4667 3.99991 13.0579 4.00001L13 4.00002H7.70002H7.67861C7.13672 4.00001 6.69965 4.00001 6.34571 4.02893C5.98128 4.0587 5.66119 4.12161 5.36504 4.2725C4.89464 4.51219 4.51219 4.89464 4.2725 5.36504C4.12161 5.66119 4.0587 5.98128 4.02893 6.34571C4.00001 6.69965 4.00001 7.13672 4.00002 7.67862V7.70002V13L4.00001 13.0579C3.99991 13.4667 3.99984 13.7453 4.04806 13.9877C4.24532 14.9795 5.02057 15.7547 6.01229 15.952C6.25469 16.0002 6.53333 16.0001 6.94213 16H6.94215L7.00002 16V15C6.5114 15 6.34011 14.9976 6.20738 14.9712C5.61235 14.8528 5.1472 14.3877 5.02884 13.7927C5.00244 13.6599 5.00002 13.4886 5.00002 13V7.70002C5.00002 7.13172 5.00041 6.73556 5.02561 6.42714C5.05033 6.12455 5.09642 5.95071 5.16351 5.81903C5.30732 5.53679 5.53679 5.30732 5.81903 5.16351C5.95071 5.09642 6.12455 5.05033 6.42714 5.02561C6.73556 5.00041 7.13172 5.00002 7.70002 5.00002H13ZM11.7 8.00002H11.6786C11.1367 8.00001 10.6996 8.00001 10.3457 8.02893C9.98128 8.0587 9.66119 8.12161 9.36504 8.2725C8.89464 8.51219 8.51219 8.89464 8.2725 9.36504C8.12161 9.66119 8.0587 9.98128 8.02893 10.3457C8.00001 10.6996 8.00001 11.1367 8.00002 11.6786V11.7V16.3V16.3214C8.00001 16.8633 8.00001 17.3004 8.02893 17.6543C8.0587 18.0188 8.12161 18.3388 8.2725 18.635C8.51219 19.1054 8.89464 19.4879 9.36504 19.7275C9.66119 19.8784 9.98128 19.9413 10.3457 19.9711C10.6996 20 11.1366 20 11.6785 20H11.6786H11.7H16.3H16.3214H16.3216C16.8634 20 17.3004 20 17.6543 19.9711C18.0188 19.9413 18.3388 19.8784 18.635 19.7275C19.1054 19.4879 19.4879 19.1054 19.7275 18.635C19.8784 18.3388 19.9413 18.0188 19.9711 17.6543C20 17.3004 20 16.8634 20 16.3216V16.3214V16.3V11.7V11.6786V11.6785C20 11.1366 20 10.6996 19.9711 10.3457C19.9413 9.98128 19.8784 9.66119 19.7275 9.36504C19.4879 8.89464 19.1054 8.51219 18.635 8.2725C18.3388 8.12161 18.0188 8.0587 17.6543 8.02893C17.3004 8.00001 16.8633 8.00001 16.3214 8.00002H16.3H11.7ZM9.81903 9.16351C9.95071 9.09642 10.1246 9.05033 10.4271 9.02561C10.7356 9.00041 11.1317 9.00002 11.7 9.00002H16.3C16.8683 9.00002 17.2645 9.00041 17.5729 9.02561C17.8755 9.05033 18.0493 9.09642 18.181 9.16351C18.4632 9.30732 18.6927 9.53679 18.8365 9.81903C18.9036 9.95071 18.9497 10.1246 18.9744 10.4271C18.9996 10.7356 19 11.1317 19 11.7V16.3C19 16.8683 18.9996 17.2645 18.9744 17.5729C18.9497 17.8755 18.9036 18.0493 18.8365 18.181C18.6927 18.4632 18.4632 18.6927 18.181 18.8365C18.0493 18.9036 17.8755 18.9497 17.5729 18.9744C17.2645 18.9996 16.8683 19 16.3 19H11.7C11.1317 19 10.7356 18.9996 10.4271 18.9744C10.1246 18.9497 9.95071 18.9036 9.81903 18.8365C9.53679 18.6927 9.30732 18.4632 9.16351 18.181C9.09642 18.0493 9.05033 17.8755 9.02561 17.5729C9.00041 17.2645 9.00002 16.8683 9.00002 16.3V11.7C9.00002 11.1317 9.00041 10.7356 9.02561 10.4271C9.05033 10.1246 9.09642 9.95071 9.16351 9.81903C9.30732 9.53679 9.53679 9.30732 9.81903 9.16351Z"
-                    fill="white"
-                    fillOpacity="0.2"
-                  />
-                </svg>
+              <div className="flex flex-col items-end text-right">
+                <span className="text-xs text-white/40">{t("dashboard.header.pillLabel")}</span>
+                <div className="mt-1 flex items-center gap-2 px-3 py-1 font-mono text-xs rounded-lg bg-white/5 text-white">
+                  {t("dashboard.header.pillValue")}
+                </div>
               </div>
               <div className="px-3 py-1 ml-4 text-xs font-bold text-black bg-white rounded">
-                Create key
+                {t("dashboard.header.betaBadge")}
               </div>
             </div>
           </div>
           <div className="pl-3 border-b-[0.75px] before:left-0 before:top-[30px] before:w-[85px] before:h-[1px] before:bg-white before:absolute relative border-white/15 mt-[34px] text-xs pb-[10px] flex flex-row gap-x-8">
-            <p className="">Overview</p>
-            <p className="text-white/40">Keys</p>
-            <p className="text-white/40">Settings</p>
+            <p className="">{t("dashboard.tabs.overview")}</p>
+            <p className="text-white/40">{t("dashboard.tabs.teams")}</p>
+            <p className="text-white/40">{t("dashboard.tabs.tools")}</p>
+            <p className="text-white/40">{t("dashboard.tabs.policies")}</p>
           </div>
           <div className="border-[0.75px] border-white/15 p-6 gap-x-6 mt-[32px] rounded-2xl flex">
             <div className="flex flex-col min-w-[100px]">
-              <p className="text-xs text-white/40">Usage 30 days</p>
-              <p className="pt-2 font-medium">7</p>
+              <p className="text-xs text-white/40">{t("dashboard.metrics.items.prompts.label")}</p>
+              <p className="pt-2 text-white font-medium">{t("dashboard.metrics.items.prompts.value")}</p>
             </div>
             <div className="flex flex-col min-w-[100px]">
-              <p className="text-xs text-white/40">Expires</p>
-              <p className="pt-2 font-medium">-</p>
+              <p className="text-xs text-white/40">{t("dashboard.metrics.items.activeUsers.label")}</p>
+              <p className="pt-2 text-white font-medium">{t("dashboard.metrics.items.activeUsers.value")}</p>
             </div>
             <div className="flex flex-col min-w-[100px]">
-              <p className="text-xs text-white/40">Remaining</p>
-              <p className="pt-2 font-medium">73</p>
+              <p className="text-xs text-white/40">{t("dashboard.metrics.items.teams.label")}</p>
+              <p className="pt-2 text-white font-medium">{t("dashboard.metrics.items.teams.value")}</p>
             </div>
-            <div className="flex flex-col min-w-[100px]">
-              <p className="text-xs text-white/40">Last used</p>
-              <p className="pt-2 font-medium">4d ago</p>
+            <div className="flex flex-col min-w-[120px]">
+              <p className="text-xs text-white/40">{t("dashboard.metrics.items.responseTime.label")}</p>
+              <p className="pt-2 text-white font-medium">{t("dashboard.metrics.items.responseTime.value")}</p>
             </div>
-            <div className="flex flex-col min-w-[100px]">
-              <p className="text-xs text-white/40">Total uses</p>
-              <p className="pt-2 font-medium">7</p>
+            <div className="flex flex-col min-w-[140px]">
+              <p className="text-xs text-white/40">{t("dashboard.metrics.items.mostUsedTools.label")}</p>
+              <p className="pt-2 text-white font-medium">{t("dashboard.metrics.items.mostUsedTools.value")}</p>
             </div>
-            <div className="flex flex-col">
-              <p className="text-xs text-white/40">Key ID</p>
-              <div className="flex items-center gap-2 px-2 py-1 font-mono text-xs rounded-lg bg-white/5 font-sm text-white/40 mt-2">
-                api_UNWrXjYp6AF2H7Nx
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M13 5.00002C13.4886 5.00002 13.6599 5.00244 13.7927 5.02884C14.3877 5.1472 14.8528 5.61235 14.9712 6.20738C14.9976 6.34011 15 6.5114 15 7.00002H16L16 6.94215V6.94213C16.0001 6.53333 16.0002 6.25469 15.952 6.01229C15.7547 5.02057 14.9795 4.24532 13.9877 4.04806C13.7453 3.99984 13.4667 3.99991 13.0579 4.00001L13 4.00002H7.70002H7.67861C7.13672 4.00001 6.69965 4.00001 6.34571 4.02893C5.98128 4.0587 5.66119 4.12161 5.36504 4.2725C4.89464 4.51219 4.51219 4.89464 4.2725 5.36504C4.12161 5.66119 4.0587 5.98128 4.02893 6.34571C4.00001 6.69965 4.00001 7.13672 4.00002 7.67862V7.70002V13L4.00001 13.0579C3.99991 13.4667 3.99984 13.7453 4.04806 13.9877C4.24532 14.9795 5.02057 15.7547 6.01229 15.952C6.25469 16.0002 6.53333 16.0001 6.94213 16H6.94215L7.00002 16V15C6.5114 15 6.34011 14.9976 6.20738 14.9712C5.61235 14.8528 5.1472 14.3877 5.02884 13.7927C5.00244 13.6599 5.00002 13.4886 5.00002 13V7.70002C5.00002 7.13172 5.00041 6.73556 5.02561 6.42714C5.05033 6.12455 5.09642 5.95071 5.16351 5.81903C5.30732 5.53679 5.53679 5.30732 5.81903 5.16351C5.95071 5.09642 6.12455 5.05033 6.42714 5.02561C6.73556 5.00041 7.13172 5.00002 7.70002 5.00002H13ZM11.7 8.00002H11.6786C11.1367 8.00001 10.6996 8.00001 10.3457 8.02893C9.98128 8.0587 9.66119 8.12161 9.36504 8.2725C8.89464 8.51219 8.51219 8.89464 8.2725 9.36504C8.12161 9.66119 8.0587 9.98128 8.02893 10.3457C8.00001 10.6996 8.00001 11.1367 8.00002 11.6786V11.7V16.3V16.3214C8.00001 16.8633 8.00001 17.3004 8.02893 17.6543C8.0587 18.0188 8.12161 18.3388 8.2725 18.635C8.51219 19.1054 8.89464 19.4879 9.36504 19.7275C9.66119 19.8784 9.98128 19.9413 10.3457 19.9711C10.6996 20 11.1366 20 11.6785 20H11.6786H11.7H16.3H16.3214H16.3216C16.8634 20 17.3004 20 17.6543 19.9711C18.0188 19.9413 18.3388 19.8784 18.635 19.7275C19.1054 19.4879 19.4879 19.1054 19.7275 18.635C19.8784 18.3388 19.9413 18.0188 19.9711 17.6543C20 17.3004 20 16.8634 20 16.3216V16.3214V16.3V11.7V11.6786V11.6785C20 11.1366 20 10.6996 19.9711 10.3457C19.9413 9.98128 19.8784 9.66119 19.7275 9.36504C19.4879 8.89464 19.1054 8.51219 18.635 8.2725C18.3388 8.12161 18.0188 8.0587 17.6543 8.02893C17.3004 8.00001 16.8633 8.00001 16.3214 8.00002H16.3H11.7ZM9.81903 9.16351C9.95071 9.09642 10.1246 9.05033 10.4271 9.02561C10.7356 9.00041 11.1317 9.00002 11.7 9.00002H16.3C16.8683 9.00002 17.2645 9.00041 17.5729 9.02561C17.8755 9.05033 18.0493 9.09642 18.181 9.16351C18.4632 9.30732 18.6927 9.53679 18.8365 9.81903C18.9036 9.95071 18.9497 10.1246 18.9744 10.4271C18.9996 10.7356 19 11.1317 19 11.7V16.3C19 16.8683 18.9996 17.2645 18.9744 17.5729C18.9497 17.8755 18.9036 18.0493 18.8365 18.181C18.6927 18.4632 18.4632 18.6927 18.181 18.8365C18.0493 18.9036 17.8755 18.9497 17.5729 18.9744C17.2645 18.9996 16.8683 19 16.3 19H11.7C11.1317 19 10.7356 18.9996 10.4271 18.9744C10.1246 18.9497 9.95071 18.9036 9.81903 18.8365C9.53679 18.6927 9.30732 18.4632 9.16351 18.181C9.09642 18.0493 9.05033 17.8755 9.02561 17.5729C9.00041 17.2645 9.00002 16.8683 9.00002 16.3V11.7C9.00002 11.1317 9.00041 10.7356 9.02561 10.4271C9.05033 10.1246 9.09642 9.95071 9.16351 9.81903C9.30732 9.53679 9.53679 9.30732 9.81903 9.16351Z"
-                    fill="white"
-                    fillOpacity="0.2"
-                  />
-                </svg>
-              </div>
+            <div className="flex flex-col min-w-[140px]">
+              <p className="text-xs text-white/40">{t("dashboard.metrics.items.invocations.label")}</p>
+              <p className="pt-2 text-white font-medium">{t("dashboard.metrics.items.invocations.value")}</p>
             </div>
           </div>
           <div className="border-[0.75px] border-white/15 p-6 gap-x-6 mt-[32px] rounded-2xl flex flex-col">
             <div className="flex items-center justify-between w-full text-xs text-white/30">
               <div className="min-w-[400px]">
-                <h3 className="text-base font-medium text-white">Usage 30 days</h3>
-                <p>See when this key was verified</p>
+                <h3 className="text-base font-medium text-white">{t("dashboard.metrics.title")}</h3>
+                <p>{t("dashboard.metrics.subline")}</p>
               </div>
-              <div className="flex items-center">
-                <div className="w-[6px] h-[6px] bg-white mr-3" />
-                <p>Success</p>
-              </div>
-              <div className="flex items-center">
-                <div className="w-[6px] h-[6px] bg-[#8F6424] mr-3" />
-                <p>Rate limited</p>
-              </div>
-              <div className="flex items-center">
-                <div className="w-[6px] h-[6px] bg-[#853A2D] mr-3" />
-                <p>Usage exceeded</p>
+              <div className="flex items-center gap-8">
+                <div className="flex flex-col items-end text-right">
+                  <span className="text-xs text-white/40">{t("dashboard.metrics.successRate.label")}</span>
+                  <span className="text-lg font-medium text-white">{t("dashboard.metrics.successRate.value")}</span>
+                  <span className="text-[10px] uppercase tracking-[0.12em] text-white/40">
+                    {t("dashboard.metrics.successRate.helper")}
+                  </span>
+                </div>
+                <div className="flex items-center gap-6">
+                  <div className="flex items-center">
+                    <div className="w-[6px] h-[6px] bg-white mr-3" />
+                    <p>{t("dashboard.metrics.legend.success")}</p>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-[6px] h-[6px] bg-[#853A2D] mr-3" />
+                    <p>{t("dashboard.metrics.legend.failure")}</p>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-[6px] h-[6px] bg-[#8F6424] mr-3" />
+                    <p>{t("dashboard.metrics.legend.policyBlocked")}</p>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-[6px] h-[6px] bg-white/40 mr-3" />
+                    <p>{t("dashboard.metrics.legend.timeout")}</p>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="flex items-end mt-4 space-x-10 bar-chart">
@@ -799,6 +577,7 @@ function AnalyticsWebAppView() {
               <div className="bg-white h-[110px] min-w-[10px] mb-[20px]" />
               <div className="bg-white h-[100px] min-w-[10px] mb-[20px]" />
             </div>
+            <p className="mt-4 text-xs text-white/40">{t("dashboard.metrics.emptyState")}</p>
           </div>
         </div>
       </div>
@@ -807,6 +586,8 @@ function AnalyticsWebAppView() {
 }
 
 export function BentoText({ className }: { className?: string }) {
+  const t = useTranslations("Analytics");
+
   return (
     <div
       className={cn(
@@ -831,12 +612,9 @@ export function BentoText({ className }: { className?: string }) {
             fillOpacity="0.4"
           />
         </svg>
-        <h3 className="ml-4 text-lg font-medium text-white">Realtime Analytics</h3>
+        <h3 className="ml-4 text-lg font-medium text-white">{t("caption.title")}</h3>
       </div>
-      <p className="mt-4 leading-6 text-white/60">
-        Access real-time insights into your API usage through our dashboard, or build your own on
-        top of our API.
-      </p>
+      <p className="mt-4 leading-6 text-white/60">{t("caption.subtitle")}</p>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import * as React from "react";
+import type { LucideIcon } from "lucide-react";
 import {
   ApiFirst,
   AutoKeyExpiration,
@@ -53,14 +54,18 @@ const FeatureTitle = React.forwardRef<
 ));
 FeatureTitle.displayName = "FeatureTitle";
 
-const FeatureIcon = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { iconName: string }
->(({ className, iconName }, ref) => (
-  <div ref={ref} className={className}>
-    {getSvg(iconName)}
-  </div>
-));
+type FeatureIconProps = React.HTMLAttributes<HTMLDivElement> & {
+  iconName?: string;
+  Icon?: LucideIcon;
+};
+
+const FeatureIcon = React.forwardRef<HTMLDivElement, FeatureIconProps>(
+  ({ className, iconName, Icon, ...props }, ref) => (
+    <div ref={ref} className={cn("text-white", className)} {...props}>
+      {Icon ? <Icon aria-hidden className="h-6 w-6" /> : iconName ? getSvg(iconName) : null}
+    </div>
+  ),
+);
 FeatureIcon.displayName = "FeatureIcon";
 
 const FeatureContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
