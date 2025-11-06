@@ -3,7 +3,7 @@ import { Navigation } from "@/components/navbar/navigation";
 import { CanonicalLink } from "@/components/seo/canonical-link";
 import { env } from "@/lib/env";
 import { loadMessages } from "@/i18n/messages";
-import { defaultLocale, isLocale, locales, type Locale } from "@/i18n/routing";
+import { isLocale, locales, type Locale } from "@/i18n/routing";
 import { ConsentManagerProvider } from "@c15t/nextjs";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -41,7 +41,8 @@ export async function generateMetadata({
     locales.map((code) => [code, `/${code}`]),
   ) as Record<string, string>;
 
-  languageAlternates["x-default"] = `/${defaultLocale}`;
+  languageAlternates["x-default"] = "/";
+  const canonicalPath = `/${locale}`;
 
   return {
     metadataBase: baseUrl,
@@ -53,7 +54,7 @@ export async function generateMetadata({
     openGraph: {
       title: t("openGraph.title"),
       description: t("openGraph.description"),
-      url: `${baseUrl.origin}/${params.locale}`,
+      url: `${baseUrl.origin}${canonicalPath}`,
       siteName: t("openGraph.siteName"),
       images: [
         {
@@ -65,13 +66,14 @@ export async function generateMetadata({
     },
     twitter: {
       title: t("twitter.title"),
+      description: t("twitter.description"),
       card: "summary_large_image",
     },
     icons: {
       shortcut: "/images/logos/transformai/logosvg.svg",
     },
     alternates: {
-      canonical: locale === defaultLocale ? "/" : `/${locale}`,
+      canonical: canonicalPath,
       languages: languageAlternates,
     },
   };
@@ -94,10 +96,39 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   const messages = await loadMessages(locale);
+  const baseUrl = new URL(parsedEnv.NEXT_PUBLIC_BASE_URL);
+  const organizationStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "TransformAI",
+    url: `${baseUrl.origin}/`,
+    logo: `${baseUrl.origin}/images/logos/transformai/logosvg.svg`,
+    sameAs: [
+      "https://www.linkedin.com/company/transformai",
+      "https://x.com/transformai",
+    ],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        email: "info@transformai.nl",
+        availableLanguage: ["en", "nl"],
+      },
+    ],
+  } as const;
+  const organizationStructuredDataJson = JSON.stringify(
+    organizationStructuredData,
+  ).replace(/</g, "\\u003c");
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <CanonicalLink />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: organizationStructuredDataJson,
+        }}
+      />
       <ConsentManagerProvider
         options={{
           ...(parsedEnv.NEXT_PUBLIC_C15T_MODE
