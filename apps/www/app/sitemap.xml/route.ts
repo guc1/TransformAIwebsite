@@ -7,14 +7,12 @@ import path from "node:path";
 type SitemapRoute = {
   segments: string[];
   sourceFile: string;
-  xDefaultLocale?: Locale;
 };
 
 const localizedRoutes: SitemapRoute[] = [
   {
     segments: [],
     sourceFile: "apps/www/app/[locale]/(site)/page.tsx",
-    xDefaultLocale: "en",
   },
   {
     segments: ["about"],
@@ -71,10 +69,7 @@ export async function GET() {
         hreflang: altLocale,
         href: buildHref(origin, altLocale, route.segments),
       }));
-      const xDefaultLocale = route.xDefaultLocale ?? alternateLinks[0]?.hreflang;
-      const xDefaultHref = xDefaultLocale
-        ? buildHref(origin, xDefaultLocale, route.segments)
-        : currentHref;
+      const xDefaultHref = `${origin}/`;
 
       const hreflangLinks = [
         ...alternateLinks,
