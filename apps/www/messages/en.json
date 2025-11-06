@@ -1,15 +1,16 @@
 {
   "Metadata": {
-    "title": "Unkey",
-    "titleTemplate": "%s | Unkey",
-    "description": "Your Transformation Partner for the Age of AI",
+    "title": "TransformAI — AI Integrations & Adoption for SMEs",
+    "titleTemplate": "%s — TransformAI",
+    "description": "We help companies integrate AI end-to-end—strategy, workflows, and governance—so teams get real productivity gains safely.",
     "openGraph": {
-      "title": "Unkey",
-      "description": "Your Transformation Partner for the Age of AI",
-      "siteName": "unkey.com"
+      "title": "TransformAI — AI Integrations & Adoption for SMEs",
+      "description": "We help companies integrate AI end-to-end—strategy, workflows, and governance—so teams get real productivity gains safely.",
+      "siteName": "TransformAI"
     },
     "twitter": {
-      "title": "Unkey"
+      "title": "TransformAI — AI Integrations & Adoption for SMEs",
+      "description": "We help companies integrate AI end-to-end—strategy, workflows, and governance—so teams get real productivity gains safely."
     }
   },
   "Navigation": {

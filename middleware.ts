@@ -9,6 +9,8 @@ const intlMiddleware = createMiddleware({
   localePrefix: "always",
 });
 
+const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
+
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const canonicalHost = "transformai.nl";
@@ -62,7 +64,22 @@ export default function middleware(request: NextRequest) {
     }
   }
 
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+
+  const matchedLocale = locales.find((code) => {
+    return pathname === `/${code}` || pathname.startsWith(`/${code}/`);
+  });
+
+  if (matchedLocale) {
+    response.cookies.set("NEXT_LOCALE", matchedLocale, {
+      maxAge: ONE_YEAR_IN_SECONDS,
+      path: "/",
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+  }
+
+  return response;
 }
 
 export const config = {

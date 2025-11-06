@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { locales } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
@@ -11,7 +11,6 @@ type LanguageSwitcherProps = {
 };
 
 export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
-  const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
   const searchParams = useSearchParams();
@@ -26,33 +25,75 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
     [languageT],
   );
 
-  const currentLabel = t("current", { language: languageNames[locale as keyof typeof languageNames] ?? locale });
+  const trimmedPathname = useMemo(() => {
+    if (!pathname) {
+      return "/";
+    }
+
+    if (pathname.length > 1 && pathname.endsWith("/")) {
+      return pathname.slice(0, -1);
+    }
+
+    return pathname;
+  }, [pathname]);
+
+  const localeStrippedPath = useMemo(() => {
+    return locales.reduce((currentPath, code) => {
+      const prefix = `/${code}`;
+      if (currentPath === prefix) {
+        return "/";
+      }
+
+      if (currentPath.startsWith(`${prefix}/`)) {
+        const sliced = currentPath.slice(prefix.length);
+        return sliced.length > 0 ? sliced : "/";
+      }
+
+      return currentPath;
+    }, trimmedPathname);
+  }, [trimmedPathname]);
+
+  const normalizedPathname = useMemo(() => {
+    if (localeStrippedPath.length > 1 && localeStrippedPath.endsWith("/")) {
+      return localeStrippedPath.slice(0, -1);
+    }
+
+    return localeStrippedPath || "/";
+  }, [localeStrippedPath]);
+
+  const search = searchParams.toString();
+
+  const pathWithSearch = search ? `${normalizedPathname}?${search}` : normalizedPathname;
 
   return (
-    <label className={cn("flex items-center gap-2 text-sm text-white/70", className)}>
+    <nav aria-label={t("label")} className={cn("flex items-center gap-2", className)}>
       <span className="sr-only">{t("label")}</span>
-      <select
-        aria-label={t("label")}
-        title={currentLabel}
-        value={locale}
-        onChange={(event) => {
-          const nextLocale = event.target.value;
-          if (nextLocale === locale) {
-            return;
-          }
+      <div className="flex overflow-hidden rounded-full border border-white/15 bg-white/[0.04] p-0.5">
+        {locales.map((code) => {
+          const isActive = code === locale;
+          const languageName = languageNames[code as keyof typeof languageNames] ?? code;
+          const ariaLabel = isActive ? t("current", { language: languageName }) : languageName;
 
-          const search = searchParams.toString();
-          const destination = search ? `${pathname}?${search}` : pathname;
-          void router.replace(destination, { locale: nextLocale });
-        }}
-        className="h-8 rounded-md border border-white/20 bg-black/60 px-2 text-sm text-white/80 shadow-sm transition focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/30"
-      >
-        {locales.map((code) => (
-          <option key={code} value={code} className="text-black">
-            {languageNames[code as keyof typeof languageNames] ?? code}
-          </option>
-        ))}
-      </select>
-    </label>
+          return (
+            <Link
+              key={code}
+              href={pathWithSearch}
+              locale={code}
+              aria-current={isActive ? "page" : undefined}
+              aria-label={ariaLabel}
+              className={cn(
+                "relative px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/70 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+                isActive
+                  ? "bg-white text-black shadow-[0_0_22px_rgba(255,255,255,0.35)]"
+                  : "hover:bg-white/10 hover:text-white",
+              )}
+            >
+              <span aria-hidden>{code.toUpperCase()}</span>
+              <span className="sr-only">{languageName}</span>
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
   );
 }
