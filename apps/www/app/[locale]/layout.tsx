@@ -1,8 +1,9 @@
 import { Footer } from "@/components/footer/footer";
 import { Navigation } from "@/components/navbar/navigation";
+import { CanonicalLink } from "@/components/seo/canonical-link";
 import { env } from "@/lib/env";
 import { loadMessages } from "@/i18n/messages";
-import { isLocale, locales, type Locale } from "@/i18n/routing";
+import { defaultLocale, isLocale, locales, type Locale } from "@/i18n/routing";
 import { ConsentManagerProvider } from "@c15t/nextjs";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -38,7 +39,9 @@ export async function generateMetadata({
   const baseUrl = new URL(parsedEnv.NEXT_PUBLIC_BASE_URL);
   const languageAlternates = Object.fromEntries(
     locales.map((code) => [code, `/${code}`]),
-  );
+  ) as Record<string, string>;
+
+  languageAlternates["x-default"] = `/${defaultLocale}`;
 
   return {
     metadataBase: baseUrl,
@@ -68,6 +71,7 @@ export async function generateMetadata({
       shortcut: "/images/logos/transformai/logosvg.svg",
     },
     alternates: {
+      canonical: locale === defaultLocale ? "/" : `/${locale}`,
       languages: languageAlternates,
     },
   };
@@ -93,6 +97,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
+      <CanonicalLink />
       <ConsentManagerProvider
         options={{
           ...(parsedEnv.NEXT_PUBLIC_C15T_MODE
