@@ -1,15 +1,16 @@
 {
   "Metadata": {
-    "title": "Unkey",
-    "titleTemplate": "%s | Unkey",
-    "description": "Jouw transformatiepartner voor het AI-tijdperk",
+    "title": "TransformAI — AI-integraties & adoptie voor het mkb",
+    "titleTemplate": "%s — TransformAI",
+    "description": "We helpen organisaties AI end-to-end te integreren—strategie, workflows en governance—zodat teams veilig echte productiviteitswinst boeken.",
     "openGraph": {
-      "title": "Unkey",
-      "description": "Jouw transformatiepartner voor het AI-tijdperk",
-      "siteName": "unkey.com"
+      "title": "TransformAI — AI-integraties & adoptie voor het mkb",
+      "description": "We helpen organisaties AI end-to-end te integreren—strategie, workflows en governance—zodat teams veilig echte productiviteitswinst boeken.",
+      "siteName": "TransformAI"
     },
     "twitter": {
-      "title": "Unkey"
+      "title": "TransformAI — AI-integraties & adoptie voor het mkb",
+      "description": "We helpen organisaties AI end-to-end te integreren—strategie, workflows en governance—zodat teams veilig echte productiviteitswinst boeken."
     }
   },
   "Navigation": {

@@ -1,5 +1,5 @@
 import { TransformAILogo } from "@/components/footer/footer-svgs";
-import { type Locale, defaultLocale, isLocale } from "@/i18n/routing";
+import { type Locale, defaultLocale, isLocale, locales } from "@/i18n/routing";
 import { createTranslator } from "next-intl";
 import { cookies } from "next/headers";
 
@@ -26,6 +26,7 @@ export default async function SelectLanguagePage({
 
   const nextParam = searchParams?.next;
   const nextPath = Array.isArray(nextParam) ? nextParam[0] : nextParam ?? "";
+  const sanitizedNextPath = sanitizeNextPath(nextPath);
 
   const options: Array<LanguageOption> = [
     { locale: "en", label: t("english") },
@@ -61,14 +62,11 @@ export default async function SelectLanguagePage({
               <h1 className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                 {t("selectTitle")}
               </h1>
-              <form action="/api/select-language" method="post" className="mt-4 grid w-full gap-4 text-left">
-                <input type="hidden" name="next" value={nextPath} />
+              <div className="mt-4 grid w-full gap-4 text-left">
                 {options.map(({ locale, label }) => (
-                  <button
+                  <a
                     key={locale}
-                    type="submit"
-                    name="locale"
-                    value={locale}
+                    href={buildLocaleHref(locale, sanitizedNextPath)}
                     className="group relative flex w-full items-center justify-between overflow-hidden rounded-2xl border border-white/15 bg-white/[0.04] px-6 py-4 text-base font-semibold text-white transition hover:border-white/25 hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                   >
                     <span className="relative z-10">{label}</span>
@@ -81,13 +79,50 @@ export default async function SelectLanguagePage({
                     <span className="relative z-10 text-sm font-medium uppercase tracking-[0.2em] text-white/60">
                       {locale.toUpperCase()}
                     </span>
-                  </button>
+                  </a>
                 ))}
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function sanitizeNextPath(path: string | null | undefined) {
+  if (!path) {
+    return null;
+  }
+
+  const trimmed = path.trim();
+  if (!trimmed) {
+    return null;
+  }
+
+  return trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+}
+
+function buildLocaleHref(locale: Locale, nextPath: string | null) {
+  if (!nextPath || nextPath === "/") {
+    return `/${locale}`;
+  }
+
+  for (const candidate of locales) {
+    const prefix = `/${candidate}`;
+    if (nextPath === prefix) {
+      return `/${locale}`;
+    }
+
+    if (nextPath.startsWith(`${prefix}/`)) {
+      const remainder = nextPath.slice(prefix.length);
+      return remainder.length > 0 ? `/${locale}${remainder}` : `/${locale}`;
+    }
+  }
+
+  if (nextPath.startsWith("/")) {
+    return `/${locale}${nextPath}`;
+  }
+
+  return `/${locale}/${nextPath}`;
 }
