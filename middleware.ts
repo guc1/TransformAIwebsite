@@ -11,6 +11,25 @@ const intlMiddleware = createMiddleware({
 
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const canonicalHost = "transformai.nl";
+  const forwardedHost =
+    request.headers.get("x-forwarded-host") ?? request.headers.get("host");
+  const forwardedProto = request.headers.get("x-forwarded-proto");
+
+  if (forwardedHost) {
+    const httpsUrl = request.nextUrl.clone();
+    httpsUrl.protocol = "https";
+
+    if (forwardedHost === `www.${canonicalHost}`) {
+      httpsUrl.host = canonicalHost;
+      return NextResponse.redirect(httpsUrl, 301);
+    }
+
+    if (forwardedHost === canonicalHost && forwardedProto && forwardedProto !== "https") {
+      httpsUrl.host = canonicalHost;
+      return NextResponse.redirect(httpsUrl, 301);
+    }
+  }
 
   if (pathname === "/select-language" || pathname.startsWith("/_next") || pathname.includes(".")) {
     return NextResponse.next();

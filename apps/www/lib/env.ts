@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 const clientSchema = z.object({
-  NEXT_PUBLIC_BASE_URL: z.string().url().default("https://unkey.com"),
+  NEXT_PUBLIC_BASE_URL: z
+    .string()
+    .url()
+    .default("https://transformai.nl"),
   NEXT_PUBLIC_C15T_MODE: z.enum(["c15t", "offline"]).nullable().optional(),
 });
 
