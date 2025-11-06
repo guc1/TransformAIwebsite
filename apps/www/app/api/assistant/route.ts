@@ -79,20 +79,26 @@ export async function POST(request: NextRequest) {
   const { messages, locale } = parseResult.data;
   const localeHint = sanitizeLocale(locale);
   const systemPrompt = buildSystemPrompt(localeHint);
+
+  // ✅ Fix: narrow the union as a variable (no `as const` on a ternary)
   const openAiMessages = [
     {
       role: "system" as const,
       content: [{ type: "input_text" as const, text: systemPrompt }],
     },
-    ...messages.map(({ role, content }) => ({
-      role,
-      content: [
-        {
-          type: (role === "assistant" ? "output_text" : "input_text") as const,
-          text: content,
-        },
-      ],
-    })),
+    ...messages.map(({ role, content }) => {
+      const msgType: "output_text" | "input_text" =
+        role === "assistant" ? "output_text" : "input_text";
+      return {
+        role,
+        content: [
+          {
+            type: msgType,
+            text: content,
+          },
+        ],
+      };
+    }),
   ];
 
   try {
@@ -105,7 +111,7 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         model: "gpt-5-mini",
         input: openAiMessages,
-        max_output_tokens: 600,
+        max_output_tokens: 1600,
       }),
       cache: "no-store",
     });

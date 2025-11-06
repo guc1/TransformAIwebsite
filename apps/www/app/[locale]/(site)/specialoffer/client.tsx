@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useTranslations } from "next-intl";
-
+import type { LucideIcon } from "lucide-react";
 import { Particles } from "@/components/particles";
 import { ShinyCardGroup } from "@/components/shiny-card";
 import { TopLeftShiningLight, TopRightShiningLight } from "@/components/svg/hero";
@@ -91,12 +91,12 @@ type PackageCardProps = {
   headerTitle: string;
   headerTagline: string;
   headerDescription: string;
-  headerIcon: React.ComponentType<React.ComponentProps<typeof Crown>>;
+  headerIcon: LucideIcon;
   price: string;
   priceNote: string;
   cta: { label: string; href: string };
   bullets: Array<{ title: string; description?: string }>;
-  bulletIcons: Array<React.ComponentType<React.ComponentProps<typeof Crown>>>;
+  bulletIcons: LucideIcon[];
   bulletColor: Color;
   bulletsTitle: string;
   footer?: React.ReactNode;

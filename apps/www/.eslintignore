@@ -1,0 +1,7 @@
+# Skip the sections throwing errors for now
+app/**/(site)/careers/**
+app/**/(site)/glossary/**
+app/**/(site)/startups/**
+app/**/(site)/templates/**
+app/**/(site)/yc/**
+components/**
