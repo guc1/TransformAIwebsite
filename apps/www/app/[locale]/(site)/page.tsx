@@ -40,7 +40,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import mainboard from "@/images/mainboard.svg";
+import mainboard from "@/images/logos/transformai/mainbordtransform.svg";
 import { DesktopLogoCloud, MobileLogoCloud } from "./(components)/logo-cloud-content";
 import { CodeExamples } from "../../code-examples";
 

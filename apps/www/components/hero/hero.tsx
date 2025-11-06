@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { HeroMainSection } from "./hero-main-section";
 import type { HoursSavedNumberFormatOptions } from "./hours-saved-ticker";
 
-import mainboard from "@/images/mainboard.svg";
+import mainboard from "@/images/logos/transformai/mainbordtransform.svg";
 import { SubHeroMainboard } from "./hero-sub-mainboard";
 type HeroProps = {
   initialHoursSavedAmount: number;
