@@ -298,6 +298,7 @@ export function HoursSavedTicker({
       ref={scope}
       className={cn("inline-flex items-center font-medium text-white", className)}
       aria-live="polite"
+      suppressHydrationWarning
     >
       {formatted}
     </span>
