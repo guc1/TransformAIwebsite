@@ -20,10 +20,12 @@ import { OssLight } from "@/components/svg/oss-light";
 import { UsageBento } from "@/components/usage-bento";
 import { isLocale } from "@/i18n/routing";
 import { getHoursSavedOverview } from "@/lib/hours-saved";
+import { env } from "@/lib/env";
 import {
   BarChart3,
   ChevronRight,
   Clock,
+  Handshake,
   GraduationCap,
   Lightbulb,
   LineChart,
@@ -31,7 +33,9 @@ import {
   Puzzle,
   Rocket,
   Scale,
+  ShieldCheck,
   Sprout,
+  UsersRound,
   Zap,
 } from "lucide-react";
 import Image from "next/image";
@@ -66,19 +70,28 @@ export async function generateMetadata({
   }
 
   const t = await getTranslations({ locale, namespace: "Metadata" });
+  const baseUrl = new URL(env().NEXT_PUBLIC_BASE_URL);
+  const pathname = locale === "nl" ? "/" : `/${locale}`;
+  const pageUrl = new URL(pathname, baseUrl);
 
   return {
     title: t("title"),
     description: t("description"),
-    keywords: ["Unkey", "API", "API development", "API security", "API development platform"],
+    keywords: [
+      "TransformAI",
+      "AI consultancy Netherlands",
+      "AI strategy",
+      "AI implementation",
+      "AI training",
+    ],
     openGraph: {
       title: t("openGraph.title"),
       description: t("openGraph.description"),
-      url: "https://unkey.com/",
+      url: pageUrl.toString(),
       siteName: t("openGraph.siteName"),
       images: [
         {
-          url: "https://unkey.com/og.png",
+          url: `${baseUrl.origin}/og.png`,
           width: 1200,
           height: 675,
         },
@@ -86,10 +99,8 @@ export async function generateMetadata({
     },
     twitter: {
       title: t("twitter.title"),
+      description: t("twitter.description"),
       card: "summary_large_image",
-    },
-    icons: {
-      shortcut: "/images/logos/transformai/logosvg.svg",
     },
   };
 }
@@ -107,12 +118,14 @@ export default async function Landing({
 
   const meetingHref = `/${locale}/meeting` as const;
   const solutionsHref = `/${locale}/pricing` as const;
+  const contactHref = `/${locale}/contact` as const;
 
-  const [cta, platform, hero, featureSection] = await Promise.all([
+  const [cta, platform, hero, featureSection, homepage] = await Promise.all([
     getTranslations({ locale, namespace: "CTA" }),
     getTranslations({ locale, namespace: "Platform" }),
     getTranslations({ locale, namespace: "Hero" }),
     getTranslations({ locale, namespace: "FeatureSection" }),
+    getTranslations({ locale, namespace: "Homepage" }),
   ]);
 
   const hoursSavedOverview = await getHoursSavedOverview();
@@ -166,6 +179,18 @@ export default async function Landing({
     description: featureSection(`boxes.${key}.description`),
   }));
 
+  const servicesHighlights = [
+    { key: "strategy", icon: Lightbulb },
+    { key: "automation", icon: Zap },
+    { key: "enablement", icon: GraduationCap },
+  ] as const;
+
+  const reasonsHighlights = [
+    { key: "measured", icon: LineChart },
+    { key: "governance", icon: ShieldCheck },
+    { key: "embedded", icon: Handshake },
+  ] as const;
+
   return (
     <>
       <TopRightShiningLight />
@@ -174,7 +199,7 @@ export default async function Landing({
         <div className="container relative mx-auto">
           <Image
             src={mainboard}
-            alt="Animated SVG showing computer circuits lighting up"
+            alt={hero("imageAlt")}
             className="absolute inset-x-0 flex  xl:hidden -z-10 scale-[2]"
             priority
           />
@@ -196,6 +221,103 @@ export default async function Landing({
           <Section className="mt-16 md:mt-32">
             <DesktopLogoCloud />
             <MobileLogoCloud />
+          </Section>
+          <Section className="mt-16 md:mt-24">
+            <div className="grid gap-12 lg:grid-cols-2">
+              <div className="space-y-6">
+                <SectionTitle
+                  align="left"
+                  label={homepage("services.label")}
+                  title={homepage("services.title")}
+                  text={homepage("services.body")}
+                  className="items-start"
+                />
+                <ul className="space-y-4">
+                  {servicesHighlights.map(({ key, icon: Icon }) => (
+                    <li
+                      key={key}
+                      className="flex items-start gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-white/20 hover:bg-white/[0.06]"
+                    >
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
+                        <Icon className="h-5 w-5" aria-hidden />
+                      </span>
+                      <div className="space-y-1">
+                        <p className="text-base font-semibold text-white">
+                          {homepage(`services.items.${key}.title`)}
+                        </p>
+                        <p className="text-sm text-white/70">
+                          {homepage(`services.items.${key}.description`)}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={solutionsHref}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-white/80 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                  {homepage("services.linkLabel")}
+                  <ChevronRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </div>
+              <div className="space-y-6">
+                <SectionTitle
+                  align="left"
+                  label={homepage("reasons.label")}
+                  title={homepage("reasons.title")}
+                  text={homepage("reasons.body")}
+                  className="items-start"
+                />
+                <ul className="space-y-4">
+                  {reasonsHighlights.map(({ key, icon: Icon }) => (
+                    <li
+                      key={key}
+                      className="flex items-start gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-white/20 hover:bg-white/[0.06]"
+                    >
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
+                        <Icon className="h-5 w-5" aria-hidden />
+                      </span>
+                      <div className="space-y-1">
+                        <p className="text-base font-semibold text-white">
+                          {homepage(`reasons.items.${key}.title`)}
+                        </p>
+                        <p className="text-sm text-white/70">
+                          {homepage(`reasons.items.${key}.description`)}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Section>
+          <Section className="mt-16 md:mt-24">
+            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 shadow-[0_28px_120px_rgba(15,23,42,0.45)] md:p-12">
+              <SectionTitle
+                align="left"
+                label={homepage("team.label")}
+                title={homepage("team.title")}
+                text={homepage("team.body")}
+                className="items-start"
+              />
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link
+                  href={contactHref}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.08] px-4 py-2 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/[0.14] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                  <UsersRound className="h-4 w-4" aria-hidden />
+                  {homepage("team.linkLabel")}
+                </Link>
+                <Link href={contactHref} className="group inline-flex">
+                  <PrimaryButton
+                    shiny
+                    IconLeft={Lightbulb}
+                    IconRight={ChevronRight}
+                    label={homepage("team.cta")}
+                  />
+                </Link>
+              </div>
+            </div>
           </Section>
           <Section className="mt-16 md:mt-18">
             <CodeExamples />
