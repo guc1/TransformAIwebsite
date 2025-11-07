@@ -1,16 +1,16 @@
 {
   "Metadata": {
-    "title": "TransformAI — AI-integraties & adoptie voor het mkb",
+    "title": "TransformAI – AI-oplossingen voor bedrijven in Nederland",
     "titleTemplate": "%s — TransformAI",
-    "description": "We helpen organisaties AI end-to-end te integreren—strategie, workflows en governance—zodat teams veilig echte productiviteitswinst boeken.",
+    "description": "TransformAI helpt Nederlandse bedrijven (20–200 FTE) succesvol AI toe te passen – van eerste stap tot geavanceerde implementaties.",
     "openGraph": {
-      "title": "TransformAI — AI-integraties & adoptie voor het mkb",
-      "description": "We helpen organisaties AI end-to-end te integreren—strategie, workflows en governance—zodat teams veilig echte productiviteitswinst boeken.",
+      "title": "TransformAI – AI-oplossingen voor bedrijven in Nederland",
+      "description": "TransformAI helpt Nederlandse bedrijven (20–200 FTE) succesvol AI toe te passen – van eerste stap tot geavanceerde implementaties.",
       "siteName": "TransformAI"
     },
     "twitter": {
-      "title": "TransformAI — AI-integraties & adoptie voor het mkb",
-      "description": "We helpen organisaties AI end-to-end te integreren—strategie, workflows en governance—zodat teams veilig echte productiviteitswinst boeken."
+      "title": "TransformAI – AI-oplossingen voor bedrijven in Nederland",
+      "description": "TransformAI helpt Nederlandse bedrijven (20–200 FTE) succesvol AI toe te passen – van eerste stap tot geavanceerde implementaties."
     }
   },
   "Navigation": {
@@ -299,6 +299,14 @@
         "errorTitle": "Bericht kon niet worden verzonden"
       },
       "footnote": "We gebruiken je gegevens alleen om te reageren via {email}."
+    },
+    "Metadata": {
+      "title": "Contact TransformAI – Plan je AI-consult",
+      "description": "Plan een gesprek met de consultants van TransformAI over strategie, automatisering of enablement. Je ontvangt binnen twee werkdagen een reactie.",
+      "openGraphTitle": "Contact TransformAI – Plan je AI-consult",
+      "openGraphDescription": "Deel je AI-doelen en ontvang binnen twee werkdagen een voorstel voor de volgende stap.",
+      "twitterTitle": "Contact TransformAI – Plan je AI-consult",
+      "twitterDescription": "Vertel ons over je AI-plannen en wij reageren met een concreet actieplan."
     }
   },
   "Pricing": {
@@ -605,6 +613,14 @@
         "body": "Probeer het over een moment opnieuw.",
         "retry": "Opnieuw proberen"
       }
+    },
+    "Metadata": {
+      "title": "TransformAI diensten – AI-trajecten voor Nederlandse bedrijven",
+      "description": "Ontdek strategie-, automatiserings- en enablement-trajecten voor Nederlandse organisaties met focus op resultaat en governance.",
+      "openGraphTitle": "TransformAI diensten – AI-trajecten voor Nederlandse bedrijven",
+      "openGraphDescription": "Lees hoe onze strategie-, automatiserings- en enablementdiensten Nederlandse teams helpen verantwoord te schalen.",
+      "twitterTitle": "TransformAI diensten – AI-trajecten voor Nederlandse bedrijven",
+      "twitterDescription": "Bekijk hoe TransformAI strategie, automatisering en enablement combineert tot meetbare AI-resultaten."
     }
   },
   "SpecialOffer": {
@@ -724,7 +740,8 @@
     "title": "Jouw transformatiepartner voor het AI-tijdperk",
     "body": "Wij helpen bedrijven zich succesvol en duurzaam aan te passen aan de kansen en uitdagingen die Kunstmatige Intelligentie met zich meebrengt.",
     "secondaryTitle": "Geoptimaliseerd voor AI-productiviteit en prestaties",
-    "secondaryBody": "Ons platform helpt bedrijven productiever te werken, kosten te verlagen en AI-prestaties te verbeteren. Het bouwt voort op bestaande structuren om resultaten te versterken, en biedt aanpasbaarheid, langdurige betrouwbaarheid en eenvoudige modelselectie voor elke use-case."
+    "secondaryBody": "Ons platform helpt bedrijven productiever te werken, kosten te verlagen en AI-prestaties te verbeteren. Het bouwt voort op bestaande structuren om resultaten te versterken, en biedt aanpasbaarheid, langdurige betrouwbaarheid en eenvoudige modelselectie voor elke use-case.",
+    "imageAlt": "Illustratie van een gloeiend printplaatontwerp dat de automatisering van TransformAI uitbeeldt"
   },
   "About": {
     "Hero": {
@@ -1838,6 +1855,54 @@
       "error": "Bijwerken is mislukt. Probeer het opnieuw.",
       "validation": "Voer voor elk veld een niet-negatieve waarde in.",
       "amountSuffix": "uur"
+    }
+  },
+  "Homepage": {
+    "services": {
+      "label": "Onze AI-diensten",
+      "title": "Programma’s op maat voor Nederlandse bedrijven",
+      "body": "We begeleiden teams van ontdekking tot uitrol en koppelen elke AI-oplossing aan meetbare resultaten.",
+      "linkLabel": "AI-diensten voor bedrijven",
+      "items": {
+        "strategy": {
+          "title": "AI-strategie & roadmap",
+          "description": "Gezamenlijke workshops en directiesessies om de meest waardevolle use-cases te kiezen."
+        },
+        "automation": {
+          "title": "Procesautomatisering",
+          "description": "Ontwerp en implementeer copiloten die kenniswerk en klantprocessen versnellen."
+        },
+        "enablement": {
+          "title": "Team enablement & training",
+          "description": "Maatwerk leerpaden en veranderprogramma’s die AI in het dagelijkse werk verankeren."
+        }
+      }
+    },
+    "reasons": {
+      "label": "Waarom TransformAI",
+      "title": "Praktische experts met enterprise-ervaring",
+      "body": "We vertalen nieuwe AI-mogelijkheden naar compliant, productieklare oplossingen voor middelgrote organisaties.",
+      "items": {
+        "measured": {
+          "title": "Meetbaar resultaat",
+          "description": "We kwantificeren efficiëntie, adoptie en ROI zodat elk traject aantoonbaar waarde levert."
+        },
+        "governance": {
+          "title": "Governance-first",
+          "description": "Security, privacy en regelgeving zijn vanaf dag één ingebouwd."
+        },
+        "embedded": {
+          "title": "Inhouse begeleiding",
+          "description": "Onze specialisten werken naast jouw team om kennis over te dragen en delivery te versnellen."
+        }
+      }
+    },
+    "team": {
+      "label": "Team",
+      "title": "Maak kennis met de specialisten achter onze projecten",
+      "body": "Strategen, data scientists en engineers werken in blended pods rond jouw doelstellingen. Klaar om te ontdekken hoe wij samenwerken?",
+      "linkLabel": "Spreek ons team",
+      "cta": "Plan een gesprek met TransformAI"
     }
   }
 }

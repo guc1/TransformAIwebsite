@@ -78,7 +78,7 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="relative" style={{ transform: "scale(2)" }}>
           <Image
             src={mainboard}
-            alt="Animated SVG showing computer circuits lighting up"
+            alt={hero("imageAlt")}
             className="pointer-events-none select-none"
             priority
           />

@@ -1,4 +1,5 @@
 import { Handshake, ShieldCheck, Sparkles } from "lucide-react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
@@ -6,40 +7,54 @@ import { Container } from "@/components/container";
 import { SectionTitle } from "@/components/section";
 import { FadeIn, FadeInStagger } from "@/components/fade-in";
 import { isLocale } from "@/i18n/routing";
+import { env } from "@/lib/env";
 
 import { ContactForm } from "./components/contact-form";
-
-export const metadata = {
-  title: "Contact | TransformAI",
-  description: "Partner with TransformAI to shape your AI strategy, automation, and enablement initiatives.",
-  openGraph: {
-    title: "Contact TransformAI",
-    description: "Share your AI ambition and we'll craft a tailored plan within two business days.",
-    url: "https://transformai.nl/contact",
-    siteName: "TransformAI",
-    images: [
-      {
-        url: "https://transformai.nl/images/landing/og.png",
-        width: 1200,
-        height: 675,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact TransformAI",
-    description: "Tell us about your AI goals and we'll respond with a tailored action plan.",
-  },
-  icons: {
-    shortcut: "/images/logos/transformai/logosvg.svg",
-  },
-};
 
 type PageProps = {
   params: {
     locale: string;
   };
 };
+
+type MetadataProps = PageProps;
+
+export async function generateMetadata({
+  params,
+}: MetadataProps): Promise<Metadata> {
+  const { locale } = params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
+  const t = await getTranslations({ locale, namespace: "Contact.Metadata" });
+  const baseUrl = new URL(env().NEXT_PUBLIC_BASE_URL);
+  const pathname = `/${locale}/contact`;
+  const pageUrl = new URL(pathname, baseUrl);
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    openGraph: {
+      title: t("openGraphTitle"),
+      description: t("openGraphDescription"),
+      url: pageUrl.toString(),
+      images: [
+        {
+          url: `${baseUrl.origin}/og.png`,
+          width: 1200,
+          height: 675,
+        },
+      ],
+    },
+    twitter: {
+      title: t("twitterTitle"),
+      description: t("twitterDescription"),
+      card: "summary_large_image",
+    },
+  };
+}
 
 const highlightItems = [
   { key: "strategy", icon: Sparkles },

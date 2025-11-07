@@ -1,16 +1,16 @@
 {
   "Metadata": {
-    "title": "TransformAI — AI Integrations & Adoption for SMEs",
+    "title": "TransformAI – AI Solutions for Companies in the Netherlands",
     "titleTemplate": "%s — TransformAI",
-    "description": "We help companies integrate AI end-to-end—strategy, workflows, and governance—so teams get real productivity gains safely.",
+    "description": "We help Dutch companies adopt AI—from first steps to advanced implementations.",
     "openGraph": {
-      "title": "TransformAI — AI Integrations & Adoption for SMEs",
-      "description": "We help companies integrate AI end-to-end—strategy, workflows, and governance—so teams get real productivity gains safely.",
+      "title": "TransformAI – AI Solutions for Companies in the Netherlands",
+      "description": "We help Dutch companies adopt AI—from first steps to advanced implementations.",
       "siteName": "TransformAI"
     },
     "twitter": {
-      "title": "TransformAI — AI Integrations & Adoption for SMEs",
-      "description": "We help companies integrate AI end-to-end—strategy, workflows, and governance—so teams get real productivity gains safely."
+      "title": "TransformAI – AI Solutions for Companies in the Netherlands",
+      "description": "We help Dutch companies adopt AI—from first steps to advanced implementations."
     }
   },
   "Navigation": {
@@ -299,6 +299,14 @@
         "errorTitle": "We couldn’t send your message"
       },
       "footnote": "We’ll only use the details you share to respond from {email}."
+    },
+    "Metadata": {
+      "title": "Contact TransformAI – Plan Your AI Consultation",
+      "description": "Connect with TransformAI’s consultants to discuss strategy, automation or enablement. We reply within two business days.",
+      "openGraphTitle": "Contact TransformAI – Plan Your AI Consultation",
+      "openGraphDescription": "Share your AI goals and we’ll send back a tailored next step within two business days.",
+      "twitterTitle": "Contact TransformAI – Plan Your AI Consultation",
+      "twitterDescription": "Tell us about your AI ambitions and we’ll respond with a tailored action plan."
     }
   },
   "Pricing": {
@@ -605,6 +613,14 @@
         "body": "Please try again in a few moments.",
         "retry": "Retry"
       }
+    },
+    "Metadata": {
+      "title": "TransformAI Services – AI Programs for Dutch Companies",
+      "description": "Explore AI strategy, automation and enablement programmes built for Dutch organisations that need measurable outcomes and governance.",
+      "openGraphTitle": "TransformAI Services – AI Programs for Dutch Companies",
+      "openGraphDescription": "Discover our AI strategy, automation and enablement services for Dutch teams ready to scale responsibly.",
+      "twitterTitle": "TransformAI Services – AI Programs for Dutch Companies",
+      "twitterDescription": "See how TransformAI delivers strategy, automation and enablement programmes with measurable business impact."
     }
   },
   "SpecialOffer": {
@@ -724,7 +740,8 @@
     "title": "Your Transformation Partner for the Age of AI",
     "body": "We help companies adapt successfully and sustainably to the challenges and opportunities that Artificial Intelligence brings.",
     "secondaryTitle": "Optimised for AI Productivity and Performance",
-    "secondaryBody": "Our platform helps companies boost productivity, cut costs, and improve AI performance. It builds on existing structures to amplify results, while offering customisation, long-term reliability, and seamless model selection for every use case."
+    "secondaryBody": "Our platform helps companies boost productivity, cut costs, and improve AI performance. It builds on existing structures to amplify results, while offering customisation, long-term reliability, and seamless model selection for every use case.",
+    "imageAlt": "Illustration of a glowing circuit board symbolising TransformAI automation"
   },
   "About": {
     "Hero": {
@@ -1881,6 +1898,54 @@
       "error": "We couldn’t update the schedule. Try again.",
       "validation": "Enter a non-negative value for each field.",
       "amountSuffix": "hrs"
+    }
+  },
+  "Homepage": {
+    "services": {
+      "label": "Our AI services",
+      "title": "Tailored programmes for Dutch scale-ups",
+      "body": "We partner with teams from discovery to deployment, aligning AI solutions with measurable outcomes.",
+      "linkLabel": "AI services for companies",
+      "items": {
+        "strategy": {
+          "title": "AI strategy & roadmap",
+          "description": "Joint workshops and executive sessions to prioritise the highest-value use cases."
+        },
+        "automation": {
+          "title": "Process automation",
+          "description": "Design and ship copilots that streamline internal workflows and customer journeys."
+        },
+        "enablement": {
+          "title": "Team enablement & training",
+          "description": "Custom learning paths and change programmes that embed AI in daily work."
+        }
+      }
+    },
+    "reasons": {
+      "label": "Why TransformAI",
+      "title": "Pragmatic experts with enterprise experience",
+      "body": "We translate emerging AI capabilities into compliant, production-ready solutions for mid-sized Dutch organisations.",
+      "items": {
+        "measured": {
+          "title": "Measured impact",
+          "description": "We model efficiency, adoption and ROI so every initiative stays accountable."
+        },
+        "governance": {
+          "title": "Governance-first",
+          "description": "Security, privacy and regulatory guardrails are built into every engagement."
+        },
+        "embedded": {
+          "title": "Embedded guidance",
+          "description": "Our specialists work alongside your teams to transfer knowledge and accelerate delivery."
+        }
+      }
+    },
+    "team": {
+      "label": "Team",
+      "title": "Meet the specialists behind our client work",
+      "body": "Strategists, data scientists and engineers collaborate in blended pods tailored to your objectives. Ready to explore how we work?",
+      "linkLabel": "Talk to our team",
+      "cta": "Plan a meeting with TransformAI"
     }
   }
 }
