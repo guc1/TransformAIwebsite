@@ -38,11 +38,11 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "Metadata" });
   const baseUrl = new URL(parsedEnv.NEXT_PUBLIC_BASE_URL);
   const languageAlternates = Object.fromEntries(
-    locales.map((code) => [code, `/${code}`]),
+    locales.map((code) => [code, code === "nl" ? "/" : `/${code}`]),
   ) as Record<string, string>;
 
   languageAlternates["x-default"] = "/";
-  const canonicalPath = `/${locale}`;
+  const canonicalPath = locale === "nl" ? "/" : `/${locale}`;
 
   return {
     metadataBase: baseUrl,
@@ -70,7 +70,15 @@ export async function generateMetadata({
       card: "summary_large_image",
     },
     icons: {
-      shortcut: "/images/logos/transformai/logosvg.svg",
+      icon: [
+        { url: "/favicon.ico", type: "image/png", sizes: "any" },
+        {
+          url: "/images/logos/transformai/logosvg.svg",
+          type: "image/svg+xml",
+        },
+      ],
+      shortcut: "/favicon.ico",
+      apple: "/images/logos/transformai/purelogo.png",
     },
     alternates: {
       canonical: canonicalPath,
@@ -99,10 +107,27 @@ export default async function LocaleLayout({
   const baseUrl = new URL(parsedEnv.NEXT_PUBLIC_BASE_URL);
   const organizationStructuredData = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "LocalBusiness",
     name: "TransformAI",
+    legalName: "TransformAI",
     url: `${baseUrl.origin}/`,
-    logo: `${baseUrl.origin}/images/logos/transformai/logosvg.svg`,
+    logo: `${baseUrl.origin}/images/logos/transformai/purelogo.png`,
+    image: `${baseUrl.origin}/images/logos/transformai/purelogo.png`,
+    telephone: "+31-6-83238351",
+    email: "info@transformai.nl",
+    areaServed: "NL",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Gustav Mahlerlaan 150",
+      postalCode: "1082 ME",
+      addressLocality: "Amsterdam",
+      addressCountry: "NL",
+    },
+    identifier: {
+      "@type": "PropertyValue",
+      name: "KvK",
+      value: "98623192",
+    },
     sameAs: [
       "https://www.linkedin.com/company/transformai",
       "https://x.com/transformai",
@@ -112,7 +137,9 @@ export default async function LocaleLayout({
         "@type": "ContactPoint",
         contactType: "sales",
         email: "info@transformai.nl",
-        availableLanguage: ["en", "nl"],
+        telephone: "+31-6-83238351",
+        areaServed: "NL",
+        availableLanguage: ["nl", "en"],
       },
     ],
   } as const;
