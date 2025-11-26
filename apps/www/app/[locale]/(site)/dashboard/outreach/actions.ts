@@ -16,6 +16,8 @@ const entrySchema = z.object({
   name: z.string().min(1).max(200),
   text: z.string().min(1).max(4000),
   templateId: z.number().int().min(1).max(50),
+  campaign: z.string().regex(/^[A-Z]{3}$/),
+  sub: z.string().regex(/^[A-Z]{2}[0-9]$/),
 });
 
 const deleteSchema = z.object({

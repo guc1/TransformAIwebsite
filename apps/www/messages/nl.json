@@ -1560,7 +1560,7 @@
     "upload": {
       "eyebrow": "CSV-upload",
       "title": "Importeer outreach-tekst",
-      "description": "Upload een CSV met de kolommen Naam, Tekst voor op de pagina en Template. We controleren elke rij voordat hij live gaat.",
+      "description": "Upload een CSV met de kolommen Naam, Tekst voor op de pagina, Template, Campagne en Sub. We controleren elke rij voordat hij live gaat.",
       "cta": "Kies CSV",
       "fileSelected": "Geselecteerd: {name}",
       "noFile": "Nog geen bestand gekozen",
@@ -1573,15 +1573,19 @@
         "slug": "Slug",
         "template": "Template",
         "templateLabel": "Template {id}",
-        "text": "Tekst op de pagina"
+        "text": "Tekst op de pagina",
+        "campaign": "Campagne",
+        "sub": "Sub-segment"
       },
       "errors": {
         "title": "{count, plural, one {We vonden # fout} other {We vonden # fouten}}",
         "empty": "Het bestand lijkt leeg—voeg minstens één rij toe.",
-        "missingColumns": "Voeg de kolommen \"Naam\", \"Tekst voor op de pagina\" en \"Template\" toe.",
+        "missingColumns": "Voeg de kolommen \"Naam\", \"Tekst voor op de pagina\", \"Template\", \"Campagne\" en \"Sub\" toe.",
         "missingValues": "Rij {row} mist de naam of de tekst.",
         "invalidSlug": "Rij {row} kan niet worden omgezet in een geldige URL-slug.",
-        "invalidTemplate": "Rij {row} heeft een templatenummer nodig (1, 2, 3…)."
+        "invalidTemplate": "Rij {row} heeft een templatenummer nodig (1, 2, 3…).",
+        "invalidCampaign": "Rij {row} heeft een campagnecode nodig (AAA tot ZZZ).",
+        "invalidSub": "Rij {row} heeft een subwaarde nodig in de stijl AA1."
       }
     },
     "status": {
@@ -1618,7 +1622,20 @@
       "templates": "Templates",
       "templateLabel": "Template {id}",
       "templatesEmpty": "Templates verschijnen hier zodra er pagina’s live staan.",
-      "clear": "Filters wissen"
+      "actions": {
+        "selectAll": "Alles selecteren",
+        "clear": "Selectie wissen"
+      },
+      "clear": "Filters wissen",
+      "campaigns": "Campagnes",
+      "campaignsEmpty": "Campagnefilters verschijnen zodra pagina’s een campagnecode hebben.",
+      "sub": {
+        "label": "Sub-segmenten",
+        "first": "Eerste letter",
+        "second": "Tweede letter",
+        "number": "Nummer",
+        "empty": "Subfilters verschijnen zodra pagina’s een subwaarde hebben."
+      }
     },
     "table": {
       "eyebrow": "Gepubliceerde pagina’s",
@@ -1643,7 +1660,9 @@
         "added": "Toegevoegd",
         "booked": "Meeting geboekt",
         "updated": "Laatst bijgewerkt",
-        "actions": "Acties"
+        "actions": "Acties",
+        "campaign": "Campagne",
+        "sub": "Sub-segment"
       },
       "status": {
         "visited": "{count, plural, one {Eén keer bezocht} other {# keer bezocht}}",

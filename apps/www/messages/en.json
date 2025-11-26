@@ -1603,7 +1603,7 @@
     "upload": {
       "eyebrow": "CSV uploader",
       "title": "Import outreach copy",
-      "description": "Upload a CSV with Name, Text to display, and Template columns. We'll validate each row before anything goes live.",
+      "description": "Upload a CSV with Name, Text to display, Template, Campaign, and Sub columns. We'll validate each row before anything goes live.",
       "cta": "Choose CSV",
       "fileSelected": "Selected: {name}",
       "noFile": "No file selected yet",
@@ -1616,15 +1616,19 @@
         "slug": "Slug",
         "template": "Template",
         "templateLabel": "Template {id}",
-        "text": "Text to display"
+        "text": "Text to display",
+        "campaign": "Campaign",
+        "sub": "Sub segment"
       },
       "errors": {
         "title": "{count, plural, one {We found # issue} other {We found # issues}}",
         "empty": "The file looks empty—add at least one row before uploading.",
-        "missingColumns": "Add \"Name\", \"Text to display\", and \"Template\" columns to the CSV.",
+        "missingColumns": "Add \"Name\", \"Text to display\", \"Template\", \"Campaign\", and \"Sub\" columns to the CSV.",
         "missingValues": "Row {row} is missing either the name or the text to display.",
         "invalidSlug": "Row {row} cannot be converted into a valid URL slug.",
-        "invalidTemplate": "Row {row} needs a template number (1, 2, 3…)."
+        "invalidTemplate": "Row {row} needs a template number (1, 2, 3…).",
+        "invalidCampaign": "Row {row} needs a campaign code (AAA to ZZZ).",
+        "invalidSub": "Row {row} needs a sub value in the AA1 style."
       }
     },
     "status": {
@@ -1661,7 +1665,20 @@
       "templates": "Templates",
       "templateLabel": "Template {id}",
       "templatesEmpty": "Templates will appear here once you've published pages.",
-      "clear": "Clear all filters"
+      "actions": {
+        "selectAll": "Select all",
+        "clear": "Clear"
+      },
+      "clear": "Clear all filters",
+      "campaigns": "Campaigns",
+      "campaignsEmpty": "Campaign filters appear once pages include a campaign code.",
+      "sub": {
+        "label": "Sub segments",
+        "first": "First letter",
+        "second": "Second letter",
+        "number": "Number",
+        "empty": "Sub filters appear once pages include a sub value."
+      }
     },
     "table": {
       "eyebrow": "Published pages",
@@ -1686,7 +1703,9 @@
         "added": "Added",
         "booked": "Booked meeting",
         "updated": "Last updated",
-        "actions": "Actions"
+        "actions": "Actions",
+        "campaign": "Campaign",
+        "sub": "Sub segment"
       },
       "status": {
         "visited": "{count, plural, one {Visited once} other {Visited # times}}",

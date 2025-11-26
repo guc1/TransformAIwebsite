@@ -237,6 +237,8 @@ export const outreachPages = pgTable(
     displayName: text("display_name").notNull(),
     displayText: text("display_text").notNull(),
     templateId: integer("template_id").notNull().default(1),
+    campaign: text("campaign").notNull(),
+    sub: text("sub").notNull(),
     bookedMeeting: boolean("booked_meeting").notNull().default(false),
     bookedMeetingAt: timestamp("booked_meeting_at", { mode: "date", withTimezone: true }),
     visitCount: integer("visit_count").notNull().default(0),
