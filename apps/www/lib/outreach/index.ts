@@ -12,6 +12,8 @@ export interface OutreachPageRecord {
   displayName: string;
   displayText: string;
   templateId: number;
+  campaign: string;
+  sub: string;
   bookedMeeting: boolean;
   bookedMeetingAt: Date | null;
   visitCount: number;
@@ -34,6 +36,8 @@ interface ImportEntry {
   name: string;
   text: string;
   templateId: number;
+  campaign: string;
+  sub: string;
 }
 
 interface ImportResult {
@@ -126,8 +130,16 @@ export async function importOutreachEntries(entries: ImportEntry[]): Promise<Imp
       name: entry.name.trim(),
       text: entry.text.trim(),
       templateId: entry.templateId,
+      campaign: entry.campaign.trim().toUpperCase(),
+      sub: entry.sub.trim().toUpperCase(),
     }))
-    .filter((entry) => entry.name.length > 0 && entry.text.length > 0);
+    .filter(
+      (entry) =>
+        entry.name.length > 0 &&
+        entry.text.length > 0 &&
+        entry.campaign.length > 0 &&
+        entry.sub.length > 0,
+    );
 
   const deduped = new Map<string, ImportEntry>();
 
@@ -146,6 +158,8 @@ export async function importOutreachEntries(entries: ImportEntry[]): Promise<Imp
     name: entry.name,
     text: entry.text,
     templateId: entry.templateId,
+    campaign: entry.campaign,
+    sub: entry.sub,
   }));
 
   if (uniqueEntries.length === 0) {
@@ -171,6 +185,8 @@ export async function importOutreachEntries(entries: ImportEntry[]): Promise<Imp
         displayName: entry.name,
         displayText: entry.text,
         templateId: entry.templateId,
+        campaign: entry.campaign,
+        sub: entry.sub,
         updatedAt: now,
       })
       .onConflictDoUpdate({
@@ -179,6 +195,8 @@ export async function importOutreachEntries(entries: ImportEntry[]): Promise<Imp
           displayName: entry.name,
           displayText: entry.text,
           templateId: entry.templateId,
+          campaign: entry.campaign,
+          sub: entry.sub,
           updatedAt: now,
         },
       });
@@ -210,4 +228,17 @@ export async function deleteOutreachPage(slug: string): Promise<boolean> {
     .returning({ id: outreachPages.id });
 
   return result.length > 0;
+}
+
+export async function deleteOutreachPages(slugs: string[]): Promise<number> {
+  if (slugs.length === 0) {
+    return 0;
+  }
+
+  const result = await db
+    .delete(outreachPages)
+    .where(inArray(outreachPages.slug, slugs))
+    .returning({ id: outreachPages.id });
+
+  return result.length;
 }
