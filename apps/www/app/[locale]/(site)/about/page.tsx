@@ -267,7 +267,7 @@ export default async function Page({ params }: PageProps) {
             </div>
           </div>
           <div className="mt-12">
-            <Link href="/blog/introducing-ratelimiting" target="">
+            <Link href="/meeting" target="">
               <RainbowDarkButton label={heroCta} IconRight={ArrowRight} />
             </Link>
             <SectionTitle
